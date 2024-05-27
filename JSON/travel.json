@@ -1,0 +1,1081 @@
+{
+    "size": 12,
+    "items": [
+        {
+            "label": "1. antri",
+            "value": "antri"
+        },
+        {
+            "label": "2. diproses",
+            "value": "diproses"
+        },
+        {
+            "label": "3. disetujui",
+            "value": "disetujui"
+        },
+        {
+            "label": "4. presentasi",
+            "value": "presentasi"
+        },
+        {
+            "label": "5. eksekusi",
+            "value": "eksekusi"
+        },
+        {
+            "label": "6. tuntas",
+            "value": "tuntas"
+        }
+    ]
+}
+
+diproses,disetujui,presentasi,eksekusi,tuntas
+
+
+{
+    "size": 12,
+    "items": [
+        {
+            "label": "private",
+            "value": "private"
+        },
+        {
+            "label": "public",
+            "value": "public"
+        },
+        {
+            "label": "partner",
+            "value": "partner"
+        }
+    ]
+}
+
+{
+    "size": 12,
+    "items": [
+        {
+            "label": "plane",
+            "value": "plane"
+        },
+        {
+            "label": "ship",
+            "value": "ship"
+        },
+        {
+            "label": "train",
+            "value": "train"
+        },
+        {
+            "label": "bus",
+            "value": "bus"
+        },
+        {
+            "label": "car",
+            "value": "car"
+        },
+        {
+            "label": "motor",
+            "value": "motor"
+        }
+    ]
+}
+
+{
+    "size": 12,
+    "items": [
+        {
+            "label": "yes",
+            "value": "yes"
+        },
+        {
+            "label": "no",
+            "value": "no"
+        },
+    ]
+}
+
+{
+    "size": 12,
+    "items": [
+        {
+            "label": "yes",
+            "value": true
+        },
+        {
+            "label": "no",
+            "value": false
+        },
+    ]
+}
+
+{
+    "size": 12,
+    "items": [
+        {
+            "label": "One Way",
+            "value": "one way"
+        },
+        {
+            "label": "Pulang Pergi",
+            "value": "pulang pergi"
+        }
+    ]
+}
+
+,
+Id,Name,Email,Phone,Avatar
+
+tunai,bank transfer,e-wallet,qris,lainnya
+
+{
+    "size": 12,
+    "items": [
+        {
+            "label": "tunai",
+            "value": "tunai"
+        },
+        {
+            "label": "bank transfer",
+            "value": "bank transfer"
+        },
+        {
+            "label": "e-wallet",
+            "value": "e-wallet"
+        },
+        {
+            "label": "qris",
+            "value": "qris"
+        },
+        {
+            "label": "lainnya",
+            "value": "lainnya"
+        }
+    ]
+}
+{
+    "size": 12,
+    "items": [
+        {
+            "label": "pending",
+            "value": "pending"
+        },
+        {
+            "label": "success",
+            "value": "success"
+        }
+    ]
+}
+{
+    "size": 12,
+    "items": [
+        {
+            "label": "motor",
+            "value": "motor"
+        },
+        {
+            "label": "mobil",
+            "value": "mobil"
+        },
+        {
+            "label": "general",
+            "value": "general"
+        },
+        {
+            "label": "others",
+            "value": "others"
+        },
+    ]
+}
+
+,,,,,,
+{
+    "size": 12,
+    "items": [
+        {
+            "label": "sunday",
+            "value": "sunday"
+        },
+        {
+            "label": "monday",
+            "value": "monday"
+        },
+        {
+            "label": "tuesday",
+            "value": "tuesday"
+        },
+        {
+            "label": "wednesday",
+            "value": "wednesday"
+        },
+        {
+            "label": "thursday",
+            "value": "thursday"
+        },
+        {
+            "label": "friday",
+            "value": "friday"
+        },
+        {
+            "label": "saturday",
+            "value": "saturday"
+        }
+    ]
+}
+
+bisnis,ekonomi
+{
+    "size": 12,
+    "items": [
+        {
+            "label": "bisnis",
+            "value": "bisnis"
+        },
+        {
+            "label": "ekonomi",
+            "value": "ekonomi"
+        }
+    ]
+}
+,,,,,
+mobil,motor,bus,truck,pickup,train,kapal,pesawat
+{
+    "size": 12,
+    "items": [
+        {
+            "label": "mobil",
+            "value": "mobil"
+        },
+        {
+            "label": "motor",
+            "value": "motor"
+        },
+        {
+            "label": "bus",
+            "value": "bus"
+        },
+        {
+            "label": "truck",
+            "value": "truck"
+        },
+        {
+            "label": "pickup",
+            "value": "pickup"
+        },
+        {
+            "label": "train",
+            "value": "train"
+        },
+        {
+            "label": "kapal",
+            "value": "kapal"
+        },
+        {
+            "label": "pesawat",
+            "value": "pesawat"
+        }
+    ]
+}
+
+{
+    "size": 12,
+    "items": [
+        {
+            "label": "mobil",
+            "value": "mobil"
+        },
+        {
+            "label": "motor",
+            "value": "motor"
+        },
+        {
+            "label": "bus",
+            "value": "bus"
+        },
+        {
+            "label": "truck",
+            "value": "truck"
+        },
+        {
+            "label": "pickup",
+            "value": "pickup"
+        },
+        {
+            "label": "train",
+            "value": "train"
+        },
+        {
+            "label": "kapal",
+            "value": "kapal"
+        },
+        {
+            "label": "pesawat",
+            "value": "pesawat"
+        },
+        {
+            "label": "others",
+            "value": "others"
+        }
+    ]
+}
+
+,,,,
+{
+    "size": 12,
+    "items": [
+        {
+            "label": "gasoline",
+            "value": "gasoline"
+        },
+        {
+            "label": "solar",
+            "value": "solar"
+        },
+        {
+            "label": "electric",
+            "value": "electric"
+        },
+        {
+            "label": "hidrogen",
+            "value": "hidrogen"
+        },
+        {
+            "label": "others",
+            "value": "others"
+        }
+    ]
+}
+
+{
+    "size": 12,
+    "items": [
+        {
+            "label": "1",
+            "value": "1"
+        },
+        {
+            "label": "2",
+            "value": "2"
+        },
+        {
+            "label": "3",
+            "value": "3"
+        },
+        {
+            "label": "4",
+            "value": "4"
+        },
+        {
+            "label": "5",
+            "value": "5"
+        },
+        {
+            "label": "6",
+            "value": "6"
+        },
+        {
+            "label": "7",
+            "value": "7"
+        },
+        {
+            "label": "8",
+            "value": "8"
+        },
+        {
+            "label": "9",
+            "value": "9"
+        },
+        {
+            "label": "10",
+            "value": "10"
+        }
+    ]
+}
+
+Wisata Budaya,Wisata Konvensi,Wisata Agro,Wisata Ziarah,Wisata Belanja,Wisata Alam,Wisata Cagar Alam,Wisata Maritim,Wisata Petualangan,Wisata Outbond,Wisata Perkemahan,Wisata Waterpark,Wisata Bisnis,Wisata Religius,Wisata Kuliner,Wisata Malam,Wisata Keluarga
+
+
+{
+    "size": 12,
+    "items": [
+        {
+            "label": "Wisata Budaya",
+            "value": "Wisata Budaya"
+        },
+        {
+            "label": "Wisata Konvensi",
+            "value": "Wisata Konvensi"
+        },
+        {
+            "label": "Wisata Agro",
+            "value": "Wisata Agro"
+        },
+        {
+            "label": "Wisata Ziarah",
+            "value": "Wisata Ziarah"
+        },
+        {
+            "label": "Wisata Belanja",
+            "value": "Wisata Belanja"
+        },
+        {
+            "label": "Wisata Alam",
+            "value": "Wisata Alam"
+        },
+        {
+            "label": "Wisata Cagar Alam",
+            "value": "Wisata Cagar Alam"
+        },
+        {
+            "label": "Wisata Maritim",
+            "value": "Wisata Maritim"
+        },
+        {
+            "label": "Wisata Petualangan ",
+            "value": "Wisata Petualangan "
+        },
+        {
+            "label": "Wisata Outbond",
+            "value": "Wisata Outbond"
+        },
+        {
+            "label": "Wisata Perkemahan",
+            "value": "Wisata Perkemahan"
+        },
+        {
+            "label": "Wisata Waterpark",
+            "value": "Wisata Waterpark"
+        },
+        {
+            "label": "Wisata Bisnis",
+            "value": "Wisata Bisnis"
+        },
+        {
+            "label": "Wisata Religius",
+            "value": "Wisata Religius"
+        },
+        {
+            "label": "Wisata Kuliner",
+            "value": "Wisata Kuliner"
+        },
+        {
+            "label": "Wisata Malam",
+            "value": "Wisata Malam"
+        },
+        {
+            "label": "Wisata Keluarga",
+            "value": "Wisata Keluarga"
+        }
+    ]
+}
+
+,,dewasa,,extreme
+
+
+{
+    "size": 12,
+    "items": [
+        {
+            "label": "Anak",
+            "value": "anak"
+        },
+        {
+            "label": "Umum",
+            "value": "umum"
+        },
+        {
+            "label": "Dewasa",
+            "value": "dewasa"
+        },
+        {
+            "label": "Profesional",
+            "value": "profesional"
+        },
+        {
+            "label": "Extreme",
+            "value": "extreme"
+        },
+        {
+            "label": "Privat",
+            "value": "privat"
+        }
+    ]
+}
+
+
+{
+    "size": 12,
+    "items": [
+        {
+            "label": "Anak",
+            "value": "anak"
+        },
+        {
+            "label": "Dewasa",
+            "value": "dewasa"
+        },
+        {
+            "label": "Umum",
+            "value": "umum"
+        }
+    ]
+}
+guide,media,mc,dance,singer,band,comedian,musician,others
+
+
+{
+    "size": 12,
+    "items": [
+        {
+            "label": "Documentary",
+            "value": "documentary"
+        },
+        {
+            "label": "Guide",
+            "value": "guide"
+        },
+        {
+            "label": "Media",
+            "value": "media"
+        },
+        {
+            "label": "MC",
+            "value": "mc"
+        },
+        {
+            "label": "Dance",
+            "value": "dance"
+        },
+        {
+            "label": "Singer",
+            "value": "singer"
+        },
+        {
+            "label": "Band",
+            "value": "band"
+        },
+        {
+            "label": "Comedian",
+            "value": "comedian"
+        },
+        {
+            "label": "Musician",
+            "value": "musician"
+        },
+        {
+            "label": "Others",
+            "value": "others"
+        }
+    ]
+}
+
+
+
+{
+    "size": 12,
+    "items": [
+        {
+            "label": "Kuliner",
+            "value": "food"
+        },
+        {
+            "label": "Kerajinan",
+            "value": "craft"
+        },
+        {
+            "label": "Lainnya",
+            "value": "others"
+        }
+    ]
+}
+
+
+Melati,Bintang 1,Bintang 2,Bintang 3,Bintang 4,Bintang 5,Lainnya
+{
+    "size": 12,
+    "items": [
+        {
+            "label": "Melati",
+            "value": "Melati"
+        },
+        {
+            "label": "Bintang 1",
+            "value": "Bintang 1"
+        },
+        {
+            "label": "Bintang 2",
+            "value": "Bintang 2"
+        },
+        {
+            "label": "Bintang 3",
+            "value": "Bintang 3"
+        },
+        {
+            "label": "Bintang 4",
+            "value": "Bintang 4"
+        },
+        {
+            "label": "Bintang 5",
+            "value": "Bintang 5"
+        },
+        {
+            "label": "Bintang 1",
+            "value": "Bintang 1"
+        },
+        {
+            "label": "Lainnya",
+            "value": "Lainnya"
+        }
+    ]
+}
+
+Hotel,Hostel,Boutique Hotel,Resort,Cottage,Motel,Losmen,Inn,Villa,Homestay
+
+{
+    "size": 12,
+    "items": [
+        {
+            "label": "Hotel",
+            "value": "Hotel"
+        },
+        {
+            "label": "Hostel",
+            "value": "Hostel"
+        },
+        {
+            "label": "Boutique Hotel",
+            "value": "Boutique Hotel"
+        },
+        {
+            "label": "Resort",
+            "value": "Resort"
+        },
+        {
+            "label": "Cottage",
+            "value": "Cottage"
+        },
+        {
+            "label": "Motel",
+            "value": "Motel"
+        },
+        {
+            "label": "Losmen",
+            "value": "Losmen"
+        },
+        {
+            "label": "Inn",
+            "value": "Inn"
+        },
+        {
+            "label": "Villa",
+            "value": "Villa"
+        },
+        {
+            "label": "Homestay",
+            "value": "Homestay"
+        }
+    ]
+}
+
+Fitness
+
+{
+    "size": 12,
+    "items": [
+        {
+            "label": "Fitness",
+            "value": "Fitness"
+        }
+    ]
+}
+
+24 Hours Receptionist,Laundry,Luggage Storage,Tour
+
+{
+    "size": 12,
+    "items": [
+        {
+            "label": "24 Hours Receptionist",
+            "value": "24 Hours Receptionist"
+        },
+        {
+            "label": "Laundry",
+            "value": "Laundry"
+        },
+        {
+            "label": "Luggage Storage",
+            "value": "Luggage Storage"
+        },
+        {
+            "label": "Tour",
+            "value": "Tour"
+        }
+    ]
+}
+
+is_parking,is_snack_lobby,is_coffee_shop,is_elevator,is_24_room_service,is_restaurant,is_room_service,is_safety_deposit_box,is_wifi_public
+Parking,Snack Lobby,Coffee Shop,Elevator,24 Room Service,Restaurant,Room Service,Safety Deposit Box,Wifi Public
+
+{
+    "size": 12,
+    "items": [
+        {
+            "label": "Parking",
+            "value": "Parking"
+        },
+        {
+            "label": "Snack Lobby",
+            "value": "Snack Lobby"
+        },
+        {
+            "label": "Coffee Shop",
+            "value": "Coffee Shop"
+        },
+        {
+            "label": "Elevator",
+            "value": "Elevator"
+        },
+        {
+            "label": "24 Room Service",
+            "value": "24 Room Service"
+        },
+        {
+            "label": "Restaurant",
+            "value": "Restaurant"
+        },
+        {
+            "label": "Room Service",
+            "value": "Room Service"
+        },
+        {
+            "label": "Safety Deposit Box",
+            "value": "Safety Deposit Box"
+        },
+        {
+            "label": "Wifi Public",
+            "value": "Wifi Public"
+        }
+    ]
+}
+
+is_babysitting, is_pet_area
+Babysitting, Pet Area
+{
+    "size": 12,
+    "items": [
+        {
+            "label": "Babysitting",
+            "value": "Babysitting"
+        },
+        {
+            "label": "Pet Area",
+            "value": "Pet Area"
+        },
+    ]
+}
+
+is_tv, is_hairdryer, is_room_safe, is_minibar, is_shower, is_bathtube
+TV,Hairdryer,Room Safe,Minibar,Shower,Bathtube
+{
+    "size": 12,
+    "items": [
+        {
+            "label": "Tv",
+            "value": "Tv"
+        },
+        {
+            "label": "Hairdryer",
+            "value": "Hairdryer"
+        },
+        {
+            "label": "Room Safe",
+            "value": "Room Safe"
+        },
+        {
+            "label": "Minibar",
+            "value": "Minibar"
+        },
+        {
+            "label": "Shower",
+            "value": "Shower"
+        },
+        {
+            "label": "Bathtube",
+            "value": "Bathtube"
+        }
+    ]
+}
+
+is_ac,is_ballroom,is_banquet,is_connecting_room,is_family_room,is_nonsmoking_room,is_swimming_pool,is_smoking_area
+AC,Ballroom,Banquet,Connecting Room,Family Room,Nonsmoking Room,Swimming Pool,Smoking Area
+{
+    "size": 12,
+    "items": [
+        {
+            "label": "AC",
+            "value": "AC"
+        },
+        {
+            "label": "Ballroom",
+            "value": "Ballroom"
+        },
+        {
+            "label": "Banquet",
+            "value": "Banquet"
+        },
+        {
+            "label": "Connecting Room",
+            "value": "Connecting Room"
+        },
+        {
+            "label": "Family Room",
+            "value": "Family Room"
+        },
+        {
+            "label": "Nonsmoking Room",
+            "value": "Nonsmoking Room"
+        },
+        {
+            "label": "Swimming Pool",
+            "value": "Swimming Pool"
+        },
+        {
+            "label": "Smoking Area",
+            "value": "Smoking Area"
+        }
+    ]
+}
+
+is_free_wifi
+Free Wifi
+{
+    "size": 12,
+    "items": [
+        {
+            "label": "Free Wifi",
+            "value": "Free Wifi"
+        }
+    ]
+}
+
+is_meeting
+Meeting
+{
+    "size": 12,
+    "items": [
+        {
+            "label": "Meeting",
+            "value": "Meeting"
+        }
+    ]
+}
+
+is_wifi,is_children,is_swimming_pool,is_smoking,is_bathtube,is_free_drink,is_telephone,is_shower
+Wifi,Children,Swimming Pool,Smoking,Bathtube,Free Drink,Telephone,Shower
+
+{
+    "size": 12,
+    "items": [
+        {
+            "label": "Wifi",
+            "value": "Wifi"
+        },
+        {
+            "label": "Children",
+            "value": "Children"
+        },
+        {
+            "label": "Swimming Pool",
+            "value": "Swimming Pool"
+        },
+        {
+            "label": "Smoking",
+            "value": "Smoking"
+        },
+        {
+            "label": "Bathtube",
+            "value": "Bathtube"
+        },
+        {
+            "label": "Free Drink",
+            "value": "Free Drink"
+        },
+        {
+            "label": "Telephone",
+            "value": "Telephone"
+        },
+        {
+            "label": "Shower",
+            "value": "Shower"
+        }
+    ]
+}
+
+,,,,,,,,,,,,,,
+Standard Room,Superior Room,Deluxe Room,Junior Suite Room,Suite Room,Presidential Suite,Single Room,Twin Room,Double Room,Family Room/Triple Room,Connecting Room,Murphy Room,Accessible Room/Disabled Room,Smoking/Non Smoking Room,Cabana Room
+{
+    "size": 12,
+    "items": [
+        {
+            "label": "Standard Room",
+            "value": "Standard Room"
+        },
+        {
+            "label": "Superior Room",
+            "value": "Superior Room"
+        },
+        {
+            "label": "Deluxe Room",
+            "value": "Deluxe Room"
+        },
+        {
+            "label": "Junior Suite Room",
+            "value": "Junior Suite Room"
+        },
+        {
+            "label": "Suite Room",
+            "value": "Suite Room"
+        },
+        {
+            "label": "Presidential Suite",
+            "value": "Presidential Suite"
+        },
+        {
+            "label": "Single Room",
+            "value": "Single Room"
+        },
+        {
+            "label": "Twin Room",
+            "value": "Twin Room"
+        },
+        {
+            "label": "Double Room",
+            "value": "Double Room"
+        },
+        {
+            "label": "Family Room/Triple Room",
+            "value": "Family Room/Triple Room"
+        },
+        {
+            "label": "Connecting Room",
+            "value": "Connecting Room"
+        },
+        {
+            "label": "Murphy Room",
+            "value": "Murphy Room"
+        },
+        {
+            "label": "Accessible Room/Disabled Room",
+            "value": "Accessible Room/Disabled Room"
+        },
+        {
+            "label": "Smoking/Non Smoking Room",
+            "value": "Smoking/Non Smoking Room"
+        },
+        {
+            "label": "Cabana Room",
+            "value": "Cabana Room"
+        }
+    ]
+}
+
+
+is_clean_accomodation,is_breakfast,is_pet
+Clean Accomodation,Breakfast,Pet Friendly
+{
+    "size": 12,
+    "items": [
+        {
+            "label": "Clean Accomodation",
+            "value": "Clean Accomodation"
+        },
+        {
+            "label": "Breakfast",
+            "value": "Breakfast"
+        },
+        {
+            "label": "Pet Friendly",
+            "value": "Pet Friendly"
+        }
+    ]
+}
+
+Hotel,Hostel,Boutique Hotel,Resort,Cottage,Motel,Losmen,Inn,Villa,Homestay
+
+
+
+general,custom,weekend,weekday
+{
+    "size": 12,
+    "items": [
+        {
+            "label": "General",
+            "value": "general"
+        },
+        {
+            "label": "Custom",
+            "value": "custom"
+        },
+        {
+            "label": "Weekend",
+            "value": "weekend"
+        },
+        {
+            "label": "Weekday",
+            "value": "weekday"
+        }
+    ]
+}
+warung,cafe,resto,restaurant,others
+{
+    "size": 12,
+    "items": [
+        {
+            "label": "warung",
+            "value": "warung"
+        },
+        {
+            "label": "cafe",
+            "value": "cafe"
+        },
+        {
+            "label": "resto",
+            "value": "resto"
+        },
+        {
+            "label": "restaurant",
+            "value": "restaurant"
+        },
+        {
+            "label": "lainnya",
+            "value": "lainnya"
+        }
+    ]
+}
+
+
+food,drink,snack,condiment,others
+
+{
+    "size": 12,
+    "items": [
+        {
+            "label": "food",
+            "value": "food"
+        },
+        {
+            "label": "drink",
+            "value": "drink"
+        },
+        {
+            "label": "snack",
+            "value": "snack"
+        },
+        {
+            "label": "condiment",
+            "value": "condiment"
+        },
+        {
+            "label": "lainnya",
+            "value": "lainnya"
+        }
+    ]
+}
