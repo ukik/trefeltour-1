@@ -198,7 +198,7 @@ class TalentSkillsController extends Controller
                 'policy' => $req['policy'],
                 'year_exp' => $req['year_exp'],
                 'is_available' => $req['is_available'],
-                'image' => $req['image'],
+                'image' => imageFilterValue($req['image']),
 
                 'code_table' => ($slug) ,
                 'uuid' => $table_entity->uuid ?: ShortUuid(),
@@ -272,7 +272,7 @@ class TalentSkillsController extends Controller
                 'policy' => $req['policy'],
                 'year_exp' => $req['year_exp'],
                 'is_available' => $req['is_available'],
-                'image' => $req['image'],
+                'image' => imageFilterValue($req['image']),
 
                 'code_table' => ($slug) ,
                 'uuid' => ShortUuid(),

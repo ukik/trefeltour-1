@@ -3,6 +3,7 @@
 return [
     'badaso_menu_items_backup_1',
     'badaso_menu_items_backup_2',
+    'badaso_menu_items_backup_3',
     'badaso_users',
     'branches',
     'campus_bookings',

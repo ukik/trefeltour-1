@@ -198,7 +198,7 @@ class TalentProfilesController extends Controller
 
                 'user_id' => $table_entity->user_id,
                 'name' => $req['name'],
-                'image' => $req['image'],
+                'image' => imageFilterValue($req['image']),
                 'portofolio' => $req['portofolio'],
                 'policy' => $req['policy'],
                 'description' => $req['description'],
@@ -275,7 +275,7 @@ class TalentProfilesController extends Controller
             $data = [
                 'user_id' => $req['user_id'],
                 'name' => $req['name'],
-                'image' => $req['image'],
+                'image' => imageFilterValue($req['image']),
                 'portofolio' => $req['portofolio'],
                 'policy' => $req['policy'],
                 'description' => $req['description'],

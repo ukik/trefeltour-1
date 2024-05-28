@@ -31,33 +31,6 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 
-// Route::group(['prefix' => '/typehead', 'middleware' => ['sanctum_1','BADASO_ApiRequest'], 'namespace' => 'App\Http\Controllers\TypeHeads'], function ($request) {
-//     Route::get('/user', 'TravelTypeHeadController@getUser');
-//     Route::get('/user-travel-reservations', 'TravelTypeHeadController@edit_get_user');
-
-//     // travel-tickets
-//     Route::get('/user-travel-tickets', 'TravelTypeHeadController@edit_travel_tickets_customer_id');
-//     Route::get('/search-travel-tickets', 'TravelTypeHeadController@list_travel_tickets_reservation_id');
-//     Route::get('/edit-travel-tickets', 'TravelTypeHeadController@edit_travel_tickets_reservation_id');
-
-//     // travel-bookings
-//     Route::get('/user-travel-bookings', 'TravelTypeHeadController@edit_travel_bookings_customer_id');
-//     Route::get('/search-travel-bookings', 'TravelTypeHeadController@list_travel_bookings_ticket_id');
-//     Route::get('/edit-travel-bookings', 'TravelTypeHeadController@edit_travel_bookings_ticket_id');
-
-//     // travel-payments
-//     // Route::get('/user-travel-payments', 'TravelTypeHeadController@edit_travel_payments_customer_id');
-//     Route::get('/search-travel-payments', 'TravelTypeHeadController@list_travel_payments_booking_id');
-//     Route::get('/edit-travel-payments', 'TravelTypeHeadController@edit_travel_payments_booking_id');
-
-//     // travel-payments-validations
-//     Route::get('/user-travel-payments-validations', 'TravelTypeHeadController@edit_travel_payments_validations_validator_id');
-//     Route::get('/search-travel-payments-validations', 'TravelTypeHeadController@list_travel_payments_validations_payment_id');
-//     Route::get('/edit-travel-payments-validations', 'TravelTypeHeadController@edit_travel_payments_validations_payment_id');
-
-// });
-
-
 Route::group(['prefix' => 'v1', 'middleware' => ['sanctum_1','BADASO_ApiRequest']], function ($request) {
     // Route::get('/v1/table/relation-data-by-slug', 'App\Http\Controllers\Badaso\BadasoTableController@getRelationDataBySlug');
     //     ->middleware(Uasoft\Badaso\Middleware\BadasoAuthenticate::class);
@@ -341,84 +314,85 @@ Route::group(
 //             Route::post('/', 'BadasoMaintenanceController@isMaintenance');
 //         });
 
-//         Route::group(['prefix' => 'entities'], function () {
-//             try {
-//                 foreach (Badaso::model('DataType')::all() as $data_type) {
-//                     $crud_data_controller = $data_type->controller
-//                         ? Str::start($data_type->controller, '\\')
-//                         : 'BadasoBaseController';
-//                     Route::get($data_type->slug, $crud_data_controller.'@browse')
-//                         ->name($data_type->slug.'.browse')
-//                         ->middleware(BadasoCheckPermissionsForCRUD::class.':'.$data_type->slug.',browse');
+        // Route::group(['prefix' => 'entities'], function () {
+        //     try {
+        //         foreach (Badaso::model('DataType')::all() as $data_type) {
+        //             $crud_data_controller = $data_type->controller
+        //                 ? Str::start($data_type->controller, '\\')
+        //                 : 'BadasoBaseController';
+        //             dd($crud_data_controller, $data_type->slug);
+        //             Route::get($data_type->slug, $crud_data_controller.'@browse')
+        //                 ->name($data_type->slug.'.browse')
+        //                 ->middleware(BadasoCheckPermissionsForCRUD::class.':'.$data_type->slug.',browse');
 
-//                     Route::get($data_type->slug.'/read', $crud_data_controller.'@read')
-//                         ->name($data_type->slug.'.read')
-//                         ->middleware(BadasoCheckPermissionsForCRUD::class.':'.$data_type->slug.',read');
+        //             Route::get($data_type->slug.'/read', $crud_data_controller.'@read')
+        //                 ->name($data_type->slug.'.read')
+        //                 ->middleware(BadasoCheckPermissionsForCRUD::class.':'.$data_type->slug.',read');
 
-//                     Route::put($data_type->slug.'/edit', $crud_data_controller.'@edit')
-//                         ->name($data_type->slug.'.edit')
-//                         ->middleware(BadasoCheckPermissionsForCRUD::class.':'.$data_type->slug.',edit');
+        //             Route::put($data_type->slug.'/edit', $crud_data_controller.'@edit')
+        //                 ->name($data_type->slug.'.edit')
+        //                 ->middleware(BadasoCheckPermissionsForCRUD::class.':'.$data_type->slug.',edit');
 
-//                     Route::post($data_type->slug.'/add', $crud_data_controller.'@add')
-//                         ->name($data_type->slug.'.add')
-//                         ->middleware(BadasoCheckPermissionsForCRUD::class.':'.$data_type->slug.',add');
+        //             Route::post($data_type->slug.'/add', $crud_data_controller.'@add')
+        //                 ->name($data_type->slug.'.add')
+        //                 ->middleware(BadasoCheckPermissionsForCRUD::class.':'.$data_type->slug.',add');
 
-//                     Route::delete($data_type->slug.'/delete', $crud_data_controller.'@delete')
-//                         ->name($data_type->slug.'.delete')
-//                         ->middleware(BadasoCheckPermissionsForCRUD::class.':'.$data_type->slug.',delete');
+        //             Route::delete($data_type->slug.'/delete', $crud_data_controller.'@delete')
+        //                 ->name($data_type->slug.'.delete')
+        //                 ->middleware(BadasoCheckPermissionsForCRUD::class.':'.$data_type->slug.',delete');
 
-//                     Route::delete($data_type->slug.'/restore', $crud_data_controller.'@restore')
-//                         ->name($data_type->slug.'.restore')->middleware(BadasoAuthenticate::class);
+        //             Route::delete($data_type->slug.'/restore', $crud_data_controller.'@restore')
+        //                 ->name($data_type->slug.'.restore')->middleware(BadasoAuthenticate::class);
 
-//                     Route::delete($data_type->slug.'/delete-multiple', $crud_data_controller.'@deleteMultiple')
-//                         ->name($data_type->slug.'.delete-multiple')
-//                         ->middleware(BadasoCheckPermissionsForCRUD::class.':'.$data_type->slug.',delete');
+        //             Route::delete($data_type->slug.'/delete-multiple', $crud_data_controller.'@deleteMultiple')
+        //                 ->name($data_type->slug.'.delete-multiple')
+        //                 ->middleware(BadasoCheckPermissionsForCRUD::class.':'.$data_type->slug.',delete');
 
-//                     Route::delete($data_type->slug.'/restore-multiple', $crud_data_controller.'@restoreMultiple')
-//                         ->name($data_type->slug.'.restore-multiple')->middleware(BadasoAuthenticate::class);
+        //             Route::delete($data_type->slug.'/restore-multiple', $crud_data_controller.'@restoreMultiple')
+        //                 ->name($data_type->slug.'.restore-multiple')->middleware(BadasoAuthenticate::class);
 
-//                     Route::put($data_type->slug.'/sort', $crud_data_controller.'@sort')
-//                         ->name($data_type->slug.'.sort')
-//                         ->middleware(BadasoCheckPermissionsForCRUD::class.':'.$data_type->slug.',edit');
+        //             Route::put($data_type->slug.'/sort', $crud_data_controller.'@sort')
+        //                 ->name($data_type->slug.'.sort')
+        //                 ->middleware(BadasoCheckPermissionsForCRUD::class.':'.$data_type->slug.',edit');
 
-//                     Route::get($data_type->slug.'/all', $crud_data_controller.'@all')
-//                         ->name($data_type->slug.'.all')
-//                         ->middleware(BadasoCheckPermissionsForCRUD::class.':'.$data_type->slug.',edit');
+        //             Route::get($data_type->slug.'/all', $crud_data_controller.'@all')
+        //                 ->name($data_type->slug.'.all')
+        //                 ->middleware(BadasoCheckPermissionsForCRUD::class.':'.$data_type->slug.',edit');
 
-//                     Route::post($data_type->slug.'/maintenance', $crud_data_controller.'@setMaintenanceState')
-//                         ->name($data_type->slug.'.maintenance')
-//                         ->middleware(BadasoCheckPermissionsForCRUD::class.':'.$data_type->slug.',maintenance');
-//                 }
-//             } catch (\InvalidArgumentException $e) {
-//                 throw new \InvalidArgumentException("Custom routes hasn't been configured because: ".$e->getMessage(), 1);
-//             } catch (\Exception $e) {
-//                 // do nothing, might just be because table not yet migrated.
-//             }
-//         });
+        //             Route::post($data_type->slug.'/maintenance', $crud_data_controller.'@setMaintenanceState')
+        //                 ->name($data_type->slug.'.maintenance')
+        //                 ->middleware(BadasoCheckPermissionsForCRUD::class.':'.$data_type->slug.',maintenance');
+        //         }
+        //     } catch (\InvalidArgumentException $e) {
+        //         throw new \InvalidArgumentException("Custom routes hasn't been configured because: ".$e->getMessage(), 1);
+        //     } catch (\Exception $e) {
+        //         // do nothing, might just be because table not yet migrated.
+        //     }
+        // });
 
-//         Route::group(['prefix' => 'database'], function () {
-//             Route::get('/', 'BadasoDatabaseController@browse')->middleware(BadasoCheckPermissions::class.':browse_database');
-//             Route::get('/read', 'BadasoDatabaseController@read')->middleware(BadasoCheckPermissions::class.':read_database');
-//             Route::put('/edit', 'BadasoDatabaseController@edit')->middleware(BadasoCheckPermissions::class.':edit_database');
-//             Route::post('/add', 'BadasoDatabaseController@add')->middleware(BadasoCheckPermissions::class.':add_database');
-//             Route::delete('/delete', 'BadasoDatabaseController@delete')->middleware(BadasoCheckPermissions::class.':delete_database');
-//             Route::post('/rollback', 'BadasoDatabaseController@rollback')->middleware(BadasoCheckPermissions::class.':rollback_database');
-//             Route::get('/migration/browse', 'BadasoDatabaseController@browseMigration')->middleware(BadasoCheckPermissions::class.':browse_migration');
-//             Route::get('/migration/status', 'BadasoDatabaseController@checkMigrateStatus');
-//             Route::get('/migration/migrate', 'BadasoDatabaseController@migrate')->middleware(BadasoCheckPermissions::class.':migrate_database');
-//             Route::post('/migration/delete', 'BadasoDatabaseController@deleteMigration')->middleware(BadasoCheckPermissions::class.':delete_migration');
-//             Route::get('/type', 'BadasoDatabaseController@getDbmsFieldType')->middleware([BadasoCheckPermissions::class.':add_database', BadasoCheckPermissions::class.':edit_database']);
-//         });
+        // Route::group(['prefix' => 'database'], function () {
+        //     Route::get('/', 'BadasoDatabaseController@browse')->middleware(BadasoCheckPermissions::class.':browse_database');
+        //     Route::get('/read', 'BadasoDatabaseController@read')->middleware(BadasoCheckPermissions::class.':read_database');
+        //     Route::put('/edit', 'BadasoDatabaseController@edit')->middleware(BadasoCheckPermissions::class.':edit_database');
+        //     Route::post('/add', 'BadasoDatabaseController@add')->middleware(BadasoCheckPermissions::class.':add_database');
+        //     Route::delete('/delete', 'BadasoDatabaseController@delete')->middleware(BadasoCheckPermissions::class.':delete_database');
+        //     Route::post('/rollback', 'BadasoDatabaseController@rollback')->middleware(BadasoCheckPermissions::class.':rollback_database');
+        //     Route::get('/migration/browse', 'BadasoDatabaseController@browseMigration')->middleware(BadasoCheckPermissions::class.':browse_migration');
+        //     Route::get('/migration/status', 'BadasoDatabaseController@checkMigrateStatus');
+        //     Route::get('/migration/migrate', 'BadasoDatabaseController@migrate')->middleware(BadasoCheckPermissions::class.':migrate_database');
+        //     Route::post('/migration/delete', 'BadasoDatabaseController@deleteMigration')->middleware(BadasoCheckPermissions::class.':delete_migration');
+        //     Route::get('/type', 'BadasoDatabaseController@getDbmsFieldType')->middleware([BadasoCheckPermissions::class.':add_database', BadasoCheckPermissions::class.':edit_database']);
+        // });
 
-//         Route::group(['prefix' => 'firebase', 'middleware' => 'auth'], function () {
-//             Route::group(['prefix' => 'cloud_messages'], function () {
-//                 Route::put('/save-token-messages', 'BadasoFCMController@saveTokenMessage');
-//             });
-//             Route::group(['prefix' => 'messages', 'middleware' => 'auth'], function () {
-//                 Route::get('/', 'BadasoNotificationsController@getMessages');
-//                 Route::put('/{id}', 'BadasoNotificationsController@readMessage');
-//                 Route::get('/count-unread', 'BadasoNotificationsController@getCountUnreadMessage');
-//             });
-//         });
+        // Route::group(['prefix' => 'firebase', 'middleware' => 'auth'], function () {
+        //     Route::group(['prefix' => 'cloud_messages'], function () {
+        //         Route::put('/save-token-messages', 'BadasoFCMController@saveTokenMessage');
+        //     });
+        //     Route::group(['prefix' => 'messages', 'middleware' => 'auth'], function () {
+        //         Route::get('/', 'BadasoNotificationsController@getMessages');
+        //         Route::put('/{id}', 'BadasoNotificationsController@readMessage');
+        //         Route::get('/count-unread', 'BadasoNotificationsController@getCountUnreadMessage');
+        //     });
+        // });
     });
 });

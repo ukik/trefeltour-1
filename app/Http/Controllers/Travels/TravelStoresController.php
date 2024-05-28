@@ -58,7 +58,10 @@ class TravelStoresController extends Controller
                 // 'travelReservations',
                 // 'travelBooking',
                 // 'travelBookings',
+                'travelRatingAvg',
             ])->orderBy('id','desc');
+
+            $data->withCount(['travelPrices']);
 
             if(request()['showSoftDelete'] == 'true') {
                 $data = $data->onlyTrashed();
@@ -161,7 +164,8 @@ class TravelStoresController extends Controller
                 // 'travelReservations',
                 // 'travelBooking',
                 // 'travelBookings',
-            ])->whereId($request->id)->first();
+                'travelRatingAvg',
+            ])->whereId($request->id)->withCount(['travelPrices'])->first();
 
             // add event notification handle
             $table_name = $data_type->name;
@@ -192,14 +196,23 @@ class TravelStoresController extends Controller
             $table_entity = \TravelStores::where('id', $request->data['id'])->first();
 
             $req = request()['data'];
+
+            // return $req['image'][0];
+            // return imageFilterValue($req['image']);
+            // try {
+            //     return implode(',', $req['image'] ?: []);
+            // } catch (\Throwable $th) {
+            //     return $req['image'];
+            // }
+
             $data = [
                 'user_id' => $table_entity->user_id,
-                'category' => $req['category'],
+                'category' => implode(',', $req['category'] ?: []),
                 'name' => $req['name'],
                 'email' => $req['email'],
                 'phone' => $req['phone'],
                 'location' => $req['location'],
-                'image' => $req['image'],
+                'image' => imageFilterValue($req['image']),
                 'address' => $req['address'],
                 'codepos' => $req['codepos'],
                 'city' => $req['city'],
@@ -275,12 +288,12 @@ class TravelStoresController extends Controller
 
             $data = [
                 'user_id' => $user_id,
-                'category' => $req['category'],
+                'category' => implode(',', $req['category'] ?: []),
                 'name' => $req['name'],
                 'email' => $req['email'],
                 'phone' => $req['phone'],
                 'location' => $req['location'],
-                'image' => $req['image'],
+                'image' => imageFilterValue($req['image']),
                 'address' => $req['address'],
                 'codepos' => $req['codepos'],
                 'city' => $req['city'],

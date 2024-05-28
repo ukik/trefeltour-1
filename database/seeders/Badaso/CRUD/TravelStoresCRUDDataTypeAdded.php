@@ -42,13 +42,13 @@ class TravelStoresCRUDDataTypeAdded extends Seeder
                 'order_direction' => NULL,
                 'generate_permissions' => true,
                 'server_side' => false,
-                'is_maintenance' => 0,
+                'is_maintenance' => '0',
                 'description' => NULL,
                 'details' => NULL,
                 'notification' => '[]',
-                'is_soft_delete' => 1,
+                'is_soft_delete' => '1',
                 'created_at' => '2024-03-28T16:52:47.000000Z',
-                'updated_at' => '2024-04-25T08:04:42.000000Z',
+                'updated_at' => '2024-05-28T11:22:13.000000Z',
             ));
 
             Badaso::model('Permission')->generateFor('travel_stores');

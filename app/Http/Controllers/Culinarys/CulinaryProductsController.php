@@ -207,7 +207,7 @@ class CulinaryProductsController extends Controller
                 // 'others' => $req['others'],
                 'description' => $req['description'],
                 'is_available' => $req['is_available'],
-                'image' => $req['image'],
+                'image' => imageFilterValue($req['image']),
 
                 'code_table' => ($slug) ,
                 'uuid' => $table_entity->uuid ?: ShortUuid(),
@@ -279,7 +279,7 @@ class CulinaryProductsController extends Controller
                 // 'others' => $req['others'],
                 'description' => $req['description'],
                 'is_available' => $req['is_available'],
-                'image' => $req['image'],
+                'image' => imageFilterValue($req['image']),
 
                 'code_table' => ($slug) ,
                 'uuid' => ShortUuid(),

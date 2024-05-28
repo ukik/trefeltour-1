@@ -9,18 +9,19 @@ use Uasoft\Badaso\Facades\Badaso;
 
 
 if (!function_exists('NotifyToAdmin')) {
-    function NotifyToAdmin($sender){
-        $user = BadasoUsers::whereHas('userRoles', function($q){
-            $q->whereIn('role_id',[1,6,7,8,9,10,11,12,authID()]);
+    function NotifyToAdmin($sender)
+    {
+        $user = BadasoUsers::whereHas('userRoles', function ($q) {
+            $q->whereIn('role_id', [1, 6, 7, 8, 9, 10, 11, 12, authID()]);
         })->get();
         Notification::send($user, $sender);
-
     }
 }
 
 
 if (!function_exists('getSlug')) {
-    function getSlug($request){
+    function getSlug($request)
+    {
         // dd(request()->slug);
         // if(request()->slug) {
         //     return request()->slug;
@@ -32,7 +33,8 @@ if (!function_exists('getSlug')) {
 }
 
 if (!function_exists('getDataType')) {
-    function getDataType($slug){
+    function getDataType($slug)
+    {
         $data_type = Badaso::model('DataType')::where('slug', $slug)->first();
         // $data_type = DataType::where('slug', $slug)->first();
         $data_type->data_rows = $data_type->dataRows;
@@ -42,48 +44,55 @@ if (!function_exists('getDataType')) {
 }
 
 if (!function_exists('getUserId')) {
-    function getUserId($user_id){
+    function getUserId($user_id)
+    {
         return BadasoUsers::where('id', $user_id)->value('id');
     }
 }
 
 if (!function_exists('Faker')) {
-    function Faker(){
+    function Faker()
+    {
         return \Faker\Factory::create();
     }
 }
 
 if (!function_exists('Uuid')) {
-    function Uuid(){
+    function Uuid()
+    {
         return Faker()->uuid;
     }
 }
 
 if (!function_exists('CodeUuid')) {
-    function CodeUuid($slug){
-        $arr_slug = explode("-",$slug);
-        $arr = explode("-",Faker()->uuid);
-        return ucfirst($arr_slug[0]).'-'.ucfirst(substr($arr_slug[count($arr_slug)-1], 0, 5)).'-'.sprintf("%04s", rand(0,1000)).'-'.$arr[count($arr)-1];
+    function CodeUuid($slug)
+    {
+        $arr_slug = explode("-", $slug);
+        $arr = explode("-", Faker()->uuid);
+        return ucfirst($arr_slug[0]) . '-' . ucfirst(substr($arr_slug[count($arr_slug) - 1], 0, 5)) . '-' . sprintf("%04s", rand(0, 1000)) . '-' . $arr[count($arr) - 1];
     }
 }
 
 if (!function_exists('ShortUuid')) {
-    function ShortUuid(){
+    function ShortUuid()
+    {
         $arr = explode("-", uuid());
-        return strtoupper($arr[1].'-'.$arr[0]);
-        return sprintf("%04s", rand(0,1000)).'-'.$arr[count($arr)-1];
+        return strtoupper($arr[1] . '-' . $arr[0]);
+        return sprintf("%04s", rand(0, 1000)) . '-' . $arr[count($arr) - 1];
     }
 }
 
 if (!function_exists('userId')) {
-    function userId(){
+    function userId()
+    {
         return Auth::user()->id;
     }
 }
 
 if (!function_exists('isSuperAdmin')) {
-    function isSuperAdmin(){
-        if(Auth::check()) {
+    function isSuperAdmin()
+    {
+        if (Auth::check()) {
 
             foreach (Auth::user()->roles as $key => $value) {
                 switch ($value->name) {
@@ -93,7 +102,6 @@ if (!function_exists('isSuperAdmin')) {
                         return false;
                 }
             }
-
         } else {
             return ApiResponse::unauthorized();
         }
@@ -101,8 +109,9 @@ if (!function_exists('isSuperAdmin')) {
 }
 
 if (!function_exists('isAdmin')) {
-    function isAdmin(){
-        if(Auth::check()) {
+    function isAdmin()
+    {
+        if (Auth::check()) {
 
             foreach (Auth::user()->roles as $key => $value) {
                 switch ($value->name) {
@@ -113,15 +122,15 @@ if (!function_exists('isAdmin')) {
                         return false;
                 }
             }
-
         } else {
             return ApiResponse::unauthorized();
         }
     }
 }
 if (!function_exists('isAdminTravel')) {
-    function isAdminTravel(){
-        if(Auth::check()) {
+    function isAdminTravel()
+    {
+        if (Auth::check()) {
 
             foreach (Auth::user()->roles as $key => $value) {
                 switch ($value->name) {
@@ -131,15 +140,15 @@ if (!function_exists('isAdminTravel')) {
                         return false;
                 }
             }
-
         } else {
             return ApiResponse::unauthorized();
         }
     }
 }
 if (!function_exists('isAdminTransport')) {
-    function isAdminTransport(){
-        if(Auth::check()) {
+    function isAdminTransport()
+    {
+        if (Auth::check()) {
 
             foreach (Auth::user()->roles as $key => $value) {
                 switch ($value->name) {
@@ -149,15 +158,15 @@ if (!function_exists('isAdminTransport')) {
                         return false;
                 }
             }
-
         } else {
             return ApiResponse::unauthorized();
         }
     }
 }
 if (!function_exists('isAdminTalent')) {
-    function isAdminTalent(){
-        if(Auth::check()) {
+    function isAdminTalent()
+    {
+        if (Auth::check()) {
 
             foreach (Auth::user()->roles as $key => $value) {
                 switch ($value->name) {
@@ -167,15 +176,15 @@ if (!function_exists('isAdminTalent')) {
                         return false;
                 }
             }
-
         } else {
             return ApiResponse::unauthorized();
         }
     }
 }
 if (!function_exists('isAdminTourism')) {
-    function isAdminTourism(){
-        if(Auth::check()) {
+    function isAdminTourism()
+    {
+        if (Auth::check()) {
 
             foreach (Auth::user()->roles as $key => $value) {
                 switch ($value->name) {
@@ -185,15 +194,15 @@ if (!function_exists('isAdminTourism')) {
                         return false;
                 }
             }
-
         } else {
             return ApiResponse::unauthorized();
         }
     }
 }
 if (!function_exists('isAdminSouvenir')) {
-    function isAdminSouvenir(){
-        if(Auth::check()) {
+    function isAdminSouvenir()
+    {
+        if (Auth::check()) {
 
             foreach (Auth::user()->roles as $key => $value) {
                 switch ($value->name) {
@@ -203,15 +212,15 @@ if (!function_exists('isAdminSouvenir')) {
                         return false;
                 }
             }
-
         } else {
             return ApiResponse::unauthorized();
         }
     }
 }
 if (!function_exists('isAdminLodge')) {
-    function isAdminLodge(){
-        if(Auth::check()) {
+    function isAdminLodge()
+    {
+        if (Auth::check()) {
 
             foreach (Auth::user()->roles as $key => $value) {
                 switch ($value->name) {
@@ -221,7 +230,6 @@ if (!function_exists('isAdminLodge')) {
                         return false;
                 }
             }
-
         } else {
             return ApiResponse::unauthorized();
         }
@@ -229,8 +237,9 @@ if (!function_exists('isAdminLodge')) {
 }
 
 if (!function_exists('isAdminCulinary')) {
-    function isAdminCulinary(){
-        if(Auth::check()) {
+    function isAdminCulinary()
+    {
+        if (Auth::check()) {
 
             foreach (Auth::user()->roles as $key => $value) {
                 switch ($value->name) {
@@ -240,9 +249,19 @@ if (!function_exists('isAdminCulinary')) {
                         return false;
                 }
             }
-
         } else {
             return ApiResponse::unauthorized();
+        }
+    }
+}
+
+if (!function_exists('imageFilterValue')) {
+    function imageFilterValue($value)
+    {
+        try {
+            return implode(',', $value ?: []);
+        } catch (\Throwable $th) {
+            return $value;
         }
     }
 }
@@ -250,8 +269,9 @@ if (!function_exists('isAdminCulinary')) {
 
 
 
-function getRoleFilter($label) {
-    if(Auth::check()) {
+function getRoleFilter($label)
+{
+    if (Auth::check()) {
         foreach (Auth::user()->roles as $value) {
             return ($value->name == $label) ? true : false;
         }
@@ -262,60 +282,71 @@ function getRoleFilter($label) {
 
 
 if (!function_exists('isTopCeo')) {
-    function isTopCeo(){
+    function isTopCeo()
+    {
         return getRoleFilter('top_ceo');
     }
 }
 if (!function_exists('isTopCfo')) {
-    function isTopCfo(){
+    function isTopCfo()
+    {
         return getRoleFilter('top_cfo');
     }
 }
 if (!function_exists('isTopCmo')) {
-    function isTopCmo(){
+    function isTopCmo()
+    {
         return getRoleFilter('top_cmo');
     }
 }
 if (!function_exists('isClientCompany')) {
-    function isClientCompany(){
+    function isClientCompany()
+    {
         return getRoleFilter('client_company');
     }
 }
 if (!function_exists('isClientRetail')) {
-    function isClientRetail(){
+    function isClientRetail()
+    {
         return getRoleFilter('client_retail');
     }
 }
 if (!function_exists('isClientAffiliate')) {
-    function isClientAffiliate(){
+    function isClientAffiliate()
+    {
         return getRoleFilter('client_affiliate');
     }
 }
 if (!function_exists('isStaffAdmin')) {
-    function isStaffAdmin(){
+    function isStaffAdmin()
+    {
         return getRoleFilter('staff_admin');
     }
 }
 if (!function_exists('isStaffFinance')) {
-    function isStaffFinance(){
+    function isStaffFinance()
+    {
         return getRoleFilter('staff_finance');
     }
 }
 if (!function_exists('isStaffSupervisor')) {
-    function isStaffSupervisor(){
+    function isStaffSupervisor()
+    {
         return getRoleFilter('staff_supervisor');
     }
 }
 if (!function_exists('isStaffEvent')) {
-    function isStaffEvent(){
+    function isStaffEvent()
+    {
         return getRoleFilter('staff_event');
     }
 }
 
 
 if (!function_exists('isAddOrUpdateToCart')) {
-    function isAddOrUpdateToCart(){
-        if(Auth::check()) {
+    function isAddOrUpdateToCart()
+    {
+        if (Auth::check()) {
             foreach (Auth::user()->roles as $key => $value) {
                 switch ($value->name) {
                     case 'client_affiliate':
@@ -336,8 +367,9 @@ if (!function_exists('isAddOrUpdateToCart')) {
 
 
 if (!function_exists('isClientOnly')) {
-    function isClientOnly(){
-        if(Auth::check()) {
+    function isClientOnly()
+    {
+        if (Auth::check()) {
             foreach (Auth::user()->roles as $key => $value) {
                 switch ($value->name) {
                     case 'client_affiliate':
@@ -355,8 +387,9 @@ if (!function_exists('isClientOnly')) {
 }
 
 if (!function_exists('isAdminOnly')) {
-    function isAdminOnly(){
-        if(Auth::check()) {
+    function isAdminOnly()
+    {
+        if (Auth::check()) {
             foreach (Auth::user()->roles as $key => $value) {
                 switch ($value->name) {
                     case 'administrator':
@@ -382,8 +415,9 @@ if (!function_exists('isAdminOnly')) {
 
 
 if (!function_exists('isRoleName')) {
-    function isRoleName(){
-        if(Auth::check()) {
+    function isRoleName()
+    {
+        if (Auth::check()) {
             foreach (Auth::user()->roles as $key => $value) {
                 return $value->name;
             }
@@ -394,8 +428,9 @@ if (!function_exists('isRoleName')) {
 }
 
 if (!function_exists('authID')) {
-    function authID(){
-        if(Auth::check()) {
+    function authID()
+    {
+        if (Auth::check()) {
             return Auth::user()->id;
         } else {
             return ApiResponse::unauthorized();
@@ -426,50 +461,58 @@ if (!function_exists('authID')) {
 
 
 if (!function_exists('isOnlyAdminTravel')) {
-    function isOnlyAdminTravel(){
-        if(!isAdminTravel()) return ApiResponse::failed('Maaf harus dari admin');
+    function isOnlyAdminTravel()
+    {
+        if (!isAdminTravel()) return ApiResponse::failed('Maaf harus dari admin');
     }
 }
 
 if (!function_exists('isOnlyAdminTransport')) {
-    function isOnlyAdminTransport(){
-        if(!isAdminTransport()) return ApiResponse::failed('Maaf harus dari admin');
+    function isOnlyAdminTransport()
+    {
+        if (!isAdminTransport()) return ApiResponse::failed('Maaf harus dari admin');
     }
 }
 
 if (!function_exists('isOnlyAdminTalent')) {
-    function isOnlyAdminTalent(){
-        if(!isAdminTalent()) return ApiResponse::failed('Maaf harus dari admin');
+    function isOnlyAdminTalent()
+    {
+        if (!isAdminTalent()) return ApiResponse::failed('Maaf harus dari admin');
     }
 }
 
 if (!function_exists('isOnlyAdminSouvenir')) {
-    function isOnlyAdminSouvenir(){
-        if(!isAdminSouvenir()) return ApiResponse::failed('Maaf harus dari admin');
+    function isOnlyAdminSouvenir()
+    {
+        if (!isAdminSouvenir()) return ApiResponse::failed('Maaf harus dari admin');
     }
 }
 
 if (!function_exists('isOnlyAdminTourism')) {
-    function isOnlyAdminTourism(){
-        if(!isAdminTourism()) return ApiResponse::failed('Maaf harus dari admin');
+    function isOnlyAdminTourism()
+    {
+        if (!isAdminTourism()) return ApiResponse::failed('Maaf harus dari admin');
     }
 }
 
 if (!function_exists('isOnlyAdminLodge')) {
-    function isOnlyAdminLodge(){
-        if(!isAdminLodge()) return ApiResponse::failed('Maaf harus dari admin');
+    function isOnlyAdminLodge()
+    {
+        if (!isAdminLodge()) return ApiResponse::failed('Maaf harus dari admin');
     }
 }
 
 if (!function_exists('isOnlyAdminCulinary')) {
-    function isOnlyAdminCulinary(){
-        if(!isAdminCulinary()) return ApiResponse::failed('Maaf harus dari admin');
+    function isOnlyAdminCulinary()
+    {
+        if (!isAdminCulinary()) return ApiResponse::failed('Maaf harus dari admin');
     }
 }
 
 if (!function_exists('isOnlyAdmin')) {
-    function isOnlyAdmin(){
-        if(!isAdmin()) return ApiResponse::failed('Maaf harus dari admin');
+    function isOnlyAdmin()
+    {
+        if (!isAdmin()) return ApiResponse::failed('Maaf harus dari admin');
     }
 }
 
@@ -494,4 +537,3 @@ if (!function_exists('SqlWithBinding')) {
     # usage example: SqlWithBinding($data->toSql(), $data->getBindings());
     # You can not ->paginate() or ->toSql() after Post::all() / Post::get()
 }
-
