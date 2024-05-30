@@ -165,6 +165,7 @@ class TravelStoresController extends Controller
                 // 'travelBooking',
                 // 'travelBookings',
                 'travelRatingAvg',
+                'travelPrices',
             ])->whereId($request->id)->withCount(['travelPrices'])->first();
 
             // add event notification handle
