@@ -5,7 +5,7 @@
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-//use App\Models\Table\BadasoUsers;
+//use App\Models\Table\BadasoUsersPublic;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class CulinaryPaymentsValidations extends Model
@@ -18,12 +18,12 @@ class CulinaryPaymentsValidations extends Model
 
     public function badasoUser()
     {
-        return $this->belongsTo(BadasoUsers::class,'validator_id','id');
+        return $this->belongsTo(BadasoUsersPublic::class,'validator_id','id');
     }
 
     public function badasoUsers()
     {
-        return $this->belongsToMany(BadasoUsers::class, 'culinary_payments_validations', 'id', 'validator_id');
+        return $this->belongsToMany(BadasoUsersPublic::class, 'culinary_payments_validations', 'id', 'validator_id');
     }
 
     public function culinaryPayment()

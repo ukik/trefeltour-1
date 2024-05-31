@@ -5,7 +5,7 @@
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-//use App\Models\Table\BadasoUsers;
+//use App\Models\Table\BadasoUsersPublic;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class LodgePaymentsValidations extends Model
@@ -17,12 +17,12 @@ class LodgePaymentsValidations extends Model
 
     public function badasoUser()
     {
-        return $this->belongsTo(BadasoUsers::class,'validator_id','id');
+        return $this->belongsTo(BadasoUsersPublic::class,'validator_id','id');
     }
 
     public function badasoUsers()
     {
-        return $this->belongsToMany(BadasoUsers::class, 'lodge_payments_validations', 'id', 'validator_id');
+        return $this->belongsToMany(BadasoUsersPublic::class, 'lodge_payments_validations', 'id', 'validator_id');
     }
 
     public function lodgePayment()

@@ -439,9 +439,12 @@ if (!function_exists('authID')) {
 }
 
 
-
-
-
+if (!function_exists('UserSelect')) {
+    function UserSelect($query)
+    {
+        return $query->select('id','name','username','gender','avatar');
+    }
+}
 
 
 

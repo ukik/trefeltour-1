@@ -5,7 +5,7 @@
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-//use App\Models\Table\BadasoUsers;
+//use App\Models\Table\BadasoUsersPublic;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class TravelStoreRatingsAvg extends Model
@@ -17,12 +17,12 @@ class TravelStoreRatingsAvg extends Model
 
     public function badasoUser()
     {
-        return $this->belongsTo(BadasoUsers::class,'user_id','id');
+        return $this->belongsTo(BadasoUsersPublic::class,'user_id','id');
     }
 
     public function badasoUsers()
     {
-        return $this->belongsToMany(BadasoUsers::class, 'travel_store_ratings', 'id', 'user_id');
+        return $this->belongsToMany(BadasoUsersPublic::class, 'travel_store_ratings', 'id', 'user_id');
     }
 
     public function travelStore()

@@ -5,7 +5,7 @@
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-//use App\Models\Table\BadasoUsers;
+//use App\Models\Table\BadasoUsersPublic;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class TravelStores extends Model
@@ -15,14 +15,22 @@ class TravelStores extends Model
 
     protected $table = "travel_stores";
 
+    public function getCreatedAtAttribute($value) {
+        return Carbon\Carbon::parse($value)->diffForHumans();
+    }
+
+    public function getUpdatedAtAttribute($value) {
+        return Carbon\Carbon::parse($value)->diffForHumans();
+    }
+
     public function badasoUser()
     {
-        return $this->belongsTo(BadasoUsers::class,'user_id','id');
+        return $this->belongsTo(BadasoUsersPublic::class,'user_id','id');
     }
 
     public function badasoUsers()
     {
-        return $this->belongsToMany(BadasoUsers::class, 'travel_stores', 'id', 'user_id');
+        return $this->belongsToMany(BadasoUsersPublic::class, 'travel_stores', 'id', 'user_id');
     }
 
 
@@ -44,6 +52,16 @@ class TravelStores extends Model
     public function travelPrices()
     {
         return $this->hasMany(TravelPrices::class, 'store_id', 'id');
+    }
+
+    public function travelPricePublic()
+    {
+        return $this->hasOne(TravelPricesPublic::class, 'store_id', 'id');
+    }
+
+    public function travelPricePublics()
+    {
+        return $this->hasMany(TravelPricesPublic::class, 'store_id', 'id');
     }
 
     public function travelRating()

@@ -5,7 +5,7 @@
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-//use App\Models\Table\BadasoUsers;
+//use App\Models\Table\BadasoUsersPublic;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class CulinaryPrices extends Model
@@ -31,7 +31,7 @@ class CulinaryPrices extends Model
 
     public function customer()
     {
-        return $this->belongsTo(BadasoUsers::class,'customer_id','id');
+        return $this->belongsTo(BadasoUsersPublic::class,'customer_id','id');
     }
 
     public function culinaryStore()

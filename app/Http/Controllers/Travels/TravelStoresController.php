@@ -61,7 +61,7 @@ class TravelStoresController extends Controller
                 'travelRatingAvg',
             ])->orderBy('id','desc');
 
-            $data->withCount(['travelPrices']);
+            $data->withCount(['travelPricePublics']);
 
             if(request()['showSoftDelete'] == 'true') {
                 $data = $data->onlyTrashed();
@@ -165,8 +165,9 @@ class TravelStoresController extends Controller
                 // 'travelBooking',
                 // 'travelBookings',
                 'travelRatingAvg',
-                'travelPrices',
-            ])->whereId($request->id)->withCount(['travelPrices'])->first();
+                // 'travelPrices',
+                'travelPricePublics',
+            ])->whereId($request->id)->withCount(['travelPricePublics'])->first();
 
             // add event notification handle
             $table_name = $data_type->name;

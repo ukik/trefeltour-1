@@ -5,7 +5,7 @@
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-//use App\Models\Table\BadasoUsers;
+//use App\Models\Table\BadasoUsersPublic;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class TalentPayments extends Model
@@ -36,17 +36,17 @@ class TalentPayments extends Model
 
     public function user()
     {
-        return $this->belongsTo(BadasoUsers::class,'customer_id','id');
+        return $this->belongsTo(BadasoUsersPublic::class,'customer_id','id');
     }
 
     public function badasoUser()
     {
-        return $this->belongsTo(BadasoUsers::class,'customer_id','id');
+        return $this->belongsTo(BadasoUsersPublic::class,'customer_id','id');
     }
 
     public function badasoUsers()
     {
-        return $this->belongsToMany(BadasoUsers::class, 'talent_payments', 'id', 'customer_id');
+        return $this->belongsToMany(BadasoUsersPublic::class, 'talent_payments', 'id', 'customer_id');
     }
 
     public function talentBookings()

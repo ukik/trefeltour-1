@@ -5,7 +5,7 @@
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-//use App\Models\Table\BadasoUsers;
+//use App\Models\Table\BadasoUsersPublic;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class TravelTickets___ extends Model
@@ -15,12 +15,12 @@ class TravelTickets___ extends Model
 
     public function user()
     {
-        return $this->belongsTo(BadasoUsers::class,'customer_id','id');
+        return $this->belongsTo(BadasoUsersPublic::class,'customer_id','id');
     }
 
     public function badasoUsers()
     {
-        return $this->belongsToMany(BadasoUsers::class, 'travel_tickets', 'id', 'customer_id');
+        return $this->belongsToMany(BadasoUsersPublic::class, 'travel_tickets', 'id', 'customer_id');
     }
 
     public function travelReservations()

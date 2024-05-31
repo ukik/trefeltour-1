@@ -5,7 +5,7 @@
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-//use App\Models\Table\BadasoUsers;
+//use App\Models\Table\BadasoUsersPublic;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class TransportRentalsOLD extends Model
@@ -15,12 +15,12 @@ class TransportRentalsOLD extends Model
 
     public function user()
     {
-        return $this->belongsTo(BadasoUsers::class,'user_id','id');
+        return $this->belongsTo(BadasoUsersPublic::class,'user_id','id');
     }
 
     public function badasoUsers()
     {
-        return $this->belongsToMany(BadasoUsers::class, 'transport_rentals', 'id', 'user_id');
+        return $this->belongsToMany(BadasoUsersPublic::class, 'transport_rentals', 'id', 'user_id');
     }
 
     public function transportVehicles()

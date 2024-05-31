@@ -8,13 +8,20 @@ use Illuminate\Database\Eloquent\Model;
 //use App\Models\Table\BadasoUsersPublic;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class TravelPrices extends Model
+class TravelPricesPublic extends Model
 {
     use HasFactory;
     use SoftDeletes;
 
-    protected $table = "travel_prices";
+    protected $table = "travel_prices_public";
 
+    public function getCreatedAtAttribute($value) {
+        return Carbon\Carbon::parse($value)->diffForHumans();
+    }
+
+    public function getUpdatedAtAttribute($value) {
+        return Carbon\Carbon::parse($value)->diffForHumans();
+    }
 
     public function badasoUser()
     {

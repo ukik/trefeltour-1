@@ -5,29 +5,14 @@
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Notifications\Notifiable;
+use Carbon\Carbon;
 
-class BadasoUsers extends Model
+class BadasoUsersPublic extends Model
 {
     use Notifiable;
     use HasFactory;
 
-    protected $hidden = [
-        // 'id',
-        // 'name',
-        // 'username',
-        // 'email',
-        // 'additional_info',
-        // 'gender',
-        // 'avatar',
-        // 'phone',
-        // 'address',
-        'email_verified_at',
-        'password',
-        'remember_token',
-        'last_sent_token_at',
-        // 'created_at',
-        // 'updated_at',
-    ];
+    protected $table = "badaso_users_public";
 
     // public function __construct(array $attributes = array())
     // {
@@ -53,6 +38,16 @@ class BadasoUsers extends Model
     //         // 'updated_at',
     //     ];
     // }
+
+    public function getCreatedAtAttribute($value) {
+        return Carbon::parse($value)->diffForHumans();
+        // return $value->diffForHumans();
+    }
+
+    public function getUpdatedAtAttribute($value) {
+        return Carbon::parse($value)->diffForHumans();
+        // return $value->diffForHumans();
+    }
 
     public function userRole()
     {

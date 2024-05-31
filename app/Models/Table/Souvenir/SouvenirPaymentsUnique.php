@@ -5,7 +5,7 @@
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-//use App\Models\Table\BadasoUsers;
+//use App\Models\Table\BadasoUsersPublic;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class SouvenirPaymentsUnique extends Model
@@ -24,12 +24,12 @@ class SouvenirPaymentsUnique extends Model
 
     public function badasoUser()
     {
-        return $this->belongsTo(BadasoUsers::class,'customer_id','id');
+        return $this->belongsTo(BadasoUsersPublic::class,'customer_id','id');
     }
 
     public function badasoUsers()
     {
-        return $this->belongsToMany(BadasoUsers::class, 'souvenir_payments_unique', 'id', 'customer_id');
+        return $this->belongsToMany(BadasoUsersPublic::class, 'souvenir_payments_unique', 'id', 'customer_id');
     }
 
     public function souvenirBooking()
