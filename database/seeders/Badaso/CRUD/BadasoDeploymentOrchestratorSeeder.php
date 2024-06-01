@@ -289,5 +289,7 @@ class BadasoDeploymentOrchestratorSeeder extends Seeder
         $this->seed(OffersCRUDDataDeleted::class);
         $this->seed(OffersCRUDDataTypeAdded::class);
         $this->seed(OffersCRUDDataRowAdded::class);
+        $this->seed(TravelPricesPublicCRUDDataTypeAdded::class);
+        $this->seed(TravelPricesPublicCRUDDataRowAdded::class);
     }
 }

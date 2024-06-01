@@ -137,6 +137,19 @@ Route::group(
     Route::group(['prefix' => 'v1'], function () {
         Route::group(
             [
+                'prefix' => 'entities',
+                'middleware' => [
+                    // 'sanctum_1', // sama saja ->middleware(RootBadasoAuthenticate::class)
+                    // 'BADASO_ApiRequest' // sama saja ApiRequest::class
+                ]
+            ], function () {
+
+            Route::get('/travel-prices/lagia', '\App\Http\Controllers\Travels\TravelPricesController@lagia_browse');
+        });
+
+
+        Route::group(
+            [
                 'prefix' => 'dashboard',
                 'middleware' => [
                     // 'sanctum_1', // sama saja ->middleware(RootBadasoAuthenticate::class)

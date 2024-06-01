@@ -2,6 +2,7 @@
 
 // namespace App\Models\Table\Travel;
 
+use Faker\Core\Number;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -14,6 +15,10 @@ class TravelStoreRatingsAvg extends Model
     use SoftDeletes;
 
     protected $table = "travel_store_ratings_avg";
+
+    public function getAvgRatingAttribute($value) {
+        return (int) $value;
+    }
 
     public function badasoUser()
     {

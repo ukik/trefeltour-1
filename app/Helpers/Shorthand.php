@@ -134,7 +134,9 @@ if (!function_exists('isAdminTravel')) {
 
             foreach (Auth::user()->roles as $key => $value) {
                 switch ($value->name) {
-                    case 'admin-travel':
+                    // case 'admin-travel':
+                    case 'administrator':
+                    case 'admin':
                         return true;
                     default:
                         return false;
@@ -152,7 +154,9 @@ if (!function_exists('isAdminTransport')) {
 
             foreach (Auth::user()->roles as $key => $value) {
                 switch ($value->name) {
-                    case 'admin-transport':
+                    // case 'admin-transport':
+                    case 'administrator':
+                    case 'admin':
                         return true;
                     default:
                         return false;
@@ -170,7 +174,9 @@ if (!function_exists('isAdminTalent')) {
 
             foreach (Auth::user()->roles as $key => $value) {
                 switch ($value->name) {
-                    case 'admin-talent':
+                    // case 'admin-talent':
+                    case 'administrator':
+                    case 'admin':
                         return true;
                     default:
                         return false;
@@ -188,7 +194,9 @@ if (!function_exists('isAdminTourism')) {
 
             foreach (Auth::user()->roles as $key => $value) {
                 switch ($value->name) {
-                    case 'admin-tourism':
+                    // case 'admin-tourism':
+                    case 'administrator':
+                    case 'admin':
                         return true;
                     default:
                         return false;
@@ -206,7 +214,9 @@ if (!function_exists('isAdminSouvenir')) {
 
             foreach (Auth::user()->roles as $key => $value) {
                 switch ($value->name) {
-                    case 'admin-souvenir':
+                    // case 'admin-souvenir':
+                    case 'administrator':
+                    case 'admin':
                         return true;
                     default:
                         return false;
@@ -224,7 +234,9 @@ if (!function_exists('isAdminLodge')) {
 
             foreach (Auth::user()->roles as $key => $value) {
                 switch ($value->name) {
-                    case 'admin-lodge':
+                    // case 'admin-lodge':
+                    case 'administrator':
+                    case 'admin':
                         return true;
                     default:
                         return false;
@@ -243,7 +255,9 @@ if (!function_exists('isAdminCulinary')) {
 
             foreach (Auth::user()->roles as $key => $value) {
                 switch ($value->name) {
-                    case 'admin-culinary':
+                    // case 'admin-culinary':
+                    case 'administrator':
+                    case 'admin':
                         return true;
                     default:
                         return false;
