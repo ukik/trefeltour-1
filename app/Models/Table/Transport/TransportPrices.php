@@ -22,12 +22,12 @@ class TransportPrices extends Model
 
     public function transportRental()
     {
-        return $this->belongsTo(TransportRentals::class,'vehicle_id','id');
+        return $this->belongsTo(TransportRentals::class,'rental_id','id');
     }
 
     public function transportRentals()
     {
-        return $this->belongsToMany(TransportRentals::class, 'transport_prices', 'id', 'vehicle_id');
+        return $this->belongsToMany(TransportRentals::class, 'transport_prices', 'id', 'rental_id');
     }
 
     public function transportVehicle()

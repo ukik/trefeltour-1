@@ -55,7 +55,7 @@ class TravelPricesPublicController extends Controller
                 'badasoUser',
                 'badasoUsers',
                 'travelStores',
-                'travelStore',
+                'travelStore.badasoUser',
                 // 'travelReservation',
                 // 'travelReservations',
                 // 'travelCart',

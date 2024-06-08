@@ -22,7 +22,7 @@ use Google\Service\Eventarc\Transport;
 use TravelBookings;
 use TravelBookingsItems;
 use TravelPrices;
-
+use TravelReservations;
 
 class TravelCartsController extends Controller
 {
@@ -427,6 +427,21 @@ class TravelCartsController extends Controller
             foreach ($bookings as $booking) {
                 NotifyToAdmin(new NotifyClientToAdminNotification(Auth::user(), 'travel', 'travel-bookings', $booking, 'Booking Baru'));
             }
+
+            $reserve = [];
+            foreach ($from_server_cart as $value) {
+                $temp = [];
+                $temp['id'] = $value->reservation_id;
+                $temp['is_reserved'] = true;
+                if(!$value->reservation_id) array_push($reserve, $temp);
+            }
+            // Flight::upsert([
+            //     ['departure' => 'Oakland', 'destination' => 'San Diego', 'price' => 99],
+            //     ['departure' => 'Chicago', 'destination' => 'New York', 'price' => 150]
+            // ], uniqueBy: ['departure', 'destination'], update: ['price']);
+            // return $reserve;
+
+            TravelReservations::upsert($reserve, ['id'], ['is_reserved']);
 
             DB::commit();
 

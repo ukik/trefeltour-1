@@ -58,7 +58,7 @@
   *                 @OA\Property(
   *                     property="data",
   *                     type="object",
-  *                     example={"name":"Abc", "dailyPrice":"123", "yearExp":"Abc", "isReserved":"Abc", "description":"Abc", "isAvailable":"Abc"},
+  *                     example={"name":"Abc", "image":"Abc", "dailyPrice":"123", "yearExp":"Abc", "description":"Abc", "isAvailable":"Abc", "isReserved":"Abc"},
   *                 ),
   *             )
   *         )
@@ -88,7 +88,7 @@
   *                 @OA\Property(
   *                     property="data",
   *                     type="object",
-  *                     example={"name":"Abc", "dailyPrice":"123", "yearExp":"Abc", "isReserved":"Abc", "description":"Abc", "isAvailable":"Abc"},
+  *                     example={"name":"Abc", "image":"Abc", "dailyPrice":"123", "yearExp":"Abc", "description":"Abc", "isAvailable":"Abc", "isReserved":"Abc"},
   *                ),
   *             )
   *         )
@@ -201,18 +201,19 @@
   *                 @OA\Property(
   *                     property="data",
   *                     type="array",
-  *                     example={{"id":"123", "uuid":"Abc", "userId":"", "name":"Abc", "dailyPrice":"123", "yearExp":"Abc", "isReserved":"Abc", "description":"Abc", "isAvailable":"Abc", "codeTable":"Abc", "createdAt":"2021-01-01T00:00:00.000Z", "updatedAt":"2021-01-01T00:00:00.000Z", "deletedAt":"2021-01-01T00:00:00.000Z"}, {"id":"123", "uuid":"Abc", "userId":"", "name":"Abc", "dailyPrice":"123", "yearExp":"Abc", "isReserved":"Abc", "description":"Abc", "isAvailable":"Abc", "codeTable":"Abc", "createdAt":"2021-01-01T00:00:00.000Z", "updatedAt":"2021-01-01T00:00:00.000Z", "deletedAt":"2021-01-01T00:00:00.000Z"}},
+  *                     example={{"id":"123", "uuid":"Abc", "userId":"", "name":"Abc", "image":"Abc", "dailyPrice":"123", "yearExp":"Abc", "description":"Abc", "isAvailable":"Abc", "isReserved":"Abc", "codeTable":"Abc", "createdAt":"2021-01-01T00:00:00.000Z", "updatedAt":"2021-01-01T00:00:00.000Z", "deletedAt":"2021-01-01T00:00:00.000Z"}, {"id":"123", "uuid":"Abc", "userId":"", "name":"Abc", "image":"Abc", "dailyPrice":"123", "yearExp":"Abc", "description":"Abc", "isAvailable":"Abc", "isReserved":"Abc", "codeTable":"Abc", "createdAt":"2021-01-01T00:00:00.000Z", "updatedAt":"2021-01-01T00:00:00.000Z", "deletedAt":"2021-01-01T00:00:00.000Z"}},
   *                     @OA\Items(
   *                         type="object",
   *                         @OA\Property(type="integer", property="id"), 
   *                         @OA\Property(type="string", property="uuid"), 
   *                         @OA\Property(type="string", property="userId"), 
   *                         @OA\Property(type="string", property="name"), 
+  *                         @OA\Property(type="string", property="image"), 
   *                         @OA\Property(type="integer", property="dailyPrice"), 
   *                         @OA\Property(type="string", property="yearExp"), 
-  *                         @OA\Property(type="string", property="isReserved"), 
   *                         @OA\Property(type="string", property="description"), 
   *                         @OA\Property(type="string", property="isAvailable"), 
+  *                         @OA\Property(type="string", property="isReserved"), 
   *                         @OA\Property(type="string", property="codeTable"), 
   *                         @OA\Property(type="string", property="createdAt"), 
   *                         @OA\Property(type="string", property="updatedAt"), 

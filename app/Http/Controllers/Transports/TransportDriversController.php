@@ -62,6 +62,7 @@ class TransportDriversController extends Controller
                 // 'transportBooking.transportVehicle.transportRental',
                 // 'transportBooking.transportVehicle.transportMaintenance',
                 // 'transportBooking.transportPayment.transportPaymentsValidation',
+                'ratingAvg',
             ])->orderBy('id','desc');
             if(request()['showSoftDelete'] == 'true') {
                 $data = $data->onlyTrashed();
@@ -168,6 +169,7 @@ class TransportDriversController extends Controller
                 // 'transportBooking.transportVehicle.transportRental',
                 // 'transportBooking.transportVehicle.transportMaintenance',
                 // 'transportBooking.transportPayment.transportPaymentsValidation',
+                'ratingAvg',
             ])->whereId($request->id)->first();
 
             // add event notification handle
@@ -198,6 +200,7 @@ class TransportDriversController extends Controller
             $req = request()['data'];
             $data = [
                 'user_id' => $table_entity->user_id ,
+                'image' => imageFilterValue($req['image']),
                 'daily_price' => $req['daily_price'] ,
                 'name' => $req['name'] ,
                 'year_exp' => date("Y-m-d", strtotime($req['year_exp'])),
@@ -267,6 +270,7 @@ class TransportDriversController extends Controller
             $req = request()['data'];
             $data = [
                 'user_id' => getUserId($req['user_id']) ,
+                'image' => imageFilterValue($req['image']),
                 'daily_price' => $req['daily_price'] ,
                 'name' => $req['name'] ,
                 'year_exp' => date("Y-m-d", strtotime($req['year_exp'])),

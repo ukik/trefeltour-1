@@ -65,4 +65,15 @@ class TransportVehicles extends Model
     {
         return $this->hasMany(TransportPrices::class, 'vehicle_id', 'id');
     }
+
+
+    public function rating()
+    {
+        return $this->hasOne(TransportVehiclesRatings::class, 'vehicle_id', 'id');
+    }
+
+    public function ratingAvg()
+    {
+        return $this->hasOne(TransportVehiclesRatingsAvg::class, 'vehicle_id', 'id');
+    }
 }

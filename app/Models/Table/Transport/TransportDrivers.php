@@ -62,4 +62,14 @@ class TransportDrivers extends Model
         return $this->hasOne(TransportPayments::class, 'driver_id', 'id');
     }
 
+
+    public function rating()
+    {
+        return $this->hasOne(TransportDriversRatings::class, 'driver_id', 'id');
+    }
+
+    public function ratingAvg()
+    {
+        return $this->hasOne(TransportDriversRatingsAvg::class, 'driver_id', 'id');
+    }
 }

@@ -53,6 +53,9 @@ class TransportPricesController extends Controller
             $data = \TransportPrices::with([
                 'customer',
                 'transportRental',
+                'transportRental' => function($q) {
+                    return $q->withCount('transportVehicles');
+                },
                 'transportRentals',
                 // 'transportRental.badasoUsers',
                 // 'transportRental.badasoUser',

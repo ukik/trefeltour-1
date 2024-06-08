@@ -15,6 +15,16 @@ class TravelStoreRatings extends Model
 
     protected $table = "travel_store_ratings";
 
+    public function badasoUser()
+    {
+        return $this->belongsTo(BadasoUsersPublic::class,'user_id','id');
+    }
+
+    public function badasoUsers()
+    {
+        return $this->belongsToMany(BadasoUsersPublic::class, 'travel_store_ratings', 'id', 'user_id');
+    }
+
     public function travelStore()
     {
         return $this->belongsTo(TravelStores::class,'store_id','id');

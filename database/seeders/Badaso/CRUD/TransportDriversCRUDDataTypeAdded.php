@@ -42,13 +42,13 @@ class TransportDriversCRUDDataTypeAdded extends Seeder
                 'order_direction' => NULL,
                 'generate_permissions' => true,
                 'server_side' => false,
-                'is_maintenance' => 0,
+                'is_maintenance' => '0',
                 'description' => NULL,
                 'details' => NULL,
                 'notification' => '[]',
-                'is_soft_delete' => 1,
+                'is_soft_delete' => '1',
                 'created_at' => '2024-01-31T03:27:15.000000Z',
-                'updated_at' => '2024-04-25T08:07:07.000000Z',
+                'updated_at' => '2024-06-07T12:08:12.000000Z',
             ));
 
             Badaso::model('Permission')->generateFor('transport_drivers');

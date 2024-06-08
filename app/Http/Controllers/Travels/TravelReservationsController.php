@@ -63,6 +63,7 @@ class TravelReservationsController extends Controller
             $data = $data->with([
                 'badasoUser',
                 'badasoUsers',
+                'travelPrice.travelStore.badasoUser',
                 // 'travelTicket.travelReservations',
                 // 'travelTicket.travelReservation',
                 // 'travelTicket.travelBooking',
@@ -190,6 +191,7 @@ class TravelReservationsController extends Controller
             $data = $data->with([
                 'badasoUser',
                 'badasoUsers',
+                'travelPrice',
                 // 'travelTicket.travelReservations',
                 // 'travelTicket.travelReservation',
                 // 'travelTicket.travelBooking',

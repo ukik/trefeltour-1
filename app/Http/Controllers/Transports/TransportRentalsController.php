@@ -63,7 +63,8 @@ class TransportRentalsController extends Controller
                 // 'transportVehicle.transportBooking.transportReturn',
                 // 'transportVehicle.transportBooking.transportPayment',
                 // 'transportVehicle.transportBooking.transportPayment.transportPaymentsValidation',
-            ])->orderBy('id','desc');
+                'ratingAvg',
+            ])->orderBy('id','desc')->withCount('transportVehicles');
             if(request()['showSoftDelete'] == 'true') {
                 $data = $data->onlyTrashed();
             }
@@ -168,6 +169,7 @@ class TransportRentalsController extends Controller
                 // 'transportVehicle.transportBooking.transportReturn',
                 // 'transportVehicle.transportBooking.transportPayment',
                 // 'transportVehicle.transportBooking.transportPayment.transportPaymentsValidation',
+                'ratingAvg',
             ])->whereId($request->id)->first();
 
             // add event notification handle
