@@ -26,4 +26,14 @@ class TourismFacilities extends Model
         return $this->belongsToMany(TourismVenues::class, 'tourism_facilities', 'id', 'venue_id');
     }
 
+
+    public function rating()
+    {
+        return $this->hasOne(TourismFacilitiesRatings::class, 'facilities_id', 'id');
+    }
+
+    public function ratingAvg()
+    {
+        return $this->hasOne(TourismFacilitiesRatingsAvg::class, 'facilities_id', 'id');
+    }    
 }

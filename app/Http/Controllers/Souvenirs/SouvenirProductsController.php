@@ -59,6 +59,7 @@ class SouvenirProductsController extends Controller
                 'souvenirStore.souvenirBookings',
                 'souvenirPrice',
                 'souvenirPrices',
+                'ratingAvg',
             ])->orderBy('id','desc');
             if(request()['showSoftDelete'] == 'true') {
                 $data = $data->onlyTrashed();
@@ -168,6 +169,7 @@ class SouvenirProductsController extends Controller
                 'souvenirStore.souvenirBookings',
                 'souvenirPrice',
                 'souvenirPrices',
+                'ratingAvg',
             ])->whereId($request->id)->first();
 
             // add event notification handle
@@ -205,7 +207,7 @@ class SouvenirProductsController extends Controller
                 'category' => $req['category'],
                 // 'others' => $req['others'],
                 'description' => $req['description'],
-                'is_available' => $req['is_available'],
+                'is_available' => isBoolean($req['is_available']),
                 'image' => imageFilterValue($req['image']),
 
                 'code_table' => ($slug) ,
@@ -277,7 +279,7 @@ class SouvenirProductsController extends Controller
                 'category' => $req['category'],
                 // 'others' => $req['others'],
                 'description' => $req['description'],
-                'is_available' => $req['is_available'],
+                'is_available' => isBoolean($req['is_available']),
                 'image' => imageFilterValue($req['image']),
 
                 'code_table' => ($slug) ,

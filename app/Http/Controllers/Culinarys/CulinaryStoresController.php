@@ -210,7 +210,7 @@ class CulinaryStoresController extends Controller
                 'country' => $req['country'],
                 'policy' => $req['description'],
                 'description' => $req['description'],
-                'is_available' => $req['is_available'],
+                'is_available' => isBoolean($req['is_available']),
 
                 'code_table' => ($slug) ,
                 'uuid' => $table_entity->uuid ?: ShortUuid(),
@@ -288,7 +288,7 @@ class CulinaryStoresController extends Controller
                 'country' => $req['country'],
                 'policy' => $req['description'],
                 'description' => $req['description'],
-                'is_available' => $req['is_available'],
+                'is_available' => isBoolean($req['is_available']),
 
                 'code_table' => ($slug) ,
                 'uuid' => ShortUuid(),

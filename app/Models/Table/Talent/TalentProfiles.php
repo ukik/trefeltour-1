@@ -80,4 +80,13 @@ class TalentProfiles extends Model
         return $this->hasOne(TalentSkills::class, 'profile_id', 'id');
     }
 
+    public function rating()
+    {
+        return $this->hasOne(TalentProfilesRatings::class, 'profile_id', 'id');
+    }
+
+    public function ratingAvg()
+    {
+        return $this->hasOne(TalentProfilesRatingsAvg::class, 'profile_id', 'id');
+    }
 }

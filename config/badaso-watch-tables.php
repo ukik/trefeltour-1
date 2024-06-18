@@ -104,6 +104,7 @@ return [
     'tourism_prices_old',
     'tourism_services',
     'tourism_venues',
+    'tourism_venues_ratings',
     'transport_booking_items',
     'transport_bookings',
     'transport_bookings_old',

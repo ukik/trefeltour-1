@@ -54,4 +54,16 @@ class SouvenirStores extends Model
     {
         return $this->hasMany(SouvenirPrices::class, 'store_id', 'id');
     }
+
+
+
+    public function rating()
+    {
+        return $this->hasOne(SouvenirStoresRatings::class, 'store_id', 'id');
+    }
+
+    public function ratingAvg()
+    {
+        return $this->hasOne(SouvenirStoresRatingsAvg::class, 'store_id', 'id');
+    }
 }

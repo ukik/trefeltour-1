@@ -57,12 +57,13 @@ class TourismVenuesController extends Controller
                 'tourismFacility',
                 'tourismService',
                 'tourismBooking',
-                'tourismBooking.tourismPayment',
-                'tourismBooking.tourismPayment.tourismPaymentsValidation',
-                'tourismFacilities',
+                // 'tourismBooking.tourismPayment',
+                // 'tourismBooking.tourismPayment.tourismPaymentsValidation',
+                // 'tourismFacilities',
                 'tourismServices',
-                'tourismBookings',
-            ])->orderBy('id','desc');
+                // 'tourismBookings',
+                'ratingAvg',
+            ])->orderBy('id','desc')->withCount('tourismFacilities');
 
             if(request()['showSoftDelete'] == 'true') {
                 $data = $data->onlyTrashed();
@@ -184,11 +185,12 @@ class TourismVenuesController extends Controller
                 'tourismFacility',
                 'tourismService',
                 'tourismBooking',
-                'tourismBooking.tourismPayment',
-                'tourismBooking.tourismPayment.tourismPaymentsValidation',
-                'tourismFacilities',
+                // 'tourismBooking.tourismPayment',
+                // 'tourismBooking.tourismPayment.tourismPaymentsValidation',
+                // 'tourismFacilities',
                 'tourismServices',
-                'tourismBookings',
+                // 'tourismBookings',
+                'ratingAvg',
             ])->whereId($request->id)->first();
 
             // add event notification handle
@@ -245,7 +247,7 @@ class TourismVenuesController extends Controller
                 'policy' => $req['policy'],
                 'category' => $req['category'],
                 'description' => $req['description'],
-                'is_available' => $req['is_available'],
+                'is_available' => isBoolean($req['is_available']),
 
                 'code_table' => ($slug) ,
                 'uuid' => $table_entity->uuid ?: ShortUuid(),
@@ -334,7 +336,7 @@ class TourismVenuesController extends Controller
                 'policy' => $req['policy'],
                 'category' => $req['category'],
                 'description' => $req['description'],
-                'is_available' => $req['is_available'],
+                'is_available' => isBoolean($req['is_available']),
 
                 'code_table' => ($slug) ,
                 'uuid' => ShortUuid(),

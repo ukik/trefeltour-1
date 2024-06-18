@@ -234,7 +234,7 @@ class LodgeProfilesController extends Controller
                 'shuttle_to_airport_price' => $req['shuttle_to_airport_price'],
                 'additional_breakfast_price' => $req['additional_breakfast_price'],
                 'late_checkout_price' => $req['late_checkout_price'],
-                'is_available' => $req['is_available'],
+                'is_available' => isBoolean($req['is_available']),
 
                 'code_table' => ($slug) ,
                 'uuid' => $table_entity->uuid ?: ShortUuid(),
@@ -321,7 +321,7 @@ class LodgeProfilesController extends Controller
                 'shuttle_to_airport_price' => $req['shuttle_to_airport_price'],
                 'additional_breakfast_price' => $req['additional_breakfast_price'],
                 'late_checkout_price' => $req['late_checkout_price'],
-                'is_available' => $req['is_available'],
+                'is_available' => isBoolean($req['is_available']),
 
                 'code_table' => ($slug) ,
                 'uuid' => ShortUuid(),

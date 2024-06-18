@@ -55,6 +55,9 @@ class TourismPricesController extends Controller
                 'tourismVenues',
                 'tourismVenue.badasoUsers',
                 'tourismVenue.badasoUser',
+                'tourismVenue.tourismFacilities',
+                'tourismVenue.tourismService',
+                'tourismVenue.ratingAvg',
             ])->orderBy('id','desc');
             if(request()['showSoftDelete'] == 'true') {
                 $data = $data->onlyTrashed();
@@ -168,6 +171,7 @@ class TourismPricesController extends Controller
                 'tourismVenues',
                 'tourismVenue.badasoUsers',
                 'tourismVenue.badasoUser',
+                'tourismVenue.ratingAvg',
             ])->whereId($request->id)->first();
 
             // add event notification handle

@@ -52,10 +52,12 @@ class TalentPricesController extends Controller
 
             $data = \TalentPrices::with([
                 'customer',
+                'badasoUser',
                 'talentSkills',
                 'talentProfiles',
                 'talentProfile.badasoUsers',
                 'talentProfile.badasoUser',
+                'talentProfile.ratingAvg',
                 'talentSkill',
                 'talentSkills',
             ])->orderBy('id','desc');

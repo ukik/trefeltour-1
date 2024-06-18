@@ -50,4 +50,13 @@ class SouvenirProducts extends Model
         return $this->hasMany(SouvenirPrices::class, 'product_id', 'id');
     }
 
+    public function rating()
+    {
+        return $this->hasOne(SouvenirProductsRatings::class, 'product_id', 'id');
+    }
+
+    public function ratingAvg()
+    {
+        return $this->hasOne(SouvenirProductsRatingsAvg::class, 'product_id', 'id');
+    }
 }

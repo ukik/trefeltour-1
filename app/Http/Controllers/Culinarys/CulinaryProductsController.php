@@ -206,7 +206,7 @@ class CulinaryProductsController extends Controller
                 'category' => $req['category'],
                 // 'others' => $req['others'],
                 'description' => $req['description'],
-                'is_available' => $req['is_available'],
+                'is_available' => isBoolean($req['is_available']),
                 'image' => imageFilterValue($req['image']),
 
                 'code_table' => ($slug) ,
@@ -278,7 +278,7 @@ class CulinaryProductsController extends Controller
                 'category' => $req['category'],
                 // 'others' => $req['others'],
                 'description' => $req['description'],
-                'is_available' => $req['is_available'],
+                'is_available' => isBoolean($req['is_available']),
                 'image' => imageFilterValue($req['image']),
 
                 'code_table' => ($slug) ,

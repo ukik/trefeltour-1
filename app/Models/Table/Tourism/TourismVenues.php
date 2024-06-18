@@ -70,4 +70,14 @@ class TourismVenues extends Model
         return $this->hasOne(TourismBookings::class, 'venue_id', 'id');
     }
 
+
+    public function rating()
+    {
+        return $this->hasOne(TourismVenuesRatings::class, 'venue_id', 'id');
+    }
+
+    public function ratingAvg()
+    {
+        return $this->hasOne(TourismVenuesRatingsAvg::class, 'venue_id', 'id');
+    }
 }

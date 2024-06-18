@@ -59,7 +59,8 @@ class TalentProfilesController extends Controller
                 'talentSkill',
                 // 'talentBookings',
                 // 'talentBooking',
-            ])->orderBy('id','desc');
+                'ratingAvg',
+            ])->orderBy('id','desc')->withCount('talentSkills');
 
             if(request()['showSoftDelete'] == 'true') {
                 $data = $data->onlyTrashed();
@@ -163,7 +164,8 @@ class TalentProfilesController extends Controller
                 'talentSkill',
                 // 'talentBookings',
                 // 'talentBooking',
-            ])->whereId($request->id)->first();
+                'ratingAvg',
+            ])->whereId($request->id)->withCount('talentSkills')->first();
 
             // add event notification handle
             $table_name = $data_type->name;
@@ -208,7 +210,7 @@ class TalentProfilesController extends Controller
                 'youtube' => $req['youtube'],
                 'facebook' => $req['facebook'],
                 'twitter' => $req['twitter'],
-                'is_available' => $req['is_available'],
+                'is_available' => isBoolean($req['is_available']),
 
                 'code_table' => ($slug) ,
                 'uuid' => $table_entity->uuid ?: ShortUuid(),
@@ -285,7 +287,7 @@ class TalentProfilesController extends Controller
                 'youtube' => $req['youtube'],
                 'facebook' => $req['facebook'],
                 'twitter' => $req['twitter'],
-                'is_available' => $req['is_available'],
+                'is_available' => isBoolean($req['is_available']),
 
                 'code_table' => ($slug) ,
                 'uuid' => ShortUuid(),

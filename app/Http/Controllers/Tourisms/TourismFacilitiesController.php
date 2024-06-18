@@ -61,6 +61,7 @@ class TourismFacilitiesController extends Controller
                 'tourismVenue.tourismBooking',
                 'tourismVenue.tourismBooking.tourismPayment',
                 'tourismVenue.tourismBooking.tourismPayment.tourismPaymentsValidation',
+                'ratingAvg',
             ])->orderBy('id','desc');
             if(request()['showSoftDelete'] == 'true') {
                 $data = $data->onlyTrashed();
@@ -101,6 +102,11 @@ class TourismFacilitiesController extends Controller
             if(request()->category) {
                 $category = request()->category;
                 $data->where('category','like','%'.$category.'%');
+            }
+
+            if(request()->venueId) {
+                $venueId = request()->venueId;
+                $data->where('venue_id',$venueId);
             }
 
             $data = $data->paginate(request()->perPage);
@@ -165,6 +171,7 @@ class TourismFacilitiesController extends Controller
                 'tourismVenue.tourismBooking',
                 'tourismVenue.tourismBooking.tourismPayment',
                 'tourismVenue.tourismBooking.tourismPayment.tourismPaymentsValidation',
+                'ratingAvg',
             ])->whereId($request->id)->first();
 
             // add event notification handle

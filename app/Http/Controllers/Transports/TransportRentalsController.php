@@ -214,7 +214,7 @@ class TransportRentalsController extends Controller
                 'policy' => $req['policy'],
                 'country' => $req['country'],
                 'description' => $req['description'],
-                'is_available' => $req['is_available'],
+                'is_available' => isBoolean($req['is_available']),
 
                 'code_table' => ($slug) ,
                 'uuid' => $table_entity->uuid ?: ShortUuid(),
@@ -290,7 +290,7 @@ class TransportRentalsController extends Controller
                 'policy' => $req['policy'],
                 'country' => $req['country'],
                 'description' => $req['description'],
-                'is_available' => $req['is_available'] === 'true' ? 'true' : 'false',
+                'is_available' => isBoolean($req['is_available']),
 
                 'code_table' => ($slug) ,
                 'uuid' => ShortUuid(),

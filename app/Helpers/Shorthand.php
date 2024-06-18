@@ -462,6 +462,25 @@ if (!function_exists('UserSelect')) {
 
 
 
+if (!function_exists('isBoolean')) {
+    function isBoolean($variable)
+    {
+        switch ($variable) {
+            case 1:
+            case '1':
+            case 'true':
+            case true:
+                return 'true';
+            case null:
+            case '':
+            case 0:
+            case '0':
+            case 'false':
+            case false:
+                return 'false';
+        }
+    }
+}
 
 
 

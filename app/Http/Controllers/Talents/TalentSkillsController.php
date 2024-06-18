@@ -101,6 +101,11 @@ class TalentSkillsController extends Controller
                 $data->where('category',$category);
             }
 
+            if(request()->profileId) {
+                $profileId = request()->profileId;
+                $data->where('profile_id',$profileId);
+            }
+
             $data = $data->paginate(request()->perPage);
 
             // $encode = json_encode($paginate);
@@ -197,7 +202,7 @@ class TalentSkillsController extends Controller
                 'description' => $req['description'],
                 'policy' => $req['policy'],
                 'year_exp' => $req['year_exp'],
-                'is_available' => $req['is_available'],
+                'is_available' => isBoolean($req['is_available']),
                 'image' => imageFilterValue($req['image']),
 
                 'code_table' => ($slug) ,
@@ -271,7 +276,7 @@ class TalentSkillsController extends Controller
                 'description' => $req['description'],
                 'policy' => $req['policy'],
                 'year_exp' => $req['year_exp'],
-                'is_available' => $req['is_available'],
+                'is_available' => isBoolean($req['is_available']),
                 'image' => imageFilterValue($req['image']),
 
                 'code_table' => ($slug) ,
