@@ -25,12 +25,12 @@ class TourismFacilitiesRatings extends Model
         return $this->belongsToMany(BadasoUsersPublic::class, 'tourism_facilities_ratings', 'id', 'user_id');
     }
 
-    public function tourismVenue()
+    public function tourismFacility()
     {
         return $this->belongsTo(TourismFacilities::class,'facilities_id','id');
     }
 
-    public function tourismVenues()
+    public function tourismFacilities()
     {
         return $this->belongsToMany(TourismFacilities::class, 'tourism_facilities_ratings', 'id', 'facilities_id');
     }

@@ -75,4 +75,14 @@ class LodgeProfiles extends Model
     {
         return $this->hasMany(LodgePrices::class, 'profile_id', 'id');
     }
+
+    public function rating()
+    {
+        return $this->hasOne(LodgeProfilesRatings::class, 'profile_id', 'id');
+    }
+
+    public function ratingAvg()
+    {
+        return $this->hasOne(LodgeProfilesRatingsAvg::class, 'profile_id', 'id');
+    }
 }

@@ -66,12 +66,12 @@ class TravelStores extends Model
 
     public function travelRating()
     {
-        return $this->hasOne(TravelStoreRatings::class, 'store_id', 'id');
+        return $this->hasOne(TravelStoresRatings::class, 'store_id', 'id');
     }
 
     public function travelRatingAvg()
     {
-        return $this->hasOne(TravelStoreRatingsAvg::class, 'store_id', 'id');
+        return $this->hasOne(TravelStoresRatingsAvg::class, 'store_id', 'id');
     }
 
     // public function travelTicket()
@@ -83,4 +83,15 @@ class TravelStores extends Model
     // {
     //     return $this->hasMany(TravelTickets::class, 'store_id', 'id');
     // }
+
+    public function rating()
+    {
+        return $this->hasOne(TravelStoresRatings::class, 'store_id', 'id');
+    }
+
+    public function ratingAvg()
+    {
+        return $this->hasOne(TravelStoresRatingsAvg::class, 'store_id', 'id');
+    }
+
 }

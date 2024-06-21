@@ -56,6 +56,7 @@ class LodgeRoomsController extends Controller
                 'lodgeProfiles',
                 'lodgePrice',
                 'lodgePrices',
+                'ratingAvg',
             ])->orderBy('id','desc');
             if(request()['showSoftDelete'] == 'true') {
                 $data = $data->onlyTrashed();
@@ -165,6 +166,7 @@ class LodgeRoomsController extends Controller
                 'lodgeProfiles',
                 'lodgePrice',
                 'lodgePrices',
+                'ratingAvg',
             ])->whereId($request->id)->first();
 
             // add event notification handle
@@ -195,7 +197,7 @@ class LodgeRoomsController extends Controller
             $req = request()['data'];
             $data = [
                 'profile_id' => $table_entity->profile_id ,
-                'image' => implode(',', $req['image'] ?: []) ,
+                'image' => imageFilterValue($req['image']) ,
                 'name' => $req['name'] ,
                 'number' => $req['number'] ,
                 'description' => $req['description'] ,
@@ -268,7 +270,7 @@ class LodgeRoomsController extends Controller
             $req = request()['data'];
             $data = [
                 'profile_id' => $req['profile_id'] ,
-                'image' => implode(',', $req['image'] ?: []) ,
+                'image' => imageFilterValue($req['image']) ,
                 'name' => $req['name'] ,
                 'number' => $req['number'] ,
                 'description' => $req['description'] ,

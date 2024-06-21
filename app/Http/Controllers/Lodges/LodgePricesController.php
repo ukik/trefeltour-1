@@ -55,6 +55,8 @@ class LodgePricesController extends Controller
                 'lodgeProfiles',
                 'lodgeProfile.badasoUsers',
                 'lodgeProfile.badasoUser',
+                'lodgeProfile.ratingAvg',
+                'lodgeRoom.ratingAvg',
                 'lodgeRoom',
                 'LodgeRooms',
             ])->orderBy('id','desc');
@@ -171,6 +173,8 @@ class LodgePricesController extends Controller
                 'lodgeProfiles',
                 'lodgeProfile.badasoUsers',
                 'lodgeProfile.badasoUser',
+                'lodgeProfile.ratingAvg',
+                'lodgeRoom.ratingAvg',
                 'lodgeRoom',
                 'LodgeRooms',
             ])->whereId($request->id)->first();

@@ -55,7 +55,9 @@ class SouvenirPricesController extends Controller
                 'souvenirStores',
                 'souvenirStore.badasoUsers',
                 'souvenirStore.badasoUser',
+                'souvenirStore.ratingAvg',
                 'souvenirProduct',
+                'souvenirProduct.ratingAvg',
                 'souvenirProducts',
             ])->orderBy('id','desc');
             if(request()['showSoftDelete'] == 'true') {
@@ -171,7 +173,8 @@ class SouvenirPricesController extends Controller
                 'souvenirStores',
                 'souvenirStore.badasoUsers',
                 'souvenirStore.badasoUser',
-                'souvenirProduct',
+                'souvenirStore.ratingAvg',
+                'souvenirProduct.ratingAvg',
                 'souvenirProducts',
             ])->whereId($request->id)->first();
 

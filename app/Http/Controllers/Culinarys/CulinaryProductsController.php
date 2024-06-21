@@ -55,10 +55,11 @@ class CulinaryProductsController extends Controller
                 'culinaryStore.badasoUsers',
                 'culinaryStore.culinaryProduct',
                 'culinaryStore.culinaryProducts',
-                'culinaryStore.culinaryBooking',
-                'culinaryStore.culinaryBookings',
+                // 'culinaryStore.culinaryBooking',
+                // 'culinaryStore.culinaryBookings',
                 'culinaryPrice',
                 'culinaryPrices',
+                'ratingAvg',
             ])->orderBy('id','desc');
             if(request()['showSoftDelete'] == 'true') {
                 $data = $data->onlyTrashed();
@@ -165,10 +166,11 @@ class CulinaryProductsController extends Controller
                 'culinaryStore.badasoUsers',
                 'culinaryStore.culinaryProduct',
                 'culinaryStore.culinaryProducts',
-                'culinaryStore.culinaryBooking',
-                'culinaryStore.culinaryBookings',
+                // 'culinaryStore.culinaryBooking',
+                // 'culinaryStore.culinaryBookings',
                 'culinaryPrice',
                 'culinaryPrices',
+                'ratingAvg',                
             ])->whereId($request->id)->first();
 
             // add event notification handle

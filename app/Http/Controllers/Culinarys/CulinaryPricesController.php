@@ -55,7 +55,9 @@ class CulinaryPricesController extends Controller
                 'culinaryStores',
                 'culinaryStore.badasoUsers',
                 'culinaryStore.badasoUser',
+                'culinaryStore.ratingAvg',
                 'culinaryProduct',
+                'culinaryProduct.ratingAvg',
                 'culinaryProducts',
             ])->orderBy('id','desc');
             if(request()['showSoftDelete'] == 'true') {
@@ -171,7 +173,9 @@ class CulinaryPricesController extends Controller
                 'culinaryStores',
                 'culinaryStore.badasoUsers',
                 'culinaryStore.badasoUser',
+                'culinaryStore.ratingAvg',
                 'culinaryProduct',
+                'culinaryProduct.ratingAvg',
                 'culinaryProducts',
             ])->whereId($request->id)->first();
 

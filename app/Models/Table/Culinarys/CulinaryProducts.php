@@ -50,4 +50,14 @@ class CulinaryProducts extends Model
         return $this->hasMany(CulinaryPrices::class, 'product_id', 'id');
     }
 
+
+    public function rating()
+    {
+        return $this->hasOne(CulinaryProductsRatings::class, 'product_id', 'id');
+    }
+
+    public function ratingAvg()
+    {
+        return $this->hasOne(CulinaryProductsRatingsAvg::class, 'product_id', 'id');
+    }        
 }

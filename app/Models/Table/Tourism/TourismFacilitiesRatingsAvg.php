@@ -20,12 +20,12 @@ class TourismFacilitiesRatingsAvg extends Model
         return (int) $value;
     }
 
-    public function tourismVenue()
+    public function tourismFacility()
     {
         return $this->belongsTo(TourismFacilities::class,'facilities_id','id');
     }
 
-    public function tourismVenues()
+    public function tourismFacilities()
     {
         return $this->belongsToMany(TourismFacilities::class, 'tourism_facilities_ratings', 'id', 'facilities_id');
     }

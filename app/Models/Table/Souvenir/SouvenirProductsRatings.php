@@ -27,11 +27,11 @@ class SouvenirProductsRatings extends Model
 
     public function souvenirProduct()
     {
-        return $this->belongsTo(TourismVenues::class,'product_id','id');
+        return $this->belongsTo(SouvenirProducts::class,'product_id','id');
     }
 
     public function souvenirProducts()
     {
-        return $this->belongsToMany(TourismVenues::class, 'souvenir_products_ratings', 'id', 'product_id');
+        return $this->belongsToMany(SouvenirProducts::class, 'souvenir_products_ratings', 'id', 'product_id');
     }
 }

@@ -36,4 +36,13 @@ class LodgeRooms extends Model
         return $this->hasMany(LodgePrices::class, 'room_id', 'id');
     }
 
+    public function rating()
+    {
+        return $this->hasOne(LodgeRoomsRatings::class, 'room_id', 'id');
+    }
+
+    public function ratingAvg()
+    {
+        return $this->hasOne(LodgeRoomsRatingsAvg::class, 'room_id', 'id');
+    }
 }

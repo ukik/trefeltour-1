@@ -53,13 +53,15 @@ class LodgeProfilesController extends Controller
             $data = \LodgeProfiles::with([
                 'badasoUsers',
                 'badasoUser',
+                'lodgeFacility',
                 // 'lodgeBooking',
                 // 'lodgeBookings,
                 'lodgeRoom',
                 'lodgeRooms',
                 'lodgeStaff',
                 'lodgeStaffs',
-            ])->orderBy('id','desc');
+                'ratingAvg',
+            ])->orderBy('id','desc')->withCount('lodgeRooms');
 
             if(request()['showSoftDelete'] == 'true') {
                 $data = $data->onlyTrashed();
@@ -173,13 +175,15 @@ class LodgeProfilesController extends Controller
             $data = \LodgeProfiles::with([
                 'badasoUsers',
                 'badasoUser',
+                'lodgeFacility',
                 // 'lodgeBooking',
                 // 'lodgeBookings,
                 'lodgeRoom',
                 'lodgeRooms',
                 'lodgeStaff',
                 'lodgeStaffs',
-            ])->whereId($request->id)->first();
+                'ratingAvg',
+            ])->whereId($request->id)->withCount('lodgeRooms')->first();
 
             // add event notification handle
             $table_name = $data_type->name;

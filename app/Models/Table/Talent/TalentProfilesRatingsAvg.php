@@ -20,13 +20,13 @@ class TalentProfilesRatingsAvg extends Model
         return (int) $value;
     }
 
-    public function tourismVenue()
+    public function talentProfile()
     {
-        return $this->belongsTo(TourismVenues::class,'profile_id','id');
+        return $this->belongsTo(TalentProfiles::class,'profile_id','id');
     }
 
-    public function tourismVenues()
+    public function talentProfiles()
     {
-        return $this->belongsToMany(TourismVenues::class, 'talent_profiles_ratings', 'id', 'profile_id');
-    }
+        return $this->belongsToMany(TalentProfiles::class, 'talent_profiles_ratings', 'id', 'profile_id');
+    }    
 }
