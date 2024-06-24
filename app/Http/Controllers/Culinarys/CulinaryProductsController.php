@@ -60,7 +60,7 @@ class CulinaryProductsController extends Controller
                 'culinaryPrice',
                 'culinaryPrices',
                 'ratingAvg',
-            ])->orderBy('id','desc');
+            ])->orderBy('id','desc')->withCount('culinaryPrices');
             if(request()['showSoftDelete'] == 'true') {
                 $data = $data->onlyTrashed();
             }
@@ -170,7 +170,7 @@ class CulinaryProductsController extends Controller
                 // 'culinaryStore.culinaryBookings',
                 'culinaryPrice',
                 'culinaryPrices',
-                'ratingAvg',                
+                'ratingAvg',
             ])->whereId($request->id)->first();
 
             // add event notification handle

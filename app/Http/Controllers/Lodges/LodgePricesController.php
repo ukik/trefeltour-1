@@ -14,6 +14,7 @@ use Uasoft\Badaso\Helpers\GetData;
 use Uasoft\Badaso\Models\DataType;
 use Illuminate\Support\Facades\Auth;
 use LodgePrices;
+use LodgeProfiles;
 use LodgeRooms;
 
 class LodgePricesController extends Controller
@@ -38,6 +39,112 @@ class LodgePricesController extends Controller
             return ApiResponse::unauthorized();
         }
     }
+
+    public function lagia_browse(Request $request)
+    {
+        try {
+            // $slug = $this->getSlug($request);
+
+            // $data_type = $this->getDataType($slug);
+
+            // $only_data_soft_delete = $request->showSoftDelete == 'true';
+
+            // $data = $this->getDataList($slug, $request->all(), $only_data_soft_delete);
+
+            $data = \LodgePrices::with([
+                'customer',
+                'lodgeProfiles',
+                'lodgeProfile.badasoUsers',
+                'lodgeProfile.badasoUser',
+                'lodgeProfile.ratingAvg',
+                'lodgeRoom.ratingAvg',
+                'lodgeRoom',
+                'LodgeRooms',
+            ])->orderBy('id','desc');
+            if(request()['showSoftDelete'] == 'true') {
+                $data = $data->onlyTrashed();
+            }
+
+            if(request()->search) {
+
+                $search = request()->search;
+
+                $columns = \Illuminate\Support\Facades\Schema::getColumnListing('lodge_prices');
+
+                $profile_id = function($q) use ($search) {
+                    return $q
+                        ->where('uuid','like','%'.$search.'%')
+                        ->orWhere('name','like','%'.$search.'%');
+                };
+
+                $room_id = function($q) use ($search) {
+                    return $q
+                        ->where('uuid','like','%'.$search.'%')
+                        ->orWhere('name','like','%'.$search.'%');
+                };
+
+                $data
+                    // ->orWhere('id','like','%'.$search.'%')
+                    ->orWhereHas('lodgeProfile', $profile_id)
+                    ->orWhereHas('lodgeRoom', $room_id);
+
+                foreach ($columns as $value) {
+                    switch ($value) {
+                        // case "profile_id":
+                        // case "room_id":
+                        case "code_table":
+                        //case "created_at":
+                        //case "updated_at":
+                        case "deleted_at":
+                            # code...
+                            break;
+                        default:
+                            $data->orWhere($value,'like','%'.$search.'%');
+                    }
+                }
+
+            }
+
+            $data->where('condition','public');
+
+            if(isClientCompany()) {
+                $data->orWhere('condition','private')->orWhere('customer_id',authID());
+            }
+
+            if(isClientAffiliate()) {
+                $data->orWhere('condition','partner')->orWhere('customer_id',authID());
+            }
+
+            if(isClientRetail()) {
+                $data->orWhere('customer_id',authID());
+            }
+
+
+
+
+            // ================================================
+            // jika di LAGIA referensi ke sini
+            $additional = NULL;
+            if(request()->room) {
+                $data = $data->where('room_id',request()->room);
+                $additional = LodgeRooms::whereId(request()->room)->with(['ratingAvg','lodgeProfile.ratingAvg'])->first();
+            }
+            // ================================================
+
+            $data = $data->paginate(request()->perPage);
+
+            // $encode = json_encode($paginate);
+            // $decode = json_decode($encode);
+            // $data['data'] = $decode->data;
+            // $data['total'] = $decode->total;
+
+            return ApiResponse::onlyEntity($data, additional: $additional);
+        } catch (Exception $e) {
+            return ApiResponse::failed($e);
+        }
+    }
+
+
 
     public function browse(Request $request)
     {

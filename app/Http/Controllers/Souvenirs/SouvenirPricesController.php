@@ -39,6 +39,106 @@ class SouvenirPricesController extends Controller
         }
     }
 
+    public function lagia_browse(Request $request)
+    {
+        try {
+            // $slug = $this->getSlug($request);
+
+            // $data_type = $this->getDataType($slug);
+
+            // $only_data_soft_delete = $request->showSoftDelete == 'true';
+
+            // $data = $this->getDataList($slug, $request->all(), $only_data_soft_delete);
+
+            $data = \SouvenirPrices::with([
+                'customer',
+                'souvenirStores',
+                'souvenirStore.badasoUsers',
+                'souvenirStore.badasoUser',
+                'souvenirStore.ratingAvg',
+                'souvenirProduct',
+                'souvenirProduct.ratingAvg',
+                'souvenirProducts',
+            ])->orderBy('id','desc');
+            if(request()['showSoftDelete'] == 'true') {
+                $data = $data->onlyTrashed();
+            }
+
+            if(request()->search) {
+                $search = request()->search;
+
+                $columns = \Illuminate\Support\Facades\Schema::getColumnListing('souvenir_prices');
+
+                $store_id = function($q) use ($search) {
+                    return $q
+                        ->where('uuid','like','%'.$search.'%')
+                        ->orWhere('name','like','%'.$search.'%');
+                };
+
+                $product_id = function($q) use ($search) {
+                    return $q
+                        ->where('uuid','like','%'.$search.'%')
+                        ->orWhere('name','like','%'.$search.'%');
+                };
+
+                $data
+                    // ->orWhere('id','like','%'.$search.'%')
+                    ->orWhereHas('souvenirStore', $store_id)
+                    ->orWhereHas('souvenirProduct', $product_id);
+
+                foreach ($columns as $value) {
+                    switch ($value) {
+                        // case "store_id":
+                        // case "product_id":
+                        case "code_table":
+                        //case "created_at":
+                        //case "updated_at":
+                        case "deleted_at":
+                            # code...
+                            break;
+                        default:
+                            $data->orWhere($value,'like','%'.$search.'%');
+                    }
+                }
+
+            }
+
+            $data->where('condition','public');
+
+            if(isClientCompany()) {
+                $data->orWhere('condition','private')->orWhere('customer_id',authID());
+            }
+
+            if(isClientAffiliate()) {
+                $data->orWhere('condition','partner')->orWhere('customer_id',authID());
+            }
+
+            if(isClientRetail()) {
+                $data->orWhere('customer_id',authID());
+            }
+
+            // ================================================
+            // jika di LAGIA referensi ke sini
+            $additional = NULL;
+            if(request()->product) {
+                $data = $data->where('product_id',request()->product);
+                $additional = SouvenirProducts::whereId(request()->product)->with(['ratingAvg','souvenirStore.ratingAvg'])->first();
+            }
+            // ================================================
+
+            $data = $data->paginate(request()->perPage);
+
+            // $encode = json_encode($paginate);
+            // $decode = json_decode($encode);
+            // $data['data'] = $decode->data;
+            // $data['total'] = $decode->total;
+
+            return ApiResponse::onlyEntity($data, additional: $additional);
+        } catch (Exception $e) {
+            return ApiResponse::failed($e);
+        }
+    }
+
     public function browse(Request $request)
     {
         try {

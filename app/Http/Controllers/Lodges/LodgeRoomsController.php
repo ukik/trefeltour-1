@@ -53,6 +53,8 @@ class LodgeRoomsController extends Controller
 
             $data = \LodgeRooms::with([
                 'lodgeProfile',
+                'lodgeProfile.ratingAvg',
+                'lodgeProfile.lodgeFacility',
                 'lodgeProfiles',
                 'lodgePrice',
                 'lodgePrices',
@@ -163,6 +165,8 @@ class LodgeRoomsController extends Controller
             // $data = $this->getDataDetail($slug, $request->id);
             $data = \LodgeRooms::with([
                 'lodgeProfile',
+                'lodgeProfile.ratingAvg',
+                'lodgeProfile.lodgeFacility',
                 'lodgeProfiles',
                 'lodgePrice',
                 'lodgePrices',

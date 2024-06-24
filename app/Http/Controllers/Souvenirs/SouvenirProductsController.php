@@ -60,7 +60,7 @@ class SouvenirProductsController extends Controller
                 'souvenirPrice',
                 'souvenirPrices',
                 'ratingAvg',
-            ])->orderBy('id','desc');
+            ])->orderBy('id','desc')->withCount('souvenirPrices');
             if(request()['showSoftDelete'] == 'true') {
                 $data = $data->onlyTrashed();
             }

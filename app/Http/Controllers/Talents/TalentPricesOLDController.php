@@ -38,6 +38,41 @@ class TalentPricesOLDController extends Controller
         }
     }
 
+    public function lagia_browse(Request $request)
+    {
+        try {
+            // $slug = $this->getSlug($request);
+
+            // $data_type = $this->getDataType($slug);
+
+            // $only_data_soft_delete = $request->showSoftDelete == 'true';
+
+            // $data = $this->getDataList($slug, $request->all(), $only_data_soft_delete);
+
+            $data = \TalentPrices::with([
+                'badasoUser',
+                'badasoUsers',
+                'talentSkills',
+                'talentSkill',
+                'talentProfile',
+                'talentProfiles',
+            ])->orderBy('id','desc');
+            if(request()['showSoftDelete'] == 'true') {
+                $data = $data->onlyTrashed();
+            }
+            $data = $data->paginate(request()->perPage);
+
+            // $encode = json_encode($paginate);
+            // $decode = json_decode($encode);
+            // $data['data'] = $decode->data;
+            // $data['total'] = $decode->total;
+
+            return ApiResponse::onlyEntity($data);
+        } catch (Exception $e) {
+            return ApiResponse::failed($e);
+        }
+    }
+
     public function browse(Request $request)
     {
         try {
