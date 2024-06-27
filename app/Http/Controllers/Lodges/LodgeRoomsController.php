@@ -14,6 +14,7 @@ use Uasoft\Badaso\Helpers\Firebase\FCMNotification;
 use Uasoft\Badaso\Helpers\GetData;
 use Uasoft\Badaso\Models\DataType;
 use Illuminate\Support\Facades\Auth;
+use LodgeProfiles;
 use LodgeRooms;
 use TravelPayments;
 
@@ -59,7 +60,7 @@ class LodgeRoomsController extends Controller
                 'lodgePrice',
                 'lodgePrices',
                 'ratingAvg',
-            ])->orderBy('id','desc');
+            ])->orderBy('id','desc')->withCount('lodgePrices');
             if(request()['showSoftDelete'] == 'true') {
                 $data = $data->onlyTrashed();
             }
@@ -113,6 +114,15 @@ class LodgeRoomsController extends Controller
                 $data->where('facility','like','%'.$facility.'%');
             }
 
+            // ================================================
+            // jika di LAGIA referensi ke sini
+            $additional = NULL;
+            if(request()->vendor) {
+                $data = $data->where('profile_id',request()->vendor);
+                $additional = LodgeProfiles::whereId(request()->vendor)->with(['ratingAvg'])->first();
+            }
+            // ================================================
+
             $data = $data->paginate(request()->perPage);
 
             // $encode = json_encode($paginate);
@@ -120,7 +130,7 @@ class LodgeRoomsController extends Controller
             // $data['data'] = $decode->data;
             // $data['total'] = $decode->total;
 
-            return ApiResponse::onlyEntity($data);
+            return ApiResponse::onlyEntity($data,additional:$additional);
         } catch (Exception $e) {
             return ApiResponse::failed($e);
         }

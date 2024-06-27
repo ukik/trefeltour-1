@@ -14,6 +14,7 @@ use Uasoft\Badaso\Helpers\GetData;
 use Uasoft\Badaso\Models\DataType;
 use Illuminate\Support\Facades\Auth;
 use TourismFacilities;
+use TourismVenues;
 
 class TourismFacilitiesController extends Controller
 {
@@ -51,7 +52,9 @@ class TourismFacilitiesController extends Controller
 
             $data = \TourismFacilities::with([
                 'tourismVenues',
-                'tourismVenue',
+                'tourismVenue' => function($q) {
+                    return $q->withCount('tourismPrices');
+                },
 
                 'tourismVenue.tourismPrices',
                 'tourismVenue.tourismServices',
@@ -109,6 +112,15 @@ class TourismFacilitiesController extends Controller
                 $data->where('venue_id',$venueId);
             }
 
+            // ================================================
+            // jika di LAGIA referensi ke sini
+            $additional = NULL;
+            if(request()->vendor) {
+                $data = $data->where('venue_id',request()->vendor);
+                $additional = TourismVenues::whereId(request()->vendor)->with(['ratingAvg'])->first();
+            }
+            // ================================================
+
             $data = $data->paginate(request()->perPage);
 
             // $encode = json_encode($paginate);
@@ -116,7 +128,7 @@ class TourismFacilitiesController extends Controller
             // $data['data'] = $decode->data;
             // $data['total'] = $decode->total;
 
-            return ApiResponse::onlyEntity($data);
+            return ApiResponse::onlyEntity($data, additional:$additional);
         } catch (Exception $e) {
             return ApiResponse::failed($e);
         }

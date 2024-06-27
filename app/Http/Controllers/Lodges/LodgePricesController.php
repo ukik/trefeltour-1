@@ -125,9 +125,9 @@ class LodgePricesController extends Controller
             // ================================================
             // jika di LAGIA referensi ke sini
             $additional = NULL;
-            if(request()->room) {
-                $data = $data->where('room_id',request()->room);
-                $additional = LodgeRooms::whereId(request()->room)->with(['ratingAvg','lodgeProfile.ratingAvg'])->first();
+            if(request()->product) {
+                $data = $data->where('room_id',request()->product);
+                $additional = LodgeRooms::whereId(request()->product)->with(['ratingAvg','lodgeProfile.ratingAvg'])->first();
             }
             // ================================================
 

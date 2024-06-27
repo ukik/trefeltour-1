@@ -14,6 +14,7 @@ use Uasoft\Badaso\Helpers\GetData;
 use Uasoft\Badaso\Models\DataType;
 use Illuminate\Support\Facades\Auth;
 use TransportBookings;
+use TransportRentals;
 use TransportVehicles;
 use TravelPayments;
 
@@ -63,7 +64,7 @@ class TransportVehiclesController extends Controller
                 // 'transportBooking.transportPayment',
                 // 'transportBooking.transportPayment.transportPaymentsValidation',
                 'ratingAvg',
-            ])->orderBy('id','desc');
+            ])->orderBy('id','desc')->withCount('transportPrices');
             if(request()['showSoftDelete'] == 'true') {
                 $data = $data->onlyTrashed();
             }
@@ -143,6 +144,16 @@ class TransportVehiclesController extends Controller
             }
 
 
+            // ================================================
+            // jika di LAGIA referensi ke sini
+            $additional = NULL;
+            if(request()->vendor) {
+                $data = $data->where('rental_id',request()->vendor);
+                $additional = TransportRentals::whereId(request()->vendor)->with(['ratingAvg'])->first();
+            }
+            // ================================================
+
+
             $data = $data->paginate(request()->perPage);
 
             // $encode = json_encode($paginate);
@@ -150,7 +161,7 @@ class TransportVehiclesController extends Controller
             // $data['data'] = $decode->data;
             // $data['total'] = $decode->total;
 
-            return ApiResponse::onlyEntity($data);
+            return ApiResponse::onlyEntity($data, additional:$additional);
         } catch (Exception $e) {
             return ApiResponse::failed($e);
         }

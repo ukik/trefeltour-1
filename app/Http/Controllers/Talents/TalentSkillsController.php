@@ -13,6 +13,7 @@ use Uasoft\Badaso\Helpers\Firebase\FCMNotification;
 use Uasoft\Badaso\Helpers\GetData;
 use Uasoft\Badaso\Models\DataType;
 use Illuminate\Support\Facades\Auth;
+use TalentProfiles;
 use TalentSkills;
 
 class TalentSkillsController extends Controller
@@ -56,7 +57,7 @@ class TalentSkillsController extends Controller
                 'talentProfiles',
                 'talentPrice',
                 'talentPrices',
-            ])->orderBy('id','desc');
+            ])->orderBy('id','desc')->withCount('talentPrices');
             if(request()['showSoftDelete'] == 'true') {
                 $data = $data->onlyTrashed();
             }
@@ -106,6 +107,15 @@ class TalentSkillsController extends Controller
                 $data->where('profile_id',$profileId);
             }
 
+            // ================================================
+            // jika di LAGIA referensi ke sini
+            $additional = NULL;
+            if(request()->vendor) {
+                $data = $data->where('profile_id',request()->vendor);
+                $additional = TalentProfiles::whereId(request()->vendor)->with(['ratingAvg'])->first();
+            }
+            // ================================================
+
             $data = $data->paginate(request()->perPage);
 
             // $encode = json_encode($paginate);
@@ -113,7 +123,7 @@ class TalentSkillsController extends Controller
             // $data['data'] = $decode->data;
             // $data['total'] = $decode->total;
 
-            return ApiResponse::onlyEntity($data);
+            return ApiResponse::onlyEntity($data, additional:$additional);
         } catch (Exception $e) {
             return ApiResponse::failed($e);
         }

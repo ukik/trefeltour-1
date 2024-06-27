@@ -14,6 +14,7 @@ use Uasoft\Badaso\Helpers\GetData;
 use Uasoft\Badaso\Models\DataType;
 use Illuminate\Support\Facades\Auth;
 use SouvenirProducts;
+use SouvenirStores;
 
 class SouvenirProductsController extends Controller
 {
@@ -109,6 +110,15 @@ class SouvenirProductsController extends Controller
                 $data->where('category',$category);
             }
 
+            // ================================================
+            // jika di LAGIA referensi ke sini
+            $additional = NULL;
+            if(request()->vendor) {
+                $data = $data->where('store_id',request()->vendor);
+                $additional = SouvenirStores::whereId(request()->vendor)->with(['ratingAvg'])->first();
+            }
+            // ================================================
+
             $data = $data->paginate(request()->perPage);
 
             // $encode = json_encode($paginate);
@@ -116,7 +126,7 @@ class SouvenirProductsController extends Controller
             // $data['data'] = $decode->data;
             // $data['total'] = $decode->total;
 
-            return ApiResponse::onlyEntity($data);
+            return ApiResponse::onlyEntity($data, additional:$additional);
         } catch (Exception $e) {
             return ApiResponse::failed($e);
         }

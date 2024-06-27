@@ -39,6 +39,109 @@ class TransportPricesController extends Controller
         }
     }
 
+    public function lagia_browse(Request $request)
+    {
+        try {
+            // $slug = $this->getSlug($request);
+
+            // $data_type = $this->getDataType($slug);
+
+            // $only_data_soft_delete = $request->showSoftDelete == 'true';
+
+            // $data = $this->getDataList($slug, $request->all(), $only_data_soft_delete);
+
+            $data = \TransportPrices::with([
+                'customer',
+                'transportRental',
+                'transportRental' => function($q) {
+                    return $q->withCount('transportVehicles');
+                },
+                'transportRentals',
+                // 'transportRental.badasoUsers',
+                // 'transportRental.badasoUser',
+                'transportVehicle',
+                'transportVehicles',
+            ])->orderBy('id','desc');
+            if(request()['showSoftDelete'] == 'true') {
+                $data = $data->onlyTrashed();
+            }
+
+
+            if(request()->search) {
+                $search = request()->search;
+
+                $columns = \Illuminate\Support\Facades\Schema::getColumnListing('transport_prices');
+
+                $rental_id = function($q) use ($search) {
+                    return $q
+                        ->where('uuid','like','%'.$search.'%')
+                        ->orWhere('name','like','%'.$search.'%');
+                };
+
+                $vehicle_id = function($q) use ($search) {
+                    return $q
+                        ->where('uuid','like','%'.$search.'%')
+                        ->orWhere('model','like','%'.$search.'%');
+                };
+
+                $data
+                    // ->orWhere('id','like','%'.$search.'%')
+                    ->orWhereHas('transportRental', $rental_id)
+                    ->orWhereHas('transportVehicle', $vehicle_id);
+
+                foreach ($columns as $value) {
+                    switch ($value) {
+                        // case "rental_id":
+                        // case "vehicle_id":
+                        case "code_table":
+                        //case "created_at":
+                        //case "updated_at":
+                        case "deleted_at":
+                            # code...
+                            break;
+                        default:
+                            $data->orWhere($value,'like','%'.$search.'%');
+                    }
+                }
+
+            }
+
+            $data->where('condition','public');
+
+            if(isClientCompany()) {
+                $data->orWhere('condition','private')->orWhere('customer_id',authID());
+            }
+
+            if(isClientAffiliate()) {
+                $data->orWhere('condition','partner')->orWhere('customer_id',authID());
+            }
+
+            if(isClientRetail()) {
+                $data->orWhere('customer_id',authID());
+            }
+
+            // ================================================
+            // jika di LAGIA referensi ke sini
+            $additional = NULL;
+            if(request()->product) {
+                $data = $data->where('vehicle_id',request()->product);
+                $additional = TransportVehicles::whereId(request()->product)->with(['ratingAvg','transportRental.ratingAvg'])->first();
+            }
+            // ================================================
+
+            $data = $data->paginate(request()->perPage);
+
+            // $encode = json_encode($paginate);
+            // $decode = json_decode($encode);
+            // $data['data'] = $decode->data;
+            // $data['total'] = $decode->total;
+
+            return ApiResponse::onlyEntity($data, additional:$additional);
+        } catch (Exception $e) {
+            return ApiResponse::failed($e);
+        }
+    }
+
     public function browse(Request $request)
     {
         try {

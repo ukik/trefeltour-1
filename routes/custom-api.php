@@ -151,6 +151,7 @@ Route::group(
             Route::get('/souvenir-prices/lagia', '\App\Http\Controllers\Souvenirs\SouvenirPricesController@lagia_browse');
             Route::get('/talent-prices/lagia', '\App\Http\Controllers\Talents\TalentPricesController@lagia_browse');
             Route::get('/tourism-prices/lagia', '\App\Http\Controllers\Tourisms\TourismPricesController@lagia_browse');
+            Route::get('/transport-prices/lagia', '\App\Http\Controllers\Transports\TransportPricesController@lagia_browse');
 
         });
 
