@@ -134,7 +134,7 @@ if (!function_exists('isAdminTravel')) {
 
             foreach (Auth::user()->roles as $key => $value) {
                 switch ($value->name) {
-                    // case 'admin-travel':
+                        // case 'admin-travel':
                     case 'administrator':
                     case 'admin':
                         return true;
@@ -154,7 +154,7 @@ if (!function_exists('isAdminTransport')) {
 
             foreach (Auth::user()->roles as $key => $value) {
                 switch ($value->name) {
-                    // case 'admin-transport':
+                        // case 'admin-transport':
                     case 'administrator':
                     case 'admin':
                         return true;
@@ -174,7 +174,7 @@ if (!function_exists('isAdminTalent')) {
 
             foreach (Auth::user()->roles as $key => $value) {
                 switch ($value->name) {
-                    // case 'admin-talent':
+                        // case 'admin-talent':
                     case 'administrator':
                     case 'admin':
                         return true;
@@ -194,7 +194,7 @@ if (!function_exists('isAdminTourism')) {
 
             foreach (Auth::user()->roles as $key => $value) {
                 switch ($value->name) {
-                    // case 'admin-tourism':
+                        // case 'admin-tourism':
                     case 'administrator':
                     case 'admin':
                         return true;
@@ -214,7 +214,7 @@ if (!function_exists('isAdminSouvenir')) {
 
             foreach (Auth::user()->roles as $key => $value) {
                 switch ($value->name) {
-                    // case 'admin-souvenir':
+                        // case 'admin-souvenir':
                     case 'administrator':
                     case 'admin':
                         return true;
@@ -234,7 +234,7 @@ if (!function_exists('isAdminLodge')) {
 
             foreach (Auth::user()->roles as $key => $value) {
                 switch ($value->name) {
-                    // case 'admin-lodge':
+                        // case 'admin-lodge':
                     case 'administrator':
                     case 'admin':
                         return true;
@@ -255,7 +255,7 @@ if (!function_exists('isAdminCulinary')) {
 
             foreach (Auth::user()->roles as $key => $value) {
                 switch ($value->name) {
-                    // case 'admin-culinary':
+                        // case 'admin-culinary':
                     case 'administrator':
                     case 'admin':
                         return true;
@@ -456,7 +456,7 @@ if (!function_exists('authID')) {
 if (!function_exists('UserSelect')) {
     function UserSelect($query)
     {
-        return $query->select('id','name','username','gender','avatar');
+        return $query->select('id', 'name', 'username', 'gender', 'avatar');
     }
 }
 
@@ -572,4 +572,33 @@ if (!function_exists('SqlWithBinding')) {
     # $data = Model::first();
     # usage example: SqlWithBinding($data->toSql(), $data->getBindings());
     # You can not ->paginate() or ->toSql() after Post::all() / Post::get()
+}
+
+if (!function_exists('TimeMode')) {
+    function TimeMode($value)
+    {
+        if (request()->mode == 'human') return Carbon\Carbon::parse($value)->diffForHumans();
+        return $value;
+    }
+}
+
+if (!function_exists('ImageReplace')) {
+    function ImageReplace($value)
+    {
+        return $value;
+    }
+}
+
+
+if (!function_exists('StorageURL')) {
+    function StorageURL()
+    {
+        // function siteURL()
+        // {
+        $protocol = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off' || $_SERVER['SERVER_PORT'] == 443) ? "https://" : "http://";
+        $domainName = $_SERVER['HTTP_HOST'] ; //. '/';
+        return $protocol . $domainName;
+        // }
+        // define( 'SITE_URL', siteURL() );
+    }
 }

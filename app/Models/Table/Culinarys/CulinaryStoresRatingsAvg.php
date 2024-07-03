@@ -16,6 +16,14 @@ class CulinaryStoresRatingsAvg extends Model
 
     protected $table = "culinary_stores_ratings_avg";
 
+    public function getCreatedAtAttribute($value) {
+        return TimeMode($value);
+    }
+
+    public function getUpdatedAtAttribute($value) {
+        return TimeMode($value);
+    }
+
     public function getAvgRatingAttribute($value) {
         return (int) $value;
     }

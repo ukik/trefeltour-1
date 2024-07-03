@@ -15,6 +15,14 @@ class CulinaryCarts extends Model
 
     protected $table = "culinary_carts";
 
+    public function getCreatedAtAttribute($value) {
+        return TimeMode($value);
+    }
+
+    public function getUpdatedAtAttribute($value) {
+        return TimeMode($value);
+    }
+
     public $fillable = [
         'customer_id',
         'store_id',

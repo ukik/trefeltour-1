@@ -29,6 +29,14 @@ class SouvenirPrices extends Model
 
     protected $table = "souvenir_prices";
 
+    public function getCreatedAtAttribute($value) {
+        return TimeMode($value);
+    }
+
+    public function getUpdatedAtAttribute($value) {
+        return TimeMode($value);
+    }
+
     public function customer()
     {
         return $this->belongsTo(BadasoUsersPublic::class,'customer_id','id');

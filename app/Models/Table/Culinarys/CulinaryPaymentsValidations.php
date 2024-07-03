@@ -15,6 +15,14 @@ class CulinaryPaymentsValidations extends Model
 
     protected $table = "culinary_payments_validations";
 
+    public function getCreatedAtAttribute($value) {
+        return TimeMode($value);
+    }
+
+    public function getUpdatedAtAttribute($value) {
+        return TimeMode($value);
+    }
+
 
     public function badasoUser()
     {

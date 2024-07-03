@@ -35,6 +35,14 @@ class TalentSkills extends Model
 
     protected $table = "talent_skills";
 
+    public function getCreatedAtAttribute($value) {
+        return TimeMode($value);
+    }
+
+    public function getUpdatedAtAttribute($value) {
+        return TimeMode($value);
+    }
+
     public function badasoUser()
     {
         return $this->belongsTo(BadasoUsersPublic::class,'profile_id','id');

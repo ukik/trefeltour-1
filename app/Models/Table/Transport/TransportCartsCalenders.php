@@ -16,6 +16,14 @@ class TransportCartsCalenders extends Model
 
     protected $table = "transport_carts_calenders";
 
+    public function getCreatedAtAttribute($value) {
+        return TimeMode($value);
+    }
+
+    public function getUpdatedAtAttribute($value) {
+        return TimeMode($value);
+    }
+
     public $fillable = [
         'customer_id',
         'rental_id',

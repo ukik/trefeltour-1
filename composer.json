@@ -32,9 +32,14 @@
         },
         "classmap": [
             "app/Models/Table",
+            "app/Models/Table/Culinarys",
+            "app/Models/Table/Lodge",
+            "app/Models/Table/Souvenir",
+            "app/Models/Table/Talent",
             "app/Models/Table/Tourism",
+            "app/Models/Table/Transport",
             "app/Models/Table/Travel",
-            "app/Models/Table/Transport"
+            "app/Models/Table/Pages"
         ],
         "files": [
             "app/Helpers/Shorthand.php"

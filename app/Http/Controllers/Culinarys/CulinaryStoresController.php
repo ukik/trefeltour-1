@@ -166,7 +166,8 @@ class CulinaryStoresController extends Controller
                 // 'culinaryBooking',
                 // 'culinaryBookings',
                 'ratingAvg',
-            ])->whereId($request->id)->withCount('culinaryProducts')->first();
+                'culinaryPrices',
+            ])->whereId($request->id)->withCount(['culinaryPrices'])->withCount('culinaryProducts')->first();
 
             // add event notification handle
             $table_name = $data_type->name;

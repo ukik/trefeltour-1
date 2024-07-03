@@ -170,7 +170,8 @@ class TransportRentalsController extends Controller
                 // 'transportVehicle.transportBooking.transportPayment',
                 // 'transportVehicle.transportBooking.transportPayment.transportPaymentsValidation',
                 'ratingAvg',
-            ])->whereId($request->id)->first();
+                'transportPrices',
+            ])->whereId($request->id)->withCount(['transportPrices'])->first();
 
             // add event notification handle
             $table_name = $data_type->name;

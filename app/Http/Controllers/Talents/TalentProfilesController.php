@@ -165,7 +165,7 @@ class TalentProfilesController extends Controller
                 // 'talentBookings',
                 // 'talentBooking',
                 'ratingAvg',
-            ])->whereId($request->id)->withCount('talentSkills')->first();
+            ])->whereId($request->id)->withCount(['talentSkills','talentPrices'])->first();
 
             // add event notification handle
             $table_name = $data_type->name;

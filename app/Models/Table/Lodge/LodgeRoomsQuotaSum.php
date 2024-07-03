@@ -14,4 +14,13 @@ class LodgeRoomsQuotaSum extends Model
     use SoftDeletes;
 
     protected $table = "lodge_rooms_quota_sum";
+
+    public function getCreatedAtAttribute($value) {
+        return TimeMode($value);
+    }
+
+    public function getUpdatedAtAttribute($value) {
+        return TimeMode($value);
+    }
+
 }

@@ -16,6 +16,14 @@ class LodgeCarts extends Model
 
     protected $table = "lodge_carts";
 
+    public function getCreatedAtAttribute($value) {
+        return TimeMode($value);
+    }
+
+    public function getUpdatedAtAttribute($value) {
+        return TimeMode($value);
+    }
+
     public $fillable = [
         'customer_id',
         'profile_id',

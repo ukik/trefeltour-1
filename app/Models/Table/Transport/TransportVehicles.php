@@ -15,6 +15,14 @@ class TransportVehicles extends Model
 
     protected $table = "transport_vehicles";
 
+    public function getCreatedAtAttribute($value) {
+        return TimeMode($value);
+    }
+
+    public function getUpdatedAtAttribute($value) {
+        return TimeMode($value);
+    }
+
     public function badasoUser()
     {
         return $this->belongsTo(BadasoUsersPublic::class,'user_id','id');

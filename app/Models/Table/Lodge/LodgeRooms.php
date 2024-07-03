@@ -15,6 +15,14 @@ class LodgeRooms extends Model
 
     protected $table = "lodge_rooms";
 
+    public function getCreatedAtAttribute($value) {
+        return TimeMode($value);
+    }
+
+    public function getUpdatedAtAttribute($value) {
+        return TimeMode($value);
+    }
+
 
     public function lodgeProfile()
     {

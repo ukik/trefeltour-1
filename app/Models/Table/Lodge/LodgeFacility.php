@@ -15,6 +15,14 @@ class LodgeFacility extends Model
 
     protected $table = "lodge_facility";
 
+    public function getCreatedAtAttribute($value) {
+        return TimeMode($value);
+    }
+
+    public function getUpdatedAtAttribute($value) {
+        return TimeMode($value);
+    }
+
     public function lodgeProfile()
     {
         return $this->belongsTo(LodgeProfiles::class,'profile_id','id');

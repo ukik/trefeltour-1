@@ -15,6 +15,14 @@ class TransportReturns extends Model
 
     protected $table = "transport_returns";
 
+    public function getCreatedAtAttribute($value) {
+        return TimeMode($value);
+    }
+
+    public function getUpdatedAtAttribute($value) {
+        return TimeMode($value);
+    }
+
     public function transportBookings()
     {
         return $this->belongsToMany(TransportBookings::class, 'transport_returns', 'id', 'booking_id');

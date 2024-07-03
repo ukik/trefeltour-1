@@ -15,6 +15,14 @@ class LodgeBookingsBills extends Model
 
     protected $table = "lodge_booking_bills";
 
+    public function getCreatedAtAttribute($value) {
+        return TimeMode($value);
+    }
+
+    public function getUpdatedAtAttribute($value) {
+        return TimeMode($value);
+    }
+
     public function badasoUser()
     {
         return $this->belongsTo(BadasoUsersPublic::class,'customer_id','id');

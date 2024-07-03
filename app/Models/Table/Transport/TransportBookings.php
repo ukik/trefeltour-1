@@ -15,6 +15,14 @@ class TransportBookings extends Model
 
     protected $table = "transport_bookings";
 
+    public function getCreatedAtAttribute($value) {
+        return TimeMode($value);
+    }
+
+    public function getUpdatedAtAttribute($value) {
+        return TimeMode($value);
+    }
+
     public function user()
     {
         return $this->belongsTo(BadasoUsersPublic::class,'customer_id','id');

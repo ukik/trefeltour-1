@@ -13,6 +13,18 @@ class TransportWorkshops extends Model
     use HasFactory;
     use SoftDeletes;
 
+    protected $table = "transport_workshop";
+
+
+    public function getCreatedAtAttribute($value) {
+        return TimeMode($value);
+    }
+
+    public function getUpdatedAtAttribute($value) {
+        return TimeMode($value);
+    }
+
+
     public function user()
     {
         return $this->belongsTo(BadasoUsersPublic::class,'user_id','id');

@@ -16,6 +16,14 @@ class TourismFacilitiesRatingsAvg extends Model
 
     protected $table = "tourism_facilities_ratings_avg";
 
+    public function getCreatedAtAttribute($value) {
+        return TimeMode($value);
+    }
+
+    public function getUpdatedAtAttribute($value) {
+        return TimeMode($value);
+    }
+
     public function getAvgRatingAttribute($value) {
         return (int) $value;
     }

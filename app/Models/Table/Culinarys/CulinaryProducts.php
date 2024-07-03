@@ -30,6 +30,14 @@ class CulinaryProducts extends Model
 
     protected $table = "culinary_products";
 
+    public function getCreatedAtAttribute($value) {
+        return TimeMode($value);
+    }
+
+    public function getUpdatedAtAttribute($value) {
+        return TimeMode($value);
+    }
+
     public function culinaryStore()
     {
         return $this->belongsTo(CulinaryStores::class,'store_id','id');
@@ -59,5 +67,5 @@ class CulinaryProducts extends Model
     public function ratingAvg()
     {
         return $this->hasOne(CulinaryProductsRatingsAvg::class, 'product_id', 'id');
-    }        
+    }
 }

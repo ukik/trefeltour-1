@@ -15,6 +15,14 @@ class TransportBookingsItems extends Model
 
     protected $table = "transport_booking_items";
 
+    public function getCreatedAtAttribute($value) {
+        return TimeMode($value);
+    }
+
+    public function getUpdatedAtAttribute($value) {
+        return TimeMode($value);
+    }
+
 
     public function badasoUser()
     {

@@ -163,9 +163,9 @@ class SouvenirStoresController extends Controller
                 // 'souvenirBooking',
                 // 'souvenirBookings',
                 // 'souvenirPrice',
-                // 'souvenirPrices',
+                'souvenirPrices',
                 'ratingAvg',
-            ])->whereId($request->id)->first();
+            ])->whereId($request->id)->withCount(['souvenirPrices'])->first();
 
             // add event notification handle
             $table_name = $data_type->name;

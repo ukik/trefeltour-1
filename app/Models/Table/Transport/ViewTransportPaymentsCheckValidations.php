@@ -15,6 +15,14 @@ class ViewTransportPaymentsCheckValidations extends Model
 
     protected $table = "view_transport_payments_check_validations";
 
+    public function getCreatedAtAttribute($value) {
+        return TimeMode($value);
+    }
+
+    public function getUpdatedAtAttribute($value) {
+        return TimeMode($value);
+    }
+
     // customer_id
     public function user()
     {

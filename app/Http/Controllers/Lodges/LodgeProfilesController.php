@@ -183,7 +183,8 @@ class LodgeProfilesController extends Controller
                 'lodgeStaff',
                 'lodgeStaffs',
                 'ratingAvg',
-            ])->whereId($request->id)->withCount('lodgeRooms')->first();
+                'lodgePrices',
+            ])->whereId($request->id)->withCount(['lodgePrices'])->withCount('lodgeRooms')->first();
 
             // add event notification handle
             $table_name = $data_type->name;

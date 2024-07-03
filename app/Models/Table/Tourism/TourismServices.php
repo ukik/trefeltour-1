@@ -15,6 +15,14 @@ class TourismServices extends Model
 
     protected $table = "tourism_services";
 
+    public function getCreatedAtAttribute($value) {
+        return TimeMode($value);
+    }
+
+    public function getUpdatedAtAttribute($value) {
+        return TimeMode($value);
+    }
+
     public function tourismVenue()
     {
         return $this->belongsTo(TourismVenues::class,'venue_id','id');

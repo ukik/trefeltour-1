@@ -15,6 +15,14 @@ class TourismVenues extends Model
 
     protected $table = "tourism_venues";
 
+    public function getCreatedAtAttribute($value) {
+        return TimeMode($value);
+    }
+
+    public function getUpdatedAtAttribute($value) {
+        return TimeMode($value);
+    }
+
     public function user()
     {
         return $this->belongsTo(BadasoUsersPublic::class,'user_id','id');

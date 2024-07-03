@@ -16,6 +16,14 @@ class TourismBookingsCheckPayments extends Model
 
     protected $table = "tourism_bookings_check_payments";
 
+    public function getCreatedAtAttribute($value) {
+        return TimeMode($value);
+    }
+
+    public function getUpdatedAtAttribute($value) {
+        return TimeMode($value);
+    }
+
     public function badasoUser()
     {
         return $this->belongsTo(BadasoUsersPublic::class,'customer_id','id');

@@ -16,11 +16,11 @@ class TravelPricesPublic extends Model
     protected $table = "travel_prices_public";
 
     public function getCreatedAtAttribute($value) {
-        return Carbon\Carbon::parse($value)->diffForHumans();
+        return TimeMode($value);
     }
 
     public function getUpdatedAtAttribute($value) {
-        return Carbon\Carbon::parse($value)->diffForHumans();
+        return TimeMode($value);
     }
 
     public function badasoUser()

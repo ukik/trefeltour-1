@@ -15,6 +15,14 @@ class TransportDriversUsers extends Model
 
     protected $table = "transport_drivers_users";
 
+    public function getCreatedAtAttribute($value) {
+        return TimeMode($value);
+    }
+
+    public function getUpdatedAtAttribute($value) {
+        return TimeMode($value);
+    }
+
 
     public function transportReturns()
     {

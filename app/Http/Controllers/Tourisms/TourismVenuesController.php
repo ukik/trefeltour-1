@@ -191,7 +191,7 @@ class TourismVenuesController extends Controller
                 'tourismServices',
                 // 'tourismBookings',
                 'ratingAvg',
-            ])->whereId($request->id)->first();
+            ])->whereId($request->id)->withCount(['tourismPrices'])->first();
 
             // add event notification handle
             $table_name = $data_type->name;

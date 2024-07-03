@@ -15,6 +15,14 @@ class TourismFacilities extends Model
 
     protected $table = "tourism_facilities";
 
+    public function getCreatedAtAttribute($value) {
+        return TimeMode($value);
+    }
+
+    public function getUpdatedAtAttribute($value) {
+        return TimeMode($value);
+    }
+
 
     public function tourismVenue()
     {
@@ -35,5 +43,5 @@ class TourismFacilities extends Model
     public function ratingAvg()
     {
         return $this->hasOne(TourismFacilitiesRatingsAvg::class, 'facilities_id', 'id');
-    }    
+    }
 }

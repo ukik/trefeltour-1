@@ -30,6 +30,14 @@ class SouvenirProducts extends Model
 
     protected $table = "souvenir_products";
 
+    public function getCreatedAtAttribute($value) {
+        return TimeMode($value);
+    }
+
+    public function getUpdatedAtAttribute($value) {
+        return TimeMode($value);
+    }
+
     public function souvenirStore()
     {
         return $this->belongsTo(SouvenirStores::class,'store_id','id');

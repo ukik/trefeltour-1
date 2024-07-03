@@ -145,7 +145,6 @@ Route::group(
             ], function () {
 
             Route::get('/travel-prices/lagia', '\App\Http\Controllers\Travels\TravelPricesController@lagia_browse');
-
             Route::get('/lodge-prices/lagia', '\App\Http\Controllers\Lodges\LodgePricesController@lagia_browse');
             Route::get('/culinary-prices/lagia', '\App\Http\Controllers\Culinarys\CulinaryPricesController@lagia_browse');
             Route::get('/souvenir-prices/lagia', '\App\Http\Controllers\Souvenirs\SouvenirPricesController@lagia_browse');
@@ -153,6 +152,7 @@ Route::group(
             Route::get('/tourism-prices/lagia', '\App\Http\Controllers\Tourisms\TourismPricesController@lagia_browse');
             Route::get('/transport-prices/lagia', '\App\Http\Controllers\Transports\TransportPricesController@lagia_browse');
 
+            // Route::get('/transport-prices/read/{id}/lagia', '\App\Http\Controllers\Transports\TransportPricesController@lagia_read');
         });
 
 

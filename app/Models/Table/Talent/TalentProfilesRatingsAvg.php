@@ -16,6 +16,14 @@ class TalentProfilesRatingsAvg extends Model
 
     protected $table = "talent_profiles_ratings_avg";
 
+    public function getCreatedAtAttribute($value) {
+        return TimeMode($value);
+    }
+
+    public function getUpdatedAtAttribute($value) {
+        return TimeMode($value);
+    }
+
     public function getAvgRatingAttribute($value) {
         return (int) $value;
     }
@@ -28,5 +36,5 @@ class TalentProfilesRatingsAvg extends Model
     public function talentProfiles()
     {
         return $this->belongsToMany(TalentProfiles::class, 'talent_profiles_ratings', 'id', 'profile_id');
-    }    
+    }
 }

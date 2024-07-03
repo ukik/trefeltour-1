@@ -15,6 +15,14 @@ class ViewTransportBookingsCheckPayments extends Model
 
     protected $table = "view_transport_bookings_check_payments";
 
+    public function getCreatedAtAttribute($value) {
+        return TimeMode($value);
+    }
+
+    public function getUpdatedAtAttribute($value) {
+        return TimeMode($value);
+    }
+
     public function user()
     {
         return $this->belongsTo(BadasoUsersPublic::class,'customer_id','id');

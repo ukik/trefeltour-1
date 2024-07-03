@@ -25,6 +25,14 @@ class SouvenirPaymentsValidations extends Model
 
     protected $table = "souvenir_payments_validations";
 
+    public function getCreatedAtAttribute($value) {
+        return TimeMode($value);
+    }
+
+    public function getUpdatedAtAttribute($value) {
+        return TimeMode($value);
+    }
+
 
     public function badasoUser()
     {

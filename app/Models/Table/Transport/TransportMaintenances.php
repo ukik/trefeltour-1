@@ -15,6 +15,14 @@ class TransportMaintenances extends Model
 
     protected $table = "transport_maintenances";
 
+    public function getCreatedAtAttribute($value) {
+        return TimeMode($value);
+    }
+
+    public function getUpdatedAtAttribute($value) {
+        return TimeMode($value);
+    }
+
     public function transportWorkshops()
     {
         return $this->belongsToMany(TransportWorkshops::class, 'transport_maintenances', 'id', 'workshop_id');

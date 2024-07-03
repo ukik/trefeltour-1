@@ -1,6 +1,7 @@
 <?php
 
 return [
+    'about',
     'badaso_menu_items_backup_1',
     'badaso_menu_items_backup_2',
     'badaso_menu_items_backup_3',
@@ -73,10 +74,15 @@ return [
     'lodge_payments_validations',
     'lodge_prices',
     'lodge_profiles',
+    'lodge_profiles_ratings',
     'lodge_rooms',
+    'lodge_rooms_ratings',
     'lodge_staffs',
     'notifications',
     'offers',
+    'page_career',
+    'page_career_benefit',
+    'page_career_setup',
     'payments',
     'rentals',
     'souvenir_booking_items',

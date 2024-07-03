@@ -31,6 +31,14 @@ class SouvenirPayments extends Model
 
     protected $table = "souvenir_payments";
 
+    public function getCreatedAtAttribute($value) {
+        return TimeMode($value);
+    }
+
+    public function getUpdatedAtAttribute($value) {
+        return TimeMode($value);
+    }
+
     protected $fillable = [
         'id',
         'booking_id',

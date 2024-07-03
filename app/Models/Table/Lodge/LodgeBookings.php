@@ -15,6 +15,14 @@ class LodgeBookings extends Model
 
     protected $table = "lodge_bookings";
 
+    public function getCreatedAtAttribute($value) {
+        return TimeMode($value);
+    }
+
+    public function getUpdatedAtAttribute($value) {
+        return TimeMode($value);
+    }
+
 
 
     public function badasoUser()

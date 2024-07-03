@@ -14,6 +14,14 @@ class TalentPaymentsValidations extends Model
 
     protected $table = "talent_payments_validations";
 
+    public function getCreatedAtAttribute($value) {
+        return TimeMode($value);
+    }
+
+    public function getUpdatedAtAttribute($value) {
+        return TimeMode($value);
+    }
+
     public function user()
     {
         return $this->belongsTo(BadasoUsersPublic::class,'validator_id','id');

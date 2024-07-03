@@ -15,6 +15,14 @@ class LodgeStaffs extends Model
 
     protected $table = "lodge_staffs";
 
+    public function getCreatedAtAttribute($value) {
+        return TimeMode($value);
+    }
+
+    public function getUpdatedAtAttribute($value) {
+        return TimeMode($value);
+    }
+
     public function lodgeProfile()
     {
         return $this->belongsTo(LodgeProfiles::class,'profile_id','id');

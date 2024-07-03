@@ -15,6 +15,13 @@ class SouvenirBookings extends Model
 
     protected $table = "souvenir_bookings";
 
+    public function getCreatedAtAttribute($value) {
+        return TimeMode($value);
+    }
+
+    public function getUpdatedAtAttribute($value) {
+        return TimeMode($value);
+    }
 
     public function badasoUser()
     {
