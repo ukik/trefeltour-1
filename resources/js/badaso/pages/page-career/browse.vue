@@ -135,7 +135,6 @@
                       :key="index"
                       v-if="
                         dataRow?.field != 'id' &&
-                        dataRow?.field != 'image' &&
                         dataRow?.field != 'description' &&
                         dataRow?.field != 'created_at' &&
                         dataRow?.field != 'updated_at' &&
@@ -199,7 +198,6 @@
                         <vs-td
                           v-if="
                             dataRow?.field != 'id' &&
-                            dataRow?.field != 'image' &&
                             dataRow?.field != 'description' &&
                             dataRow?.field != 'created_at' &&
                             dataRow?.field != 'updated_at' &&

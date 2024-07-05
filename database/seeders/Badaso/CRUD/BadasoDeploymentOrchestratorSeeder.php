@@ -299,5 +299,26 @@ class BadasoDeploymentOrchestratorSeeder extends Seeder
         $this->seed(PageCareerBenefitCRUDDataRowAdded::class);
         $this->seed(PageCareerCRUDDataTypeAdded::class);
         $this->seed(PageCareerCRUDDataRowAdded::class);
+        $this->seed(PageContactCRUDDataTypeAdded::class);
+        $this->seed(PageContactCRUDDataRowAdded::class);
+        $this->seed(PageContactSetupCRUDDataTypeAdded::class);
+        $this->seed(PageContactSetupCRUDDataRowAdded::class);
+        
+        
+        $this->seed(PageFaqCRUDDataTypeAdded::class);
+        $this->seed(PageFaqCRUDDataRowAdded::class);
+        $this->seed(PageFaqSetupCRUDDataTypeAdded::class);
+        $this->seed(PageFaqSetupCRUDDataRowAdded::class);
+        $this->seed(PageGalleryCRUDDataTypeAdded::class);
+        $this->seed(PageGalleryCRUDDataRowAdded::class);
+        $this->seed(PageServiceCRUDDataTypeAdded::class);
+        $this->seed(PageServiceCRUDDataRowAdded::class);
+        $this->seed(PageTeamCRUDDataTypeAdded::class);
+        $this->seed(PageTeamCRUDDataRowAdded::class);
+        $this->seed(PageTestimonialCRUDDataTypeAdded::class);
+        $this->seed(PageTestimonialCRUDDataRowAdded::class);
+        $this->seed(PageDestinationCRUDDataDeleted::class);
+        $this->seed(PageDestinationCRUDDataTypeAdded::class);
+        $this->seed(PageDestinationCRUDDataRowAdded::class);
     }
 }
