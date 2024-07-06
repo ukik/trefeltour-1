@@ -58,6 +58,22 @@ class PageTestimonialCRUDDataRowAdded extends Seeder
                 2 => 
                 array (
                     'data_type_id' => $data_type->id,
+                    'field' => 'name',
+                    'type' => 'text',
+                    'display_name' => 'Name',
+                    'required' => '0',
+                    'browse' => '1',
+                    'read' => '1',
+                    'edit' => '1',
+                    'add' => '1',
+                    'delete' => '1',
+                    'details' => '{}',
+                    'relation' => NULL,
+                    'order' => '3',
+                ),
+                3 => 
+                array (
+                    'data_type_id' => $data_type->id,
                     'field' => 'rating',
                     'type' => 'select',
                     'display_name' => 'Rating',
@@ -93,41 +109,9 @@ class PageTestimonialCRUDDataRowAdded extends Seeder
 ]
 }',
                     'relation' => NULL,
-                    'order' => '3',
-                ),
-                3 => 
-                array (
-                    'data_type_id' => $data_type->id,
-                    'field' => 'avatar',
-                    'type' => 'upload_image',
-                    'display_name' => 'Avatar',
-                    'required' => '0',
-                    'browse' => '1',
-                    'read' => '1',
-                    'edit' => '1',
-                    'add' => '1',
-                    'delete' => '1',
-                    'details' => '{}',
-                    'relation' => NULL,
                     'order' => '4',
                 ),
                 4 => 
-                array (
-                    'data_type_id' => $data_type->id,
-                    'field' => 'image',
-                    'type' => 'upload_image',
-                    'display_name' => 'Image',
-                    'required' => '0',
-                    'browse' => '1',
-                    'read' => '1',
-                    'edit' => '1',
-                    'add' => '1',
-                    'delete' => '1',
-                    'details' => '{}',
-                    'relation' => NULL,
-                    'order' => '5',
-                ),
-                5 => 
                 array (
                     'data_type_id' => $data_type->id,
                     'field' => 'institusi',
@@ -141,14 +125,30 @@ class PageTestimonialCRUDDataRowAdded extends Seeder
                     'delete' => '1',
                     'details' => '{}',
                     'relation' => NULL,
+                    'order' => '5',
+                ),
+                5 => 
+                array (
+                    'data_type_id' => $data_type->id,
+                    'field' => 'avatar',
+                    'type' => 'upload_image',
+                    'display_name' => 'Avatar',
+                    'required' => '0',
+                    'browse' => '1',
+                    'read' => '1',
+                    'edit' => '1',
+                    'add' => '1',
+                    'delete' => '1',
+                    'details' => '{}',
+                    'relation' => NULL,
                     'order' => '6',
                 ),
                 6 => 
                 array (
                     'data_type_id' => $data_type->id,
-                    'field' => 'email',
-                    'type' => 'text',
-                    'display_name' => 'Email',
+                    'field' => 'image',
+                    'type' => 'upload_image',
+                    'display_name' => 'Image',
                     'required' => '0',
                     'browse' => '1',
                     'read' => '1',
@@ -162,6 +162,22 @@ class PageTestimonialCRUDDataRowAdded extends Seeder
                 7 => 
                 array (
                     'data_type_id' => $data_type->id,
+                    'field' => 'email',
+                    'type' => 'text',
+                    'display_name' => 'Email',
+                    'required' => '0',
+                    'browse' => '1',
+                    'read' => '1',
+                    'edit' => '1',
+                    'add' => '1',
+                    'delete' => '1',
+                    'details' => '{}',
+                    'relation' => NULL,
+                    'order' => '8',
+                ),
+                8 => 
+                array (
+                    'data_type_id' => $data_type->id,
                     'field' => 'description',
                     'type' => 'textarea',
                     'display_name' => 'Description',
@@ -173,9 +189,9 @@ class PageTestimonialCRUDDataRowAdded extends Seeder
                     'delete' => '0',
                     'details' => '{}',
                     'relation' => NULL,
-                    'order' => '8',
+                    'order' => '9',
                 ),
-                8 => 
+                9 => 
                 array (
                     'data_type_id' => $data_type->id,
                     'field' => 'created_at',
@@ -189,9 +205,9 @@ class PageTestimonialCRUDDataRowAdded extends Seeder
                     'delete' => '0',
                     'details' => '{}',
                     'relation' => NULL,
-                    'order' => '9',
+                    'order' => '10',
                 ),
-                9 => 
+                10 => 
                 array (
                     'data_type_id' => $data_type->id,
                     'field' => 'updated_at',
@@ -205,9 +221,9 @@ class PageTestimonialCRUDDataRowAdded extends Seeder
                     'delete' => '0',
                     'details' => '{}',
                     'relation' => NULL,
-                    'order' => '10',
+                    'order' => '11',
                 ),
-                10 => 
+                11 => 
                 array (
                     'data_type_id' => $data_type->id,
                     'field' => 'deleted_at',
@@ -221,9 +237,9 @@ class PageTestimonialCRUDDataRowAdded extends Seeder
                     'delete' => '0',
                     'details' => '{}',
                     'relation' => NULL,
-                    'order' => '11',
+                    'order' => '12',
                 ),
-                11 => 
+                12 => 
                 array (
                     'data_type_id' => $data_type->id,
                     'field' => 'published',
@@ -232,9 +248,9 @@ class PageTestimonialCRUDDataRowAdded extends Seeder
                     'required' => '0',
                     'browse' => '1',
                     'read' => '1',
-                    'edit' => '0',
-                    'add' => '0',
-                    'delete' => '0',
+                    'edit' => '1',
+                    'add' => '1',
+                    'delete' => '1',
                     'details' => '{
 "size": 12,
 "items": [
@@ -249,9 +265,9 @@ class PageTestimonialCRUDDataRowAdded extends Seeder
 ]
 }',
                     'relation' => NULL,
-                    'order' => '12',
+                    'order' => '13',
                 ),
-                12 => 
+                13 => 
                 array (
                     'data_type_id' => $data_type->id,
                     'field' => 'lang',
@@ -277,7 +293,7 @@ class PageTestimonialCRUDDataRowAdded extends Seeder
 ]
 }',
                     'relation' => NULL,
-                    'order' => '13',
+                    'order' => '14',
                 ),
             ));
 

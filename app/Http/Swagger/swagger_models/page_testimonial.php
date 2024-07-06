@@ -58,7 +58,7 @@
   *                 @OA\Property(
   *                     property="data",
   *                     type="object",
-  *                     example={"uuidOrder":"Abc", "rating":"Abc", "avatar":"Abc", "image":"Abc", "institusi":"Abc", "email":"Abc", "description":"Abc", "lang":"Abc"},
+  *                     example={"uuidOrder":"Abc", "name":"Abc", "rating":"Abc", "institusi":"Abc", "avatar":"Abc", "image":"Abc", "email":"Abc", "description":"Abc", "published":"Abc", "lang":"Abc"},
   *                 ),
   *             )
   *         )
@@ -88,7 +88,7 @@
   *                 @OA\Property(
   *                     property="data",
   *                     type="object",
-  *                     example={"uuidOrder":"Abc", "rating":"Abc", "avatar":"Abc", "image":"Abc", "institusi":"Abc", "email":"Abc", "description":"Abc", "lang":"Abc"},
+  *                     example={"uuidOrder":"Abc", "name":"Abc", "rating":"Abc", "institusi":"Abc", "avatar":"Abc", "image":"Abc", "email":"Abc", "description":"Abc", "published":"Abc", "lang":"Abc"},
   *                ),
   *             )
   *         )
@@ -201,15 +201,16 @@
   *                 @OA\Property(
   *                     property="data",
   *                     type="array",
-  *                     example={{"id":"123", "uuidOrder":"Abc", "rating":"Abc", "avatar":"Abc", "image":"Abc", "institusi":"Abc", "email":"Abc", "description":"Abc", "createdAt":"2021-01-01T00:00:00.000Z", "updatedAt":"2021-01-01T00:00:00.000Z", "deletedAt":"2021-01-01T00:00:00.000Z", "published":"Abc", "lang":"Abc"}, {"id":"123", "uuidOrder":"Abc", "rating":"Abc", "avatar":"Abc", "image":"Abc", "institusi":"Abc", "email":"Abc", "description":"Abc", "createdAt":"2021-01-01T00:00:00.000Z", "updatedAt":"2021-01-01T00:00:00.000Z", "deletedAt":"2021-01-01T00:00:00.000Z", "published":"Abc", "lang":"Abc"}},
+  *                     example={{"id":"123", "uuidOrder":"Abc", "name":"Abc", "rating":"Abc", "institusi":"Abc", "avatar":"Abc", "image":"Abc", "email":"Abc", "description":"Abc", "createdAt":"2021-01-01T00:00:00.000Z", "updatedAt":"2021-01-01T00:00:00.000Z", "deletedAt":"2021-01-01T00:00:00.000Z", "published":"Abc", "lang":"Abc"}, {"id":"123", "uuidOrder":"Abc", "name":"Abc", "rating":"Abc", "institusi":"Abc", "avatar":"Abc", "image":"Abc", "email":"Abc", "description":"Abc", "createdAt":"2021-01-01T00:00:00.000Z", "updatedAt":"2021-01-01T00:00:00.000Z", "deletedAt":"2021-01-01T00:00:00.000Z", "published":"Abc", "lang":"Abc"}},
   *                     @OA\Items(
   *                         type="object",
   *                         @OA\Property(type="integer", property="id"), 
   *                         @OA\Property(type="string", property="uuidOrder"), 
+  *                         @OA\Property(type="string", property="name"), 
   *                         @OA\Property(type="string", property="rating"), 
+  *                         @OA\Property(type="string", property="institusi"), 
   *                         @OA\Property(type="string", property="avatar"), 
   *                         @OA\Property(type="string", property="image"), 
-  *                         @OA\Property(type="string", property="institusi"), 
   *                         @OA\Property(type="string", property="email"), 
   *                         @OA\Property(type="string", property="description"), 
   *                         @OA\Property(type="string", property="createdAt"), 

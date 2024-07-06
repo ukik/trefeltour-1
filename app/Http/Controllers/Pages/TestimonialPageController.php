@@ -136,15 +136,15 @@ class TestimonialPageController extends Controller
 
             $req = request()['data'];
             $data = [
-                'uuid_order' => $req[''],
-                'rating' => $req[''],
+                'uuid_order' => $req['uuid_order'],
+                'rating' => $req['rating'],
+                'name' => $req['name'],
                 'avatar' => imageFilterValue($req['avatar']),
                 'image' => imageFilterValue($req['image']),
                 'institusi' => $req['institusi'],
                 'email' => $req['email'],
                 'description' => $req['description'],
                 'published' => $req['published'],
-
                 'lang' => $req['lang'],
             ];
 
@@ -208,8 +208,9 @@ class TestimonialPageController extends Controller
 
             $req = request()['data'];
             $data = [
-                'uuid_order' => $req[''],
-                'rating' => $req[''],
+                'uuid_order' => $req['uuid_order'],
+                'rating' => $req['rating'],
+                'name' => $req['name'],
                 'avatar' => imageFilterValue($req['avatar']),
                 'image' => imageFilterValue($req['image']),
                 'institusi' => $req['institusi'],

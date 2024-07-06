@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Validator;
 use App\Http\Controllers\Badaso\Controller;
 // use App\Http\Controllers\Controller;
 use Exception;
+use FaqSetupPageModel;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Uasoft\Badaso\Helpers\ApiResponse;
@@ -66,7 +67,11 @@ class FaqPageController extends Controller
             // $data['data'] = $decode->data;
             // $data['total'] = $decode->total;
 
-            return ApiResponse::onlyEntity($data);
+
+            $page_faq_setup = FaqSetupPageModel::first();
+
+
+            return ApiResponse::onlyEntity($data, additional:$page_faq_setup);
         } catch (Exception $e) {
             return ApiResponse::failed($e);
         }

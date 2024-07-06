@@ -48,7 +48,7 @@ class PageTestimonialCRUDDataTypeAdded extends Seeder
                 'notification' => '[]',
                 'is_soft_delete' => '0',
                 'created_at' => '2024-07-05T08:36:17.000000Z',
-                'updated_at' => '2024-07-05T12:58:41.000000Z',
+                'updated_at' => '2024-07-06T12:17:58.000000Z',
             ));
 
             Badaso::model('Permission')->generateFor('page_testimonial');
