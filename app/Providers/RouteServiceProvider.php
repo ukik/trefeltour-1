@@ -53,6 +53,11 @@ class RouteServiceProvider extends ServiceProvider
                 ->namespace($this->namespace)
                 ->group(base_path('routes/custom-api.php'));
 
+            Route::prefix('')
+                ->middleware('api')
+                ->namespace($this->namespace)
+                ->group(base_path('routes/lagia.php'));
+
 
             Route::prefix('api')
                 ->middleware('api')

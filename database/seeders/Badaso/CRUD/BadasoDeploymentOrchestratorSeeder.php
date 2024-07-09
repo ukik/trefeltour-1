@@ -299,8 +299,8 @@ class BadasoDeploymentOrchestratorSeeder extends Seeder
         $this->seed(PageCareerBenefitCRUDDataRowAdded::class);
         $this->seed(PageCareerCRUDDataTypeAdded::class);
         $this->seed(PageCareerCRUDDataRowAdded::class);
-        $this->seed(PageContactCRUDDataTypeAdded::class);
-        $this->seed(PageContactCRUDDataRowAdded::class);
+        
+        
         $this->seed(PageContactSetupCRUDDataTypeAdded::class);
         $this->seed(PageContactSetupCRUDDataRowAdded::class);
         
@@ -320,5 +320,18 @@ class BadasoDeploymentOrchestratorSeeder extends Seeder
         $this->seed(PageDestinationCRUDDataDeleted::class);
         $this->seed(PageDestinationCRUDDataTypeAdded::class);
         $this->seed(PageDestinationCRUDDataRowAdded::class);
+        $this->seed(PageContactCRUDDataDeleted::class);
+        $this->seed(PageContactCRUDDataTypeAdded::class);
+        $this->seed(PageContactCRUDDataRowAdded::class);
+        $this->seed(PageWidgetCallCRUDDataTypeAdded::class);
+        $this->seed(PageWidgetCallCRUDDataRowAdded::class);
+        $this->seed(PageWidgetCounterCRUDDataTypeAdded::class);
+        $this->seed(PageWidgetCounterCRUDDataRowAdded::class);
+        $this->seed(PageWidgetOfferCRUDDataTypeAdded::class);
+        $this->seed(PageWidgetOfferCRUDDataRowAdded::class);
+        $this->seed(PageWidgetPromoCRUDDataTypeAdded::class);
+        $this->seed(PageWidgetPromoCRUDDataRowAdded::class);
+        $this->seed(PageWidgetTronCRUDDataTypeAdded::class);
+        $this->seed(PageWidgetTronCRUDDataRowAdded::class);
     }
 }

@@ -15,8 +15,6 @@ use Uasoft\Badaso\Helpers\GetData;
 use Uasoft\Badaso\Models\DataType;
 use Illuminate\Support\Facades\Auth;
 
-use SouvenirStores;
-
 class AboutPageController extends Controller
 {
 
@@ -152,7 +150,12 @@ class AboutPageController extends Controller
                 'grid_4_icon' => $req['grid_4_icon'],
                 'grid_4_title' => $req['grid_4_title'],
                 'grid_4_description' => $req['grid_4_description'],
-
+                'grid_image_1' => imageFilterValue($req['grid_image_1']),
+                'grid_image_2' => imageFilterValue($req['grid_image_2']),
+                'grid_image_3' => imageFilterValue($req['grid_image_3']),
+                'bottom_label_1' => $req['bottom_label_1'],
+                'bottom_label_2' => $req['bottom_label_2'],
+                'lang' => $req['lang'],
                 // 'image' => imageFilterValue($req['image']),
                 // 'is_available' => isBoolean($req['is_available']),
 
@@ -180,9 +183,9 @@ class AboutPageController extends Controller
 
             // $data['description'] = $req['description'];
 
-            \SouvenirStores::where('id', $request->data['id'])->update($data);
+            \AboutPageModel::where('id', $request->data['id'])->update($data);
             $updated['old_data'] = $table_entity;
-            $updated['updated_data'] = \SouvenirStores::where('id', $request->data['id'])->first();
+            $updated['updated_data'] = \AboutPageModel::where('id', $request->data['id'])->first();
 
             DB::commit();
             activity($data_type->display_name_singular)
@@ -235,7 +238,12 @@ class AboutPageController extends Controller
                 'grid_4_icon' => $req['grid_4_icon'],
                 'grid_4_title' => $req['grid_4_title'],
                 'grid_4_description' => $req['grid_4_description'],
-
+                'grid_image_1' => imageFilterValue($req['grid_image_1']),
+                'grid_image_2' => imageFilterValue($req['grid_image_2']),
+                'grid_image_3' => imageFilterValue($req['grid_image_3']),
+                'bottom_label_1' => $req['bottom_label_1'],
+                'bottom_label_2' => $req['bottom_label_2'],
+                'lang' => $req['lang'],
                 // 'image' => imageFilterValue($req['image']),
                 // 'is_available' => isBoolean($req['is_available']),
                 // 'code_table' => ($slug) ,
@@ -286,12 +294,12 @@ class AboutPageController extends Controller
         //isOnlyAdminSouvenir();
 
         $value = request()['data'][0]['value'];
-        $check = SouvenirStores::where('id', $value)->with([
-            'souvenirBooking',
-            'souvenirProduct',
-            'souvenirPrice'
-        ])->first();
-        if ($check->souvenirProduct || $check->souvenirPrice || $check->souvenirBooking) return ApiResponse::failed("Tidak bisa dihapus, data ini digunakan");
+        // $check = AboutPageModel::where('id', $value)->with([
+        //     'souvenirBooking',
+        //     'souvenirProduct',
+        //     'souvenirPrice'
+        // ])->first();
+        // if ($check->souvenirProduct || $check->souvenirPrice || $check->souvenirBooking) return ApiResponse::failed("Tidak bisa dihapus, data ini digunakan");
 
         try {
             $request->validate([
@@ -416,18 +424,18 @@ class AboutPageController extends Controller
 
             // ADDITIONAL BULK DELETE
             // -------------------------------------------- //
-            $filters = SouvenirStores::whereIn('id', explode(",", request()['data'][0]['value']))
-                ->with([
-                    'souvenirBooking',
-                    'souvenirProduct',
-                    'souvenirPrice'
-                ])
+            $filters = AboutPageModel::whereIn('id', explode(",", request()['data'][0]['value']))
+                // ->with([
+                //     'souvenirBooking',
+                //     'souvenirProduct',
+                //     'souvenirPrice'
+                // ])
                 ->get();
             $temp = [];
             foreach ($filters as $value) {
-                if ($value->souvenirPrice == null && $value->souvenirProduct == null && $value->souvenirBooking == null) {
+                // if ($value->souvenirPrice == null && $value->souvenirProduct == null && $value->souvenirBooking == null) {
                     array_push($temp, $value['id']);
-                }
+                // }
             }
             $id_list = $temp;
             // -------------------------------------------- //

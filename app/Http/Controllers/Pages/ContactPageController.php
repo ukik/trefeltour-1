@@ -140,7 +140,6 @@ class ContactPageController extends Controller
                 'email' => $req['email'],
                 'telepon' => $req['telepon'],
                 'message' => $req['message'],
-                'lang' => $req['lang'],
             ];
 
             $validator = Validator::make(
@@ -207,7 +206,6 @@ class ContactPageController extends Controller
                 'email' => $req['email'],
                 'telepon' => $req['telepon'],
                 'message' => $req['message'],
-                'lang' => $req['lang'],
             ];
 
             $validator = Validator::make(

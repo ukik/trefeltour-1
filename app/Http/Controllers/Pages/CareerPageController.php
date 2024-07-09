@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Pages;
 use CareerPageModel;
 use Illuminate\Support\Facades\Validator;
 use App\Http\Controllers\Badaso\Controller;
+use CareerBenefitPageModel;
+use CareerSetupPageModel;
 // use App\Http\Controllers\Controller;
 use Exception;
 use Illuminate\Http\Request;
@@ -66,7 +68,12 @@ class CareerPageController extends Controller
             // $data['data'] = $decode->data;
             // $data['total'] = $decode->total;
 
-            return ApiResponse::onlyEntity($data);
+            $additional = [
+                'benefit' => CareerBenefitPageModel::all(),
+                'setup' => CareerSetupPageModel::first(),
+            ];
+
+            return ApiResponse::onlyEntity($data,additional:$additional);
         } catch (Exception $e) {
             return ApiResponse::failed($e);
         }

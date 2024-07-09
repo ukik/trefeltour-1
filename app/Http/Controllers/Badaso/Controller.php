@@ -24,19 +24,19 @@ abstract class Controller extends BaseController
     public function getSlug(Request $request)
     {
         // dd(request()->slug);
-        // if(request()->slug) {
-        //     return request()->slug;
-        // }
-        $slug = explode('.', $request->route()->getName())[0];
-
-        return $slug;
+        if(request()->slug) {
+            return request()->slug;
+        } else {
+            $slug = explode('.', $request->route()->getName())[0];
+            return $slug;
+        }
     }
 
     public function getDataType($slug)
     {
         $data_type = Badaso::model('DataType')::where('slug', $slug)->first();
         // $data_type = DataType::where('slug', $slug)->first();
-        $data_type->data_rows = $data_type->dataRows;
+        $data_type->data_rows = $data_type?->dataRows;
 
         return $data_type;
     }

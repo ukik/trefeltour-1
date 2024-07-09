@@ -327,6 +327,114 @@ class AboutCRUDDataRowAdded extends Seeder
                     'relation' => NULL,
                     'order' => '19',
                 ),
+                19 => 
+                array (
+                    'data_type_id' => $data_type->id,
+                    'field' => 'grid_image_1',
+                    'type' => 'upload_image',
+                    'display_name' => 'GridImage1',
+                    'required' => '0',
+                    'browse' => '0',
+                    'read' => '1',
+                    'edit' => '1',
+                    'add' => '1',
+                    'delete' => '0',
+                    'details' => '{}',
+                    'relation' => NULL,
+                    'order' => '20',
+                ),
+                20 => 
+                array (
+                    'data_type_id' => $data_type->id,
+                    'field' => 'grid_image_2',
+                    'type' => 'upload_image',
+                    'display_name' => 'GridImage2',
+                    'required' => '0',
+                    'browse' => '0',
+                    'read' => '1',
+                    'edit' => '1',
+                    'add' => '1',
+                    'delete' => '0',
+                    'details' => '{}',
+                    'relation' => NULL,
+                    'order' => '21',
+                ),
+                21 => 
+                array (
+                    'data_type_id' => $data_type->id,
+                    'field' => 'grid_image_3',
+                    'type' => 'upload_image',
+                    'display_name' => 'GridImage3',
+                    'required' => '0',
+                    'browse' => '0',
+                    'read' => '1',
+                    'edit' => '1',
+                    'add' => '1',
+                    'delete' => '0',
+                    'details' => '{}',
+                    'relation' => NULL,
+                    'order' => '22',
+                ),
+                22 => 
+                array (
+                    'data_type_id' => $data_type->id,
+                    'field' => 'bottom_label_1',
+                    'type' => 'text',
+                    'display_name' => 'BottomLabel1',
+                    'required' => '0',
+                    'browse' => '0',
+                    'read' => '1',
+                    'edit' => '1',
+                    'add' => '1',
+                    'delete' => '0',
+                    'details' => '{}',
+                    'relation' => NULL,
+                    'order' => '23',
+                ),
+                23 => 
+                array (
+                    'data_type_id' => $data_type->id,
+                    'field' => 'bottom_label_2',
+                    'type' => 'text',
+                    'display_name' => 'BottomLabel2',
+                    'required' => '0',
+                    'browse' => '0',
+                    'read' => '1',
+                    'edit' => '1',
+                    'add' => '1',
+                    'delete' => '0',
+                    'details' => '{}',
+                    'relation' => NULL,
+                    'order' => '24',
+                ),
+                24 => 
+                array (
+                    'data_type_id' => $data_type->id,
+                    'field' => 'lang',
+                    'type' => 'select',
+                    'display_name' => 'Lang',
+                    'required' => '1',
+                    'browse' => '1',
+                    'read' => '1',
+                    'edit' => '1',
+                    'add' => '1',
+                    'delete' => '1',
+                    'details' => '{
+"size": 12,
+"items": [
+{
+"label": "Indonesia",
+"value": "id"
+},
+{
+"label": "English",
+"value": "en"
+}
+]
+}',
+                    'relation' => NULL,
+                    'order' => '25',
+                ),
             ));
 
             \DB::commit();

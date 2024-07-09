@@ -151,34 +151,6 @@ class PageContactCRUDDataRowAdded extends Seeder
                     'relation' => NULL,
                     'order' => '8',
                 ),
-                8 => 
-                array (
-                    'data_type_id' => $data_type->id,
-                    'field' => 'lang',
-                    'type' => 'select',
-                    'display_name' => 'Lang',
-                    'required' => '1',
-                    'browse' => '1',
-                    'read' => '1',
-                    'edit' => '1',
-                    'add' => '1',
-                    'delete' => '1',
-                    'details' => '{
-"size": 12,
-"items": [
-{
-"label": "Indonesia",
-"value": "id"
-},
-{
-"label": "English",
-"value": "en"
-}
-]
-}',
-                    'relation' => NULL,
-                    'order' => '9',
-                ),
             ));
 
             \DB::commit();

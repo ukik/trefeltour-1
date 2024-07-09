@@ -283,7 +283,7 @@ class PageContactSetupCRUDDataRowAdded extends Seeder
                 array (
                     'data_type_id' => $data_type->id,
                     'field' => 'map',
-                    'type' => 'textarea',
+                    'type' => 'url',
                     'display_name' => 'Map',
                     'required' => '0',
                     'browse' => '0',

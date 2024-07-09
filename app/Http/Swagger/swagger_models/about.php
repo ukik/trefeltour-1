@@ -58,7 +58,7 @@
   *                 @OA\Property(
   *                     property="data",
   *                     type="object",
-  *                     example={"title":"Abc", "featuredImage":"Abc", "description":"Abc", "grid1Icon":"Abc", "grid1Title":"Abc", "grid1Description":"Abc", "grid2Icon":"Abc", "grid2Title":"Abc", "grid2Description":"Abc", "grid3Icon":"Abc", "grid3Title":"Abc", "grid3Description":"Abc", "grid4Icon":"Abc", "grid4Title":"Abc", "grid4Description":"Abc"},
+  *                     example={"title":"Abc", "featuredImage":"Abc", "description":"Abc", "grid1Icon":"Abc", "grid1Title":"Abc", "grid1Description":"Abc", "grid2Icon":"Abc", "grid2Title":"Abc", "grid2Description":"Abc", "grid3Icon":"Abc", "grid3Title":"Abc", "grid3Description":"Abc", "grid4Icon":"Abc", "grid4Title":"Abc", "grid4Description":"Abc", "gridImage1":"Abc", "gridImage2":"Abc", "gridImage3":"Abc", "bottomLabel1":"Abc", "bottomLabel2":"Abc", "lang":"Abc"},
   *                 ),
   *             )
   *         )
@@ -88,7 +88,7 @@
   *                 @OA\Property(
   *                     property="data",
   *                     type="object",
-  *                     example={"title":"Abc", "featuredImage":"Abc", "description":"Abc", "grid1Icon":"Abc", "grid1Title":"Abc", "grid1Description":"Abc", "grid2Icon":"Abc", "grid2Title":"Abc", "grid2Description":"Abc", "grid3Icon":"Abc", "grid3Title":"Abc", "grid3Description":"Abc", "grid4Icon":"Abc", "grid4Title":"Abc", "grid4Description":"Abc"},
+  *                     example={"title":"Abc", "featuredImage":"Abc", "description":"Abc", "grid1Icon":"Abc", "grid1Title":"Abc", "grid1Description":"Abc", "grid2Icon":"Abc", "grid2Title":"Abc", "grid2Description":"Abc", "grid3Icon":"Abc", "grid3Title":"Abc", "grid3Description":"Abc", "grid4Icon":"Abc", "grid4Title":"Abc", "grid4Description":"Abc", "gridImage1":"Abc", "gridImage2":"Abc", "gridImage3":"Abc", "bottomLabel1":"Abc", "bottomLabel2":"Abc", "lang":"Abc"},
   *                ),
   *             )
   *         )
@@ -201,7 +201,7 @@
   *                 @OA\Property(
   *                     property="data",
   *                     type="array",
-  *                     example={{"id":"123", "title":"Abc", "featuredImage":"Abc", "description":"Abc", "grid1Icon":"Abc", "grid1Title":"Abc", "grid1Description":"Abc", "grid2Icon":"Abc", "grid2Title":"Abc", "grid2Description":"Abc", "grid3Icon":"Abc", "grid3Title":"Abc", "grid3Description":"Abc", "grid4Icon":"Abc", "grid4Title":"Abc", "grid4Description":"Abc", "createdAt":"2021-01-01T00:00:00.000Z", "updatedAt":"2021-01-01T00:00:00.000Z", "deletedAt":"2021-01-01T00:00:00.000Z"}, {"id":"123", "title":"Abc", "featuredImage":"Abc", "description":"Abc", "grid1Icon":"Abc", "grid1Title":"Abc", "grid1Description":"Abc", "grid2Icon":"Abc", "grid2Title":"Abc", "grid2Description":"Abc", "grid3Icon":"Abc", "grid3Title":"Abc", "grid3Description":"Abc", "grid4Icon":"Abc", "grid4Title":"Abc", "grid4Description":"Abc", "createdAt":"2021-01-01T00:00:00.000Z", "updatedAt":"2021-01-01T00:00:00.000Z", "deletedAt":"2021-01-01T00:00:00.000Z"}},
+  *                     example={{"id":"123", "title":"Abc", "featuredImage":"Abc", "description":"Abc", "grid1Icon":"Abc", "grid1Title":"Abc", "grid1Description":"Abc", "grid2Icon":"Abc", "grid2Title":"Abc", "grid2Description":"Abc", "grid3Icon":"Abc", "grid3Title":"Abc", "grid3Description":"Abc", "grid4Icon":"Abc", "grid4Title":"Abc", "grid4Description":"Abc", "createdAt":"2021-01-01T00:00:00.000Z", "updatedAt":"2021-01-01T00:00:00.000Z", "deletedAt":"2021-01-01T00:00:00.000Z", "gridImage1":"Abc", "gridImage2":"Abc", "gridImage3":"Abc", "bottomLabel1":"Abc", "bottomLabel2":"Abc", "lang":"Abc"}, {"id":"123", "title":"Abc", "featuredImage":"Abc", "description":"Abc", "grid1Icon":"Abc", "grid1Title":"Abc", "grid1Description":"Abc", "grid2Icon":"Abc", "grid2Title":"Abc", "grid2Description":"Abc", "grid3Icon":"Abc", "grid3Title":"Abc", "grid3Description":"Abc", "grid4Icon":"Abc", "grid4Title":"Abc", "grid4Description":"Abc", "createdAt":"2021-01-01T00:00:00.000Z", "updatedAt":"2021-01-01T00:00:00.000Z", "deletedAt":"2021-01-01T00:00:00.000Z", "gridImage1":"Abc", "gridImage2":"Abc", "gridImage3":"Abc", "bottomLabel1":"Abc", "bottomLabel2":"Abc", "lang":"Abc"}},
   *                     @OA\Items(
   *                         type="object",
   *                         @OA\Property(type="integer", property="id"), 
@@ -222,7 +222,13 @@
   *                         @OA\Property(type="string", property="grid4Description"), 
   *                         @OA\Property(type="string", property="createdAt"), 
   *                         @OA\Property(type="string", property="updatedAt"), 
-  *                         @OA\Property(type="string", property="deletedAt"),
+  *                         @OA\Property(type="string", property="deletedAt"), 
+  *                         @OA\Property(type="string", property="gridImage1"), 
+  *                         @OA\Property(type="string", property="gridImage2"), 
+  *                         @OA\Property(type="string", property="gridImage3"), 
+  *                         @OA\Property(type="string", property="bottomLabel1"), 
+  *                         @OA\Property(type="string", property="bottomLabel2"), 
+  *                         @OA\Property(type="string", property="lang"),
   *                     ),
   *                ),
   *             )

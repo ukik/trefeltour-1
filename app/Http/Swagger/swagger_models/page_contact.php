@@ -58,7 +58,7 @@
   *                 @OA\Property(
   *                     property="data",
   *                     type="object",
-  *                     example={"name":"Abc", "email":"Abc", "telepon":"Abc", "message":"Abc", "lang":"Abc"},
+  *                     example={"name":"Abc", "email":"Abc", "telepon":"Abc", "message":"Abc"},
   *                 ),
   *             )
   *         )
@@ -88,7 +88,7 @@
   *                 @OA\Property(
   *                     property="data",
   *                     type="object",
-  *                     example={"name":"Abc", "email":"Abc", "telepon":"Abc", "message":"Abc", "lang":"Abc"},
+  *                     example={"name":"Abc", "email":"Abc", "telepon":"Abc", "message":"Abc"},
   *                ),
   *             )
   *         )
@@ -201,7 +201,7 @@
   *                 @OA\Property(
   *                     property="data",
   *                     type="array",
-  *                     example={{"id":"123", "name":"Abc", "email":"Abc", "telepon":"Abc", "message":"Abc", "createdAt":"2021-01-01T00:00:00.000Z", "updatedAt":"2021-01-01T00:00:00.000Z", "deletedAt":"2021-01-01T00:00:00.000Z", "lang":"Abc"}, {"id":"123", "name":"Abc", "email":"Abc", "telepon":"Abc", "message":"Abc", "createdAt":"2021-01-01T00:00:00.000Z", "updatedAt":"2021-01-01T00:00:00.000Z", "deletedAt":"2021-01-01T00:00:00.000Z", "lang":"Abc"}},
+  *                     example={{"id":"123", "name":"Abc", "email":"Abc", "telepon":"Abc", "message":"Abc", "createdAt":"2021-01-01T00:00:00.000Z", "updatedAt":"2021-01-01T00:00:00.000Z", "deletedAt":"2021-01-01T00:00:00.000Z"}, {"id":"123", "name":"Abc", "email":"Abc", "telepon":"Abc", "message":"Abc", "createdAt":"2021-01-01T00:00:00.000Z", "updatedAt":"2021-01-01T00:00:00.000Z", "deletedAt":"2021-01-01T00:00:00.000Z"}},
   *                     @OA\Items(
   *                         type="object",
   *                         @OA\Property(type="integer", property="id"), 
@@ -211,8 +211,7 @@
   *                         @OA\Property(type="string", property="message"), 
   *                         @OA\Property(type="string", property="createdAt"), 
   *                         @OA\Property(type="string", property="updatedAt"), 
-  *                         @OA\Property(type="string", property="deletedAt"), 
-  *                         @OA\Property(type="string", property="lang"),
+  *                         @OA\Property(type="string", property="deletedAt"),
   *                     ),
   *                ),
   *             )

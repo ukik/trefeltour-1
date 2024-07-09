@@ -61,6 +61,7 @@ Route::group(['prefix' => 'v1', 'middleware' => ['sanctum_1','BADASO_ApiRequest'
                 $crud_data_controller = $data_type->controller
                     ? Str::start($data_type->controller, '\\')
                     : 'App\Http\Controllers\Badaso\BadasoBaseController';
+
                 Route::get($data_type->slug, $crud_data_controller.'@browse')
                     ->name($data_type->slug.'.browse')
                     ->middleware(RootBadasoCheckPermissionsForCRUD::class.':'.$data_type->slug.',browse');
