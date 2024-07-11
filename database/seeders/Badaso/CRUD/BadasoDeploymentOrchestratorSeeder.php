@@ -333,5 +333,7 @@ class BadasoDeploymentOrchestratorSeeder extends Seeder
         $this->seed(PageWidgetPromoCRUDDataRowAdded::class);
         $this->seed(PageWidgetTronCRUDDataTypeAdded::class);
         $this->seed(PageWidgetTronCRUDDataRowAdded::class);
+        $this->seed(PageInfoCRUDDataTypeAdded::class);
+        $this->seed(PageInfoCRUDDataRowAdded::class);
     }
 }

@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Notification;
 use Uasoft\Badaso\Helpers\ApiResponse;
 use Illuminate\Support\Facades\Auth;
 use Uasoft\Badaso\Facades\Badaso;
+use Illuminate\Support\Str;
 
 
 
@@ -600,5 +601,14 @@ if (!function_exists('StorageURL')) {
         return $protocol . $domainName;
         // }
         // define( 'SITE_URL', siteURL() );
+    }
+}
+
+
+
+if (!function_exists('slug')) {
+    function slug($value)
+    {
+        return Str::slug($value);
     }
 }

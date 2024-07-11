@@ -219,16 +219,16 @@ Route::group(
             Route::post('/verify-email', 'BadasoAuthController@verifyEmail');
         });
 
-//         Route::group(['prefix' => 'file'], function () {
-//             Route::get('/view', 'BadasoFileController@viewFile');
-//             Route::get('/download', 'BadasoFileController@downloadFile');
-//             Route::post('/upload', 'BadasoFileController@uploadFile')->middleware(BadasoCheckPermissions::class.':upload_file');
-//             Route::delete('/delete', 'BadasoFileController@deleteFile');
-//             Route::get('/browse/lfm', 'BadasoFileController@browseFileUsingLfm');
-//             Route::post('/upload/lfm', 'BadasoFileController@uploadFileUsingLfm');
-//             Route::get('/delete/lfm', 'BadasoFileController@deleteFileUsingLfm');
-//             Route::get('/mimetypes', 'BadasoFileController@availableMimetype');
-//         });
+        Route::group(['prefix' => 'file'], function () {
+            Route::get('/view', '\App\Http\Controllers\Badaso\BadasoFileController@viewFile');
+            Route::get('/download', '\App\Http\Controllers\Badaso\BadasoFileController@downloadFile');
+            Route::post('/upload', '\App\Http\Controllers\Badaso\BadasoFileController@uploadFile')->middleware(BadasoCheckPermissions::class.':upload_file');
+            Route::delete('/delete', '\App\Http\Controllers\Badaso\BadasoFileController@deleteFile');
+            Route::get('/browse/lfm', '\App\Http\Controllers\Badaso\BadasoFileController@browseFileUsingLfm');
+            Route::post('/upload/lfm', '\App\Http\Controllers\Badaso\BadasoFileController@uploadFileUsingLfm');
+            Route::get('/delete/lfm', '\App\Http\Controllers\Badaso\BadasoFileController@deleteFileUsingLfm');
+            Route::get('/mimetypes', '\App\Http\Controllers\Badaso\BadasoFileController@availableMimetype');
+        });
 
 //         Route::group(['prefix' => 'configurations'], function () {
 //             Route::get('/applyable', 'BadasoConfigurationsController@applyable');

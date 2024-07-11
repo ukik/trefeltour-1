@@ -67,6 +67,7 @@ return [
     'page_faq',
     'page_faq_setup',
     'page_gallery',
+    'page_info',
     'page_meta',
     'page_service',
     'page_team',
