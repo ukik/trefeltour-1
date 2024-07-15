@@ -118,6 +118,38 @@ class PageCareerCRUDDataRowAdded extends Seeder
                 5 => 
                 array (
                     'data_type_id' => $data_type->id,
+                    'field' => 'slug',
+                    'type' => 'text',
+                    'display_name' => 'Slug',
+                    'required' => '0',
+                    'browse' => '1',
+                    'read' => '0',
+                    'edit' => '0',
+                    'add' => '0',
+                    'delete' => '1',
+                    'details' => '{}',
+                    'relation' => NULL,
+                    'order' => '6',
+                ),
+                6 => 
+                array (
+                    'data_type_id' => $data_type->id,
+                    'field' => 'salary',
+                    'type' => 'number',
+                    'display_name' => 'Salary',
+                    'required' => '0',
+                    'browse' => '1',
+                    'read' => '1',
+                    'edit' => '1',
+                    'add' => '1',
+                    'delete' => '1',
+                    'details' => '{}',
+                    'relation' => NULL,
+                    'order' => '7',
+                ),
+                7 => 
+                array (
+                    'data_type_id' => $data_type->id,
                     'field' => 'description',
                     'type' => 'textarea',
                     'display_name' => 'Description',
@@ -129,9 +161,9 @@ class PageCareerCRUDDataRowAdded extends Seeder
                     'delete' => '0',
                     'details' => '{}',
                     'relation' => NULL,
-                    'order' => '6',
+                    'order' => '8',
                 ),
-                6 => 
+                8 => 
                 array (
                     'data_type_id' => $data_type->id,
                     'field' => 'created_at',
@@ -145,9 +177,9 @@ class PageCareerCRUDDataRowAdded extends Seeder
                     'delete' => '0',
                     'details' => '{}',
                     'relation' => NULL,
-                    'order' => '7',
+                    'order' => '9',
                 ),
-                7 => 
+                9 => 
                 array (
                     'data_type_id' => $data_type->id,
                     'field' => 'updated_at',
@@ -161,9 +193,9 @@ class PageCareerCRUDDataRowAdded extends Seeder
                     'delete' => '0',
                     'details' => '{}',
                     'relation' => NULL,
-                    'order' => '8',
+                    'order' => '10',
                 ),
-                8 => 
+                10 => 
                 array (
                     'data_type_id' => $data_type->id,
                     'field' => 'deleted_at',
@@ -177,9 +209,57 @@ class PageCareerCRUDDataRowAdded extends Seeder
                     'delete' => '0',
                     'details' => '{}',
                     'relation' => NULL,
-                    'order' => '9',
+                    'order' => '11',
                 ),
-                9 => 
+                11 => 
+                array (
+                    'data_type_id' => $data_type->id,
+                    'field' => 'experience',
+                    'type' => 'textarea',
+                    'display_name' => 'Experience',
+                    'required' => '0',
+                    'browse' => '0',
+                    'read' => '1',
+                    'edit' => '1',
+                    'add' => '1',
+                    'delete' => '0',
+                    'details' => '{}',
+                    'relation' => NULL,
+                    'order' => '12',
+                ),
+                12 => 
+                array (
+                    'data_type_id' => $data_type->id,
+                    'field' => 'requirement',
+                    'type' => 'textarea',
+                    'display_name' => 'Requirement',
+                    'required' => '0',
+                    'browse' => '0',
+                    'read' => '1',
+                    'edit' => '1',
+                    'add' => '1',
+                    'delete' => '0',
+                    'details' => '{}',
+                    'relation' => NULL,
+                    'order' => '13',
+                ),
+                13 => 
+                array (
+                    'data_type_id' => $data_type->id,
+                    'field' => 'code',
+                    'type' => 'text',
+                    'display_name' => 'Code',
+                    'required' => '0',
+                    'browse' => '1',
+                    'read' => '1',
+                    'edit' => '1',
+                    'add' => '1',
+                    'delete' => '1',
+                    'details' => '{}',
+                    'relation' => NULL,
+                    'order' => '14',
+                ),
+                14 => 
                 array (
                     'data_type_id' => $data_type->id,
                     'field' => 'lang',
@@ -205,7 +285,7 @@ class PageCareerCRUDDataRowAdded extends Seeder
 ]
 }',
                     'relation' => NULL,
-                    'order' => '10',
+                    'order' => '15',
                 ),
             ));
 

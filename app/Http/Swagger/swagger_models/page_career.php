@@ -58,7 +58,7 @@
   *                 @OA\Property(
   *                     property="data",
   *                     type="object",
-  *                     example={"position":"Abc", "status":"Abc", "condition":"Abc", "image":"Abc", "description":"Abc", "lang":"Abc"},
+  *                     example={"position":"Abc", "status":"Abc", "condition":"Abc", "image":"Abc", "salary":"123", "description":"Abc", "experience":"Abc", "requirement":"Abc", "code":"Abc", "lang":"Abc"},
   *                 ),
   *             )
   *         )
@@ -88,7 +88,7 @@
   *                 @OA\Property(
   *                     property="data",
   *                     type="object",
-  *                     example={"position":"Abc", "status":"Abc", "condition":"Abc", "image":"Abc", "description":"Abc", "lang":"Abc"},
+  *                     example={"position":"Abc", "status":"Abc", "condition":"Abc", "image":"Abc", "salary":"123", "description":"Abc", "experience":"Abc", "requirement":"Abc", "code":"Abc", "lang":"Abc"},
   *                ),
   *             )
   *         )
@@ -201,7 +201,7 @@
   *                 @OA\Property(
   *                     property="data",
   *                     type="array",
-  *                     example={{"id":"123", "position":"Abc", "status":"Abc", "condition":"Abc", "image":"Abc", "description":"Abc", "createdAt":"2021-01-01T00:00:00.000Z", "updatedAt":"2021-01-01T00:00:00.000Z", "deletedAt":"2021-01-01T00:00:00.000Z", "lang":"Abc"}, {"id":"123", "position":"Abc", "status":"Abc", "condition":"Abc", "image":"Abc", "description":"Abc", "createdAt":"2021-01-01T00:00:00.000Z", "updatedAt":"2021-01-01T00:00:00.000Z", "deletedAt":"2021-01-01T00:00:00.000Z", "lang":"Abc"}},
+  *                     example={{"id":"123", "position":"Abc", "status":"Abc", "condition":"Abc", "image":"Abc", "slug":"Abc", "salary":"123", "description":"Abc", "createdAt":"2021-01-01T00:00:00.000Z", "updatedAt":"2021-01-01T00:00:00.000Z", "deletedAt":"2021-01-01T00:00:00.000Z", "experience":"Abc", "requirement":"Abc", "code":"Abc", "lang":"Abc"}, {"id":"123", "position":"Abc", "status":"Abc", "condition":"Abc", "image":"Abc", "slug":"Abc", "salary":"123", "description":"Abc", "createdAt":"2021-01-01T00:00:00.000Z", "updatedAt":"2021-01-01T00:00:00.000Z", "deletedAt":"2021-01-01T00:00:00.000Z", "experience":"Abc", "requirement":"Abc", "code":"Abc", "lang":"Abc"}},
   *                     @OA\Items(
   *                         type="object",
   *                         @OA\Property(type="integer", property="id"), 
@@ -209,10 +209,15 @@
   *                         @OA\Property(type="string", property="status"), 
   *                         @OA\Property(type="string", property="condition"), 
   *                         @OA\Property(type="string", property="image"), 
+  *                         @OA\Property(type="string", property="slug"), 
+  *                         @OA\Property(type="integer", property="salary"), 
   *                         @OA\Property(type="string", property="description"), 
   *                         @OA\Property(type="string", property="createdAt"), 
   *                         @OA\Property(type="string", property="updatedAt"), 
   *                         @OA\Property(type="string", property="deletedAt"), 
+  *                         @OA\Property(type="string", property="experience"), 
+  *                         @OA\Property(type="string", property="requirement"), 
+  *                         @OA\Property(type="string", property="code"), 
   *                         @OA\Property(type="string", property="lang"),
   *                     ),
   *                ),

@@ -46,9 +46,9 @@ class PageCareerCRUDDataTypeAdded extends Seeder
                 'description' => NULL,
                 'details' => NULL,
                 'notification' => '[]',
-                'is_soft_delete' => false,
+                'is_soft_delete' => '0',
                 'created_at' => '2024-07-03T05:49:10.000000Z',
-                'updated_at' => '2024-07-08T17:29:09.000000Z',
+                'updated_at' => '2024-07-15T12:59:10.000000Z',
             ));
 
             Badaso::model('Permission')->generateFor('page_career');

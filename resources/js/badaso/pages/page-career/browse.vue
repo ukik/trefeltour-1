@@ -136,6 +136,8 @@
                       v-if="
                         dataRow?.field != 'id' &&
                         dataRow?.field != 'description' &&
+                        dataRow?.field != 'experience' &&
+                        dataRow?.field != 'requirement' &&
                         dataRow?.field != 'created_at' &&
                         dataRow?.field != 'updated_at' &&
                         dataRow?.field != 'deleted_at'
@@ -199,6 +201,8 @@
                           v-if="
                             dataRow?.field != 'id' &&
                             dataRow?.field != 'description' &&
+                            dataRow?.field != 'experience' &&
+                            dataRow?.field != 'requirement' &&
                             dataRow?.field != 'created_at' &&
                             dataRow?.field != 'updated_at' &&
                             dataRow?.field != 'deleted_at'

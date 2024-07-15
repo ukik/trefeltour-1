@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Validator;
 use App\Http\Controllers\Badaso\Controller;
 use CareerBenefitPageModel;
 use CareerSetupPageModel;
+use ContactSetupPageModel;
 // use App\Http\Controllers\Controller;
 use Exception;
 use Illuminate\Http\Request;
@@ -123,7 +124,9 @@ class CareerPageController extends Controller
             $table_name = $data_type->name;
             FCMNotification::notification(FCMNotification::$ACTIVE_EVENT_ON_READ, $table_name);
 
-            return ApiResponse::onlyEntity($data);
+            $contact_setup = ContactSetupPageModel::select('grid_1_value','grid_2_value')->first();
+
+            return ApiResponse::onlyEntity($data, additional:$contact_setup);
         } catch (Exception $e) {
             return ApiResponse::failed($e);
         }
@@ -143,11 +146,16 @@ class CareerPageController extends Controller
 
             $req = request()['data'];
             $data = [
+                'slug' => $table_entity->slug ?: slug($req['position']),
                 'position' => $req['position'],
                 'image' => imageFilterValue($req['image']),
                 'status' => $req['status'],
                 'condition' => $req['condition'],
                 'description' => $req['description'],
+                'salary' => $req['salary'],
+                'experience' => $req['experience'],
+                'requirement' => $req['requirement'],
+                'code' => $req['code'],
                 'lang' => $req['lang'],
 
                 // 'image' => imageFilterValue($req['image']),
@@ -217,11 +225,16 @@ class CareerPageController extends Controller
 
             $req = request()['data'];
             $data = [
+                'slug' => slug($req['slug']),
                 'position' => $req['position'],
                 'image' => imageFilterValue($req['image']),
                 'status' => $req['status'],
                 'condition' => $req['condition'],
                 'description' => $req['description'],
+                'salary' => $req['salary'],
+                'experience' => $req['experience'],
+                'requirement' => $req['requirement'],
+                'code' => $req['code'],
                 'lang' => $req['lang'],
 
 
