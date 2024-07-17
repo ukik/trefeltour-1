@@ -28,12 +28,11 @@ class AboutCRUDDataTypeAdded extends Seeder
             }
 
             \DB::table('badaso_data_types')->insert(array (
-                'id' => 125,
                 'name' => 'about',
                 'slug' => 'about',
                 'display_name_singular' => 'About',
                 'display_name_plural' => 'About',
-                'icon' => 'info',
+                'icon' => NULL,
                 'model_name' => NULL,
                 'policy_name' => NULL,
                 'controller' => 'App\\Http\\Controllers\\Pages\\AboutPageController',
@@ -42,13 +41,13 @@ class AboutCRUDDataTypeAdded extends Seeder
                 'order_direction' => NULL,
                 'generate_permissions' => true,
                 'server_side' => false,
-                'is_maintenance' => '0',
                 'description' => NULL,
                 'details' => NULL,
                 'notification' => '[]',
-                'is_soft_delete' => '1',
-                'created_at' => '2024-07-03T02:31:43.000000Z',
-                'updated_at' => '2024-07-07T08:41:33.000000Z',
+                'is_soft_delete' => false,
+                'updated_at' => '2024-07-16T13:36:22.000000Z',
+                'created_at' => '2024-07-16T13:36:22.000000Z',
+                'id' => 146,
             ));
 
             Badaso::model('Permission')->generateFor('about');
@@ -66,7 +65,7 @@ class AboutCRUDDataTypeAdded extends Seeder
                 $menu_item->fill([
                     'title' => 'About',
                     'target' => '_self',
-                    'icon_class' => 'info',
+                    'icon_class' => '',
                     'color' => null,
                     'parent_id' => null,
                     'permissions' => 'browse_about',
@@ -78,7 +77,7 @@ class AboutCRUDDataTypeAdded extends Seeder
                 $menu_item->url = '/general/about';
                 $menu_item->title = 'About';
                 $menu_item->target = '_self';
-                $menu_item->icon_class = 'info';
+                $menu_item->icon_class = '';
                 $menu_item->color = null;
                 $menu_item->parent_id = null;
                 $menu_item->permissions = 'browse_about';

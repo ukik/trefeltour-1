@@ -135,6 +135,7 @@
                       :key="index"
                       v-if="
                         dataRow?.field != 'featured_image' &&
+                        dataRow?.field != 'tagline' &&
                         dataRow?.field != 'description' &&
                         dataRow?.field != 'grid_1_icon' &&
                         dataRow?.field != 'grid_1_title' &&
@@ -215,6 +216,7 @@
                         <vs-td
                           v-if="
                             dataRow?.field != 'featured_image' &&
+                            dataRow?.field != 'tagline' &&
                             dataRow?.field != 'description' &&
                             dataRow?.field != 'grid_1_icon' &&
                             dataRow?.field != 'grid_1_title' &&

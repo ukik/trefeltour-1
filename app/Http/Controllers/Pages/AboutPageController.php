@@ -136,6 +136,8 @@ class AboutPageController extends Controller
             $req = request()['data'];
             $data = [
                 'title' => $req['title'],
+                'tagline' => $req['tagline'],
+                'logo' => imageFilterValue($req['logo']),
                 'featured_image' => imageFilterValue($req['featured_image']),
                 'description' => $req['description'],
                 'grid_1_icon' => $req['grid_1_icon'],
@@ -225,6 +227,8 @@ class AboutPageController extends Controller
             $data = [
                 'title' => $req['title'],
                 'featured_image' => imageFilterValue($req['featured_image']),
+                'logo' => imageFilterValue($req['logo']),
+                'tagline' => $req['tagline'],
                 'description' => $req['description'],
                 'grid_1_icon' => $req['grid_1_icon'],
                 'grid_1_title' => $req['grid_1_title'],

@@ -138,9 +138,9 @@ class TransportVehiclesController extends Controller
                 $data->where('slot_passanger',$slot_passanger);
             }
 
-            if(request()->rentalId) {
-                $rentalId = request()->rentalId;
-                $data->where('rental_id',$rentalId);
+            if(request()->parentId) {
+                $parentId = request()->parentId;
+                $data->where('rental_id',$parentId);
             }
 
 

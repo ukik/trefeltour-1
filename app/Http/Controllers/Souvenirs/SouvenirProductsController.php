@@ -110,6 +110,11 @@ class SouvenirProductsController extends Controller
                 $data->where('category',$category);
             }
 
+            if(request()->parentId) {
+                $parentId = request()->parentId;
+                $data->where('store_id',$parentId);
+            }
+
             // ================================================
             // jika di LAGIA referensi ke sini
             $additional = NULL;
@@ -118,6 +123,7 @@ class SouvenirProductsController extends Controller
                 $additional = SouvenirStores::whereId(request()->vendor)->with(['ratingAvg'])->first();
             }
             // ================================================
+
 
             $data = $data->paginate(request()->perPage);
 

@@ -107,10 +107,16 @@ class TourismFacilitiesController extends Controller
                 $data->where('category','like','%'.$category.'%');
             }
 
-            if(request()->venueId) {
-                $venueId = request()->venueId;
-                $data->where('venue_id',$venueId);
+            // if(request()->venueId) {
+            //     $venueId = request()->venueId;
+            //     $data->where('venue_id',$venueId);
+            // }
+
+            if(request()->parentId) {
+                $parentId = request()->parentId;
+                $data->where('venue_id',$parentId);
             }
+
 
             // ================================================
             // jika di LAGIA referensi ke sini

@@ -111,6 +111,12 @@ class CulinaryProductsController extends Controller
                 $data->where('category',$category);
             }
 
+            if(request()->parentId) {
+                $parentId = request()->parentId;
+                $data->where('store_id',$parentId);
+            }
+
+
             // ================================================
             // jika di LAGIA referensi ke sini
             $additional = NULL;

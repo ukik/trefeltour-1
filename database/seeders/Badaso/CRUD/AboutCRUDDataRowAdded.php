@@ -58,9 +58,9 @@ class AboutCRUDDataRowAdded extends Seeder
                 2 => 
                 array (
                     'data_type_id' => $data_type->id,
-                    'field' => 'featured_image',
-                    'type' => 'upload_image_multiple',
-                    'display_name' => 'Featured Image',
+                    'field' => 'tagline',
+                    'type' => 'textarea',
+                    'display_name' => 'Tagline',
                     'required' => '0',
                     'browse' => '0',
                     'read' => '1',
@@ -74,15 +74,15 @@ class AboutCRUDDataRowAdded extends Seeder
                 3 => 
                 array (
                     'data_type_id' => $data_type->id,
-                    'field' => 'description',
-                    'type' => 'editor',
-                    'display_name' => 'Description',
+                    'field' => 'logo',
+                    'type' => 'upload_image',
+                    'display_name' => 'Logo',
                     'required' => '0',
-                    'browse' => '0',
+                    'browse' => '1',
                     'read' => '1',
                     'edit' => '1',
                     'add' => '1',
-                    'delete' => '0',
+                    'delete' => '1',
                     'details' => '{}',
                     'relation' => NULL,
                     'order' => '4',
@@ -90,9 +90,9 @@ class AboutCRUDDataRowAdded extends Seeder
                 4 => 
                 array (
                     'data_type_id' => $data_type->id,
-                    'field' => 'grid_1_icon',
-                    'type' => 'text',
-                    'display_name' => 'Grid 1 Icon',
+                    'field' => 'featured_image',
+                    'type' => 'upload_image_multiple',
+                    'display_name' => 'Featured Image',
                     'required' => '0',
                     'browse' => '0',
                     'read' => '1',
@@ -106,9 +106,9 @@ class AboutCRUDDataRowAdded extends Seeder
                 5 => 
                 array (
                     'data_type_id' => $data_type->id,
-                    'field' => 'grid_1_title',
-                    'type' => 'text',
-                    'display_name' => 'Grid 1 Title',
+                    'field' => 'description',
+                    'type' => 'editor',
+                    'display_name' => 'Description',
                     'required' => '0',
                     'browse' => '0',
                     'read' => '1',
@@ -122,9 +122,9 @@ class AboutCRUDDataRowAdded extends Seeder
                 6 => 
                 array (
                     'data_type_id' => $data_type->id,
-                    'field' => 'grid_1_description',
-                    'type' => 'textarea',
-                    'display_name' => 'Grid 1 Description',
+                    'field' => 'grid_1_icon',
+                    'type' => 'text',
+                    'display_name' => 'Grid 1 Icon',
                     'required' => '0',
                     'browse' => '0',
                     'read' => '1',
@@ -138,9 +138,9 @@ class AboutCRUDDataRowAdded extends Seeder
                 7 => 
                 array (
                     'data_type_id' => $data_type->id,
-                    'field' => 'grid_2_icon',
+                    'field' => 'grid_1_title',
                     'type' => 'text',
-                    'display_name' => 'Grid 2 Icon',
+                    'display_name' => 'Grid 1 Title',
                     'required' => '0',
                     'browse' => '0',
                     'read' => '1',
@@ -154,9 +154,9 @@ class AboutCRUDDataRowAdded extends Seeder
                 8 => 
                 array (
                     'data_type_id' => $data_type->id,
-                    'field' => 'grid_2_title',
+                    'field' => 'grid_1_description',
                     'type' => 'text',
-                    'display_name' => 'Grid 2 Title',
+                    'display_name' => 'Grid 1 Description',
                     'required' => '0',
                     'browse' => '0',
                     'read' => '1',
@@ -170,9 +170,9 @@ class AboutCRUDDataRowAdded extends Seeder
                 9 => 
                 array (
                     'data_type_id' => $data_type->id,
-                    'field' => 'grid_2_description',
-                    'type' => 'textarea',
-                    'display_name' => 'Grid 2 Description',
+                    'field' => 'grid_2_icon',
+                    'type' => 'text',
+                    'display_name' => 'Grid 2 Icon',
                     'required' => '0',
                     'browse' => '0',
                     'read' => '1',
@@ -186,9 +186,9 @@ class AboutCRUDDataRowAdded extends Seeder
                 10 => 
                 array (
                     'data_type_id' => $data_type->id,
-                    'field' => 'grid_3_icon',
+                    'field' => 'grid_2_title',
                     'type' => 'text',
-                    'display_name' => 'Grid 3 Icon',
+                    'display_name' => 'Grid 2 Title',
                     'required' => '0',
                     'browse' => '0',
                     'read' => '1',
@@ -202,9 +202,9 @@ class AboutCRUDDataRowAdded extends Seeder
                 11 => 
                 array (
                     'data_type_id' => $data_type->id,
-                    'field' => 'grid_3_title',
+                    'field' => 'grid_2_description',
                     'type' => 'text',
-                    'display_name' => 'Grid 3 Title',
+                    'display_name' => 'Grid 2 Description',
                     'required' => '0',
                     'browse' => '0',
                     'read' => '1',
@@ -218,9 +218,9 @@ class AboutCRUDDataRowAdded extends Seeder
                 12 => 
                 array (
                     'data_type_id' => $data_type->id,
-                    'field' => 'grid_3_description',
-                    'type' => 'textarea',
-                    'display_name' => 'Grid 3 Description',
+                    'field' => 'grid_3_icon',
+                    'type' => 'text',
+                    'display_name' => 'Grid 3 Icon',
                     'required' => '0',
                     'browse' => '0',
                     'read' => '1',
@@ -234,9 +234,9 @@ class AboutCRUDDataRowAdded extends Seeder
                 13 => 
                 array (
                     'data_type_id' => $data_type->id,
-                    'field' => 'grid_4_icon',
+                    'field' => 'grid_3_title',
                     'type' => 'text',
-                    'display_name' => 'Grid 4 Icon',
+                    'display_name' => 'Grid 3 Title',
                     'required' => '0',
                     'browse' => '0',
                     'read' => '1',
@@ -250,9 +250,9 @@ class AboutCRUDDataRowAdded extends Seeder
                 14 => 
                 array (
                     'data_type_id' => $data_type->id,
-                    'field' => 'grid_4_title',
+                    'field' => 'grid_3_description',
                     'type' => 'text',
-                    'display_name' => 'Grid 4 Title',
+                    'display_name' => 'Grid 3 Description',
                     'required' => '0',
                     'browse' => '0',
                     'read' => '1',
@@ -266,9 +266,9 @@ class AboutCRUDDataRowAdded extends Seeder
                 15 => 
                 array (
                     'data_type_id' => $data_type->id,
-                    'field' => 'grid_4_description',
-                    'type' => 'textarea',
-                    'display_name' => 'Grid 4 Description',
+                    'field' => 'grid_4_icon',
+                    'type' => 'text',
+                    'display_name' => 'Grid 4 Icon',
                     'required' => '0',
                     'browse' => '0',
                     'read' => '1',
@@ -282,14 +282,14 @@ class AboutCRUDDataRowAdded extends Seeder
                 16 => 
                 array (
                     'data_type_id' => $data_type->id,
-                    'field' => 'created_at',
-                    'type' => 'datetime',
-                    'display_name' => 'Created At',
+                    'field' => 'grid_4_title',
+                    'type' => 'text',
+                    'display_name' => 'Grid 4 Title',
                     'required' => '0',
                     'browse' => '0',
-                    'read' => '0',
-                    'edit' => '0',
-                    'add' => '0',
+                    'read' => '1',
+                    'edit' => '1',
+                    'add' => '1',
                     'delete' => '0',
                     'details' => '{}',
                     'relation' => NULL,
@@ -298,14 +298,14 @@ class AboutCRUDDataRowAdded extends Seeder
                 17 => 
                 array (
                     'data_type_id' => $data_type->id,
-                    'field' => 'updated_at',
-                    'type' => 'datetime',
-                    'display_name' => 'Updated At',
+                    'field' => 'grid_4_description',
+                    'type' => 'text',
+                    'display_name' => 'Grid 4 Description',
                     'required' => '0',
                     'browse' => '0',
-                    'read' => '0',
-                    'edit' => '0',
-                    'add' => '0',
+                    'read' => '1',
+                    'edit' => '1',
+                    'add' => '1',
                     'delete' => '0',
                     'details' => '{}',
                     'relation' => NULL,
@@ -314,14 +314,14 @@ class AboutCRUDDataRowAdded extends Seeder
                 18 => 
                 array (
                     'data_type_id' => $data_type->id,
-                    'field' => 'deleted_at',
-                    'type' => 'datetime',
-                    'display_name' => 'Deleted At',
+                    'field' => 'grid_image_1',
+                    'type' => 'upload_image',
+                    'display_name' => 'Grid Image 1',
                     'required' => '0',
                     'browse' => '0',
-                    'read' => '0',
-                    'edit' => '0',
-                    'add' => '0',
+                    'read' => '1',
+                    'edit' => '1',
+                    'add' => '1',
                     'delete' => '0',
                     'details' => '{}',
                     'relation' => NULL,
@@ -330,9 +330,9 @@ class AboutCRUDDataRowAdded extends Seeder
                 19 => 
                 array (
                     'data_type_id' => $data_type->id,
-                    'field' => 'grid_image_1',
+                    'field' => 'grid_image_2',
                     'type' => 'upload_image',
-                    'display_name' => 'GridImage1',
+                    'display_name' => 'Grid Image 2',
                     'required' => '0',
                     'browse' => '0',
                     'read' => '1',
@@ -346,9 +346,9 @@ class AboutCRUDDataRowAdded extends Seeder
                 20 => 
                 array (
                     'data_type_id' => $data_type->id,
-                    'field' => 'grid_image_2',
+                    'field' => 'grid_image_3',
                     'type' => 'upload_image',
-                    'display_name' => 'GridImage2',
+                    'display_name' => 'Grid Image 3',
                     'required' => '0',
                     'browse' => '0',
                     'read' => '1',
@@ -362,9 +362,9 @@ class AboutCRUDDataRowAdded extends Seeder
                 21 => 
                 array (
                     'data_type_id' => $data_type->id,
-                    'field' => 'grid_image_3',
-                    'type' => 'upload_image',
-                    'display_name' => 'GridImage3',
+                    'field' => 'bottom_label_1',
+                    'type' => 'text',
+                    'display_name' => 'Bottom Label 1',
                     'required' => '0',
                     'browse' => '0',
                     'read' => '1',
@@ -378,9 +378,9 @@ class AboutCRUDDataRowAdded extends Seeder
                 22 => 
                 array (
                     'data_type_id' => $data_type->id,
-                    'field' => 'bottom_label_1',
+                    'field' => 'bottom_label_2',
                     'type' => 'text',
-                    'display_name' => 'BottomLabel1',
+                    'display_name' => 'Bottom Label 2',
                     'required' => '0',
                     'browse' => '0',
                     'read' => '1',
@@ -394,20 +394,52 @@ class AboutCRUDDataRowAdded extends Seeder
                 23 => 
                 array (
                     'data_type_id' => $data_type->id,
-                    'field' => 'bottom_label_2',
-                    'type' => 'text',
-                    'display_name' => 'BottomLabel2',
+                    'field' => 'created_at',
+                    'type' => 'datetime',
+                    'display_name' => 'Created At',
                     'required' => '0',
                     'browse' => '0',
-                    'read' => '1',
-                    'edit' => '1',
-                    'add' => '1',
+                    'read' => '0',
+                    'edit' => '0',
+                    'add' => '0',
                     'delete' => '0',
                     'details' => '{}',
                     'relation' => NULL,
                     'order' => '24',
                 ),
                 24 => 
+                array (
+                    'data_type_id' => $data_type->id,
+                    'field' => 'updated_at',
+                    'type' => 'datetime',
+                    'display_name' => 'Updated At',
+                    'required' => '0',
+                    'browse' => '0',
+                    'read' => '0',
+                    'edit' => '0',
+                    'add' => '0',
+                    'delete' => '0',
+                    'details' => '{}',
+                    'relation' => NULL,
+                    'order' => '25',
+                ),
+                25 => 
+                array (
+                    'data_type_id' => $data_type->id,
+                    'field' => 'deleted_at',
+                    'type' => 'datetime',
+                    'display_name' => 'Deleted At',
+                    'required' => '0',
+                    'browse' => '0',
+                    'read' => '0',
+                    'edit' => '0',
+                    'add' => '0',
+                    'delete' => '0',
+                    'details' => '{}',
+                    'relation' => NULL,
+                    'order' => '26',
+                ),
+                26 => 
                 array (
                     'data_type_id' => $data_type->id,
                     'field' => 'lang',
@@ -433,7 +465,7 @@ class AboutCRUDDataRowAdded extends Seeder
 ]
 }',
                     'relation' => NULL,
-                    'order' => '25',
+                    'order' => '27',
                 ),
             ));
 

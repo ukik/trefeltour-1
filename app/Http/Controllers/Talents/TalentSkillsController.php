@@ -102,9 +102,9 @@ class TalentSkillsController extends Controller
                 $data->where('category',$category);
             }
 
-            if(request()->profileId) {
-                $profileId = request()->profileId;
-                $data->where('profile_id',$profileId);
+            if(request()->parentId) {
+                $parentId = request()->parentId;
+                $data->where('profile_id',$parentId);
             }
 
             // ================================================

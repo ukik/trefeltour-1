@@ -123,6 +123,12 @@ class LodgeRoomsController extends Controller
             }
             // ================================================
 
+
+            if(request()->parentId) {
+                $parentId = request()->parentId;
+                $data->where('profile_id',$parentId);
+            }
+
             $data = $data->paginate(request()->perPage);
 
             // $encode = json_encode($paginate);
