@@ -209,13 +209,14 @@ class CulinaryStoresController extends Controller
                 'image' => imageFilterValue($req['image']),
                 'address' => $req['address'],
                 'codepos' => $req['codepos'],
+                'province' => $req['province'],
                 'city' => $req['city'],
                 'country' => $req['country'],
                 'policy' => $req['description'],
                 'description' => $req['description'],
                 'is_available' => isBoolean($req['is_available']),
 
-                'code_table' => ($slug) ,
+                'code_table' => ('culinary-stores') ,
                 'uuid' => $table_entity->uuid ?: ShortUuid(),
             ];
 
@@ -287,13 +288,14 @@ class CulinaryStoresController extends Controller
                 'image' => imageFilterValue($req['image']),
                 'address' => $req['address'],
                 'codepos' => $req['codepos'],
+                'province' => $req['province'],
                 'city' => $req['city'],
                 'country' => $req['country'],
                 'policy' => $req['description'],
                 'description' => $req['description'],
                 'is_available' => isBoolean($req['is_available']),
 
-                'code_table' => ($slug) ,
+                'code_table' => ('culinary-stores') ,
                 'uuid' => ShortUuid(),
             ];
 

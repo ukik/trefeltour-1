@@ -345,7 +345,7 @@ class TransportPricesController extends Controller
                 'cashback_price' => $req['cashback_price'],
                 'description' => $req['description'],
 
-                'code_table' => ($slug),
+                'code_table' => ('transport-prices'),
                 'uuid' => $table_entity->uuid ?: ShortUuid(),
             ];
 
@@ -422,7 +422,7 @@ class TransportPricesController extends Controller
                 'cashback_price' => $req['cashback_price'],
                 'description' => $req['description'],
 
-                'code_table' => ($slug),
+                'code_table' => ('transport-prices'),
                 'uuid' => ShortUuid(),
             ];
 

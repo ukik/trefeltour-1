@@ -227,7 +227,7 @@ class LodgeRoomsController extends Controller
                 'quota' => $req['quota'] ,
                 'is_available' => $req['is_available'] ,
 
-                'code_table' => ($slug) ,
+                'code_table' => ('lodge-rooms') ,
                 'uuid' => $table_entity->uuid ?: ShortUuid(),
             ];
 
@@ -300,7 +300,7 @@ class LodgeRoomsController extends Controller
                 'quota' => $req['quota'] ,
                 'is_available' => $req['is_available'] ,
 
-                'code_table' => ($slug) ,
+                'code_table' => ('lodge-rooms') ,
                 'uuid' => ShortUuid(),
             ];
 

@@ -211,7 +211,7 @@ class TransportMaintenancesController extends Controller
                 'fee' => $req['fee'],
                 'description' => $req['description'],
                 'is_maintenance' => $req['is_maintenance'],
-                'code_table' => ($slug) ,
+                'code_table' => ('transport-maintenances') ,
                 'uuid' => $table_entity->uuid ?: ShortUuid(),
             ];
 
@@ -290,7 +290,7 @@ class TransportMaintenancesController extends Controller
                 'fee' => $req['fee'],
                 'description' => $req['description'],
                 'is_maintenance' => $req['is_maintenance'] === 'true' ? 'true' : 'false',
-                'code_table' => ($slug) ,
+                'code_table' => ('transport-maintenances') ,
                 'uuid' => ShortUuid(),
             ];
 

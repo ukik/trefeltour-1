@@ -281,7 +281,7 @@ class LodgePaymentsController extends Controller
                 'status' => $req['status'],
                 'receipt' => $req['receipt'],
                 // 'description' => $req['description'],
-                'code_table' => ($slug),
+                'code_table' => ('lodge-payments'),
                 'uuid' => $table_entity->uuid ?: ShortUuid(),
             ];
 
@@ -359,7 +359,7 @@ class LodgePaymentsController extends Controller
                 'status' => $req['status'],
                 'receipt' => $req['receipt'],
                 // 'description' => $req['description'],
-                'code_table' => ($slug),
+                'code_table' => ('lodge-payments'),
                 'uuid' => ShortUuid(),
             ];
 

@@ -270,6 +270,26 @@ if (!function_exists('isAdminCulinary')) {
     }
 }
 
+if (!function_exists('isAdminTour')) {
+    function isAdminTour()
+    {
+        if (Auth::check()) {
+
+            foreach (Auth::user()->roles as $key => $value) {
+                switch ($value->name) {
+                        // case 'admin-culinary':
+                    case 'administrator':
+                    case 'admin':
+                        return true;
+                    default:
+                        return false;
+                }
+            }
+        } else {
+            return ApiResponse::unauthorized();
+        }
+    }
+}
 if (!function_exists('imageFilterValue')) {
     function imageFilterValue($value)
     {

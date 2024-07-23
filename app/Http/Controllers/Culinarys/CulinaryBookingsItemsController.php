@@ -270,7 +270,7 @@ class CulinaryBookingsItemsController extends Controller
     //             'days_duration' => $req['days_duration'] ,
 
     //             // 'description' => $req['description'] ,
-    //             'code_table' => ($slug) ,
+    //             'code_table' => ('culinary-bookings-items') ,
     //             'uuid' => $table_entity->uuid ?: ShortUuid(),
     //         ];
 
@@ -357,7 +357,7 @@ class CulinaryBookingsItemsController extends Controller
     //             'days_duration' => $req['days_duration'] ,
 
     //             // 'description' => $req['description'] ,
-    //             'code_table' => ($slug) ,
+    //             'code_table' => ('culinary-bookings-items') ,
     //             'uuid' => ShortUuid(),
     //         ];
 

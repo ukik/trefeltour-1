@@ -58,6 +58,9 @@ Route::group(
 
                 Route::get('/index', '\App\Http\Controllers\Pages\IndexPageController@index');
                 Route::get('/init', '\App\Http\Controllers\Pages\InitPageController@index');
+                Route::get('/init/provinsi', '\App\Http\Controllers\Pages\InitPageController@provinsi');
+
+                Route::get('/init/province', '\App\Http\Controllers\Pages\InitPageController@province');
 
                 // PAGE
                 Route::get('/about', '\App\Http\Controllers\Pages\AboutPageController@browse');
@@ -88,6 +91,14 @@ Route::group(
                 Route::get('/culinary-stores/read', '\App\Http\Controllers\Culinarys\CulinaryStoresController@read');
                 Route::get('/culinary-prices', '\App\Http\Controllers\Culinarys\CulinaryPricesController@browse');
                 Route::get('/culinary-prices/read', '\App\Http\Controllers\Culinarys\CulinaryPricesController@read');
+
+                // TOUR
+                Route::get('/tour-products', '\App\Http\Controllers\Tours\TourProductsController@browse');
+                Route::get('/tour-products/read', '\App\Http\Controllers\Tours\TourProductsController@read');
+                Route::get('/tour-stores', '\App\Http\Controllers\Tours\TourStoresController@browse');
+                Route::get('/tour-stores/read', '\App\Http\Controllers\Tours\TourStoresController@read');
+                Route::get('/tour-prices', '\App\Http\Controllers\Tours\TourPricesController@browse');
+                Route::get('/tour-prices/read', '\App\Http\Controllers\Tours\TourPricesController@read');
 
                 // LODGE
                 Route::get('/lodge-facility', '\App\Http\Controllers\Lodges\LodgeFacilityController@browse');

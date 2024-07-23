@@ -214,7 +214,7 @@ class TourismServicesController extends Controller
                 'is_security' => $req['is_security'],
                 'is_medic' => $req['is_medic'],
 
-                'code_table' => ($slug) ,
+                'code_table' => ('tourism-services') ,
                 'uuid' => $table_entity->uuid ?: ShortUuid(),
             ];
 
@@ -297,7 +297,7 @@ class TourismServicesController extends Controller
                 'is_security' => $req['is_security'],
                 'is_medic' => $req['is_medic'],
 
-                'code_table' => ($slug) ,
+                'code_table' => ('tourism-services') ,
                 'uuid' => ShortUuid(),
             ];
 

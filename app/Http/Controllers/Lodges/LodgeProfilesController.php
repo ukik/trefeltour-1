@@ -226,6 +226,7 @@ class LodgeProfilesController extends Controller
                 'image' => imageFilterValue($req['image']),
                 'address' => $req['address'],
                 'codepos' => $req['codepos'],
+                'province' => $req['province'],
                 'city' => $req['city'],
                 'country' => $req['country'],
                 'policy' => $req['policy'],
@@ -241,7 +242,7 @@ class LodgeProfilesController extends Controller
                 'late_checkout_price' => $req['late_checkout_price'],
                 'is_available' => isBoolean($req['is_available']),
 
-                'code_table' => ($slug) ,
+                'code_table' => ('lodge-profiles') ,
                 'uuid' => $table_entity->uuid ?: ShortUuid(),
             ];
 
@@ -313,6 +314,7 @@ class LodgeProfilesController extends Controller
                 'image' => imageFilterValue($req['image']),
                 'address' => $req['address'],
                 'codepos' => $req['codepos'],
+                'province' => $req['province'],
                 'city' => $req['city'],
                 'country' => $req['country'],
                 'policy' => $req['policy'],
@@ -328,7 +330,7 @@ class LodgeProfilesController extends Controller
                 'late_checkout_price' => $req['late_checkout_price'],
                 'is_available' => isBoolean($req['is_available']),
 
-                'code_table' => ($slug) ,
+                'code_table' => ('lodge-profiles') ,
                 'uuid' => ShortUuid(),
             ];
 

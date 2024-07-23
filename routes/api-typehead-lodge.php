@@ -26,7 +26,7 @@ use \App\Http\Middleware\BadasoAuthenticate as RootBadasoAuthenticate;
 |
 */
 
-Route::group(['prefix' => '/typehead/lodge', 'middleware' => ['sanctum_1','BADASO_ApiRequest'], 'namespace' => 'App\Http\Controllers\TypeHeads'], function ($request) {
+Route::group(['prefix' => '/typehead/lodge', 'middleware' => ['sanctum_1','BADASO_ApiRequest'], 'namespace' => 'App\Http\Controllers\AddToCart'], function ($request) {
     Route::get('/user', 'LodgeTypeHeadController@getUser');
     Route::get('/add_to_cart_user', 'LodgeTypeHeadController@getUser');
     Route::post('/get_prices_booking', 'LodgeTypeHeadController@get_prices_booking');

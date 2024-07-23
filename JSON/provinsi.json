@@ -1,0 +1,141 @@
+{
+    "size": 12,
+    "items": [
+      {
+        "label": "ACEH",
+        "value": "aceh"
+      },
+      {
+        "label": "SUMATERA UTARA",
+        "value": "sumatera utara"
+      },
+      {
+        "label": "SUMATERA BARAT",
+        "value": "sumatera barat"
+      },
+      {
+        "label": "RIAU",
+        "value": "riau"
+      },
+      {
+        "label": "JAMBI",
+        "value": "jambi"
+      },
+      {
+        "label": "SUMATERA SELATAN",
+        "value": "sumatera selatan"
+      },
+      {
+        "label": "BENGKULU",
+        "value": "bengkulu"
+      },
+      {
+        "label": "LAMPUNG",
+        "value": "lampung"
+      },
+      {
+        "label": "KEPULAUAN BANGKA BELITUNG",
+        "value": "kepulauan bangka belitung"
+      },
+      {
+        "label": "KEPULAUAN RIAU",
+        "value": "kepulauan riau"
+      },
+      {
+        "label": "DKI JAKARTA",
+        "value": "dki jakarta"
+      },
+      {
+        "label": "JAWA BARAT",
+        "value": "jawa barat"
+      },
+      {
+        "label": "JAWA TENGAH",
+        "value": "jawa tengah"
+      },
+      {
+        "label": "DI YOGYAKARTA",
+        "value": "di yogyakarta"
+      },
+      {
+        "label": "JAWA TIMUR",
+        "value": "jawa timur"
+      },
+      {
+        "label": "BANTEN",
+        "value": "banten"
+      },
+      {
+        "label": "BALI",
+        "value": "bali"
+      },
+      {
+        "label": "NUSA TENGGARA BARAT",
+        "value": "nusa tenggara barat"
+      },
+      {
+        "label": "NUSA TENGGARA TIMUR",
+        "value": "nusa tenggara timur"
+      },
+      {
+        "label": "KALIMANTAN BARAT",
+        "value": "kalimantan barat"
+      },
+      {
+        "label": "KALIMANTAN TENGAH",
+        "value": "kalimantan tengah"
+      },
+      {
+        "label": "KALIMANTAN SELATAN",
+        "value": "kalimantan selatan"
+      },
+      {
+        "label": "KALIMANTAN TIMUR",
+        "value": "kalimantan timur"
+      },
+      {
+        "label": "KALIMANTAN UTARA",
+        "value": "kalimantan utara"
+      },
+      {
+        "label": "SULAWESI UTARA",
+        "value": "sulawesi utara"
+      },
+      {
+        "label": "SULAWESI TENGAH",
+        "value": "sulawesi tengah"
+      },
+      {
+        "label": "SULAWESI SELATAN",
+        "value": "sulawesi selatan"
+      },
+      {
+        "label": "SULAWESI TENGGARA",
+        "value": "sulawesi tenggara"
+      },
+      {
+        "label": "GORONTALO",
+        "value": "gorontalo"
+      },
+      {
+        "label": "SULAWESI BARAT",
+        "value": "sulawesi barat"
+      },
+      {
+        "label": "MALUKU",
+        "value": "maluku"
+      },
+      {
+        "label": "MALUKU UTARA",
+        "value": "maluku utara"
+      },
+      {
+        "label": "PAPUA BARAT",
+        "value": "papua barat"
+      },
+      {
+        "label": "PAPUA",
+        "value": "papua"
+      }
+    ]
+  }

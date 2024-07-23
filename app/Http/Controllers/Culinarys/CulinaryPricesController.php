@@ -325,7 +325,7 @@ class CulinaryPricesController extends Controller
                 'stock' => $req['stock'],
                 'description' => $req['description'],
 
-                'code_table' => ($slug),
+                'code_table' => ('culinary-prices'),
                 'uuid' => $table_entity->uuid ?: ShortUuid(),
             ];
 
@@ -403,7 +403,7 @@ class CulinaryPricesController extends Controller
                 'stock' => $req['stock'],
                 'description' => $req['description'],
 
-                'code_table' => ($slug),
+                'code_table' => ('culinary-prices'),
                 'uuid' => ShortUuid(),
             ];
 

@@ -222,7 +222,7 @@ class CulinaryPaymentsValidationsController extends Controller
                 'payment_id' => $temp->id,
 
                 'is_valid' => $req['is_valid'],
-                'code_table' => ($slug),
+                'code_table' => ('culinary-payments-validations'),
                 'uuid' => $table_entity->uuid ?: ShortUuid(),
             ];
 
@@ -302,7 +302,7 @@ class CulinaryPaymentsValidationsController extends Controller
                 'payment_id' => $temp->id,
 
                 'is_valid' => isBoolean($req['is_valid']),
-                'code_table' => ($slug),
+                'code_table' => ('culinary-payments-validations'),
                 'uuid' => ShortUuid(),
             ];
 

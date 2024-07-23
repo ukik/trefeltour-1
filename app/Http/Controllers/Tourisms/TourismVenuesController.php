@@ -242,6 +242,7 @@ class TourismVenuesController extends Controller
                 'image' => imageFilterValue($req['image']),
                 'address' => $req['address'],
                 'codepos' => $req['codepos'],
+                'province' => $req['province'],
                 'city' => $req['city'],
                 'country' => $req['country'],
                 'policy' => $req['policy'],
@@ -249,7 +250,7 @@ class TourismVenuesController extends Controller
                 'description' => $req['description'],
                 'is_available' => isBoolean($req['is_available']),
 
-                'code_table' => ($slug) ,
+                'code_table' => ('tourism-venues') ,
                 'uuid' => $table_entity->uuid ?: ShortUuid(),
             ];
 
@@ -331,6 +332,7 @@ class TourismVenuesController extends Controller
                 'image' => imageFilterValue($req['image']),
                 'address' => $req['address'],
                 'codepos' => $req['codepos'],
+                'province' => $req['province'],
                 'city' => $req['city'],
                 'country' => $req['country'],
                 'policy' => $req['policy'],
@@ -338,7 +340,7 @@ class TourismVenuesController extends Controller
                 'description' => $req['description'],
                 'is_available' => isBoolean($req['is_available']),
 
-                'code_table' => ($slug) ,
+                'code_table' => ('tourism-venues') ,
                 'uuid' => ShortUuid(),
             ];
 

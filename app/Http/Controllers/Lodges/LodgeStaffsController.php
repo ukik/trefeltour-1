@@ -184,7 +184,7 @@ class LodgeStaffsController extends Controller
                 'position' => $req['position'] ,
                 'hire_date' => $req['hire_date'] ,
                 'is_available' => $req['is_available'] ,
-                'code_table' => ($slug) ,
+                'code_table' => ('lodge-staffs') ,
                 'uuid' => $table_entity->uuid ?: ShortUuid(),
             ];
 
@@ -251,7 +251,7 @@ class LodgeStaffsController extends Controller
                 'position' => $req['position'] ,
                 'hire_date' => $req['hire_date'] ,
                 'is_available' => $req['is_available'] ,
-                'code_table' => ($slug) ,
+                'code_table' => ('lodge-staffs') ,
                 'uuid' => ShortUuid(),
             ];
 

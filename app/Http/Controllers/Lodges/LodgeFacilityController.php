@@ -181,7 +181,7 @@ class LodgeFacilityController extends Controller
                 'facility_general' => implode(',', $req['facility_general'] ?: []) ,
                 'facility_connectivity' => implode(',', $req['facility_connectivity'] ?: []) ,
                 'facility_business' => implode(',', $req['facility_business'] ?: []) ,
-                'code_table' => ($slug) ,
+                'code_table' => ('lodge-facility') ,
                 'uuid' => $table_entity->uuid ?: ShortUuid(),
             ];
 
@@ -253,7 +253,7 @@ class LodgeFacilityController extends Controller
                 'facility_connectivity' => implode(',', $req['facility_connectivity'] ?: []) ,
                 'facility_business' => implode(',', $req['facility_business'] ?: []) ,
 
-                'code_table' => ($slug) ,
+                'code_table' => ('lodge-facility') ,
                 'uuid' => ShortUuid(),
             ];
 

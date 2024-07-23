@@ -232,7 +232,7 @@ class TransportPaymentsValidationsController extends Controller
                 'payment_id' => $temp->id,
 
                 'is_valid' => $req['is_valid'],
-                'code_table' => ($slug),
+                'code_table' => ('transport-payments-validations'),
                 'uuid' => $table_entity->uuid ?: ShortUuid(),
             ];
 
@@ -312,7 +312,7 @@ class TransportPaymentsValidationsController extends Controller
                 'payment_id' => $temp->id,
 
                 'is_valid' => isBoolean($req['is_valid']),
-                'code_table' => ($slug),
+                'code_table' => ('transport-payments-validations'),
                 'uuid' => ShortUuid(),
             ];
 

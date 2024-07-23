@@ -212,7 +212,7 @@ class TalentProfilesController extends Controller
                 'twitter' => $req['twitter'],
                 'is_available' => isBoolean($req['is_available']),
 
-                'code_table' => ($slug) ,
+                'code_table' => ('talent-profiles') ,
                 'uuid' => $table_entity->uuid ?: ShortUuid(),
             ];
 
@@ -289,7 +289,7 @@ class TalentProfilesController extends Controller
                 'twitter' => $req['twitter'],
                 'is_available' => isBoolean($req['is_available']),
 
-                'code_table' => ($slug) ,
+                'code_table' => ('talent-profiles') ,
                 'uuid' => ShortUuid(),
             ];
 

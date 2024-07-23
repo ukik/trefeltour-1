@@ -338,5 +338,27 @@ class BadasoDeploymentOrchestratorSeeder extends Seeder
         $this->seed(AboutCRUDDataDeleted::class);
         $this->seed(AboutCRUDDataTypeAdded::class);
         $this->seed(AboutCRUDDataRowAdded::class);
+        $this->seed(TourBookingItemsCRUDDataTypeAdded::class);
+        $this->seed(TourBookingItemsCRUDDataRowAdded::class);
+        $this->seed(TourBookingsCRUDDataTypeAdded::class);
+        $this->seed(TourBookingsCRUDDataRowAdded::class);
+        $this->seed(TourCartsCRUDDataTypeAdded::class);
+        $this->seed(TourCartsCRUDDataRowAdded::class);
+        $this->seed(TourPaymentsCRUDDataTypeAdded::class);
+        $this->seed(TourPaymentsCRUDDataRowAdded::class);
+        $this->seed(TourPaymentsValidationsCRUDDataTypeAdded::class);
+        $this->seed(TourPaymentsValidationsCRUDDataRowAdded::class);
+        $this->seed(TourPricesCRUDDataTypeAdded::class);
+        $this->seed(TourPricesCRUDDataRowAdded::class);
+        $this->seed(TourProductsCRUDDataTypeAdded::class);
+        $this->seed(TourProductsCRUDDataRowAdded::class);
+        $this->seed(TourStoresCRUDDataTypeAdded::class);
+        $this->seed(TourStoresCRUDDataRowAdded::class);
+        $this->seed(ProvincesCRUDDataTypeAdded::class);
+        $this->seed(ProvincesCRUDDataRowAdded::class);
+        $this->seed(RegenciesCRUDDataTypeAdded::class);
+        $this->seed(RegenciesCRUDDataRowAdded::class);
+        $this->seed(CountryCRUDDataTypeAdded::class);
+        $this->seed(CountryCRUDDataRowAdded::class);
     }
 }

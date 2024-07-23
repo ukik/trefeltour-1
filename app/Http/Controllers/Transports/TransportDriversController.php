@@ -207,7 +207,7 @@ class TransportDriversController extends Controller
                 'is_available' => $req['is_available'] ,
                 'is_reserved' => $req['is_reserved'] ,
                 'description' => $req['description'] ,
-                'code_table' => ($slug) ,
+                'code_table' => ('transport-drivers') ,
                 'uuid' => $table_entity->uuid ?: ShortUuid(),
             ];
 
@@ -277,7 +277,7 @@ class TransportDriversController extends Controller
                 'is_available' => isBoolean($req['is_available']),
                 'is_reserved' => isBoolean($req['is_reserved']),
                 'description' => $req['description'] ,
-                'code_table' => ($slug) ,
+                'code_table' => ('transport-drivers') ,
                 'uuid' => ShortUuid(),
             ];
 

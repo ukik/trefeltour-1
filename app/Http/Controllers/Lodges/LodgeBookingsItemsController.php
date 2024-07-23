@@ -275,7 +275,7 @@ class LodgeBookingsItemsController extends Controller
     //             'days_duration' => $req['days_duration'] ,
 
     //             // 'description' => $req['description'] ,
-    //             'code_table' => ($slug) ,
+    //             'code_table' => ('lodge-bookings-items') ,
     //             'uuid' => $table_entity->uuid ?: ShortUuid(),
     //         ];
 
@@ -362,7 +362,7 @@ class LodgeBookingsItemsController extends Controller
     //             'days_duration' => $req['days_duration'] ,
 
     //             // 'description' => $req['description'] ,
-    //             'code_table' => ($slug) ,
+    //             'code_table' => ('lodge-bookings-items') ,
     //             'uuid' => ShortUuid(),
     //         ];
 

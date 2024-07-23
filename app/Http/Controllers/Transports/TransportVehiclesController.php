@@ -262,7 +262,7 @@ class TransportVehiclesController extends Controller
                 'slot_passanger' => $req['slot_passanger'],
                 'is_available' => isBoolean($req['is_available']),
 
-                'code_table' => ($slug) ,
+                'code_table' => ('transport-vehicles') ,
                 'uuid' => $table_entity->uuid ?: ShortUuid(),
             ];
 
@@ -348,7 +348,7 @@ class TransportVehiclesController extends Controller
                 'slot_passanger' => $req['slot_passanger'],
                 'is_available' => isBoolean($req['is_available']),
 
-                'code_table' => ($slug) ,
+                'code_table' => ('transport-vehicles') ,
                 'uuid' => ShortUuid(),
             ];
 

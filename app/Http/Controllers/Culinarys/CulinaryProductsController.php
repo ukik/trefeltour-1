@@ -227,7 +227,7 @@ class CulinaryProductsController extends Controller
                 'is_available' => isBoolean($req['is_available']),
                 'image' => imageFilterValue($req['image']),
 
-                'code_table' => ($slug) ,
+                'code_table' => ('culinary-products') ,
                 'uuid' => $table_entity->uuid ?: ShortUuid(),
             ];
 
@@ -299,7 +299,7 @@ class CulinaryProductsController extends Controller
                 'is_available' => isBoolean($req['is_available']),
                 'image' => imageFilterValue($req['image']),
 
-                'code_table' => ($slug) ,
+                'code_table' => ('culinary-products') ,
                 'uuid' => ShortUuid(),
             ];
 

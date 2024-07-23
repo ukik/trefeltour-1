@@ -226,7 +226,7 @@ class SouvenirProductsController extends Controller
                 'is_available' => isBoolean($req['is_available']),
                 'image' => imageFilterValue($req['image']),
 
-                'code_table' => ($slug) ,
+                'code_table' => ('souvenir-products') ,
                 'uuid' => $table_entity->uuid ?: ShortUuid(),
             ];
 
@@ -298,7 +298,7 @@ class SouvenirProductsController extends Controller
                 'is_available' => isBoolean($req['is_available']),
                 'image' => imageFilterValue($req['image']),
 
-                'code_table' => ($slug) ,
+                'code_table' => ('souvenir-products') ,
                 'uuid' => ShortUuid(),
             ];
 

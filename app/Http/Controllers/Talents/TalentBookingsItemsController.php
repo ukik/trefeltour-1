@@ -272,7 +272,7 @@ class TalentBookingsItemsController extends Controller
     //             'days_duration' => $req['days_duration'] ,
 
     //             // 'description' => $req['description'] ,
-    //             'code_table' => ($slug) ,
+    //             'code_table' => ('talent-bookings-items') ,
     //             'uuid' => $table_entity->uuid ?: ShortUuid(),
     //         ];
 
@@ -359,7 +359,7 @@ class TalentBookingsItemsController extends Controller
     //             'days_duration' => $req['days_duration'] ,
 
     //             // 'description' => $req['description'] ,
-    //             'code_table' => ($slug) ,
+    //             'code_table' => ('talent-bookings-items') ,
     //             'uuid' => ShortUuid(),
     //         ];
 

@@ -249,7 +249,7 @@ class TalentPaymentsController extends Controller
                 'status' => $req['status'],
                 'receipt' => $req['receipt'],
                 // 'description' => $req['description'],
-                'code_table' => ($slug),
+                'code_table' => ('talent-payments'),
                 'uuid' => $table_entity->uuid ?: ShortUuid(),
             ];
 
@@ -327,7 +327,7 @@ class TalentPaymentsController extends Controller
                 'status' => $req['status'],
                 'receipt' => $req['receipt'],
                 // 'description' => $req['description'],
-                'code_table' => ($slug),
+                'code_table' => ('talent-payments'),
                 'uuid' => ShortUuid(),
             ];
 

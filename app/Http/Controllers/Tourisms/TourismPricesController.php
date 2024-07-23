@@ -312,7 +312,7 @@ class TourismPricesController extends Controller
                 'stock' => $req['stock'],
                 'description' => $req['description'],
 
-                'code_table' => ($slug),
+                'code_table' => ('tourism-prices'),
                 'uuid' => $table_entity->uuid ?: ShortUuid(),
             ];
 
@@ -389,7 +389,7 @@ class TourismPricesController extends Controller
                 'stock' => $req['stock'],
                 'description' => $req['description'],
 
-                'code_table' => ($slug),
+                'code_table' => ('tourism-prices'),
                 'uuid' => ShortUuid(),
             ];
 

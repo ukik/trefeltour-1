@@ -215,7 +215,7 @@ class TalentSkillsController extends Controller
                 'is_available' => isBoolean($req['is_available']),
                 'image' => imageFilterValue($req['image']),
 
-                'code_table' => ($slug) ,
+                'code_table' => ('talent-skills') ,
                 'uuid' => $table_entity->uuid ?: ShortUuid(),
             ];
 
@@ -289,7 +289,7 @@ class TalentSkillsController extends Controller
                 'is_available' => isBoolean($req['is_available']),
                 'image' => imageFilterValue($req['image']),
 
-                'code_table' => ($slug) ,
+                'code_table' => ('talent-skills') ,
                 'uuid' => ShortUuid(),
             ];
 

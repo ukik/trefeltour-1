@@ -236,7 +236,7 @@ class TourismFacilitiesController extends Controller
                 'policy' => $req['policy'],
                 'image' => imageFilterValue($req['image']),
 
-                'code_table' => ($slug) ,
+                'code_table' => ('tourism-facilities') ,
                 'uuid' => $table_entity->uuid ?: ShortUuid(),
             ];
 
@@ -315,7 +315,7 @@ class TourismFacilitiesController extends Controller
                 'policy' => $req['policy'],
                 'image' => imageFilterValue($req['image']),
 
-                'code_table' => ($slug) ,
+                'code_table' => ('tourism-facilities') ,
                 'uuid' => ShortUuid(),
             ];
 

@@ -238,7 +238,7 @@ class TransportWorkshopsController extends Controller
                 'time_close' => date("h:m", strtotime($req['time_close'])) ,
                 'is_available' => isBoolean($req['is_available']),
 
-                'code_table' => ($slug) ,
+                'code_table' => ('transport-workshops') ,
                 'uuid' => $table_entity->uuid ?: ShortUuid(),
             ];
 
@@ -323,7 +323,7 @@ class TransportWorkshopsController extends Controller
                 'time_close' => date("h:m", strtotime($req['time_close'])) ,
                 'is_available' => isBoolean($req['is_available']),
 
-                'code_table' => ($slug) ,
+                'code_table' => ('transport-workshops') ,
                 'uuid' => ShortUuid(),
             ];
 

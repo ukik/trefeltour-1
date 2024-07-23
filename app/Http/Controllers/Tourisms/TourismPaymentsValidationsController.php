@@ -225,7 +225,7 @@ class TourismPaymentsValidationsController extends Controller
                 'payment_id' => $temp->id,
 
                 'is_valid' => $req['is_valid'],
-                'code_table' => ($slug),
+                'code_table' => ('tourism-payments-validations'),
                 'uuid' => $table_entity->uuid ?: ShortUuid(),
             ];
 
@@ -305,7 +305,7 @@ class TourismPaymentsValidationsController extends Controller
                 'payment_id' => $temp->id,
 
                 'is_valid' => isBoolean($req['is_valid']),
-                'code_table' => ($slug),
+                'code_table' => ('tourism-payments-validations'),
                 'uuid' => ShortUuid(),
             ];
 

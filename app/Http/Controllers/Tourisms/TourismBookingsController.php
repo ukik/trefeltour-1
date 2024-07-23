@@ -253,7 +253,7 @@ class TourismBookingsController extends Controller
                 'get_total_amount' => round((($temp->general_price) - ((($temp->general_price) * ($temp->discount_price)/100)) - ($temp->cashback_price)), 2) ,
 
                 // 'description' => $req['description'] ,
-                'code_table' => ($slug) ,
+                'code_table' => ('tourism-bookings') ,
                 'uuid' => $table_entity->uuid ?: ShortUuid(),
             ];
 
@@ -336,7 +336,7 @@ class TourismBookingsController extends Controller
                 'get_total_amount' => round((($temp->general_price) - ((($temp->general_price) * ($temp->discount_price)/100)) - ($temp->cashback_price)), 2) ,
 
                 // 'description' => $req['description'] ,
-                'code_table' => ($slug) ,
+                'code_table' => ('tourism-bookings') ,
                 'uuid' => ShortUuid(),
             ];
 

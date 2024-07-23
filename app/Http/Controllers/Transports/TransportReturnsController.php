@@ -163,7 +163,7 @@ class TransportReturnsController extends Controller
                 'officer' => $req['officer'] ,
                 'is_wrecked' => $req['is_wrecked'] ,
                 'description' => $req['description'] ,
-                'code_table' => ($slug) ,
+                'code_table' => ('transport-returns') ,
                 'uuid' => $table_entity->uuid ?: ShortUuid(),
             ];
 
@@ -232,7 +232,7 @@ class TransportReturnsController extends Controller
                 'officer' => $req['officer'] ,
                 'is_wrecked' => $req['is_wrecked'] === 'true' ? 'true' : 'false',
                 'description' => $req['description'] ,
-                'code_table' => ($slug) ,
+                'code_table' => ('transport-returns') ,
                 'uuid' => ShortUuid(),
             ];
 

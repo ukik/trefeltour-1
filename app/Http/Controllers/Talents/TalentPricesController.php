@@ -329,7 +329,7 @@ class TalentPricesController extends Controller
                 'stock' => $req['stock'],
                 'description' => $req['description'],
 
-                'code_table' => ($slug),
+                'code_table' => ('talent-prices'),
                 'uuid' => $table_entity->uuid ?: ShortUuid(),
             ];
 
@@ -407,7 +407,7 @@ class TalentPricesController extends Controller
                 'stock' => $req['stock'],
                 'description' => $req['description'],
 
-                'code_table' => ($slug),
+                'code_table' => ('talent-prices'),
                 'uuid' => ShortUuid(),
             ];
 

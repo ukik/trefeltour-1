@@ -279,7 +279,7 @@ class SouvenirPaymentsController extends Controller
                 'status' => $req['status'],
                 'receipt' => $req['receipt'],
                 // 'description' => $req['description'],
-                'code_table' => ($slug),
+                'code_table' => ('souvenir-payments'),
                 'uuid' => $table_entity->uuid ?: ShortUuid(),
             ];
 
@@ -357,7 +357,7 @@ class SouvenirPaymentsController extends Controller
                 'status' => $req['status'],
                 'receipt' => $req['receipt'],
                 // 'description' => $req['description'],
-                'code_table' => ($slug),
+                'code_table' => ('souvenir-payments'),
                 'uuid' => ShortUuid(),
             ];
 
