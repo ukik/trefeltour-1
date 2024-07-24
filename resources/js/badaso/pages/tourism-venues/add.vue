@@ -16,6 +16,15 @@
 
               <DialogUser @onBubbleEvent="updateTypeHead($event)" />
 
+              <custom-dialog-country ref="country"
+                @onBubbleEvent="updateTypeHeadDynamic($event, 'country')"
+              />
+              <custom-dialog-province ref="province"
+                @onBubbleEvent="updateTypeHeadDynamic($event, 'province')"
+              />
+              <custom-dialog-regency ref="regency"
+                @onBubbleEvent="updateTypeHeadDynamic($event, 'city')"
+              />
             </div>
             <vs-row>
               <vs-col vs-lg="12" v-if="!isValid">
@@ -501,6 +510,22 @@ export default {
         this.dataType.dataRows = JSON.parse(JSON.stringify(temp));
 
     },
+    updateTypeHeadDynamic(value, label) {
+      console.log("updateTypeHeadDynamic", value, label);
+
+      if (this.dataType?.dataRows == undefined) return;
+
+      let temp = JSON.parse(JSON.stringify(this.dataType.dataRows));
+
+      temp.forEach((el) => {
+        if (el.field == label) {
+          el.value = value ? value?.name : "";
+        }
+      });
+
+      this.dataType.dataRows = JSON.parse(JSON.stringify(temp));
+    },
+
     submitForm() {
       this.errors = {};
       this.isValid = true;

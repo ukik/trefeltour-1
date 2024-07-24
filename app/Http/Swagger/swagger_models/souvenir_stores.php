@@ -58,7 +58,7 @@
   *                 @OA\Property(
   *                     property="data",
   *                     type="object",
-  *                     example={"name":"Abc", "email":"Abc", "phone":"Abc", "location":"Abc", "image":"Abc", "address":"Abc", "codepos":"123", "province":"Abc", "city":"Abc", "country":"Abc", "policy":"Abc", "description":"Abc", "isAvailable":"Abc"},
+  *                     example={"name":"Abc", "email":"Abc", "phone":"Abc", "location":"Abc", "image":"Abc", "address":"Abc", "codepos":"123", "policy":"Abc", "description":"Abc", "isAvailable":"Abc"},
   *                 ),
   *             )
   *         )
@@ -88,7 +88,7 @@
   *                 @OA\Property(
   *                     property="data",
   *                     type="object",
-  *                     example={"name":"Abc", "email":"Abc", "phone":"Abc", "location":"Abc", "image":"Abc", "address":"Abc", "codepos":"123", "province":"Abc", "city":"Abc", "country":"Abc", "policy":"Abc", "description":"Abc", "isAvailable":"Abc"},
+  *                     example={"name":"Abc", "email":"Abc", "phone":"Abc", "location":"Abc", "image":"Abc", "address":"Abc", "codepos":"123", "policy":"Abc", "description":"Abc", "isAvailable":"Abc"},
   *                ),
   *             )
   *         )

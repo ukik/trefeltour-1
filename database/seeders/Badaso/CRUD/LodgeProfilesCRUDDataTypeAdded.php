@@ -48,7 +48,7 @@ class LodgeProfilesCRUDDataTypeAdded extends Seeder
                 'notification' => '[]',
                 'is_soft_delete' => '1',
                 'created_at' => '2024-04-25T15:13:14.000000Z',
-                'updated_at' => '2024-07-23T05:49:55.000000Z',
+                'updated_at' => '2024-07-24T08:04:19.000000Z',
             ));
 
             Badaso::model('Permission')->generateFor('lodge_profiles');

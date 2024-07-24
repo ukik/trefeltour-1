@@ -58,7 +58,7 @@
   *                 @OA\Property(
   *                     property="data",
   *                     type="object",
-  *                     example={"name":"Abc", "dayOpen":"Abc", "dayClose":"Abc", "timeOpen":"Abc", "timeClose":"Abc", "email":"Abc", "phone":"Abc", "location":"Abc", "image":"Abc", "address":"Abc", "codepos":"123", "province":"Abc", "city":"Abc", "country":"Abc", "policy":"Abc", "category":"Abc", "description":"Abc", "isAvailable":"Abc"},
+  *                     example={"name":"Abc", "dayOpen":"Abc", "dayClose":"Abc", "timeOpen":"Abc", "timeClose":"Abc", "email":"Abc", "phone":"Abc", "location":"Abc", "image":"Abc", "address":"Abc", "codepos":"123", "policy":"Abc", "category":"Abc", "description":"Abc", "isAvailable":"Abc"},
   *                 ),
   *             )
   *         )
@@ -88,7 +88,7 @@
   *                 @OA\Property(
   *                     property="data",
   *                     type="object",
-  *                     example={"name":"Abc", "dayOpen":"Abc", "dayClose":"Abc", "timeOpen":"Abc", "timeClose":"Abc", "email":"Abc", "phone":"Abc", "location":"Abc", "image":"Abc", "address":"Abc", "codepos":"123", "province":"Abc", "city":"Abc", "country":"Abc", "policy":"Abc", "category":"Abc", "description":"Abc", "isAvailable":"Abc"},
+  *                     example={"name":"Abc", "dayOpen":"Abc", "dayClose":"Abc", "timeOpen":"Abc", "timeClose":"Abc", "email":"Abc", "phone":"Abc", "location":"Abc", "image":"Abc", "address":"Abc", "codepos":"123", "policy":"Abc", "category":"Abc", "description":"Abc", "isAvailable":"Abc"},
   *                ),
   *             )
   *         )

@@ -16,6 +16,15 @@
 
               <DialogUser @onBubbleEvent="updateTypeHead($event)" />
 
+              <custom-dialog-country ref="country"
+                @onBubbleEvent="updateTypeHeadDynamic($event, 'country')"
+              />
+              <custom-dialog-province ref="province"
+                @onBubbleEvent="updateTypeHeadDynamic($event, 'province')"
+              />
+              <custom-dialog-regency ref="regency"
+                @onBubbleEvent="updateTypeHeadDynamic($event, 'city')"
+              />
             </div>
             <vs-row>
               <vs-col vs-lg="12" v-if="!isValid">
@@ -36,9 +45,7 @@
                     :placeholder="dataRow.displayName"
                     v-model="dataRow.value"
                     size="12"
-                    :alert="
-                      errors[$caseConvert.stringSnakeToCamel(dataRow.field)]
-                    "
+                    :alert="errors[$caseConvert.stringSnakeToCamel(dataRow.field)]"
                   ></badaso-text>
                   <badaso-email
                     v-if="dataRow.type == 'email'"
@@ -46,9 +53,7 @@
                     :placeholder="dataRow.displayName"
                     v-model="dataRow.value"
                     size="12"
-                    :alert="
-                      errors[$caseConvert.stringSnakeToCamel(dataRow.field)]
-                    "
+                    :alert="errors[$caseConvert.stringSnakeToCamel(dataRow.field)]"
                   ></badaso-email>
                   <badaso-password
                     v-if="dataRow.type == 'password'"
@@ -56,9 +61,7 @@
                     :placeholder="dataRow.displayName"
                     v-model="dataRow.value"
                     size="12"
-                    :alert="
-                      errors[$caseConvert.stringSnakeToCamel(dataRow.field)]
-                    "
+                    :alert="errors[$caseConvert.stringSnakeToCamel(dataRow.field)]"
                   ></badaso-password>
                   <badaso-textarea
                     v-if="dataRow.type == 'textarea'"
@@ -66,9 +69,7 @@
                     :placeholder="dataRow.displayName"
                     v-model="dataRow.value"
                     size="12"
-                    :alert="
-                      errors[$caseConvert.stringSnakeToCamel(dataRow.field)]
-                    "
+                    :alert="errors[$caseConvert.stringSnakeToCamel(dataRow.field)]"
                   ></badaso-textarea>
                   <badaso-search
                     v-if="dataRow.type == 'search'"
@@ -76,9 +77,7 @@
                     :placeholder="dataRow.displayName"
                     v-model="dataRow.value"
                     size="12"
-                    :alert="
-                      errors[$caseConvert.stringSnakeToCamel(dataRow.field)]
-                    "
+                    :alert="errors[$caseConvert.stringSnakeToCamel(dataRow.field)]"
                   ></badaso-search>
                   <badaso-number
                     v-if="dataRow.type == 'number'"
@@ -86,9 +85,7 @@
                     :placeholder="dataRow.displayName"
                     v-model="dataRow.value"
                     size="12"
-                    :alert="
-                      errors[$caseConvert.stringSnakeToCamel(dataRow.field)]
-                    "
+                    :alert="errors[$caseConvert.stringSnakeToCamel(dataRow.field)]"
                   ></badaso-number>
                   <badaso-url
                     v-if="dataRow.type == 'url'"
@@ -96,9 +93,7 @@
                     :placeholder="dataRow.displayName"
                     v-model="dataRow.value"
                     size="12"
-                    :alert="
-                      errors[$caseConvert.stringSnakeToCamel(dataRow.field)]
-                    "
+                    :alert="errors[$caseConvert.stringSnakeToCamel(dataRow.field)]"
                   ></badaso-url>
                   <badaso-time
                     v-if="dataRow.type == 'time'"
@@ -106,9 +101,7 @@
                     :placeholder="dataRow.displayName"
                     v-model="dataRow.value"
                     size="12"
-                    :alert="
-                      errors[$caseConvert.stringSnakeToCamel(dataRow.field)]
-                    "
+                    :alert="errors[$caseConvert.stringSnakeToCamel(dataRow.field)]"
                   ></badaso-time>
                   <badaso-date
                     v-if="dataRow.type == 'date'"
@@ -116,9 +109,7 @@
                     :placeholder="dataRow.displayName"
                     v-model="dataRow.value"
                     size="12"
-                    :alert="
-                      errors[$caseConvert.stringSnakeToCamel(dataRow.field)]
-                    "
+                    :alert="errors[$caseConvert.stringSnakeToCamel(dataRow.field)]"
                   ></badaso-date>
                   <badaso-datetime
                     v-if="dataRow.type == 'datetime'"
@@ -126,9 +117,7 @@
                     :placeholder="dataRow.displayName"
                     v-model="dataRow.value"
                     size="12"
-                    :alert="
-                      errors[$caseConvert.stringSnakeToCamel(dataRow.field)]
-                    "
+                    :alert="errors[$caseConvert.stringSnakeToCamel(dataRow.field)]"
                   ></badaso-datetime>
                   <badaso-upload-image
                     v-if="dataRow.type == 'upload_image'"
@@ -138,9 +127,7 @@
                     size="12"
                     :private-only="dataRow.details.type == 'private-only'"
                     :shares-only="dataRow.details.type == 'shares-only'"
-                    :alert="
-                      errors[$caseConvert.stringSnakeToCamel(dataRow.field)]
-                    "
+                    :alert="errors[$caseConvert.stringSnakeToCamel(dataRow.field)]"
                   ></badaso-upload-image>
                   <badaso-upload-image-multiple
                     v-if="dataRow.type == 'upload_image_multiple'"
@@ -150,9 +137,7 @@
                     size="12"
                     :private-only="dataRow.details.type == 'private-only'"
                     :shares-only="dataRow.details.type == 'shares-only'"
-                    :alert="
-                      errors[$caseConvert.stringSnakeToCamel(dataRow.field)]
-                    "
+                    :alert="errors[$caseConvert.stringSnakeToCamel(dataRow.field)]"
                   ></badaso-upload-image-multiple>
                   <badaso-upload-file
                     v-if="dataRow.type == 'upload_file'"
@@ -162,9 +147,7 @@
                     size="12"
                     :private-only="dataRow.details.type == 'private-only'"
                     :shares-only="dataRow.details.type == 'shares-only'"
-                    :alert="
-                      errors[$caseConvert.stringSnakeToCamel(dataRow.field)]
-                    "
+                    :alert="errors[$caseConvert.stringSnakeToCamel(dataRow.field)]"
                   ></badaso-upload-file>
                   <badaso-upload-file-multiple
                     v-if="dataRow.type == 'upload_file_multiple'"
@@ -174,9 +157,7 @@
                     size="12"
                     :private-only="dataRow.details.type == 'private-only'"
                     :shares-only="dataRow.details.type == 'shares-only'"
-                    :alert="
-                      errors[$caseConvert.stringSnakeToCamel(dataRow.field)]
-                    "
+                    :alert="errors[$caseConvert.stringSnakeToCamel(dataRow.field)]"
                   ></badaso-upload-file-multiple>
                   <badaso-switch
                     v-if="dataRow.type == 'switch'"
@@ -184,12 +165,10 @@
                     :placeholder="dataRow.displayName"
                     v-model="dataRow.value"
                     size="12"
-                    :alert="
-                      errors[$caseConvert.stringSnakeToCamel(dataRow.field)]
-                    "
+                    :alert="errors[$caseConvert.stringSnakeToCamel(dataRow.field)]"
                   ></badaso-switch>
 
-                    <!-- ADDITIONAL -->
+                  <!-- ADDITIONAL -->
                   <!-- <badaso-switch
                     v-if="dataRow.type == 'switch_readonly'"
                     :style="'pointer-events:none;'"
@@ -208,9 +187,7 @@
                     :placeholder="dataRow.displayName"
                     v-model="dataRow.value"
                     size="12"
-                    :alert="
-                      errors[$caseConvert.stringSnakeToCamel(dataRow.field)]
-                    "
+                    :alert="errors[$caseConvert.stringSnakeToCamel(dataRow.field)]"
                   ></badaso-slider>
                   <badaso-editor
                     v-if="dataRow.type == 'editor'"
@@ -218,9 +195,7 @@
                     :placeholder="dataRow.displayName"
                     v-model="dataRow.value"
                     size="12"
-                    :alert="
-                      errors[$caseConvert.stringSnakeToCamel(dataRow.field)]
-                    "
+                    :alert="errors[$caseConvert.stringSnakeToCamel(dataRow.field)]"
                   ></badaso-editor>
                   <badaso-tags
                     v-if="dataRow.type == 'tags'"
@@ -228,9 +203,7 @@
                     :placeholder="dataRow.displayName"
                     v-model="dataRow.value"
                     size="12"
-                    :alert="
-                      errors[$caseConvert.stringSnakeToCamel(dataRow.field)]
-                    "
+                    :alert="errors[$caseConvert.stringSnakeToCamel(dataRow.field)]"
                   ></badaso-tags>
                   <badaso-color-picker
                     v-if="dataRow.type == 'color_picker'"
@@ -238,9 +211,7 @@
                     :placeholder="dataRow.displayName"
                     v-model="dataRow.value"
                     size="12"
-                    :alert="
-                      errors[$caseConvert.stringSnakeToCamel(dataRow.field)]
-                    "
+                    :alert="errors[$caseConvert.stringSnakeToCamel(dataRow.field)]"
                   ></badaso-color-picker>
                   <badaso-hidden
                     v-if="
@@ -251,9 +222,7 @@
                     :label="dataRow.displayName"
                     :placeholder="dataRow.displayName"
                     v-model="dataRow.value"
-                    :alert="
-                      errors[$caseConvert.stringSnakeToCamel(dataRow.field)]
-                    "
+                    :alert="errors[$caseConvert.stringSnakeToCamel(dataRow.field)]"
                   ></badaso-hidden>
                   <badaso-checkbox
                     v-if="dataRow.type == 'checkbox'"
@@ -261,9 +230,7 @@
                     :placeholder="dataRow.displayName"
                     v-model="dataRow.value"
                     size="12"
-                    :alert="
-                      errors[$caseConvert.stringSnakeToCamel(dataRow.field)]
-                    "
+                    :alert="errors[$caseConvert.stringSnakeToCamel(dataRow.field)]"
                     :items="dataRow.details.items ? dataRow.details.items : []"
                   ></badaso-checkbox>
                   <badaso-select
@@ -272,9 +239,7 @@
                     :placeholder="dataRow.displayName"
                     v-model="dataRow.value"
                     size="12"
-                    :alert="
-                      errors[$caseConvert.stringSnakeToCamel(dataRow.field)]
-                    "
+                    :alert="errors[$caseConvert.stringSnakeToCamel(dataRow.field)]"
                     :items="dataRow.details.items ? dataRow.details.items : []"
                   ></badaso-select>
                   <badaso-select-multiple
@@ -283,9 +248,7 @@
                     :placeholder="dataRow.displayName"
                     v-model="dataRow.value"
                     size="12"
-                    :alert="
-                      errors[$caseConvert.stringSnakeToCamel(dataRow.field)]
-                    "
+                    :alert="errors[$caseConvert.stringSnakeToCamel(dataRow.field)]"
                     :items="dataRow.details.items ? dataRow.details.items : []"
                   ></badaso-select-multiple>
                   <badaso-radio
@@ -294,9 +257,7 @@
                     :placeholder="dataRow.displayName"
                     v-model="dataRow.value"
                     size="12"
-                    :alert="
-                      errors[$caseConvert.stringSnakeToCamel(dataRow.field)]
-                    "
+                    :alert="errors[$caseConvert.stringSnakeToCamel(dataRow.field)]"
                     :items="dataRow.details.items ? dataRow.details.items : []"
                   ></badaso-radio>
                   <badaso-code-editor
@@ -305,9 +266,7 @@
                     :placeholder="dataRow.displayName"
                     v-model="dataRow.value"
                     size="12"
-                    :alert="
-                      errors[$caseConvert.stringSnakeToCamel(dataRow.field)]
-                    "
+                    :alert="errors[$caseConvert.stringSnakeToCamel(dataRow.field)]"
                   ></badaso-code-editor>
                   <badaso-select
                     v-if="
@@ -320,14 +279,10 @@
                     size="12"
                     :items="
                       relationData[
-                        $caseConvert.stringSnakeToCamel(
-                          dataRow.relation.destinationTable
-                        )
+                        $caseConvert.stringSnakeToCamel(dataRow.relation.destinationTable)
                       ]
                     "
                   ></badaso-select>
-
-
 
                   <badaso-select-multiple
                     v-if="
@@ -338,14 +293,10 @@
                     :placeholder="dataRow.displayName"
                     v-model="dataRow.value"
                     size="12"
-                    :alert="
-                      errors[$caseConvert.stringSnakeToCamel(dataRow.field)]
-                    "
+                    :alert="errors[$caseConvert.stringSnakeToCamel(dataRow.field)]"
                     :items="
                       relationData[
-                        $caseConvert.stringSnakeToCamel(
-                          dataRow.relation.destinationTable
-                        )
+                        $caseConvert.stringSnakeToCamel(dataRow.relation.destinationTable)
                       ]
                     "
                   >
@@ -365,23 +316,32 @@
                 </vs-button>
 
                 <!-- ADDITIONAL -->
-                <vs-button class="float-right" color="success" type="relief" :to="{
+                <vs-button
+                  class="float-right"
+                  color="success"
+                  type="relief"
+                  :to="{
                     name: 'CrudGeneratedRead',
                     params: {
-                        id: $route.params.id,
-                        slug: $route.params.slug,
+                      id: $route.params.id,
+                      slug: $route.params.slug,
                     },
-                }">
+                  }"
+                >
                   <vs-icon icon="visibility"></vs-icon>
                   {{ $t("crudGenerated.lihat.button") }}
                 </vs-button>
 
-                <vs-button class="float-right mr-2" color="danger" type="relief" @click="$router.back()">
+                <vs-button
+                  class="float-right mr-2"
+                  color="danger"
+                  type="relief"
+                  @click="$router.back()"
+                >
                   <vs-icon icon="arrow_back_ios"></vs-icon>
                   {{ $t("crudGenerated.back.button") }}
                 </vs-button>
                 <!-- -------------------- -->
-
 
                 <vs-button
                   :to="{
@@ -427,9 +387,7 @@
         <vs-col vs-lg="12">
           <div class="badaso-maintenance__container">
             <img :src="`${maintenanceImg}`" alt="Maintenance Icon" />
-            <h1 class="badaso-maintenance__text">
-              We are under <br />maintenance
-            </h1>
+            <h1 class="badaso-maintenance__text">We are under <br />maintenance</h1>
           </div>
         </vs-col>
       </vs-row>
@@ -441,12 +399,12 @@
 // eslint-disable-next-line no-unused-vars
 import * as _ from "lodash";
 
-import DialogUser from './DialogUser.vue'
+import DialogUser from "./DialogUser.vue";
 
 export default {
   name: "CrudGeneratedAdd",
   components: {
-    DialogUser
+    DialogUser,
   },
   name: "CrudGeneratedEdit",
   data: () => ({
@@ -461,91 +419,117 @@ export default {
     userRole: "",
     isAdmin: false,
   }),
-    async mounted() { this.$openLoader();
-        const { userId, userRole, isAdmin } = await this.$store.getters["custom/getAUTH"]; // this.$authUtil.getAuth(this.$api)
-        this.userId = userId
-        this.userRole = userRole
-        this.isAdmin = isAdmin
+  async mounted() {
+    this.$openLoader();
+    const { userId, userRole, isAdmin } = await this.$store.getters["custom/getAUTH"]; // this.$authUtil.getAuth(this.$api)
+    this.userId = userId;
+    this.userRole = userRole;
+    this.isAdmin = isAdmin;
 
+    await this.getDetailEntity();
+    //await this.getRelationDataBySlug();
+    await this.requestObjectStoreData();
 
+    // REDIRECT 1
+    if (!this.record) {
+      this.$router.replace({
+        name: "CrudGeneratedBrowse",
+        params: {
+          slug: this.$route.params.slug,
+        },
+      });
+      return;
+    }
 
-        await this.getDetailEntity();
-        //await this.getRelationDataBySlug();
-        await this.requestObjectStoreData();
+    let temp = JSON.parse(JSON.stringify(this.dataType.dataRows));
 
-        // REDIRECT 1
-        if(!this.record) {
-            this.$router.replace({
-                name: "CrudGeneratedBrowse",
-                params: {
-                    slug: this.$route.params.slug,
-                },
-            });
-            return
+    const vm = this;
+    console.log("this.record", this.record);
+    temp.forEach((el) => {
+      for (const key in this.record) {
+        if (Object.hasOwnProperty.call(this.record, key)) {
+          const element = this.record[key];
+          const isVal = element == undefined || element == "false" ? false : !!element;
+
+          if (el.field == "is_available" && key == "isAvailable") {
+            el.value = isVal;
+          }
+
+          if (el.field == "country" && key == "country") {
+            this.$refs.country.onInit(this.record[key]);
+          }
+
+          if (el.field == "regency" && key == "regency") {
+            this.$refs.regency.onInit(this.record[key]);
+          }
+
+          if (el.field == "province" && key == "province") {
+            this.$refs.province.onInit(this.record[key]);
+          }
         }
+      }
+    });
 
-        let temp = JSON.parse(JSON.stringify(this.dataType.dataRows));
+    // REDIRECT
+    // if(this.record['travelTicket'] && !this.isAdmin) {
+    //     this.$router.replace({
+    //         name: 'CrudGeneratedRead',
+    //         params: {
+    //             id: this.$route.params.id,
+    //             slug: this.$route.params.slug,
+    //         },
+    //     })
+    // }
 
-        const vm = this
-        console.log('this.record', this.record)
-        temp.forEach(el => {
-            for (const key in this.record) {
-                if (Object.hasOwnProperty.call(this.record, key)) {
-                    const element = this.record[key];
-                    const isVal = element == undefined || element == 'false' ? false : !!(element)
+    this.dataType.dataRows = JSON.parse(JSON.stringify(temp));
 
-                    if(el.field == 'is_available' && key == 'isAvailable') {
-                        el.value = isVal
-                    }
-                }
-            }
-        });
-
-
-        // REDIRECT
-        // if(this.record['travelTicket'] && !this.isAdmin) {
-        //     this.$router.replace({
-        //         name: 'CrudGeneratedRead',
-        //         params: {
-        //             id: this.$route.params.id,
-        //             slug: this.$route.params.slug,
-        //         },
-        //     })
-        // }
-
-        this.dataType.dataRows = JSON.parse(JSON.stringify(temp));
-
-        console.log('dataType', this.dataType.dataRows)
-
-
+    console.log("dataType", this.dataType.dataRows);
   },
   methods: {
     updateTypeHead(value) {
+      console.log("updateTypeHead", value, this.dataType.dataRows);
 
-        console.log('updateTypeHead', value, this.dataType.dataRows)
+      if (this.dataType?.dataRows == undefined) return;
 
-        if(this.dataType?.dataRows == undefined) return
+      let temp = JSON.parse(JSON.stringify(this.dataType.dataRows));
 
-        let temp = JSON.parse(JSON.stringify(this.dataType.dataRows));
+      temp.forEach((el) => {
+        if (el.field == "user_id") {
+          el.value = value ? value?.id : "";
+        }
+      });
 
-        temp.forEach(el => {
-
-            if(el.field == 'user_id') {
-                el.value = value ? value?.id : '';
-            }
-        });
-
-        this.dataType.dataRows = JSON.parse(JSON.stringify(temp));
-
+      this.dataType.dataRows = JSON.parse(JSON.stringify(temp));
     },
+    updateTypeHeadDynamic(value, label) {
+      console.log("updateTypeHeadDynamic", value, label);
+
+      if (this.dataType?.dataRows == undefined) return;
+
+      let temp = JSON.parse(JSON.stringify(this.dataType.dataRows));
+
+      temp.forEach((el) => {
+        if (el.field == label) {
+          el.value = value ? value?.name : "";
+        }
+      });
+
+      this.dataType.dataRows = JSON.parse(JSON.stringify(temp));
+    },
+
     submitForm() {
       // init data row
       const dataRows = {};
       for (const row of this.dataType.dataRows) {
-         dataRows[row.field] = (typeof row.value == "boolean") ? row.value.toString() : (row.value == undefined ? '' : row.value);
+        dataRows[row.field] =
+          typeof row.value == "boolean"
+            ? row.value.toString()
+            : row.value == undefined
+            ? ""
+            : row.value;
 
-//dataRows[row.field] = row.value == undefined ? 'false' : row.value.toString();
-         console.log(row.field, row.value)
+        //dataRows[row.field] = row.value == undefined ? 'false' : row.value.toString();
+        console.log(row.field, row.value);
       }
 
       // validate values in data rows must not equals 0
@@ -600,7 +584,6 @@ export default {
 
         const dataRows = await this.dataType.dataRows.map((data) => {
           try {
-
             data.add = data.add == 1;
             data.edit = data.edit == 1;
             data.read = data.read == 1;
@@ -612,14 +595,12 @@ export default {
               data.type == "checkbox" ||
               data.type == "select_multiple"
             ) {
-              const val =
-                this.record[this.$caseConvert.stringSnakeToCamel(data.field)];
+              const val = this.record[this.$caseConvert.stringSnakeToCamel(data.field)];
               if (val) {
                 data.value = val.split(",");
               }
             } else if (data.type == "switch") {
-              const val = this.record[
-                this.$caseConvert.stringSnakeToCamel(data.field)];
+              const val = this.record[this.$caseConvert.stringSnakeToCamel(data.field)];
 
               data.value = val > 0 ? true : false;
             } else if (data.type == "slider") {
@@ -630,9 +611,10 @@ export default {
               var dateValue = this.record[
                 this.$caseConvert.stringSnakeToCamel(data.field)
               ]
-                ? this.record[
-                    this.$caseConvert.stringSnakeToCamel(data.field)
-                  ].replace(" ", "T")
+                ? this.record[this.$caseConvert.stringSnakeToCamel(data.field)].replace(
+                    " ",
+                    "T"
+                  )
                 : null;
               data.value = new Date(dateValue);
             } else if (data.value == undefined && data.type == "hidden") {
@@ -644,33 +626,27 @@ export default {
               data.type == "search" ||
               data.type == "password"
             ) {
-              data.value = this.record[
-                this.$caseConvert.stringSnakeToCamel(data.field)
-              ]
+              data.value = this.record[this.$caseConvert.stringSnakeToCamel(data.field)]
                 ? this.record[this.$caseConvert.stringSnakeToCamel(data.field)]
                 : "";
             } else if (
               data.type == "relation" &&
               data.relation.relationType == "belongs_to_many"
             ) {
-              let record =
-                this.record[this.$caseConvert.stringSnakeToCamel(data.field)];
+              let record = this.record[this.$caseConvert.stringSnakeToCamel(data.field)];
               let destinationTableId = data.relation.destinationTable + "Id";
               data.value = [];
               Object.entries(record).filter(function (item, key) {
                 return (data.value[key] = item[1][destinationTableId]);
               });
             } else {
-              data.value =
-                this.record[this.$caseConvert.stringSnakeToCamel(data.field)];
+              data.value = this.record[this.$caseConvert.stringSnakeToCamel(data.field)];
             }
-
           } catch (error) {}
           return data;
         });
 
         this.dataType.dataRows = JSON.parse(JSON.stringify(dataRows));
-
       } catch (error) {
         if (error.status == 503) {
           this.isMaintenance = true;
@@ -693,7 +669,7 @@ export default {
           this.$closeLoader();
           this.relationData = response.data;
 
-          console.log('getRelationDataBySlug', this.relationData)
+          console.log("getRelationDataBySlug", this.relationData);
         })
         .catch((error) => {
           if (error.status == 503) {

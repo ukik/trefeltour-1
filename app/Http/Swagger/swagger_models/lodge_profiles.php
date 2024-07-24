@@ -58,7 +58,7 @@
   *                 @OA\Property(
   *                     property="data",
   *                     type="object",
-  *                     example={"name":"Abc", "email":"Abc", "phone":"Abc", "location":"Abc", "image":"Abc", "address":"Abc", "codepos":"123", "province":"Abc", "city":"Abc", "country":"Abc", "policy":"Abc", "description":"Abc", "rating":"Abc", "types":"Abc", "services":"Abc", "checkinTime":"Abc", "checkoutTime":"Abc", "shuttleToAirportPrice":"123", "additionalBreakfastPrice":"123", "lateCheckoutPrice":"123", "additionalPolicy":"Abc", "isAvailable":"Abc"},
+  *                     example={"name":"Abc", "email":"Abc", "phone":"Abc", "location":"Abc", "image":"Abc", "address":"Abc", "codepos":"123", "policy":"Abc", "description":"Abc", "rating":"Abc", "types":"Abc", "services":"Abc", "checkinTime":"Abc", "checkoutTime":"Abc", "shuttleToAirportPrice":"123", "additionalBreakfastPrice":"123", "lateCheckoutPrice":"123", "additionalPolicy":"Abc", "isAvailable":"Abc"},
   *                 ),
   *             )
   *         )
@@ -88,7 +88,7 @@
   *                 @OA\Property(
   *                     property="data",
   *                     type="object",
-  *                     example={"name":"Abc", "email":"Abc", "phone":"Abc", "location":"Abc", "image":"Abc", "address":"Abc", "codepos":"123", "province":"Abc", "city":"Abc", "country":"Abc", "policy":"Abc", "description":"Abc", "rating":"Abc", "types":"Abc", "services":"Abc", "checkinTime":"Abc", "checkoutTime":"Abc", "shuttleToAirportPrice":"123", "additionalBreakfastPrice":"123", "lateCheckoutPrice":"123", "additionalPolicy":"Abc", "isAvailable":"Abc"},
+  *                     example={"name":"Abc", "email":"Abc", "phone":"Abc", "location":"Abc", "image":"Abc", "address":"Abc", "codepos":"123", "policy":"Abc", "description":"Abc", "rating":"Abc", "types":"Abc", "services":"Abc", "checkinTime":"Abc", "checkoutTime":"Abc", "shuttleToAirportPrice":"123", "additionalBreakfastPrice":"123", "lateCheckoutPrice":"123", "additionalPolicy":"Abc", "isAvailable":"Abc"},
   *                ),
   *             )
   *         )
