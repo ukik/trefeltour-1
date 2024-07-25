@@ -133,7 +133,10 @@ class LodgeTypeHeadController extends Controller
 
             $data_type = getDataType('lodge-prices'); // nama table
 
-            if(!request()->customer_id) return ApiResponse::failed("Customer wajib diisi");
+            $customer_id = authID();
+
+            if(!$customer_id) return ApiResponse::failed("Customer wajib diisi");
+            // if(!request()->customer_id) return ApiResponse::failed("Customer wajib diisi");
 
             $data = LodgePrices::where('id', request()->price_id)->first();
 
@@ -149,7 +152,7 @@ class LodgeTypeHeadController extends Controller
 
 
                     $lodge_carts_calenders[] = [
-                        'customer_id' => request()->customer_id,
+                        'customer_id' => $customer_id,
                         'profile_id' => $data->profile_id,
                         'room_id' => $data->room_id,
                         'price_id' => $data->id,
@@ -164,18 +167,18 @@ class LodgeTypeHeadController extends Controller
             $quantity = request()->quantity;
 
             $carts = LodgeCarts::query()
-                ->where('customer_id', request()->customer_id)
+                ->where('customer_id', $customer_id)
                 ->where('price_id', request()->price_id)
                 ->first();
 
             $carts = LodgeCarts::updateOrCreate([
-                    'customer_id' => request()->customer_id,
+                    'customer_id' => $customer_id,
                     'profile_id' => $data->profile_id,
                     'room_id' => $data->room_id,
                     'price_id' => $data->id,
                 ],
                 [
-                    'customer_id' => request()->customer_id,
+                    'customer_id' => $customer_id,
                     'profile_id' => $data->profile_id,
                     'room_id' => $data->room_id,
                     'price_id' => $data->id,

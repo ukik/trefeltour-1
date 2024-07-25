@@ -157,7 +157,10 @@ class TransportTypeHeadController extends Controller
 
             $data_type = getDataType('transport-carts'); // nama table
 
-            if(!request()->customer_id) return ApiResponse::failed("Customer wajib diisi");
+            $customer_id = authID();
+
+            if(!$customer_id) return ApiResponse::failed("Customer wajib diisi");
+            // if(!request()->customer_id) return ApiResponse::failed("Customer wajib diisi");
 
             $data = TransportPrices::where('id', request()->price_id)->first();
 
@@ -175,7 +178,7 @@ class TransportTypeHeadController extends Controller
 
 
                     $transport_carts_calenders[] = [
-                        'customer_id' => request()->customer_id,
+                        'customer_id' => $customer_id,
                         'rental_id' => $data->rental_id,
                         'vehicle_id' => $data->vehicle_id,
                         'price_id' => $data->id,
@@ -191,18 +194,18 @@ class TransportTypeHeadController extends Controller
             $quantity = request()->quantity;
 
             $carts = TransportCarts::query()
-                ->where('customer_id', request()->customer_id)
+                ->where('customer_id', $customer_id)
                 ->where('price_id', request()->price_id)
                 ->first();
 
             $carts = TransportCarts::updateOrCreate([
-                    'customer_id' => request()->customer_id,
+                    'customer_id' => $customer_id,
                     'rental_id' => $data->rental_id,
                     'vehicle_id' => $data->vehicle_id,
                     'price_id' => $data->id,
                 ],
                 [
-                    'customer_id' => request()->customer_id,
+                    'customer_id' => $customer_id,
                     'rental_id' => $data->rental_id,
                     'vehicle_id' => $data->vehicle_id,
                     'price_id' => $data->id,
@@ -295,7 +298,7 @@ class TransportTypeHeadController extends Controller
                     array_push($today_and_grater, $value);
 
                     // $transport_carts_calenders[] = [
-                    //     'customer_id' => request()->customer_id,
+                    //     'customer_id' => $customer_id,
                     //     'rental_id' => $data->rental_id,
                     //     'vehicle_id' => $data->vehicle_id,
                     //     'price_id' => $data->id,

@@ -139,25 +139,28 @@ class TravelTypeHeadController extends Controller
 
             $data_type = getDataType('travel-carts'); // nama table
 
-            if(!request()->customer_id) return ApiResponse::failed("Customer wajib diisi");
+            $customer_id = authID();
+
+            if(!$customer_id) return ApiResponse::failed("Customer wajib diisi");
+            // if(!request()->customer_id) return ApiResponse::failed("Customer wajib diisi");
 
             $data = TravelPrices::where('id', request()->price_id)->first();
 
             $carts = TravelCarts::query()
-                ->where('customer_id', request()->customer_id)
+                ->where('customer_id', $customer_id)
                 ->where('price_id', request()->price_id)
                 ->first();
 
             if($carts) return ApiResponse::failed("Data ini sudah di keranjang");
 
             $carts = TravelCarts::updateOrCreate([
-                    'customer_id' => request()->customer_id,
+                    'customer_id' => $customer_id,
                     'reservation_id' => $data->reservation_id,
                     'store_id' => $data->store_id,
                     'price_id' => $data->id,
                 ],
                 [
-                    'customer_id' => request()->customer_id,
+                    'customer_id' => $customer_id,
                     'reservation_id' => $data->reservation_id,
                     'store_id' => $data->store_id,
                     'price_id' => $data->id,

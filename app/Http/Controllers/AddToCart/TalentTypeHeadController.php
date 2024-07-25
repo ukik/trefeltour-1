@@ -128,25 +128,28 @@ class TalentTypeHeadController extends Controller
 
             $data_type = getDataType('talent-prices'); // nama table
 
-            if(!request()->customer_id) return ApiResponse::failed("Customer wajib diisi");
+            $customer_id = authID();
+
+            if(!$customer_id) return ApiResponse::failed("Customer wajib diisi");
+            // if(!request()->customer_id) return ApiResponse::failed("Customer wajib diisi");
 
             $data = TalentPrices::where('id', request()->price_id)->first();
 
             $quantity = request()->quantity;
 
             $carts = TalentCarts::query()
-                ->where('customer_id', request()->customer_id)
+                ->where('customer_id', $customer_id)
                 ->where('price_id', request()->price_id)
                 ->first();
 
             $carts = TalentCarts::updateOrCreate([
-                    'customer_id' => request()->customer_id,
+                    'customer_id' => $customer_id,
                     'profile_id' => $data->profile_id,
                     'skill_id' => $data->skill_id,
                     'price_id' => $data->id,
                 ],
                 [
-                    'customer_id' => request()->customer_id,
+                    'customer_id' => $customer_id,
                     'profile_id' => $data->profile_id,
                     'skill_id' => $data->skill_id,
                     'price_id' => $data->id,

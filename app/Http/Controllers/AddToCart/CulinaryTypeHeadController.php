@@ -99,25 +99,28 @@ class CulinaryTypeHeadController extends Controller
 
             $data_type = getDataType('culinary-prices'); // nama table
 
-            if(!request()->customer_id) return ApiResponse::failed("Customer wajib diisi");
+            $customer_id = authID();
+
+            if(!$customer_id) return ApiResponse::failed("Customer wajib diisi");
+            // if(!request()->customer_id) return ApiResponse::failed("Customer wajib diisi");
 
             $data = CulinaryPrices::where('id', request()->price_id)->first();
 
             $quantity = request()->quantity;
 
             $carts = CulinaryCarts::query()
-                ->where('customer_id', request()->customer_id)
+                ->where('customer_id', $customer_id)
                 ->where('price_id', request()->price_id)
                 ->first();
 
             $carts = CulinaryCarts::updateOrCreate([
-                    'customer_id' => request()->customer_id,
+                    'customer_id' => $customer_id,
                     'store_id' => $data->store_id,
                     'product_id' => $data->product_id,
                     'price_id' => $data->id,
                 ],
                 [
-                    'customer_id' => request()->customer_id,
+                    'customer_id' => $customer_id,
                     'store_id' => $data->store_id,
                     'product_id' => $data->product_id,
                     'price_id' => $data->id,
