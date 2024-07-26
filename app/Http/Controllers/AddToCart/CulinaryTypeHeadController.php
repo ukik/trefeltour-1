@@ -99,7 +99,7 @@ class CulinaryTypeHeadController extends Controller
 
             $data_type = getDataType('culinary-prices'); // nama table
 
-            $customer_id = authID();
+            $customer_id = request()->customer_id;
 
             if(!$customer_id) return ApiResponse::failed("Customer wajib diisi");
             // if(!request()->customer_id) return ApiResponse::failed("Customer wajib diisi");

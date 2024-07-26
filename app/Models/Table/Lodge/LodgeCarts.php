@@ -33,6 +33,9 @@ class LodgeCarts extends Model
         'quantity',
         'description',
         'code_table',
+
+        'participant_adult',
+        'participant_young',
     ];
 
     public function badasoUser()

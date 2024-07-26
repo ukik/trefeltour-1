@@ -2,7 +2,7 @@
 <template>
     <div class="col-auto row px-2 mx-2 mb-4">
         <!-- {{ selecteduser }} xxxxxxxxxxx -->
-        <!-- {{ userRole !== 'admin-culinary' }} xxxxxxxxxxxxxx -->
+        <!-- {{ userRole !== 'admin-tour' }} xxxxxxxxxxxxxx -->
         <label class="badaso-text__label col-12 p-1">Pilih Customer</label>
 
         <div v-if="condition !== 'private'" @click="type='select';show = true" class="btn btn-danger col-auto mr-0">
@@ -18,7 +18,7 @@
             <vs-icon icon="content_paste" style="font-size: 18px;" class=""></vs-icon>
         </div>
 
-        <div v-if="$route?.name == 'CrudGeneratedAdd' && userRole !== 'admin-culinary'" @click="onHapus" class="btn btn-primary col-auto mr-4">
+        <div v-if="$route?.name == 'CrudGeneratedAdd' && userRole !== 'admin-tour'" @click="onHapus" class="btn btn-primary col-auto mr-4">
             Hapus
         </div>
 
@@ -106,7 +106,7 @@ export default {
 
         if(this.$route.params?.id) {
             axios
-                .get(`/api/typehead/culinary/add_to_cart_user?id=` + this.$route.params?.id, {
+                .get(`/api/typehead/tour/add_to_cart_user?id=` + this.$route.params?.id, {
                     headers: {
                         Authorization: `Bearer ${localStorage.getItem('token')}`
                     }
@@ -138,7 +138,7 @@ export default {
         lookupUser: debounce(function () {
             // in practice this action should be debounced
             axios
-                .get('/api/typehead/culinary/add_to_cart_user?keyword=' + this.query, {
+                .get('/api/typehead/tour/add_to_cart_user?keyword=' + this.query, {
                     headers: {
                         Authorization: `Bearer ${localStorage.getItem('token')}`
                     }

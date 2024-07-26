@@ -28,11 +28,11 @@
         </div>
         <div class="row">
           <span class="col">Toko </span>
-          <span class="col-auto">{{ selectedData?.culinaryStore?.name }}</span>
+          <span class="col-auto">{{ selectedData?.tourStore?.name }}</span>
         </div>
         <div class="row">
           <span class="col">Jenis Produk</span>
-          <span class="col-auto">{{ selectedData?.culinaryProduct?.name }}</span>
+          <span class="col-auto">{{ selectedData?.tourProduct?.name }}</span>
         </div>
         <div class="row">
           <span class="col">Stok</span>
@@ -227,7 +227,7 @@
                 :description-title="$t('crudGenerated.footer.descriptionTitle')"
                 :description-connector="$t('crudGenerated.footer.descriptionConnector')"
                 :description-body="$t('crudGenerated.footer.descriptionBody')"
-                :multiple='$store.getters["custom/isAdmin"]'
+                :multiple="$store.getters['custom/isAdmin']"
               >
                 <template slot="thead">
                   <vs-th></vs-th>
@@ -403,16 +403,30 @@
                           }}</span>
                           <div v-else>
                             <span v-if="dataRow.field == 'general_price'">
-                                {{ $rupiah(record[ $caseConvert.stringSnakeToCamel(dataRow.field) ]) }}
+                              {{
+                                $rupiah(
+                                  record[$caseConvert.stringSnakeToCamel(dataRow.field)]
+                                )
+                              }}
                             </span>
                             <span v-else-if="dataRow.field == 'discount_price'">
-                                {{ (record[ $caseConvert.stringSnakeToCamel(dataRow.field) ]) }}%
+                              {{
+                                record[$caseConvert.stringSnakeToCamel(dataRow.field)]
+                              }}%
                             </span>
                             <span v-else-if="dataRow.field == 'cashback_price'">
-                                {{ $rupiah(record[ $caseConvert.stringSnakeToCamel(dataRow.field) ]) }}
+                              {{
+                                $rupiah(
+                                  record[$caseConvert.stringSnakeToCamel(dataRow.field)]
+                                )
+                              }}
                             </span>
-                            <span v-else-if="dataRow.field == 'customer_id' && record?.customer">
-                                {{ record?.customer?.username }}
+                            <span
+                              v-else-if="
+                                dataRow.field == 'customer_id' && record?.customer
+                              "
+                            >
+                              {{ record?.customer?.username }}
                             </span>
                             <span v-else>
                               {{
@@ -1054,7 +1068,7 @@ export default {
 
       this.$openLoader();
       await axios
-        .post("/api/typehead/culinary/add_to_cart", bodyFormData, {
+        .post("/api/typehead/tour/add_to_cart", bodyFormData, {
           headers: {
             Authorization: `Bearer ${localStorage.getItem("token")}`,
           },

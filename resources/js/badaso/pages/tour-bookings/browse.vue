@@ -24,13 +24,13 @@
           data: selectedData,
         }"
         v-if="type == 'detail'"
-        slug="culinary-bookings"
+        slug="tour-bookings"
       ></shared-read-user>
 
       <shared-table-modal-booking
         :bookingId="selectedData?.id"
         v-if="type == 'select'"
-        slug="culinary-booking-items"
+        slug="tour-booking-items"
       />
       <div slot="modal-footer"></div>
     </stack-modal>

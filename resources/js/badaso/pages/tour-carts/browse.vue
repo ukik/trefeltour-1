@@ -26,15 +26,15 @@
                 </div>
                 <div class="row">
                     <span class="col">UUID</span>
-                    <span class="col-auto">{{ selectedData?.culinaryProduct?.uuid }}</span>
+                    <span class="col-auto">{{ selectedData?.tourProduct?.uuid }}</span>
                 </div>
                 <div class="row">
                     <span class="col">Jenis Produk</span>
-                    <span class="col-auto">{{ selectedData?.culinaryProduct?.name }}</span>
+                    <span class="col-auto">{{ selectedData?.tourProduct?.name }}</span>
                 </div>
                 <div class="row">
                     <span class="col">Stok</span>
-                    <span class="col-auto">{{ selectedData?.culinaryPrice?.stock }}</span>
+                    <span class="col-auto">{{ selectedData?.tourPrice?.stock }}</span>
                 </div>
                 <div class="row">
                     <span class="col">Quantity</span>
@@ -42,12 +42,12 @@
                 </div>
                 <div class="row">
                     <span class="col">Harga</span>
-                    <span class="col-auto">{{ $rupiah(getTotalAmount(selectedData?.culinaryPrice)) }}</span>
+                    <span class="col-auto">{{ $rupiah(getTotalAmount(selectedData?.tourPrice)) }}</span>
                 </div>
                 <div class="row">
                     <span class="col">Total Tagihan</span>
                     <span class="col-auto">
-                        {{ $rupiah(Math.round(getTotalAmount(selectedData?.culinaryPrice) * selectedData?.quantity)) }}
+                        {{ $rupiah(Math.round(getTotalAmount(selectedData?.tourPrice) * selectedData?.quantity)) }}
                     </span>
                 </div>
                 <div class="row">
@@ -64,7 +64,7 @@
                         :isShowDataRecycle="isShowDataRecycle"
                         :perPage="perPage"
                         :currentPage="currentPage"
-                        :selectedId="selectedData?.id" :set_quantity="selectedData?.quantity" :stock="selectedData?.culinaryPrice?.stock"
+                        :selectedId="selectedData?.id" :set_quantity="selectedData?.quantity" :stock="selectedData?.tourPrice?.stock"
                         />
                     </div>
                 </div>
@@ -88,15 +88,15 @@
                         </div>
                         <div class="row">
                             <span class="col">UUID </span>
-                            <span class="col-auto">{{ item?.culinaryPrice?.uuid }}</span>
+                            <span class="col-auto">{{ item?.tourPrice?.uuid }}</span>
                         </div>
                         <div class="row">
                             <span class="col">Jenis Produk</span>
-                            <span class="col-auto">{{ item?.culinaryProduct?.name }}</span>
+                            <span class="col-auto">{{ item?.tourProduct?.name }}</span>
                         </div>
                         <div class="row">
                             <span class="col">Stok</span>
-                            <span class="col-auto">{{ item?.culinaryPrice?.stock }}</span>
+                            <span class="col-auto">{{ item?.tourPrice?.stock }}</span>
                         </div>
                         <div class="row">
                             <span class="col">Quantity</span>
@@ -104,12 +104,12 @@
                         </div>
                         <div class="row">
                             <span class="col">Harga</span>
-                            <span class="col-auto">{{ $rupiah(getTotalAmount(item?.culinaryPrice)) }}</span>
+                            <span class="col-auto">{{ $rupiah(getTotalAmount(item?.tourPrice)) }}</span>
                         </div>
                         <div class="row">
                             <span class="col">Total Harga</span>
                             <span class="col-auto">
-                                {{ $rupiah(Math.round(getTotalAmount(item?.culinaryPrice) * item?.quantity)) }}
+                                {{ $rupiah(Math.round(getTotalAmount(item?.tourPrice) * item?.quantity)) }}
                             </span>
                         </div>
                         <div class="row">
@@ -127,7 +127,7 @@
                                 :perPage="perPage"
                                 :currentPage="currentPage"
                                 :index="index"
-                                :selectedId="item.id" :set_quantity="item.quantity" :stock="item?.culinaryPrice?.stock"
+                                :selectedId="item.id" :set_quantity="item.quantity" :stock="item?.tourPrice?.stock"
                                 />
 
                             <!-- <CalenderBooked @onBubbleEvent="records = $event"
@@ -149,7 +149,7 @@
             </div>
 
             <hr class="m-0">
-            <!-- <shared-table-modal v-if="type=='select'" @onBubbleEvent="onBubbleEvent" slug="culinary-products" /> -->
+            <!-- <shared-table-modal v-if="type=='select'" @onBubbleEvent="onBubbleEvent" slug="tour-products" /> -->
             <div slot="modal-footer">
                 <div v-if="tipe=='multi'" class="px-3">
                     <div class="row">
@@ -358,8 +358,8 @@
                               type: 'detail',
                               selectedData: record,
                               title: 'Detail Order',
-                              slug: 'culinary-prices',
-                              url: '/api/typehead/culinary/dialog_cart_price' })">
+                              slug: 'tour-prices',
+                              url: '/api/typehead/tour/dialog_cart_price' })">
                                 <vs-icon icon="visibility" style="font-size: 18px;" class=""></vs-icon>
                             </vs-button>
                         </vs-td>
@@ -516,28 +516,28 @@
                             <div :class="[ dataRow.field == 'quantity' ? 'row' : '']" v-else>
                                 <vs-button v-if="dataRow.field == 'booking'" type="relief" @click=" tipe='single'; selectedData = record; onPopupBooking();">Booking Ini</vs-button>
                                 <span v-if="dataRow.field == 'name'">
-                                    {{ record.culinaryPrice?.name }}
+                                    {{ record.tourPrice?.name }}
                                 </span>
                                 <span v-else-if="dataRow.field == 'get_price'">
-                                    {{ $rupiah(record.culinaryPrice?.generalPrice) }}
+                                    {{ $rupiah(record.tourPrice?.generalPrice) }}
                                 </span>
                                 <span v-else-if="dataRow.field == 'get_discount'">
-                                    {{ record.culinaryPrice?.discountPrice }}%
+                                    {{ record.tourPrice?.discountPrice }}%
                                 </span>
                                 <span v-else-if="dataRow.field == 'get_cashback'">
-                                    {{ $rupiah(record.culinaryPrice?.cashbackPrice) }}
+                                    {{ $rupiah(record.tourPrice?.cashbackPrice) }}
                                 </span>
                                 <span v-else-if="dataRow.field == 'get_total_amount'">
-                                    {{ $rupiah(getTotalAmount(record?.culinaryPrice)) }}
+                                    {{ $rupiah(getTotalAmount(record?.tourPrice)) }}
                                 </span>
                                 <span v-else-if="dataRow.field == 'get_final_amount'">
-                                    {{ $rupiah(Math.round(getTotalAmount(record?.culinaryPrice) * record.quantity)) }}
+                                    {{ $rupiah(Math.round(getTotalAmount(record?.tourPrice) * record.quantity)) }}
                                 </span>
                                 <span v-else-if="dataRow.field == 'stock'">
-                                    {{ record.culinaryPrice?.stock }}
+                                    {{ record.tourPrice?.stock }}
                                 </span>
                                 <div class="full-width" v-else-if="dataRow.field == 'quantity'">
-                                    <Counter :selectedId="record.id" @onBubbleEvent="onUpdateQuantity" :set_quantity="record.quantity" :stock="record?.culinaryPrice?.stock" />
+                                    <Counter :selectedId="record.id" @onBubbleEvent="onUpdateQuantity" :set_quantity="record.quantity" :stock="record?.tourPrice?.stock" />
                                 </div>
                                 <span v-else>
                                 {{
@@ -900,7 +900,7 @@ export default {
 
         let total = 0
         val.forEach(element => {
-            total += Number(this.getTotalAmount(element?.culinaryPrice) * element.quantity)
+            total += Number(this.getTotalAmount(element?.tourPrice) * element.quantity)
         });
         this.totalTagihan = total
     }
@@ -966,7 +966,7 @@ export default {
         }
 
         this.$openLoader();
-        await axios.post('/api/typehead/culinary/get_prices_booking', bodyFormData, {
+        await axios.post('/api/typehead/tour/get_prices_booking', bodyFormData, {
             headers: {
                 Authorization: `Bearer ${localStorage.getItem('token')}`
             }
@@ -1012,7 +1012,7 @@ export default {
 
 
         this.$openLoader();
-        await axios.post('/trevolia-api/v1/entities/culinary-carts/add', bodyFormData, {
+        await axios.post('/trevolia-api/v1/entities/tour-carts/add', bodyFormData, {
             headers: {
                 Authorization: `Bearer ${localStorage.getItem('token')}`
             }
@@ -1123,7 +1123,7 @@ export default {
 
 
         this.$openLoader();
-        await axios.post('/api/typehead/culinary/update_to_cart', bodyFormData, {
+        await axios.post('/api/typehead/tour/update_to_cart', bodyFormData, {
             headers: {
                 Authorization: `Bearer ${localStorage.getItem('token')}`
             }

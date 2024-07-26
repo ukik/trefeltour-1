@@ -31,6 +31,11 @@ class TourCarts extends Model
         'quantity',
         'description',
         'code_table',
+
+        'date_start',
+        'participant_adult',
+        'participant_young',
+        'hotel',
     ];
 
     public function badasoUser()

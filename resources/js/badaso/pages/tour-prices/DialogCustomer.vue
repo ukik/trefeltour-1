@@ -6,7 +6,7 @@
             <span>Pilih customer untuk harga <b>private</b> ini</span>
         </vs-alert>
         <!-- {{ selecteduser }} xxxxxxxxxxx -->
-        <!-- {{ userRole !== 'admin-culinary' }} xxxxxxxxxxxxxx -->
+        <!-- {{ userRole !== 'admin-tour' }} xxxxxxxxxxxxxx -->
         <!-- <label class="badaso-text__label col-12 p-1">Pilih User</label> -->
 
         <div v-if="!$route.params?.id" @click="type='select';show = true" class="btn btn-danger col-auto mr-0">
@@ -20,7 +20,7 @@
             :serializer="item => { return `Nama (${item.name}) Email (${item.email}) Telp (${item.phone})` }"
             @hit="selecteduser = $event" placeholder="Pilih Customer" @input="lookupUser" required>
         </vue-typeahead-bootstrap>
-        <div v-if="$route?.name == 'CrudGeneratedAdd' && userRole !== 'admin-culinary'" @click="onHapus" class="btn btn-primary col-auto mr-4">
+        <div v-if="$route?.name == 'CrudGeneratedAdd' && userRole !== 'admin-tour'" @click="onHapus" class="btn btn-primary col-auto mr-4">
             Hapus
         </div>
 
@@ -104,7 +104,7 @@ export default {
     methods: {
         onGet(val) {
             axios
-                .get(`/api/typehead/culinary/user?id=` + val, {
+                .get(`/api/typehead/tour/user?id=` + val, {
                     headers: {
                         Authorization: `Bearer ${localStorage.getItem('token')}`
                     }
@@ -133,7 +133,7 @@ export default {
         lookupUser: debounce(function () {
             // in practice this action should be debounced
             axios
-                .get('/api/typehead/culinary/user?keyword=' + this.query, {
+                .get('/api/typehead/tour/user?keyword=' + this.query, {
                     headers: {
                         Authorization: `Bearer ${localStorage.getItem('token')}`
                     }

@@ -133,35 +133,47 @@ class LodgeTypeHeadController extends Controller
 
             $data_type = getDataType('lodge-prices'); // nama table
 
-            $customer_id = authID();
+            $customer_id = request()->customer_id;
 
             if(!$customer_id) return ApiResponse::failed("Customer wajib diisi");
             // if(!request()->customer_id) return ApiResponse::failed("Customer wajib diisi");
 
+            $participant_adult =  request()->participant_adult;
+            if(!$participant_adult) return ApiResponse::failed("Dewasa wajib diisi");
+
+            $participant_young =  request()->participant_young;
+            $participant_young = !$participant_young ? 0 : $participant_young;
+
             $data = LodgePrices::where('id', request()->price_id)->first();
 
-            $lodge_carts_calenders = [];  // untuk transport rental
+            // $lodge_carts_calenders = [];  // untuk transport rental
 
             // lebih kecil dari hari ini akan di hapus
             $date_now = date("Y-m-d"); // this format is string comparable
             $date_in = json_decode(request()->date_checkin, true);
             $today_and_grater = [];
             foreach ($date_in as $value) {
+
+                // jika di filter
+                /*
                 if ($date_now <= $value['id']) {
                     array_push($today_and_grater, $value);
 
+                    // tidak diperlukan
+                    // $lodge_carts_calenders[] = [
+                    //     'customer_id' => $customer_id,
+                    //     'profile_id' => $data->profile_id,
+                    //     'room_id' => $data->room_id,
+                    //     'price_id' => $data->id,
 
-                    $lodge_carts_calenders[] = [
-                        'customer_id' => $customer_id,
-                        'profile_id' => $data->profile_id,
-                        'room_id' => $data->room_id,
-                        'price_id' => $data->id,
-
-                        'value_id' => $value['id'],
-                        'value_date' => $value['date'],
-                        'code_table' => "lodge-carts-calenders",
-                    ];
+                    //     'value_id' => $value['id'],
+                    //     'value_date' => $value['date'],
+                    //     'code_table' => "lodge-carts-calenders",
+                    // ];
                 }
+                */
+                array_push($today_and_grater, $value);
+
             }
 
             $quantity = request()->quantity;
@@ -186,6 +198,9 @@ class LodgeTypeHeadController extends Controller
                     'date_checkin' => json_encode($today_and_grater), //request()->date_checkin,
                     'code_table' => "lodge-carts",
                     'uuid' => $carts?->uuid ?: ShortUuid(),
+
+                    'participant_adult' => $participant_adult,
+                    'participant_young' => $participant_young,
                 ]
             );
 

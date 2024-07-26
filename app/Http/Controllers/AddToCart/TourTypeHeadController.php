@@ -99,7 +99,7 @@ class TourTypeHeadController extends Controller
 
             $data_type = getDataType('tour-prices'); // nama table
 
-            $customer_id = authID();
+            $customer_id = request()->customer_id;
 
             if(!$customer_id) return ApiResponse::failed("Customer wajib diisi");
             // if(!request()->customer_id) return ApiResponse::failed("Customer wajib diisi");
@@ -107,10 +107,20 @@ class TourTypeHeadController extends Controller
             $data = TourPrices::where('id', request()->price_id)->first();
 
             $quantity = request()->quantity;
+            $date_start =  request()->date_start;
+
+            $participant_adult =  request()->participant_adult;
+            if(!$participant_adult) return ApiResponse::failed("Dewasa wajib diisi");
+
+            $participant_young =  request()->participant_young;
+            $participant_young = !$participant_young ? 0 : $participant_young;
+
+            $hotel =  request()->hotel;
 
             $carts = TourCarts::query()
                 ->where('customer_id', $customer_id)
                 ->where('price_id', request()->price_id)
+                ->where('date_start', $date_start)
                 ->first();
 
             $carts = TourCarts::updateOrCreate([
@@ -118,15 +128,23 @@ class TourTypeHeadController extends Controller
                     'store_id' => $data->store_id,
                     'product_id' => $data->product_id,
                     'price_id' => $data->id,
+
+                    'date_start' => $date_start,
                 ],
                 [
                     'customer_id' => $customer_id,
                     'store_id' => $data->store_id,
                     'product_id' => $data->product_id,
                     'price_id' => $data->id,
-                    'quantity' => !$carts?->quantity ? $quantity : DB::raw("quantity + $quantity"), //DB::raw("quantity + $quantity"),
+                    // 'quantity' => !$carts?->quantity ? $quantity : DB::raw("quantity + $quantity"), //DB::raw("quantity + $quantity"),
+                    'quantity' => 1,
                     'code_table' => "tour-carts",
                     'uuid' => $carts?->uuid ?: ShortUuid(),
+
+                    'date_start' => $date_start,
+                    'participant_adult' => $participant_adult,
+                    'participant_young' => $participant_young,
+                    'hotel' => $hotel,
                 ]
             );
 

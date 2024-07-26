@@ -2,7 +2,7 @@
 <template>
     <div class="mb-2 mt-3 p-0 col ml-3 pr-2 row">
         <!-- {{ selecteduser }} xxxxxxxxxxx -->
-        <!-- {{ userRole !== 'admin-culinary' }} xxxxxxxxxxxxxx -->
+        <!-- {{ userRole !== 'admin-tour' }} xxxxxxxxxxxxxx -->
         <label class="badaso-text__label col-12 p-1">Pilih Produk</label>
 
         <div v-if="!$route.params?.id" @click="type='select';show = true" class="btn btn-danger col-auto mr-0">
@@ -16,7 +16,7 @@
             :serializer="item => { return `Produk UUID (${item.uuid})` }"
             @hit="selecteduser = $event" placeholder="Pilih Produk" @input="lookupUser" required>
         </vue-typeahead-bootstrap>
-        <div v-if="$route?.name == 'CrudGeneratedAdd' && userRole !== 'admin-culinary'" @click="onHapus" class="btn btn-primary col-auto mr-4">
+        <div v-if="$route?.name == 'CrudGeneratedAdd' && userRole !== 'admin-tour'" @click="onHapus" class="btn btn-primary col-auto mr-4">
             Hapus
         </div>
 
@@ -41,9 +41,9 @@
 
             <shared-read-user :response="{
                 data: selecteduser
-            }" v-if="type=='detail'" slug="culinary-products"></shared-read-user>
+            }" v-if="type=='detail'" slug="tour-products"></shared-read-user>
 
-            <shared-table-modal v-if="type=='select'" @onBubbleEvent="onBubbleEvent" slug="culinary-products" />
+            <shared-table-modal v-if="type=='select'" @onBubbleEvent="onBubbleEvent" slug="tour-products" />
             <div slot="modal-footer"></div>
         </stack-modal>
 
@@ -100,7 +100,7 @@ export default {
     methods: {
         onGet(val) {
             axios
-                .get(`/api/typehead/culinary/dialog_prices_culinary_products?id=` + val, {
+                .get(`/api/typehead/tour/dialog_prices_tour_products?id=` + val, {
                     headers: {
                         Authorization: `Bearer ${localStorage.getItem('token')}`
                     }
@@ -130,7 +130,7 @@ export default {
             return
             // in practice this action should be debounced
             axios
-                .get('/api/typehead/culinary/dialog_prices_culinary_products?keyword=' + this.query, {
+                .get('/api/typehead/tour/dialog_prices_tour_products?keyword=' + this.query, {
                     headers: {
                         Authorization: `Bearer ${localStorage.getItem('token')}`
                     }
