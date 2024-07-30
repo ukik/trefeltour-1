@@ -191,8 +191,8 @@ class BadasoDeploymentOrchestratorSeeder extends Seeder
         
         $this->seed(LodgeStaffsCRUDDataTypeAdded::class);
         $this->seed(LodgeStaffsCRUDDataRowAdded::class);
-        $this->seed(LodgeFacilityCRUDDataTypeAdded::class);
-        $this->seed(LodgeFacilityCRUDDataRowAdded::class);
+        
+        
         $this->seed(LodgeBookingsCRUDDataTypeAdded::class);
         $this->seed(LodgeBookingsCRUDDataRowAdded::class);
         $this->seed(LodgeBookingBillsCRUDDataTypeAdded::class);
@@ -282,8 +282,8 @@ class BadasoDeploymentOrchestratorSeeder extends Seeder
         $this->seed(LodgePricesCRUDDataTypeAdded::class);
         $this->seed(LodgePricesCRUDDataRowAdded::class);
         $this->seed(LodgeProfilesCRUDDataDeleted::class);
-        $this->seed(LodgeProfilesCRUDDataTypeAdded::class);
-        $this->seed(LodgeProfilesCRUDDataRowAdded::class);
+        
+        
         
         
         $this->seed(OffersCRUDDataDeleted::class);
@@ -360,5 +360,10 @@ class BadasoDeploymentOrchestratorSeeder extends Seeder
         $this->seed(RegenciesCRUDDataRowAdded::class);
         $this->seed(CountryCRUDDataTypeAdded::class);
         $this->seed(CountryCRUDDataRowAdded::class);
+        $this->seed(LodgeFacilityCRUDDataDeleted::class);
+        $this->seed(LodgeFacilityCRUDDataTypeAdded::class);
+        $this->seed(LodgeFacilityCRUDDataRowAdded::class);
+        $this->seed(LodgeProfilesCRUDDataTypeAdded::class);
+        $this->seed(LodgeProfilesCRUDDataRowAdded::class);
     }
 }

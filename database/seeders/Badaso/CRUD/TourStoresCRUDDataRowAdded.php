@@ -3562,15 +3562,15 @@ class TourStoresCRUDDataRowAdded extends Seeder
                 14 => 
                 array (
                     'data_type_id' => $data_type->id,
-                    'field' => 'description',
-                    'type' => 'textarea',
-                    'display_name' => 'Deskripsi',
+                    'field' => 'slug',
+                    'type' => 'text',
+                    'display_name' => 'Slug',
                     'required' => '0',
-                    'browse' => '0',
+                    'browse' => '1',
                     'read' => '1',
-                    'edit' => '1',
-                    'add' => '1',
-                    'delete' => '0',
+                    'edit' => '0',
+                    'add' => '0',
+                    'delete' => '1',
                     'details' => '{}',
                     'relation' => NULL,
                     'order' => '15',
@@ -3578,9 +3578,9 @@ class TourStoresCRUDDataRowAdded extends Seeder
                 15 => 
                 array (
                     'data_type_id' => $data_type->id,
-                    'field' => 'is_available',
-                    'type' => 'switch',
-                    'display_name' => 'Available',
+                    'field' => 'keyword',
+                    'type' => 'text',
+                    'display_name' => 'Keyword',
                     'required' => '0',
                     'browse' => '1',
                     'read' => '1',
@@ -3594,6 +3594,38 @@ class TourStoresCRUDDataRowAdded extends Seeder
                 16 => 
                 array (
                     'data_type_id' => $data_type->id,
+                    'field' => 'description',
+                    'type' => 'textarea',
+                    'display_name' => 'Deskripsi',
+                    'required' => '0',
+                    'browse' => '0',
+                    'read' => '1',
+                    'edit' => '1',
+                    'add' => '1',
+                    'delete' => '0',
+                    'details' => '{}',
+                    'relation' => NULL,
+                    'order' => '17',
+                ),
+                17 => 
+                array (
+                    'data_type_id' => $data_type->id,
+                    'field' => 'is_available',
+                    'type' => 'switch',
+                    'display_name' => 'Available',
+                    'required' => '0',
+                    'browse' => '1',
+                    'read' => '1',
+                    'edit' => '1',
+                    'add' => '1',
+                    'delete' => '1',
+                    'details' => '{}',
+                    'relation' => NULL,
+                    'order' => '18',
+                ),
+                18 => 
+                array (
+                    'data_type_id' => $data_type->id,
                     'field' => 'code_table',
                     'type' => 'text',
                     'display_name' => 'Nama Tabel',
@@ -3605,9 +3637,9 @@ class TourStoresCRUDDataRowAdded extends Seeder
                     'delete' => '0',
                     'details' => '{}',
                     'relation' => NULL,
-                    'order' => '17',
+                    'order' => '19',
                 ),
-                17 => 
+                19 => 
                 array (
                     'data_type_id' => $data_type->id,
                     'field' => 'created_at',
@@ -3621,9 +3653,9 @@ class TourStoresCRUDDataRowAdded extends Seeder
                     'delete' => '1',
                     'details' => '{}',
                     'relation' => NULL,
-                    'order' => '18',
+                    'order' => '20',
                 ),
-                18 => 
+                20 => 
                 array (
                     'data_type_id' => $data_type->id,
                     'field' => 'updated_at',
@@ -3637,9 +3669,9 @@ class TourStoresCRUDDataRowAdded extends Seeder
                     'delete' => '1',
                     'details' => '{}',
                     'relation' => NULL,
-                    'order' => '19',
+                    'order' => '21',
                 ),
-                19 => 
+                21 => 
                 array (
                     'data_type_id' => $data_type->id,
                     'field' => 'deleted_at',
@@ -3653,7 +3685,7 @@ class TourStoresCRUDDataRowAdded extends Seeder
                     'delete' => '1',
                     'details' => '{}',
                     'relation' => NULL,
-                    'order' => '20',
+                    'order' => '22',
                 ),
             ));
 

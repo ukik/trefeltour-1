@@ -58,7 +58,7 @@
   *                 @OA\Property(
   *                     property="data",
   *                     type="object",
-  *                     example={"name":"Abc", "category":"Abc", "durasi":"Abc", "description":"Abc", "itinerary":"Abc", "facility":"Abc", "image":"Abc", "level":"Abc", "isAvailable":"Abc"},
+  *                     example={"name":"Abc", "category":"Abc", "durasi":"Abc", "description":"Abc", "itinerary":"Abc", "facility":"Abc", "image":"Abc", "level":"Abc", "keyword":"Abc", "isAvailable":"Abc"},
   *                 ),
   *             )
   *         )
@@ -88,7 +88,7 @@
   *                 @OA\Property(
   *                     property="data",
   *                     type="object",
-  *                     example={"name":"Abc", "category":"Abc", "durasi":"Abc", "description":"Abc", "itinerary":"Abc", "facility":"Abc", "image":"Abc", "level":"Abc", "isAvailable":"Abc"},
+  *                     example={"name":"Abc", "category":"Abc", "durasi":"Abc", "description":"Abc", "itinerary":"Abc", "facility":"Abc", "image":"Abc", "level":"Abc", "keyword":"Abc", "isAvailable":"Abc"},
   *                ),
   *             )
   *         )
@@ -201,7 +201,7 @@
   *                 @OA\Property(
   *                     property="data",
   *                     type="array",
-  *                     example={{"id":"123", "uuid":"Abc", "storeId":"", "name":"Abc", "category":"Abc", "durasi":"Abc", "description":"Abc", "itinerary":"Abc", "facility":"Abc", "image":"Abc", "level":"Abc", "province":"Abc", "city":"Abc", "country":"Abc", "isAvailable":"Abc", "codeTable":"Abc", "createdAt":"2021-01-01T00:00:00.000Z", "updatedAt":"2021-01-01T00:00:00.000Z", "deletedAt":"2021-01-01T00:00:00.000Z"}, {"id":"123", "uuid":"Abc", "storeId":"", "name":"Abc", "category":"Abc", "durasi":"Abc", "description":"Abc", "itinerary":"Abc", "facility":"Abc", "image":"Abc", "level":"Abc", "province":"Abc", "city":"Abc", "country":"Abc", "isAvailable":"Abc", "codeTable":"Abc", "createdAt":"2021-01-01T00:00:00.000Z", "updatedAt":"2021-01-01T00:00:00.000Z", "deletedAt":"2021-01-01T00:00:00.000Z"}},
+  *                     example={{"id":"123", "uuid":"Abc", "storeId":"", "name":"Abc", "category":"Abc", "durasi":"Abc", "description":"Abc", "itinerary":"Abc", "facility":"Abc", "image":"Abc", "level":"Abc", "province":"Abc", "city":"Abc", "country":"Abc", "slug":"Abc", "keyword":"Abc", "isAvailable":"Abc", "codeTable":"Abc", "createdAt":"2021-01-01T00:00:00.000Z", "updatedAt":"2021-01-01T00:00:00.000Z", "deletedAt":"2021-01-01T00:00:00.000Z"}, {"id":"123", "uuid":"Abc", "storeId":"", "name":"Abc", "category":"Abc", "durasi":"Abc", "description":"Abc", "itinerary":"Abc", "facility":"Abc", "image":"Abc", "level":"Abc", "province":"Abc", "city":"Abc", "country":"Abc", "slug":"Abc", "keyword":"Abc", "isAvailable":"Abc", "codeTable":"Abc", "createdAt":"2021-01-01T00:00:00.000Z", "updatedAt":"2021-01-01T00:00:00.000Z", "deletedAt":"2021-01-01T00:00:00.000Z"}},
   *                     @OA\Items(
   *                         type="object",
   *                         @OA\Property(type="integer", property="id"), 
@@ -218,6 +218,8 @@
   *                         @OA\Property(type="string", property="province"), 
   *                         @OA\Property(type="string", property="city"), 
   *                         @OA\Property(type="string", property="country"), 
+  *                         @OA\Property(type="string", property="slug"), 
+  *                         @OA\Property(type="string", property="keyword"), 
   *                         @OA\Property(type="string", property="isAvailable"), 
   *                         @OA\Property(type="string", property="codeTable"), 
   *                         @OA\Property(type="string", property="createdAt"), 

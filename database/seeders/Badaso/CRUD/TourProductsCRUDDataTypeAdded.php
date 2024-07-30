@@ -48,7 +48,7 @@ class TourProductsCRUDDataTypeAdded extends Seeder
                 'notification' => '[]',
                 'is_soft_delete' => '1',
                 'created_at' => '2024-07-21T18:38:43.000000Z',
-                'updated_at' => '2024-07-23T15:59:15.000000Z',
+                'updated_at' => '2024-07-29T03:21:45.000000Z',
             ));
 
             Badaso::model('Permission')->generateFor('tour_products');

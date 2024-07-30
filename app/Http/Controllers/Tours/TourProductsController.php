@@ -212,14 +212,17 @@ class TourProductsController extends Controller
             $slug = $this->getSlug($request);
             $data_type = $this->getDataType($slug);
 
-            $table_entity = \TourProducts::where('id', $request->data['id'])->first();
+            $table_entity = \TourProducts::where('id', $request->data['id'])
+                ->where('tourStore')->first();
 
-            $store_id = \TourStores::where('id', $table_entity->store_id)->value('id');
+            $store = $table_entity->tourStore;//->value('id');
 
             $req = request()['data'];
+
+            $uuid = ShortUuid();
             $data = [
 
-                'store_id' => 1, //$store_id,
+                'store_id' => $store->id,
                 'name' => $req['name'],
                 'category' => $req['category'],
                 'durasi' => $req['durasi'],
@@ -234,7 +237,10 @@ class TourProductsController extends Controller
                 'image' => imageFilterValue($req['image']),
 
                 'code_table' => ('tour-products') ,
-                'uuid' => $table_entity->uuid ?: ShortUuid(),
+                'uuid' => $table_entity->uuid ?: $uuid,
+
+                'slug' => $table_entity->slug ?: slug($store->name.'-'.$req['name'], $uuid),
+                'keyword' => isset($req['keyword']) ? $req['keyword'] : NULL,
             ];
 
             $validator = Validator::make($data,
@@ -293,6 +299,10 @@ class TourProductsController extends Controller
             $data_type = $this->getDataType($slug);
 
             $req = request()['data'];
+
+            $store = \TourStores::where('id',  $req['store_id'])->first();//->value('id');
+
+            $uuid = ShortUuid();
             $data = [
 
                 'store_id' => $req['store_id'],
@@ -310,7 +320,11 @@ class TourProductsController extends Controller
                 'image' => imageFilterValue($req['image']),
 
                 'code_table' => ('tour-products') ,
-                'uuid' => ShortUuid(),
+                'uuid' => $uuid,
+
+                'slug' => slug($store->name.'-'.$req['name'], $uuid),
+                'keyword' => isset($req['keyword']) ? $req['keyword'] : NULL,
+
             ];
 
             $validator = Validator::make($data,

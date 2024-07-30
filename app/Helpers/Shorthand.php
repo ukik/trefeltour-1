@@ -627,8 +627,8 @@ if (!function_exists('StorageURL')) {
 
 
 if (!function_exists('slug')) {
-    function slug($value)
+    function slug($value, $uuid = NUll)
     {
-        return Str::slug($value);
+        return Str::slug($value).'-'.ShortUuid();
     }
 }

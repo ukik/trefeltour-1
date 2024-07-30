@@ -42,13 +42,13 @@ class LodgeRoomsCRUDDataTypeAdded extends Seeder
                 'order_direction' => NULL,
                 'generate_permissions' => true,
                 'server_side' => false,
-                'is_maintenance' => 0,
+                'is_maintenance' => '0',
                 'description' => NULL,
                 'details' => NULL,
                 'notification' => '[]',
-                'is_soft_delete' => 1,
+                'is_soft_delete' => '1',
                 'created_at' => '2024-03-03T14:40:58.000000Z',
-                'updated_at' => '2024-04-25T08:39:32.000000Z',
+                'updated_at' => '2024-07-29T05:20:24.000000Z',
             ));
 
             Badaso::model('Permission')->generateFor('lodge_rooms');

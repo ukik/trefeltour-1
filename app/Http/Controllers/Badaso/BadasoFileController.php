@@ -6,8 +6,9 @@ use App\Http\Controllers\Badaso\Controller;
 use Illuminate\Http\Request;
 use Uasoft\Badaso\Helpers\ApiResponse;
 use UniSharp\LaravelFilemanager\Controllers\DeleteController;
-use UniSharp\LaravelFilemanager\Controllers\ItemsController;
+// use UniSharp\LaravelFilemanager\Controllers\ItemsController; // ORIGINAL
 use UniSharp\LaravelFilemanager\Controllers\UploadController;
+use App\Http\Controllers\Badaso\ItemsController;
 
 class BadasoFileController extends Controller
 {

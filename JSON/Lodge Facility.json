@@ -1,0 +1,395 @@
+-Public Facilities
+Area parkir,Kafe,Early check-in,Lift,Late check-out,Restoran,Restoran untuk sarapan,Restoran untuk makan malam,Restoran untuk makan siang,Layanan kamar,Brankas,WiFi di area umum
+{
+    "size": 12,
+    "items": [
+        {
+            "label": "Area parkir",
+            "value": "Area parkir"
+        },
+        {
+            "label": "Kafe",
+            "value": "Kafe"
+        },
+        {
+            "label": "Early check-in",
+            "value": "Early check-in"
+        },
+        {
+            "label": "Lift",
+            "value": "Lift"
+        },
+        {
+            "label": "Late check-out",
+            "value": "Late check-out"
+        },
+        {
+            "label": "Restoran",
+            "value": "Restoran"
+        },
+        {
+            "label": "Restoran untuk sarapan",
+            "value": "Restoran untuk sarapan"
+        },
+        {
+            "label": "Restoran untuk makan malam",
+            "value": "Restoran untuk makan malam"
+        },
+        {
+            "label": "Restoran untuk makan siang",
+            "value": "Restoran untuk makan siang"
+        },
+        {
+            "label": "Layanan kamar",
+            "value": "Layanan kamar"
+        },
+        {
+            "label": "Brankas",
+            "value": "Brankas"
+        },
+        {
+            "label": "Brankas",
+            "value": "Brankas"
+        }
+    ]
+}
+
+
+-Hotel Services
+Bellboy,Concierge/layanan tamu,Penjaga pintu,Resepsionis,Resepsionis 24 jam,Keamanan 24 jam,Laundry,Layanan kamar dengan jam terbatas,Penitipan bagasi,Staff multibahasa,Fasilitas nikah
+{
+    "size": 12,
+    "items": [
+        {
+            "label": "Bellboy",
+            "value": "Bellboy"
+        },
+        {
+            "label": "Concierge/layanan tamu",
+            "value": "Concierge/layanan tamu"
+        },
+        {
+            "label": "Penjaga pintu",
+            "value": "Penjaga pintu"
+        },
+        {
+            "label": "Resepsionis",
+            "value": "Resepsionis"
+        },
+        {
+            "label": "Resepsionis 24 jam",
+            "value": "Resepsionis 24 jam"
+        },
+        {
+            "label": "Keamanan 24 jam",
+            "value": "Keamanan 24 jam"
+        },
+        {
+            "label": "Laundry",
+            "value": "Laundry"
+        },
+        {
+            "label": "Layanan kamar dengan jam terbatas",
+            "value": "Layanan kamar dengan jam terbatas"
+        },
+        {
+            "label": "Penitipan bagasi",
+            "value": "Penitipan bagasi"
+        },
+        {
+            "label": "Staff multibahasa",
+            "value": "Staff multibahasa"
+        },
+        {
+            "label": "Fasilitas nikah",
+            "value": "Fasilitas nikah"
+        }
+    ]
+}
+
+
+-Food and Drinks
+Restoran ber-AC,Makan siang dari menu,Sarapan,Sarapan prasmanan,Sarapan berbiaya,Kafe,Ruang makan,Makan malam bermenu,Restoran show cooking
+{
+    "size": 12,
+    "items": [
+        {
+            "label": "Restoran ber-AC",
+            "value": "Restoran ber-AC"
+        },
+        {
+            "label": "Makan siang dari menu",
+            "value": "Makan siang dari menu"
+        },
+        {
+            "label": "Sarapan",
+            "value": "Sarapan"
+        },
+        {
+            "label": "Sarapan prasmanan",
+            "value": "Sarapan prasmanan"
+        },
+        {
+            "label": "Sarapan berbiaya",
+            "value": "Sarapan berbiaya"
+        },
+        {
+            "label": "Kafe",
+            "value": "Kafe"
+        },
+        {
+            "label": "Ruang makan",
+            "value": "Ruang makan"
+        },
+        {
+            "label": "Makan malam bermenu",
+            "value": "Makan malam bermenu"
+        },
+        {
+            "label": "Restoran show cooking",
+            "value": "Restoran show cooking"
+        }
+    ]
+}
+
+
+
+-Business Facilities
+Fasilitas bisnis,Ruang rapat,Fasilitas rapat,Fotocopy,PRINTER,Proyektor
+{
+    "size": 12,
+    "items": [
+        {
+            "label": "Fasilitas bisnis",
+            "value": "Fasilitas bisnis"
+        },
+        {
+            "label": "Ruang rapat",
+            "value": "Ruang rapat"
+        },
+        {
+            "label": "Fasilitas rapat",
+            "value": "Fasilitas rapat"
+        },
+        {
+            "label": "Fotocopy",
+            "value": "Fotocopy"
+        },
+        {
+            "label": "PRINTER",
+            "value": "PRINTER"
+        },
+        {
+            "label": "Proyektor",
+            "value": "Proyektor"
+        }
+    ]
+}
+
+
+
+
+-General
+AC,Aula,Alat pemanas,Area bebas asap rokok,Kolam renang,Area merokok
+{
+    "size": 12,
+    "items": [
+        {
+            "label": "AC",
+            "value": "AC"
+        },
+        {
+            "label": "Aula",
+            "value": "Aula"
+        },
+        {
+            "label": "Alat pemanas",
+            "value": "Alat pemanas"
+        },
+        {
+            "label": "Area bebas asap rokok",
+            "value": "Area bebas asap rokok"
+        },
+        {
+            "label": "Kolam renang",
+            "value": "Kolam renang"
+        },
+        {
+            "label": "Area merokok",
+            "value": "Area merokok"
+        }
+    ]
+}
+
+
+
+-Accessibilty
+Peralatan bagi penyandang disabilitas,Toilet bagi penyandang disabilitas,Jalan bagi penyandang disabilitas,Lokasi mudah diakses,Kamar aksesibel bagi penyandang disabilitas,Aksesibel bagi penyandang disabilitas
+{
+    "size": 12,
+    "items": [
+        {
+            "label": "Peralatan bagi penyandang disabilitas",
+            "value": "Peralatan bagi penyandang disabilitas"
+        },
+        {
+            "label": "Toilet bagi penyandang disabilitas",
+            "value": "Toilet bagi penyandang disabilitas"
+        },
+        {
+            "label": "Jalan bagi penyandang disabilitas",
+            "value": "Jalan bagi penyandang disabilitas"
+        },
+        {
+            "label": "Lokasi mudah diakses",
+            "value": "Lokasi mudah diakses"
+        },
+        {
+            "label": "Kamar aksesibel bagi penyandang disabilitas",
+            "value": "Kamar aksesibel bagi penyandang disabilitas"
+        },
+        {
+            "label": "Aksesibel bagi penyandang disabilitas",
+            "value": "Aksesibel bagi penyandang disabilitas"
+        }
+    ]
+}
+
+
+
+-In-room Facilities
+Bathtub,TV kabel,Meja,Lemari es,Pancuran,TV
+{
+    "size": 12,
+    "items": [
+        {
+            "label": "Bathtub",
+            "value": "Bathtub"
+        },
+        {
+            "label": "TV kabel",
+            "value": "TV kabel"
+        },
+        {
+            "label": "Meja",
+            "value": "Meja"
+        },
+        {
+            "label": "Lemari es",
+            "value": "Lemari es"
+        },
+        {
+            "label": "Pancuran",
+            "value": "Pancuran"
+        },
+        {
+            "label": "TV",
+            "value": "TV"
+        }
+    ]
+}
+
+
+-Transportation
+Antar-jemput bandara,Parkir bus/truk,Parkir valet
+{
+    "size": 12,
+    "items": [
+        {
+            "label": "Antar-jemput bandara",
+            "value": "Antar-jemput bandara"
+        },
+        {
+            "label": "Parkir bus/truk",
+            "value": "Parkir bus/truk"
+        },
+        {
+            "label": "Parkir valet",
+            "value": "Parkir valet"
+        }
+    ]
+}
+
+
+
+-Nearby Facilities
+Toko oleh-oleh,Toko,Supermarket
+{
+    "size": 12,
+    "items": [
+        {
+            "label": "Toko oleh-oleh",
+            "value": "Toko oleh-oleh"
+        },
+        {
+            "label": "Toko",
+            "value": "Toko"
+        },
+        {
+            "label": "Supermarket",
+            "value": "Supermarket"
+        }
+    ]
+}
+
+
+
+-Connectivity
+Fasilitas komputer/internet,Internet Kamar,WiFi gratis
+{
+    "size": 12,
+    "items": [
+        {
+            "label": "Fasilitas komputer/internet",
+            "value": "Fasilitas komputer/internet"
+        },
+        {
+            "label": "Internet Kamar",
+            "value": "Internet Kamar"
+        },
+        {
+            "label": "WiFi gratis",
+            "value": "WiFi gratis"
+        },
+    ]
+}
+
+
+-Family-friendly Facilities
+Kolam renang anak
+{
+    "size": 12,
+    "items": [
+        {
+            "label": "Kolam renang anak",
+            "value": "Kolam renang anak"
+        },
+    ]
+}
+
+-Things to Do
+Area main anak
+{
+    "size": 12,
+    "items": [
+        {
+            "label": "Area main anak",
+            "value": "Area main anak"
+        },
+    ]
+}
+
+
+-Shuttle Service
+Jemputan stasiun kereta
+{
+    "size": 12,
+    "items": [
+        {
+            "label": "Jemputan stasiun kereta",
+            "value": "Jemputan stasiun kereta"
+        },
+    ]
+}
+
+

@@ -58,7 +58,7 @@
   *                 @OA\Property(
   *                     property="data",
   *                     type="object",
-  *                     example={"facilitySport":"Abc", "facilityService":"Abc", "facilityPublic":"Abc", "facilityKidPet":"Abc", "facilityInRoom":"Abc", "facilityGeneral":"Abc", "facilityConnectivity":"Abc", "facilityBusiness":"Abc"},
+  *                     example={"facilityPublic":"Abc", "facilityService":"Abc", "facilityFoodDrink":"Abc", "facilityBusiness":"Abc", "facilityGeneral":"Abc", "facilityAccessibility":"Abc", "facilityInRoom":"Abc", "facilityTransportation":"Abc", "facilityNerby":"Abc", "facilityConnectivity":"Abc", "facilityFamilyFriendly":"Abc", "facilityThingsToDo":"Abc", "facilityShuttleService":"Abc"},
   *                 ),
   *             )
   *         )
@@ -88,7 +88,7 @@
   *                 @OA\Property(
   *                     property="data",
   *                     type="object",
-  *                     example={"facilitySport":"Abc", "facilityService":"Abc", "facilityPublic":"Abc", "facilityKidPet":"Abc", "facilityInRoom":"Abc", "facilityGeneral":"Abc", "facilityConnectivity":"Abc", "facilityBusiness":"Abc"},
+  *                     example={"facilityPublic":"Abc", "facilityService":"Abc", "facilityFoodDrink":"Abc", "facilityBusiness":"Abc", "facilityGeneral":"Abc", "facilityAccessibility":"Abc", "facilityInRoom":"Abc", "facilityTransportation":"Abc", "facilityNerby":"Abc", "facilityConnectivity":"Abc", "facilityFamilyFriendly":"Abc", "facilityThingsToDo":"Abc", "facilityShuttleService":"Abc"},
   *                ),
   *             )
   *         )
@@ -201,20 +201,25 @@
   *                 @OA\Property(
   *                     property="data",
   *                     type="array",
-  *                     example={{"id":"123", "uuid":"Abc", "profileId":"", "facilitySport":"Abc", "facilityService":"Abc", "facilityPublic":"Abc", "facilityKidPet":"Abc", "facilityInRoom":"Abc", "facilityGeneral":"Abc", "facilityConnectivity":"Abc", "facilityBusiness":"Abc", "codeTable":"Abc", "createdAt":"2021-01-01T00:00:00.000Z", "updatedAt":"2021-01-01T00:00:00.000Z", "deletedAt":"2021-01-01T00:00:00.000Z"}, {"id":"123", "uuid":"Abc", "profileId":"", "facilitySport":"Abc", "facilityService":"Abc", "facilityPublic":"Abc", "facilityKidPet":"Abc", "facilityInRoom":"Abc", "facilityGeneral":"Abc", "facilityConnectivity":"Abc", "facilityBusiness":"Abc", "codeTable":"Abc", "createdAt":"2021-01-01T00:00:00.000Z", "updatedAt":"2021-01-01T00:00:00.000Z", "deletedAt":"2021-01-01T00:00:00.000Z"}},
+  *                     example={{"id":"123", "uuid":"Abc", "profileId":"", "facilityPublic":"Abc", "facilityService":"Abc", "facilityFoodDrink":"Abc", "facilityBusiness":"Abc", "facilityGeneral":"Abc", "facilityAccessibility":"Abc", "facilityInRoom":"Abc", "facilityTransportation":"Abc", "facilityNerby":"Abc", "facilityConnectivity":"Abc", "facilityFamilyFriendly":"Abc", "facilityThingsToDo":"Abc", "facilityShuttleService":"Abc", "codeTable":"Abc", "createdAt":"2021-01-01T00:00:00.000Z", "updatedAt":"2021-01-01T00:00:00.000Z", "deletedAt":"2021-01-01T00:00:00.000Z"}, {"id":"123", "uuid":"Abc", "profileId":"", "facilityPublic":"Abc", "facilityService":"Abc", "facilityFoodDrink":"Abc", "facilityBusiness":"Abc", "facilityGeneral":"Abc", "facilityAccessibility":"Abc", "facilityInRoom":"Abc", "facilityTransportation":"Abc", "facilityNerby":"Abc", "facilityConnectivity":"Abc", "facilityFamilyFriendly":"Abc", "facilityThingsToDo":"Abc", "facilityShuttleService":"Abc", "codeTable":"Abc", "createdAt":"2021-01-01T00:00:00.000Z", "updatedAt":"2021-01-01T00:00:00.000Z", "deletedAt":"2021-01-01T00:00:00.000Z"}},
   *                     @OA\Items(
   *                         type="object",
   *                         @OA\Property(type="integer", property="id"), 
   *                         @OA\Property(type="string", property="uuid"), 
   *                         @OA\Property(type="string", property="profileId"), 
-  *                         @OA\Property(type="string", property="facilitySport"), 
-  *                         @OA\Property(type="string", property="facilityService"), 
   *                         @OA\Property(type="string", property="facilityPublic"), 
-  *                         @OA\Property(type="string", property="facilityKidPet"), 
-  *                         @OA\Property(type="string", property="facilityInRoom"), 
-  *                         @OA\Property(type="string", property="facilityGeneral"), 
-  *                         @OA\Property(type="string", property="facilityConnectivity"), 
+  *                         @OA\Property(type="string", property="facilityService"), 
+  *                         @OA\Property(type="string", property="facilityFoodDrink"), 
   *                         @OA\Property(type="string", property="facilityBusiness"), 
+  *                         @OA\Property(type="string", property="facilityGeneral"), 
+  *                         @OA\Property(type="string", property="facilityAccessibility"), 
+  *                         @OA\Property(type="string", property="facilityInRoom"), 
+  *                         @OA\Property(type="string", property="facilityTransportation"), 
+  *                         @OA\Property(type="string", property="facilityNerby"), 
+  *                         @OA\Property(type="string", property="facilityConnectivity"), 
+  *                         @OA\Property(type="string", property="facilityFamilyFriendly"), 
+  *                         @OA\Property(type="string", property="facilityThingsToDo"), 
+  *                         @OA\Property(type="string", property="facilityShuttleService"), 
   *                         @OA\Property(type="string", property="codeTable"), 
   *                         @OA\Property(type="string", property="createdAt"), 
   *                         @OA\Property(type="string", property="updatedAt"), 

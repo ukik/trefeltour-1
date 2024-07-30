@@ -29,15 +29,15 @@ class LodgeFacilityCRUDDataRowAdded extends Seeder
                     'field' => 'id',
                     'type' => 'number',
                     'display_name' => 'No',
-                    'required' => 1,
-                    'browse' => 1,
-                    'read' => 1,
-                    'edit' => 0,
-                    'add' => 0,
-                    'delete' => 1,
+                    'required' => '1',
+                    'browse' => '1',
+                    'read' => '1',
+                    'edit' => '0',
+                    'add' => '0',
+                    'delete' => '1',
                     'details' => '{}',
                     'relation' => NULL,
-                    'order' => 1,
+                    'order' => '1',
                 ),
                 1 => 
                 array (
@@ -45,15 +45,15 @@ class LodgeFacilityCRUDDataRowAdded extends Seeder
                     'field' => 'uuid',
                     'type' => 'text',
                     'display_name' => 'UUID',
-                    'required' => 0,
-                    'browse' => 1,
-                    'read' => 1,
-                    'edit' => 0,
-                    'add' => 0,
-                    'delete' => 1,
+                    'required' => '0',
+                    'browse' => '1',
+                    'read' => '1',
+                    'edit' => '0',
+                    'add' => '0',
+                    'delete' => '1',
                     'details' => '{}',
                     'relation' => NULL,
-                    'order' => 2,
+                    'order' => '2',
                 ),
                 2 => 
                 array (
@@ -61,367 +61,287 @@ class LodgeFacilityCRUDDataRowAdded extends Seeder
                     'field' => 'profile_id',
                     'type' => 'relation',
                     'display_name' => 'Hotel',
-                    'required' => 0,
-                    'browse' => 1,
-                    'read' => 1,
-                    'edit' => 0,
-                    'add' => 0,
-                    'delete' => 1,
+                    'required' => '0',
+                    'browse' => '1',
+                    'read' => '1',
+                    'edit' => '0',
+                    'add' => '0',
+                    'delete' => '1',
                     'details' => '{}',
                     'relation' => '{"relation_type":"belongs_to","destination_table":"lodge_profiles","destination_table_column":"id","destination_table_display_column":"name","destination_table_display_more_column":["id","uuid","name"]}',
-                    'order' => 3,
+                    'order' => '3',
                 ),
                 3 => 
                 array (
                     'data_type_id' => $data_type->id,
-                    'field' => 'facility_sport',
-                    'type' => 'select_multiple',
-                    'display_name' => 'Fasilitas Sport',
-                    'required' => 0,
-                    'browse' => 1,
-                    'read' => 1,
-                    'edit' => 1,
-                    'add' => 1,
-                    'delete' => 1,
-                    'details' => '{
-"size": 12,
-"items": [
-{
-"label": "Fitness",
-"value": "Fitness"
-}
-]
-}',
+                    'field' => 'facility_public',
+                    'type' => 'editor',
+                    'display_name' => 'Fasilitas Publik',
+                    'required' => '0',
+                    'browse' => '1',
+                    'read' => '1',
+                    'edit' => '1',
+                    'add' => '1',
+                    'delete' => '1',
+                    'details' => '{}',
                     'relation' => NULL,
-                    'order' => 4,
+                    'order' => '4',
                 ),
                 4 => 
                 array (
                     'data_type_id' => $data_type->id,
                     'field' => 'facility_service',
-                    'type' => 'select_multiple',
-                    'display_name' => 'Fasilitas Service',
-                    'required' => 0,
-                    'browse' => 1,
-                    'read' => 1,
-                    'edit' => 1,
-                    'add' => 1,
-                    'delete' => 1,
-                    'details' => '{
-"size": 12,
-"items": [
-{
-"label": "24 Hours Receptionist",
-"value": "24 Hours Receptionist"
-},
-{
-"label": "Laundry",
-"value": "Laundry"
-},
-{
-"label": "Luggage Storage",
-"value": "Luggage Storage"
-},
-{
-"label": "Tour",
-"value": "Tour"
-}
-]
-}',
+                    'type' => 'editor',
+                    'display_name' => 'Servis Hotel',
+                    'required' => '0',
+                    'browse' => '1',
+                    'read' => '1',
+                    'edit' => '1',
+                    'add' => '1',
+                    'delete' => '1',
+                    'details' => '{}',
                     'relation' => NULL,
-                    'order' => 5,
+                    'order' => '5',
                 ),
                 5 => 
                 array (
                     'data_type_id' => $data_type->id,
-                    'field' => 'facility_public',
-                    'type' => 'select_multiple',
-                    'display_name' => 'Fasilitas Public',
-                    'required' => 0,
-                    'browse' => 1,
-                    'read' => 1,
-                    'edit' => 1,
-                    'add' => 1,
-                    'delete' => 1,
-                    'details' => '{
-"size": 12,
-"items": [
-{
-"label": "Parking",
-"value": "Parking"
-},
-{
-"label": "Snack Lobby",
-"value": "Snack Lobby"
-},
-{
-"label": "Coffee Shop",
-"value": "Coffee Shop"
-},
-{
-"label": "Elevator",
-"value": "Elevator"
-},
-{
-"label": "24 Room Service",
-"value": "24 Room Service"
-},
-{
-"label": "Restaurant",
-"value": "Restaurant"
-},
-{
-"label": "Room Service",
-"value": "Room Service"
-},
-{
-"label": "Safety Deposit Box",
-"value": "Safety Deposit Box"
-},
-{
-"label": "Wifi Public",
-"value": "Wifi Public"
-}
-]
-}',
+                    'field' => 'facility_food_drink',
+                    'type' => 'editor',
+                    'display_name' => 'Makanan dan Minuman',
+                    'required' => '0',
+                    'browse' => '1',
+                    'read' => '1',
+                    'edit' => '1',
+                    'add' => '1',
+                    'delete' => '1',
+                    'details' => '{}',
                     'relation' => NULL,
-                    'order' => 6,
+                    'order' => '6',
                 ),
                 6 => 
                 array (
                     'data_type_id' => $data_type->id,
-                    'field' => 'facility_kid_pet',
-                    'type' => 'select_multiple',
-                    'display_name' => 'Fasilitas Kid Pet',
-                    'required' => 0,
-                    'browse' => 1,
-                    'read' => 1,
-                    'edit' => 1,
-                    'add' => 1,
-                    'delete' => 1,
-                    'details' => '{
-"size": 12,
-"items": [
-{
-"label": "Babysitting",
-"value": "Babysitting"
-},
-{
-"label": "Pet Area",
-"value": "Pet Area"
-}
-]
-}',
+                    'field' => 'facility_business',
+                    'type' => 'editor',
+                    'display_name' => 'Fasilitas Bisnis',
+                    'required' => '0',
+                    'browse' => '1',
+                    'read' => '1',
+                    'edit' => '1',
+                    'add' => '1',
+                    'delete' => '1',
+                    'details' => '{}',
                     'relation' => NULL,
-                    'order' => 7,
+                    'order' => '7',
                 ),
                 7 => 
                 array (
                     'data_type_id' => $data_type->id,
-                    'field' => 'facility_in_room',
-                    'type' => 'select_multiple',
-                    'display_name' => 'Fasilitas In Room',
-                    'required' => 0,
-                    'browse' => 1,
-                    'read' => 1,
-                    'edit' => 1,
-                    'add' => 1,
-                    'delete' => 1,
-                    'details' => '{
-"size": 12,
-"items": [
-{
-"label": "Tv",
-"value": "Tv"
-},
-{
-"label": "Hairdryer",
-"value": "Hairdryer"
-},
-{
-"label": "Room Safe",
-"value": "Room Safe"
-},
-{
-"label": "Minibar",
-"value": "Minibar"
-},
-{
-"label": "Shower",
-"value": "Shower"
-},
-{
-"label": "Bathtube",
-"value": "Bathtube"
-}
-]
-}',
+                    'field' => 'facility_general',
+                    'type' => 'editor',
+                    'display_name' => 'Umum',
+                    'required' => '0',
+                    'browse' => '1',
+                    'read' => '1',
+                    'edit' => '1',
+                    'add' => '1',
+                    'delete' => '1',
+                    'details' => '{}',
                     'relation' => NULL,
-                    'order' => 8,
+                    'order' => '8',
                 ),
                 8 => 
                 array (
                     'data_type_id' => $data_type->id,
-                    'field' => 'facility_general',
-                    'type' => 'select_multiple',
-                    'display_name' => 'Fasilitas General',
-                    'required' => 0,
-                    'browse' => 1,
-                    'read' => 1,
-                    'edit' => 1,
-                    'add' => 1,
-                    'delete' => 1,
-                    'details' => '{
-"size": 12,
-"items": [
-{
-"label": "AC",
-"value": "AC"
-},
-{
-"label": "Ballroom",
-"value": "Ballroom"
-},
-{
-"label": "Banquet",
-"value": "Banquet"
-},
-{
-"label": "Connecting Room",
-"value": "Connecting Room"
-},
-{
-"label": "Family Room",
-"value": "Family Room"
-},
-{
-"label": "Nonsmoking Room",
-"value": "Nonsmoking Room"
-},
-{
-"label": "Swimming Pool",
-"value": "Swimming Pool"
-},
-{
-"label": "Smoking Area",
-"value": "Smoking Area"
-}
-]
-}',
+                    'field' => 'facility_accessibility',
+                    'type' => 'editor',
+                    'display_name' => 'Aksesibilitas',
+                    'required' => '0',
+                    'browse' => '1',
+                    'read' => '1',
+                    'edit' => '1',
+                    'add' => '1',
+                    'delete' => '1',
+                    'details' => '{}',
                     'relation' => NULL,
-                    'order' => 9,
+                    'order' => '9',
                 ),
                 9 => 
                 array (
                     'data_type_id' => $data_type->id,
-                    'field' => 'facility_connectivity',
-                    'type' => 'select_multiple',
-                    'display_name' => 'Fasilitas Connectivity',
-                    'required' => 0,
-                    'browse' => 1,
-                    'read' => 1,
-                    'edit' => 1,
-                    'add' => 1,
-                    'delete' => 1,
-                    'details' => '{
-"size": 12,
-"items": [
-{
-"label": "Free Wifi",
-"value": "Free Wifi"
-}
-]
-}',
+                    'field' => 'facility_in_room',
+                    'type' => 'editor',
+                    'display_name' => 'Fasilitas Kamar',
+                    'required' => '0',
+                    'browse' => '1',
+                    'read' => '1',
+                    'edit' => '1',
+                    'add' => '1',
+                    'delete' => '1',
+                    'details' => '{}',
                     'relation' => NULL,
-                    'order' => 10,
+                    'order' => '10',
                 ),
                 10 => 
                 array (
                     'data_type_id' => $data_type->id,
-                    'field' => 'facility_business',
-                    'type' => 'select_multiple',
-                    'display_name' => 'Fasilitas Business',
-                    'required' => 0,
-                    'browse' => 1,
-                    'read' => 1,
-                    'edit' => 1,
-                    'add' => 1,
-                    'delete' => 1,
-                    'details' => '{
-"size": 12,
-"items": [
-{
-"label": "Meeting",
-"value": "Meeting"
-}
-]
-}',
+                    'field' => 'facility_transportation',
+                    'type' => 'editor',
+                    'display_name' => 'Transportasi',
+                    'required' => '0',
+                    'browse' => '1',
+                    'read' => '1',
+                    'edit' => '1',
+                    'add' => '1',
+                    'delete' => '1',
+                    'details' => '{}',
                     'relation' => NULL,
-                    'order' => 11,
+                    'order' => '11',
                 ),
                 11 => 
+                array (
+                    'data_type_id' => $data_type->id,
+                    'field' => 'facility_nerby',
+                    'type' => 'editor',
+                    'display_name' => 'Fasilitas Terdekat',
+                    'required' => '0',
+                    'browse' => '1',
+                    'read' => '1',
+                    'edit' => '1',
+                    'add' => '1',
+                    'delete' => '1',
+                    'details' => '{}',
+                    'relation' => NULL,
+                    'order' => '12',
+                ),
+                12 => 
+                array (
+                    'data_type_id' => $data_type->id,
+                    'field' => 'facility_connectivity',
+                    'type' => 'editor',
+                    'display_name' => 'Konektivitas',
+                    'required' => '0',
+                    'browse' => '1',
+                    'read' => '1',
+                    'edit' => '1',
+                    'add' => '1',
+                    'delete' => '1',
+                    'details' => '{}',
+                    'relation' => NULL,
+                    'order' => '13',
+                ),
+                13 => 
+                array (
+                    'data_type_id' => $data_type->id,
+                    'field' => 'facility_family_friendly',
+                    'type' => 'editor',
+                    'display_name' => 'Fasilitas Ramah Keluarga',
+                    'required' => '0',
+                    'browse' => '1',
+                    'read' => '1',
+                    'edit' => '1',
+                    'add' => '1',
+                    'delete' => '1',
+                    'details' => '{}',
+                    'relation' => NULL,
+                    'order' => '14',
+                ),
+                14 => 
+                array (
+                    'data_type_id' => $data_type->id,
+                    'field' => 'facility_things_to_do',
+                    'type' => 'editor',
+                    'display_name' => 'Kegiatan Lainnya',
+                    'required' => '0',
+                    'browse' => '1',
+                    'read' => '1',
+                    'edit' => '1',
+                    'add' => '1',
+                    'delete' => '1',
+                    'details' => '{}',
+                    'relation' => NULL,
+                    'order' => '15',
+                ),
+                15 => 
+                array (
+                    'data_type_id' => $data_type->id,
+                    'field' => 'facility_shuttle_service',
+                    'type' => 'editor',
+                    'display_name' => 'Jasa Antar Jemput',
+                    'required' => '0',
+                    'browse' => '1',
+                    'read' => '1',
+                    'edit' => '1',
+                    'add' => '1',
+                    'delete' => '1',
+                    'details' => '{}',
+                    'relation' => NULL,
+                    'order' => '16',
+                ),
+                16 => 
                 array (
                     'data_type_id' => $data_type->id,
                     'field' => 'code_table',
                     'type' => 'text',
                     'display_name' => 'Nama Tabel',
-                    'required' => 0,
-                    'browse' => 0,
-                    'read' => 1,
-                    'edit' => 0,
-                    'add' => 0,
-                    'delete' => 0,
+                    'required' => '0',
+                    'browse' => '0',
+                    'read' => '1',
+                    'edit' => '0',
+                    'add' => '0',
+                    'delete' => '0',
                     'details' => '{}',
                     'relation' => NULL,
-                    'order' => 12,
+                    'order' => '17',
                 ),
-                12 => 
+                17 => 
                 array (
                     'data_type_id' => $data_type->id,
                     'field' => 'created_at',
                     'type' => 'datetime',
                     'display_name' => 'Dibuat Pada',
-                    'required' => 0,
-                    'browse' => 1,
-                    'read' => 1,
-                    'edit' => 0,
-                    'add' => 0,
-                    'delete' => 1,
+                    'required' => '0',
+                    'browse' => '1',
+                    'read' => '1',
+                    'edit' => '0',
+                    'add' => '0',
+                    'delete' => '1',
                     'details' => '{}',
                     'relation' => NULL,
-                    'order' => 13,
+                    'order' => '18',
                 ),
-                13 => 
+                18 => 
                 array (
                     'data_type_id' => $data_type->id,
                     'field' => 'updated_at',
                     'type' => 'datetime',
                     'display_name' => 'Diubah Pada',
-                    'required' => 0,
-                    'browse' => 1,
-                    'read' => 1,
-                    'edit' => 0,
-                    'add' => 0,
-                    'delete' => 1,
+                    'required' => '0',
+                    'browse' => '1',
+                    'read' => '1',
+                    'edit' => '0',
+                    'add' => '0',
+                    'delete' => '1',
                     'details' => '{}',
                     'relation' => NULL,
-                    'order' => 14,
+                    'order' => '19',
                 ),
-                14 => 
+                19 => 
                 array (
                     'data_type_id' => $data_type->id,
                     'field' => 'deleted_at',
                     'type' => 'datetime',
                     'display_name' => 'Dihapus Pada',
-                    'required' => 0,
-                    'browse' => 0,
-                    'read' => 1,
-                    'edit' => 0,
-                    'add' => 0,
-                    'delete' => 1,
+                    'required' => '0',
+                    'browse' => '0',
+                    'read' => '1',
+                    'edit' => '0',
+                    'add' => '0',
+                    'delete' => '1',
                     'details' => '{}',
                     'relation' => NULL,
-                    'order' => 15,
+                    'order' => '20',
                 ),
             ));
 

@@ -28,7 +28,7 @@ class LodgeProfilesCRUDDataTypeAdded extends Seeder
             }
 
             \DB::table('badaso_data_types')->insert(array (
-                'id' => 121,
+                'id' => 159,
                 'name' => 'lodge_profiles',
                 'slug' => 'lodge-profiles',
                 'display_name_singular' => 'Hotel Profile',
@@ -47,8 +47,8 @@ class LodgeProfilesCRUDDataTypeAdded extends Seeder
                 'details' => NULL,
                 'notification' => '[]',
                 'is_soft_delete' => '1',
-                'created_at' => '2024-04-25T15:13:14.000000Z',
-                'updated_at' => '2024-07-24T08:04:19.000000Z',
+                'created_at' => '2024-07-30T06:19:14.000000Z',
+                'updated_at' => '2024-07-30T15:49:28.000000Z',
             ));
 
             Badaso::model('Permission')->generateFor('lodge_profiles');

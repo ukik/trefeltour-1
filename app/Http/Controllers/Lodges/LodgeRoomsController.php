@@ -212,11 +212,16 @@ class LodgeRoomsController extends Controller
             $slug = $this->getSlug($request);
             $data_type = $this->getDataType($slug);
 
-            $table_entity = \LodgeRooms::where('id', $request->data['id'])->first();
+            $table_entity = \LodgeRooms::where('id', $request->data['id'])
+                ->with('lodgeProfile')->first();
+
+            $store = $table_entity->lodgeProfile;
+
+            $uuid = ShortUuid();
 
             $req = request()['data'];
             $data = [
-                'profile_id' => $table_entity->profile_id ,
+                'profile_id' => $store->id ,
                 'image' => imageFilterValue($req['image']) ,
                 'name' => $req['name'] ,
                 'number' => $req['number'] ,
@@ -228,7 +233,10 @@ class LodgeRoomsController extends Controller
                 'is_available' => $req['is_available'] ,
 
                 'code_table' => ('lodge-rooms') ,
-                'uuid' => $table_entity->uuid ?: ShortUuid(),
+                'uuid' => $table_entity->uuid ?: $uuid,
+
+                'slug' => $table_entity->slug ?: slug($store->name.'-'.$req['name'], $uuid),
+                'keyword' => isset($req['keyword']) ? $req['keyword'] : NULL,
             ];
 
             $validator = Validator::make($data,
@@ -288,6 +296,10 @@ class LodgeRoomsController extends Controller
             $data_type = $this->getDataType($slug);
 
             $req = request()['data'];
+
+            $store = LodgeProfiles::where('id', $req['profile_id'])->first();
+
+            $uuid = ShortUuid();
             $data = [
                 'profile_id' => $req['profile_id'] ,
                 'image' => imageFilterValue($req['image']) ,
@@ -301,7 +313,10 @@ class LodgeRoomsController extends Controller
                 'is_available' => $req['is_available'] ,
 
                 'code_table' => ('lodge-rooms') ,
-                'uuid' => ShortUuid(),
+                'uuid' => $uuid,
+
+                'slug' => slug($store->name.'-'.$req['name'], $uuid),
+                'keyword' => isset($req['keyword']) ? $req['keyword'] : NULL,
             ];
 
             $validator = Validator::make($data,

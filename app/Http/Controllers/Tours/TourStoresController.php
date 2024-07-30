@@ -198,6 +198,8 @@ class TourStoresController extends Controller
             $table_entity = \TourStores::where('id', $request->data['id'])->first();
 
             $req = request()['data'];
+
+            $uuid = ShortUuid();
             $data = [
                 'user_id' => $table_entity->user_id,
                 'name' => $req['name'],
@@ -215,7 +217,10 @@ class TourStoresController extends Controller
                 'is_available' => isBoolean($req['is_available']),
 
                 'code_table' => ('tour-stores') ,
-                'uuid' => $table_entity->uuid ?: ShortUuid(),
+                'uuid' => $table_entity->uuid ?: $uuid,
+
+                'slug' => $table_entity->slug ?: slug($req['name'], $uuid),
+                'keyword' => isset($req['keyword']) ? $req['keyword'] : NULL,
             ];
 
             $validator = Validator::make($data,
@@ -276,6 +281,8 @@ class TourStoresController extends Controller
             $data_type = $this->getDataType($slug);
 
             $req = request()['data'];
+
+            $uuid = ShortUuid();
             $data = [
                 'user_id' => $req['user_id'],
                 'name' => $req['name'],
@@ -293,7 +300,10 @@ class TourStoresController extends Controller
                 'is_available' => isBoolean($req['is_available']),
 
                 'code_table' => ('tour-stores') ,
-                'uuid' => ShortUuid(),
+                'uuid' => $uuid,
+
+                'slug' => slug($req['name'], $uuid),
+                'keyword' => isset($req['keyword']) ? $req['keyword'] : NULL,
             ];
 
             $validator = Validator::make($data,

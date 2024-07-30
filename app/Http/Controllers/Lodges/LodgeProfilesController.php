@@ -214,15 +214,16 @@ class LodgeProfilesController extends Controller
 
             $table_entity = \LodgeProfiles::where('id', $request->data['id'])->first();
 
+            $uuid = ShortUuid();
+
             $req = request()['data'];
             $data = [
 
                 'user_id' => $table_entity->user_id,
                 'uuid' => $req['uuid'],
                 'name' => $req['name'],
-                'email' => $req['email'],
-                'phone' => $req['phone'],
-                'location' => $req['location'],
+                'email' => $req['email'] ?: NULL,
+                'phone' => $req['phone'] ?: NULL,
                 'image' => imageFilterValue($req['image']),
                 'address' => $req['address'],
                 'codepos' => $req['codepos'],
@@ -231,19 +232,27 @@ class LodgeProfilesController extends Controller
                 'country' => $req['country'],
                 'policy' => $req['policy'],
                 'description' => $req['description'],
+                'location' => $req['location'],
+                'facility' => $req['facility'],
+                'faq' => $req['faq'],
+                'additional_policy' => $req['additional_policy'],
+                'disclaimer' => $req['disclaimer'],
                 'rating' => $req['rating'],
                 'types' => implode(',', $req['types'] ?: []),
                 'services' => implode(',', $req['services'] ?: []),
                 'checkin_time' => $req['checkin_time'],
                 'checkout_time' => $req['checkout_time'],
-                'additional_policy' => $req['additional_policy'],
-                'shuttle_to_airport_price' => $req['shuttle_to_airport_price'],
-                'additional_breakfast_price' => $req['additional_breakfast_price'],
-                'late_checkout_price' => $req['late_checkout_price'],
+                'shuttle_to_airport_price' => $req['shuttle_to_airport_price'] ?: NULL,
+                'additional_breakfast_price' => $req['additional_breakfast_price'] ?: NULL,
+                'late_checkout_price' => $req['late_checkout_price'] ?: NULL,
                 'is_available' => isBoolean($req['is_available']),
 
+
                 'code_table' => ('lodge-profiles') ,
-                'uuid' => $table_entity->uuid ?: ShortUuid(),
+                'uuid' => $table_entity->uuid ?: $uuid,
+
+                'slug' => $table_entity->slug ?: slug($req['name'], $uuid),
+                'keyword' => isset($req['keyword']) ? $req['keyword'] : NULL,
             ];
 
             $validator = Validator::make($data,
@@ -303,14 +312,15 @@ class LodgeProfilesController extends Controller
 
             $data_type = $this->getDataType($slug);
 
+            $uuid = ShortUuid();
+
             $req = request()['data'];
             $data = [
                 'user_id' => $req['user_id'],
                 'uuid' => $req['uuid'],
                 'name' => $req['name'],
-                'email' => $req['email'],
-                'phone' => $req['phone'],
-                'location' => $req['location'],
+                'email' => $req['email'] ?: NULL,
+                'phone' => $req['phone'] ?: NULL,
                 'image' => imageFilterValue($req['image']),
                 'address' => $req['address'],
                 'codepos' => $req['codepos'],
@@ -319,19 +329,26 @@ class LodgeProfilesController extends Controller
                 'country' => $req['country'],
                 'policy' => $req['policy'],
                 'description' => $req['description'],
+                'location' => $req['location'],
+                'facility' => $req['facility'],
+                'faq' => $req['faq'],
+                'additional_policy' => $req['additional_policy'],
+                'disclaimer' => $req['disclaimer'],
                 'rating' => $req['rating'],
                 'types' => implode(',', $req['types'] ?: []),
                 'services' => implode(',', $req['services'] ?: []),
                 'checkin_time' => $req['checkin_time'],
                 'checkout_time' => $req['checkout_time'],
-                'additional_policy' => $req['additional_policy'],
-                'shuttle_to_airport_price' => $req['shuttle_to_airport_price'],
-                'additional_breakfast_price' => $req['additional_breakfast_price'],
-                'late_checkout_price' => $req['late_checkout_price'],
+                'shuttle_to_airport_price' => $req['shuttle_to_airport_price'] ?: NULL,
+                'additional_breakfast_price' => $req['additional_breakfast_price'] ?: NULL,
+                'late_checkout_price' => $req['late_checkout_price'] ?: NULL,
                 'is_available' => isBoolean($req['is_available']),
 
                 'code_table' => ('lodge-profiles') ,
-                'uuid' => ShortUuid(),
+                'uuid' => $uuid,
+
+                'slug' => slug($req['name'], $uuid),
+                'keyword' => isset($req['keyword']) ? $req['keyword'] : NULL,
             ];
 
             $validator = Validator::make($data,
