@@ -180,8 +180,8 @@ class TourProductsController extends Controller
                 'tourStores',
                 'tourStore.badasoUser',
                 'tourStore.badasoUsers',
-                'tourStore.tourProduct',
-                'tourStore.tourProducts',
+                // 'tourStore.tourProduct',
+                // 'tourStore.tourProducts',
                 // 'tourStore.tourBooking',
                 // 'tourStore.tourBookings',
                 'tourPrice',
@@ -213,7 +213,7 @@ class TourProductsController extends Controller
             $data_type = $this->getDataType($slug);
 
             $table_entity = \TourProducts::where('id', $request->data['id'])
-                ->where('tourStore')->first();
+                ->with('tourStore')->first();
 
             $store = $table_entity->tourStore;//->value('id');
 

@@ -17,6 +17,7 @@ use Illuminate\Support\Facades\Auth;
 use TourCarts;
 
 use \BadasoUsers;
+use CustomerPageModel;
 use Faker\Core\Number;
 use Google\Service\Eventarc\Transport;
 use TourBookings;
@@ -44,6 +45,103 @@ class TourCartsController extends Controller
 
         } else {
             return ApiResponse::unauthorized();
+        }
+    }
+
+    public function lagia_browse(Request $request)
+    {
+        try {
+
+            $data = \TourCarts::with([
+                'badasoUsers',
+                'badasoUser',
+
+                'tourProduct',
+                'tourProducts',
+                'tourPrice',
+                'tourPrices',
+                'tourStore',
+                'tourStores',
+            ])->orderBy('id','desc');
+
+            if(request()['showSoftDelete'] == 'true') {
+                $data = $data->onlyTrashed();
+            }
+
+            if(request()->search) {
+                $search = request()->search;
+
+                $store_id = function($q) use ($search) {
+                    return $q
+                        ->where('uuid','like','%'.$search.'%')
+                        ->orWhere('name','like','%'.$search.'%');
+                };
+
+                $price_id = function($q) use ($search) {
+                    return $q
+                        ->where('uuid','like','%'.$search.'%')
+                        ->orWhere('name','like','%'.$search.'%')
+                        ->orWhere('general_price','like','%'.$search.'%')
+                        ->orWhere('discount_price','like','%'.$search.'%')
+                        ->orWhere('cashback_price','like','%'.$search.'%');
+                };
+
+                $customer_id = function($q) use ($search) {
+                    return $q
+                        ->where('name','like','%'.$search.'%')
+                        ->orWhere('username','like','%'.$search.'%')
+                        ->orWhere('email','like','%'.$search.'%')
+                        ->orWhere('phone','like','%'.$search.'%');
+                };
+
+                $product_id = function($q) use ($search) {
+                    return $q
+                        ->where('uuid','like','%'.$search.'%')
+                        ->orWhere('name','like','%'.$search.'%');
+                };
+
+
+                $columns = \Illuminate\Support\Facades\Schema::getColumnListing('tour_carts');
+
+                foreach ($columns as $value) {
+                    switch ($value) {
+                        case "code_table":
+                        case "deleted_at":
+                            # code...
+                            break;
+                        default:
+                            $data->orWhere($value,'like','%'.$search.'%');
+                    }
+                }
+
+                $data = $data;
+                    // ->orWhere('id','like','%'.$search.'%');
+                    // ->orWhereHas('tourStore', $store_id)
+                    // ->orWhereHas('tourProduct', $product_id)
+                    // ->orWhereHas('tourPrice', $price_id)
+                    // ->orWhereHas('badasoUser', $customer_id);
+            }
+
+            // Role Data
+            // Client hanya bisa melihat data mereka sendiri
+            if(isClientOnly()) {
+                $data->where('customer_id',authID());
+            }
+
+            $data = $data->paginate(request()->perPage);
+
+            // $encode = json_encode($paginate);
+            // $decode = json_decode($encode);
+            // $data['data'] = $decode->data;
+            // $data['total'] = $decode->total;
+
+            $additional = [
+                'customer' => CustomerPageModel::where('user_id',authID())->first(),
+            ];
+
+            return ApiResponse::onlyEntity($data, additional:$additional);
+        } catch (Exception $e) {
+            return ApiResponse::failed($e);
         }
     }
 
@@ -246,6 +344,16 @@ class TourCartsController extends Controller
             );
         }
 
+        function getTotalAmountChild($value) {
+            //console.log('getTotalAmount', value)
+            return (
+                $value?->general_price_child -
+                ($value?->general_price_child * (($value?->discount_price)/100)) -
+                ($value?->cashback_price)
+            );
+        }
+
+
         try {
 
             // get slug by route name and get data type in table
@@ -279,7 +387,7 @@ class TourCartsController extends Controller
                             'customer_id' => $server['customer_id'],
                             'store_id' => $server['store_id'],
                             'id' => $server['id'],
-                            'total' => getTotalAmount($server->tourPrice) * $server->quantity,
+                            'total' => (getTotalAmount($server->tourPrice) * $server->quantity) + (getTotalAmountChild($server->tourPrice) * $server->quantity),
                         ]);
 
                         // array_push($total_sums, [
@@ -388,11 +496,19 @@ class TourCartsController extends Controller
                             'product_id' => $value->product_id,
                             'name' => $value->tourPrice->name,
                             'get_price' => $value->tourPrice->general_price,
+                            'get_price_child' => $value->tourPrice->general_price_child,
                             'get_discount' => $value->tourPrice->discount_price,
                             'get_cashback' => $value->tourPrice->cashback_price,
                             'get_total_amount' => getTotalAmount($value->tourPrice),
+                            'get_total_amount_child' => getTotalAmountChild($value->tourPrice),
                             'quantity' => $value->quantity,
-                            'get_final_amount' => getTotalAmount($value->tourPrice) * $value->quantity,
+                            'get_final_amount' => (getTotalAmount($value->tourPrice) * $value->quantity) + getTotalAmountChild($value->tourPrice) * $value->quantity,
+
+                            'date_start' => $value->date_start,
+                            'participant_adult' => $value->participant_adult,
+                            'participant_young' => $value->participant_young,
+                            'hotel' => $value->hotel,
+
                             'description' => $value->tourPrice->description,
                             'code_table' => 'tour-booking-items',
                             'uuid' => ShortUuid(),

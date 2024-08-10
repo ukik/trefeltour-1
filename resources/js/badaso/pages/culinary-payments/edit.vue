@@ -135,7 +135,7 @@
                     "
                   ></badaso-date>
                   <badaso-datetime
-                    v-if="dataRow.type == 'datetime'"
+                    v-if="dataRow.type == ''"
                     :label="dataRow.displayName"
                     :placeholder="dataRow.displayName"
                     v-model="dataRow.value"

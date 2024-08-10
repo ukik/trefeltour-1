@@ -1,174 +1,250 @@
 <template>
   <div>
-
-    <stack-modal class="d-flex justify-content-center"
-                :show="show"
-                title=""
-                @close="getEntity(); show=false; selectedMulti = []; selected = []; selectedData = null; "
-                :modal-class="{ [modalClass]: true }"
-                :saveButton="{ visible: false }"
-                :cancelButton="{ title: 'Close', btnClass: { 'btn btn-primary': true } }"
-            >
-            <slot name="modal-header">
-                <div class="modal-header px-0">
-                    <h3 class="modal-title">
-                        Booking
-                    </h3>
-                    <vs-button @click="getEntity(); show=false; selectedMulti = []; selected = []; selectedData = null; ">
-                        <i class="vs-icon notranslate icon-scale material-icons null">close</i>
-                    </vs-button>
-                </div>
-            </slot>
-            <div v-if="tipe == 'single'" class="py-4">
-                <div class="row">
-                    <span class="col">Customer</span>
-                    <span class="col-auto">{{ selectedData?.badasoUser?.name }} ({{ selectedData?.badasoUser?.username }})</span>
-                </div>
-                <div class="row">
-                    <span class="col">UUID</span>
-                    <span class="col-auto">{{ selectedData?.tourProduct?.uuid }}</span>
-                </div>
-                <div class="row">
-                    <span class="col">Jenis Produk</span>
-                    <span class="col-auto">{{ selectedData?.tourProduct?.name }}</span>
-                </div>
-                <div class="row">
-                    <span class="col">Stok</span>
-                    <span class="col-auto">{{ selectedData?.tourPrice?.stock }}</span>
-                </div>
-                <div class="row">
-                    <span class="col">Quantity</span>
-                    <span class="col-auto">{{ selectedData?.quantity }}</span>
-                </div>
-                <div class="row">
-                    <span class="col">Harga</span>
-                    <span class="col-auto">{{ $rupiah(getTotalAmount(selectedData?.tourPrice)) }}</span>
-                </div>
-                <div class="row">
-                    <span class="col">Total Tagihan</span>
-                    <span class="col-auto">
-                        {{ $rupiah(Math.round(getTotalAmount(selectedData?.tourPrice) * selectedData?.quantity)) }}
-                    </span>
-                </div>
-                <div class="row">
-                    <div class="col">
-                    <div class="full-width text-center mt-2">Update Quantity</div>
-                    <CounterPopup @onBubbleEvent="onUpdateCounterPopupSingle"
-                        :selectedData="selectedData"
-                        :id="selectedData?.id"
-                        :limit="limit"
-                        :page="page"
-                        :filter="filter"
-                        :orderField="orderField"
-                        :orderDirection="orderDirection"
-                        :isShowDataRecycle="isShowDataRecycle"
-                        :perPage="perPage"
-                        :currentPage="currentPage"
-                        :selectedId="selectedData?.id" :set_quantity="selectedData?.quantity" :stock="selectedData?.tourPrice?.stock"
-                        />
-                    </div>
-                </div>
-            </div>
-            <div v-if="tipe == 'multi'" class="py-4" :class="[ selectedMulti.length >= 2 ? 'pr-2' : '' ]" style="
-                    min-height: 250px;
-                    max-height: 470px;
-                    overflow-y: overlay;
-                    overflow-x: hidden;
-                ">
-                <!-- <div class="row">
+    <stack-modal
+      class="d-flex justify-content-center"
+      :show="show"
+      title=""
+      @close="
+        getEntity();
+        show = false;
+        selectedMulti = [];
+        selected = [];
+        selectedData = null;
+      "
+      :modal-class="{ [modalClass]: true }"
+      :saveButton="{ visible: false }"
+      :cancelButton="{ title: 'Close', btnClass: { 'btn btn-primary': true } }"
+    >
+      <slot name="modal-header">
+        <div class="modal-header px-0">
+          <h3 class="modal-title">Booking</h3>
+          <vs-button
+            @click="
+              getEntity();
+              show = false;
+              selectedMulti = [];
+              selected = [];
+              selectedData = null;
+            "
+          >
+            <i class="vs-icon notranslate icon-scale material-icons null">close</i>
+          </vs-button>
+        </div>
+      </slot>
+      <div v-if="tipe == 'single'" class="py-4">
+        <div class="row">
+          <span class="col">Customer</span>
+          <span class="col-auto"
+            >{{ selectedData?.badasoUser?.name }} ({{
+              selectedData?.badasoUser?.username
+            }})</span
+          >
+        </div>
+        <div class="row">
+          <span class="col">UUID</span>
+          <span class="col-auto">{{ selectedData?.tourProduct?.uuid }}</span>
+        </div>
+        <div class="row">
+          <span class="col">Jenis Produk</span>
+          <span class="col-auto">{{ selectedData?.tourProduct?.name }}</span>
+        </div>
+        <!-- <div class="row">
+          <span class="col">Stok</span>
+          <span class="col-auto">{{ selectedData?.tourPrice?.stock }}</span>
+        </div> -->
+        <div class="row">
+          <span class="col">Penginapan/Hotel</span>
+          <span class="col-auto">{{ selectedData?.hotel }}</span>
+        </div>
+        <div class="row">
+          <span class="col">Peserta Dewasa</span>
+          <span class="col-auto">{{ selectedData?.participantAdult }}</span>
+        </div>
+        <div class="row">
+          <span class="col">Peserta Anak (2-6 tahun)</span>
+          <span class="col-auto">{{ selectedData?.participantYoung }}</span>
+        </div>
+        <!-- <div class="row">
+          <span class="col">Quantity</span>
+          <span class="col-auto">{{ selectedData?.quantity }}</span>
+        </div> -->
+        <div class="row">
+          <span class="col">Harga Dewasa</span>
+          <span class="col-auto">{{
+            $rupiah(getTotalAmount(selectedData?.tourPrice))
+          }}</span>
+        </div>
+        <div class="row">
+          <span class="col">Harga Anak (2-6 tahun)</span>
+          <span class="col-auto">{{
+            $rupiah(getTotalAmountChild(selectedData?.tourPrice))
+          }}</span>
+        </div>
+        <div class="row">
+          <span class="col">Total Biaya (diluar hotel)</span>
+          <span class="col-auto">
+            {{
+              $rupiah(
+                Math.round(
+                  getTotalAmount(selectedData?.tourPrice) * selectedData?.quantity
+                ) +
+                  Math.round(
+                    getTotalAmountChild(selectedData?.tourPrice) * selectedData?.quantity
+                  )
+              )
+            }}
+          </span>
+        </div>
+        <!-- <div class="row">
+          <div class="col">
+            <div class="full-width text-center mt-2">Update Quantity</div>
+            <CounterPopup
+              @onBubbleEvent="onUpdateCounterPopupSingle"
+              :selectedData="selectedData"
+              :id="selectedData?.id"
+              :limit="limit"
+              :page="page"
+              :filter="filter"
+              :orderField="orderField"
+              :orderDirection="orderDirection"
+              :isShowDataRecycle="isShowDataRecycle"
+              :perPage="perPage"
+              :currentPage="currentPage"
+              :selectedId="selectedData?.id"
+              :set_quantity="selectedData?.quantity"
+              :stock="selectedData?.tourPrice?.stock"
+            />
+          </div>
+        </div> -->
+      </div>
+      <div
+        v-if="tipe == 'multi'"
+        class="py-4"
+        :class="[selectedMulti.length >= 2 ? 'pr-2' : '']"
+        style="
+          min-height: 250px;
+          max-height: 470px;
+          overflow-y: overlay;
+          overflow-x: hidden;
+        "
+      >
+        <!-- <div class="row">
                     <span class="col">Customer</span>
                     <span class="col-auto">{{ selectedMulti.map((item) => item?.badasoUser?.name)[0] }} ({{ selectedMulti.map((item) => item?.badasoUser?.username)[0] }})</span>
                 </div> -->
-                <template v-for="(item, index) in selectedMulti" >
-                    <div>
-                        <hr>
-                        <div class="row">
-                            <span class="col">Customer </span>
-                            <span class="col-auto">{{ item?.badasoUser?.name }} ({{ item?.badasoUser?.username }})</span>
-                        </div>
-                        <div class="row">
-                            <span class="col">UUID </span>
-                            <span class="col-auto">{{ item?.tourPrice?.uuid }}</span>
-                        </div>
-                        <div class="row">
-                            <span class="col">Jenis Produk</span>
-                            <span class="col-auto">{{ item?.tourProduct?.name }}</span>
-                        </div>
-                        <div class="row">
-                            <span class="col">Stok</span>
-                            <span class="col-auto">{{ item?.tourPrice?.stock }}</span>
-                        </div>
-                        <div class="row">
-                            <span class="col">Quantity</span>
-                            <span class="col-auto">{{ item?.quantity }}</span>
-                        </div>
-                        <div class="row">
-                            <span class="col">Harga</span>
-                            <span class="col-auto">{{ $rupiah(getTotalAmount(item?.tourPrice)) }}</span>
-                        </div>
-                        <div class="row">
-                            <span class="col">Total Harga</span>
-                            <span class="col-auto">
-                                {{ $rupiah(Math.round(getTotalAmount(item?.tourPrice) * item?.quantity)) }}
-                            </span>
-                        </div>
-                        <div class="row">
-                            <div class="col">
-                            <div class="full-width text-center mt-2">Update Quantity</div>
-                            <CounterPopup @onBubbleEvent="onUpdateCounterPopup"
-                                :selectedData="item"
-                                :id="item?.id"
-                                :limit="limit"
-                                :page="page"
-                                :filter="filter"
-                                :orderField="orderField"
-                                :orderDirection="orderDirection"
-                                :isShowDataRecycle="isShowDataRecycle"
-                                :perPage="perPage"
-                                :currentPage="currentPage"
-                                :index="index"
-                                :selectedId="item.id" :set_quantity="item.quantity" :stock="item?.tourPrice?.stock"
-                                />
-
-                            <!-- <CalenderBooked @onBubbleEvent="records = $event"
-                                :selectedData="item"
-                                :id="item?.id"
-                                :limit="limit"
-                                :page="page"
-                                :filter="filter"
-                                :orderField="orderField"
-                                :orderDirection="orderDirection"
-                                :isShowDataRecycle="isShowDataRecycle"
-                                :perPage="perPage"
-                                :currentPage="currentPage"
-                                :date_checkin="item?.dateCheckin" class="mt-2" /> -->
-                            </div>
-                        </div>
-                    </div>
-                </template>
+        <template v-for="(item, index) in selectedMulti">
+          <div>
+            <hr />
+            <div class="row">
+              <span class="col">Customer </span>
+              <span class="col-auto"
+                >{{ item?.badasoUser?.name }} ({{ item?.badasoUser?.username }})</span
+              >
+            </div>
+            <div class="row">
+              <span class="col">UUID </span>
+              <span class="col-auto">{{ item?.tourPrice?.uuid }}</span>
+            </div>
+            <div class="row">
+              <span class="col">Jenis Produk</span>
+              <span class="col-auto">{{ item?.tourProduct?.name }}</span>
+            </div>
+            <!-- <div class="row">
+              <span class="col">Stok</span>
+              <span class="col-auto">{{ item?.tourPrice?.stock }}</span>
+            </div> -->
+            <div class="row">
+              <span class="col">Penginapan/Hotel</span>
+              <span class="col-auto">{{ item }}</span>
             </div>
 
-            <hr class="m-0">
-            <!-- <shared-table-modal v-if="type=='select'" @onBubbleEvent="onBubbleEvent" slug="tour-products" /> -->
-            <div slot="modal-footer">
-                <div v-if="tipe=='multi'" class="px-3">
-                    <div class="row">
-                        <span class="col">Total Tagihan</span>
-                        <span class="col-auto">{{ $rupiah(totalTagihan) }}</span>
-                    </div>
-                    <hr>
-                </div>
-                <div class="col-12 d-flex justify-content-center">
-                    <input  type="textarea" placeholder="Tambah catatan..." class="col mx-0 mb-3 vs-inputx vs-input--input normal" v-model="description">
-                </div>
-                <div class="modal-header pt-0 d-flex justify-content-center">
-                    <vs-button @click="onInvoice">
-                        <i class="vs-icon notranslate icon-scale material-icons null">shopping_basket</i>
-                        <span class="pl-1">Buat Invoice</span>
-                    </vs-button>
-                </div>
+            <div class="row">
+              <span class="col">Peserta Dewasa</span>
+              <span class="col-auto">{{ item?.participantAdult }}</span>
             </div>
-        </stack-modal>
+            <div class="row">
+              <span class="col">Peserta Anak (2-6 tahun)</span>
+              <span class="col-auto">{{ item?.participantYoung }}</span>
+            </div>
+            <!-- <div class="row">
+              <span class="col">Quantity</span>
+              <span class="col-auto">{{ item?.quantity }}</span>
+            </div> -->
+            <div class="row">
+              <span class="col">Harga Dewasa</span>
+              <span class="col-auto">{{ $rupiah(getTotalAmount(item?.tourPrice)) }}</span>
+            </div>
+            <div class="row">
+              <span class="col">Harga Anak (2-6 tahun)</span>
+              <span class="col-auto">{{
+                $rupiah(getTotalAmountChild(item?.tourPrice))
+              }}</span>
+            </div>
+            <div class="row">
+              <span class="col">Total Harga</span>
+              <span class="col-auto">
+                {{
+                  $rupiah(
+                    Math.round(getTotalAmount(item?.tourPrice) * item?.quantity) +
+                      Math.round(getTotalAmountChild(item?.tourPrice) * item?.quantity)
+                  )
+                }}
+              </span>
+            </div>
+            <!-- <div class="row">
+              <div class="col">
+                <div class="full-width text-center mt-2">Update Quantity</div>
+                <CounterPopup
+                  @onBubbleEvent="onUpdateCounterPopup"
+                  :selectedData="item"
+                  :id="item?.id"
+                  :limit="limit"
+                  :page="page"
+                  :filter="filter"
+                  :orderField="orderField"
+                  :orderDirection="orderDirection"
+                  :isShowDataRecycle="isShowDataRecycle"
+                  :perPage="perPage"
+                  :currentPage="currentPage"
+                  :index="index"
+                  :selectedId="item.id"
+                  :set_quantity="item.quantity"
+                  :stock="item?.tourPrice?.stock"
+                />
+              </div>
+            </div> -->
+          </div>
+        </template>
+      </div>
+
+      <hr class="m-0" />
+      <!-- <shared-table-modal v-if="type=='select'" @onBubbleEvent="onBubbleEvent" slug="tour-products" /> -->
+      <div slot="modal-footer">
+        <div v-if="tipe == 'multi'" class="px-3">
+          <div class="row">
+            <span class="col">Total Biaya (diluar hotel)</span>
+            <span class="col-auto">{{ $rupiah(totalTagihan) }}</span>
+          </div>
+          <hr />
+        </div>
+        <div class="col-12 d-flex justify-content-center">
+          <input
+            type="textarea"
+            placeholder="Tambah catatan..."
+            class="col mx-0 mb-3 vs-inputx vs-input--input normal"
+            v-model="description"
+          />
+        </div>
+        <div class="modal-header pt-0 d-flex justify-content-center">
+          <vs-button @click="onInvoice">
+            <i class="vs-icon notranslate icon-scale material-icons null"
+              >shopping_basket</i
+            >
+            <span class="pl-1">Buat Invoice</span>
+          </vs-button>
+        </div>
+      </div>
+    </stack-modal>
 
     <shared-browser-modal-cart ref="SharedBrowserModal" />
     <template v-if="!showMaintenancePage">
@@ -208,10 +284,7 @@
           <badaso-dropdown-item
             icon="list"
             :to="{ name: 'CrudGeneratedSort' }"
-            v-if="
-              isCanSort &&
-              $helper.isAllowedToModifyGeneratedCRUD('edit', dataType)
-            "
+            v-if="isCanSort && $helper.isAllowedToModifyGeneratedCRUD('edit', dataType)"
           >
             {{ $t("action.sort") }}
           </badaso-dropdown-item>
@@ -236,9 +309,7 @@
           </badaso-dropdown-item>
           <badaso-dropdown-item
             icon="settings"
-            v-if="
-              $helper.isAllowedToModifyGeneratedCRUD('maintenance', dataType)
-            "
+            v-if="$helper.isAllowedToModifyGeneratedCRUD('maintenance', dataType)"
             @click.stop
             @click="openMaintenanceDialog"
           >
@@ -273,34 +344,53 @@
         <vs-col vs-lg="12">
           <vs-card>
             <div slot="header">
-                <div  class="row px-3">
-                    <h3 class="col align-self-center">{{ dataType.displayNameSingular }}</h3>
+              <div class="row px-3">
+                <h3 class="col align-self-center">{{ dataType.displayNameSingular }}</h3>
 
-                    <vs-button v-if="selected.length > 0" type="relief" @click="onBookingTerpilih">
-                        <vs-icon icon="shopping_cart" style="font-size: 18px;" class=""></vs-icon>
-                        Booking Terpilih
-                    </vs-button>
-                </div>
-                <!-- <vs-input icon-after="true" label-placeholder="icon-after" icon="search" placeholder="Pencarian Data" v-model="search" @input="onSearch($event)"/> -->
+                <vs-button
+                  v-if="selected.length > 0"
+                  type="relief"
+                  @click="onBookingTerpilih"
+                >
+                  <vs-icon
+                    icon="shopping_cart"
+                    style="font-size: 18px"
+                    class=""
+                  ></vs-icon>
+                  Booking Terpilih
+                </vs-button>
+              </div>
+              <!-- <vs-input icon-after="true" label-placeholder="icon-after" icon="search" placeholder="Pencarian Data" v-model="search" @input="onSearch($event)"/> -->
 
-<div class="row">
-                    <!-- <shared-select-available ref="SharedSelectAvailable" @onBubbleEvent="onAvailable" class="col-auto" /> -->
-                    <div class="col pr-0 d-flex align-items-end">
-                        <vs-input icon-after="true" label-placeholder="icon-after" icon="search" placeholder="Pencarian Data" v-model="search" @input="onSearch($event)"/>
-                    </div>
-                    <div class="col-auto d-flex align-items-end justify-content-end">
-                        <vs-button @click="onClear" color="danger" icon="close"></vs-button>
-                    </div>
+              <div class="row">
+                <!-- <shared-select-available ref="SharedSelectAvailable" @onBubbleEvent="onAvailable" class="col-auto" /> -->
+                <div class="col pr-0 d-flex align-items-end">
+                  <vs-input
+                    icon-after="true"
+                    label-placeholder="icon-after"
+                    icon="search"
+                    placeholder="Pencarian Data"
+                    v-model="search"
+                    @input="onSearch($event)"
+                  />
                 </div>
+                <div class="col-auto d-flex align-items-end justify-content-end">
+                  <vs-button @click="onClear" color="danger" icon="close"></vs-button>
+                </div>
+              </div>
             </div>
             <div>
-                <!-- <div v-if="this.$store.getters['badaso/getUser']?.isAdmin" class="alert alert-warning my-3" role="alert">
+              <!-- <div v-if="this.$store.getters['badaso/getUser']?.isAdmin" class="alert alert-warning my-3" role="alert">
                     Pilih untuk booking (1 Invoice untuk 1 Customer)
                 </div> -->
 
-                <!-- shared-badaso-table-cart pakai @search="onSearch" konsep lama -->
-              <badaso-table ref="badaso_table_1"
-                v-if="dataType.serverSide !== 1" :lastPage="lastPage" :currentPage="currentPage" :perPage="perPage"
+              <!-- shared-badaso-table-cart pakai @search="onSearch" konsep lama -->
+              <badaso-table
+                ref="badaso_table_1"
+                v-if="dataType.serverSide !== 1"
+                :lastPage="lastPage"
+                :currentPage="currentPage"
+                :perPage="perPage"
                 @onChangePage="onChangePage"
                 @onChangeMaxItems="onChangeMaxItems"
                 v-model="selected"
@@ -312,15 +402,13 @@
                 description
                 :description-items="descriptionItems"
                 :description-title="$t('crudGenerated.footer.descriptionTitle')"
-                :description-connector="
-                  $t('crudGenerated.footer.descriptionConnector')
-                "
+                :description-connector="$t('crudGenerated.footer.descriptionConnector')"
                 :description-body="$t('crudGenerated.footer.descriptionBody')"
-                :multiple="true"
+                :multiple="false"
               >
                 <template slot="thead">
-                    <vs-th></vs-th>
-                    <vs-th></vs-th>
+                  <vs-th></vs-th>
+                  <vs-th></vs-th>
                   <vs-th
                     v-for="(dataRow, index) in dataType.dataRows"
                     :key="index"
@@ -346,36 +434,51 @@
                   >
                     <template
                       v-if="
-                        !idsOfflineDeleteRecord.includes(
-                          record.id.toString()
-                        ) || !isOnline
+                        !idsOfflineDeleteRecord.includes(record.id.toString()) ||
+                        !isOnline
                       "
                     >
-
-                        <vs-td>
-                            <vs-button @click="$refs.SharedBrowserModal.onCall({
+                      <vs-td>
+                        <vs-button
+                          @click="
+                            $refs.SharedBrowserModal.onCall({
                               show: true,
                               type: 'detail',
                               selectedData: record,
-                              title: 'Detail Order',
+                              title: 'Detail Harga',
                               slug: 'tour-prices',
-                              url: '/api/typehead/tour/dialog_cart_price' })">
-                                <vs-icon icon="visibility" style="font-size: 18px;" class=""></vs-icon>
-                            </vs-button>
-                        </vs-td>
-                        <vs-td>
-                          <vs-button @click=" tipe='single'; selectedData = record; onPopupBooking();">
-                              <vs-icon icon="shopping_cart" style="font-size: 18px;" class=""></vs-icon>
-                          </vs-button>
-                        </vs-td>
+                              url: '/api/typehead/tour/dialog_cart_price',
+                            })
+                          "
+                        >
+                          <vs-icon
+                            icon="visibility"
+                            style="font-size: 18px"
+                            class=""
+                          ></vs-icon>
+                        </vs-button>
+                      </vs-td>
+                      <vs-td>
+                        <vs-button
+                          @click="
+                            tipe = 'single';
+                            selectedData = record;
+                            onPopupBooking();
+                          "
+                        >
+                          <vs-icon
+                            icon="shopping_cart"
+                            style="font-size: 18px"
+                            class=""
+                          ></vs-icon>
+                        </vs-button>
+                      </vs-td>
 
                       <vs-td
                         v-for="(dataRow, indexColumn) in dataType.dataRows"
                         :key="indexColumn"
                         :data="
-                          data[index][
-                            $caseConvert.stringSnakeToCamel(dataRow.field)
-                          ]
+                          data[index][$caseConvert.stringSnakeToCamel(dataRow.field)]
                         "
                         :style="dataRow.field == 'quantity' ? 'min-width: 170px;' : ''"
                       >
@@ -383,9 +486,7 @@
                           <img
                             v-if="dataRow.type == 'upload_image'"
                             :src="`${
-                              record[
-                                $caseConvert.stringSnakeToCamel(dataRow.field)
-                              ]
+                              record[$caseConvert.stringSnakeToCamel(dataRow.field)]
                             }`"
                             width="20%"
                             alt=""
@@ -396,9 +497,7 @@
                           >
                             <img
                               v-for="(image, indexImage) in stringToArray(
-                                record[
-                                  $caseConvert.stringSnakeToCamel(dataRow.field)
-                                ]
+                                record[$caseConvert.stringSnakeToCamel(dataRow.field)]
                               )"
                               :key="indexImage"
                               :src="`${image}`"
@@ -410,37 +509,25 @@
                           <span
                             v-else-if="dataRow.type == 'editor'"
                             v-html="
-                              record[
-                                $caseConvert.stringSnakeToCamel(dataRow.field)
-                              ]
+                              record[$caseConvert.stringSnakeToCamel(dataRow.field)]
                             "
                           ></span>
                           <a
                             v-else-if="dataRow.type == 'url'"
-                            :href="
-                              record[
-                                $caseConvert.stringSnakeToCamel(dataRow.field)
-                              ]
-                            "
+                            :href="record[$caseConvert.stringSnakeToCamel(dataRow.field)]"
                             target="_blank"
                             >{{
-                              record[
-                                $caseConvert.stringSnakeToCamel(dataRow.field)
-                              ]
+                              record[$caseConvert.stringSnakeToCamel(dataRow.field)]
                             }}</a
                           >
                           <a
                             v-else-if="dataRow.type == 'upload_file'"
                             :href="`${
-                              record[
-                                $caseConvert.stringSnakeToCamel(dataRow.field)
-                              ]
+                              record[$caseConvert.stringSnakeToCamel(dataRow.field)]
                             }`"
                             target="_blank"
                             >{{
-                              record[
-                                $caseConvert.stringSnakeToCamel(dataRow.field)
-                              ]
+                              record[$caseConvert.stringSnakeToCamel(dataRow.field)]
                             }}</a
                           >
                           <div
@@ -449,29 +536,22 @@
                           >
                             <p
                               v-for="(file, indexFile) in arrayToString(
-                                record[
-                                  $caseConvert.stringSnakeToCamel(dataRow.field)
-                                ]
+                                record[$caseConvert.stringSnakeToCamel(dataRow.field)]
                               )"
                               :key="indexFile"
                             >
-                              <a :href="`${file}`" target="_blank">{{
-                                file
-                              }}</a>
+                              <a :href="`${file}`" target="_blank">{{ file }}</a>
                             </p>
                           </div>
                           <p
                             v-else-if="
-                              dataRow.type == 'radio' ||
-                              dataRow.type == 'select'
+                              dataRow.type == 'radio' || dataRow.type == 'select'
                             "
                           >
                             {{
                               bindSelection(
                                 dataRow.details.items,
-                                record[
-                                  $caseConvert.stringSnakeToCamel(dataRow.field)
-                                ]
+                                record[$caseConvert.stringSnakeToCamel(dataRow.field)]
                               )
                             }}
                           </p>
@@ -499,54 +579,78 @@
                             <div
                               class="crud-generated__item--color-picker"
                               :style="`background-color: ${
-                                record[
-                                  $caseConvert.stringSnakeToCamel(dataRow.field)
-                                ]
+                                record[$caseConvert.stringSnakeToCamel(dataRow.field)]
                               }`"
                             ></div>
-                            {{
-                              record[
-                                $caseConvert.stringSnakeToCamel(dataRow.field)
-                              ]
-                            }}
+                            {{ record[$caseConvert.stringSnakeToCamel(dataRow.field)] }}
                           </div>
                           <span v-else-if="dataRow.type == 'relation'">{{
                             displayRelationData(record, dataRow)
                           }}</span>
-                            <div :class="[ dataRow.field == 'quantity' ? 'row' : '']" v-else>
-                                <vs-button v-if="dataRow.field == 'booking'" type="relief" @click=" tipe='single'; selectedData = record; onPopupBooking();">Booking Ini</vs-button>
-                                <span v-if="dataRow.field == 'name'">
-                                    {{ record.tourPrice?.name }}
-                                </span>
-                                <span v-else-if="dataRow.field == 'get_price'">
-                                    {{ $rupiah(record.tourPrice?.generalPrice) }}
-                                </span>
-                                <span v-else-if="dataRow.field == 'get_discount'">
-                                    {{ record.tourPrice?.discountPrice }}%
-                                </span>
-                                <span v-else-if="dataRow.field == 'get_cashback'">
-                                    {{ $rupiah(record.tourPrice?.cashbackPrice) }}
-                                </span>
-                                <span v-else-if="dataRow.field == 'get_total_amount'">
-                                    {{ $rupiah(getTotalAmount(record?.tourPrice)) }}
-                                </span>
-                                <span v-else-if="dataRow.field == 'get_final_amount'">
-                                    {{ $rupiah(Math.round(getTotalAmount(record?.tourPrice) * record.quantity)) }}
-                                </span>
-                                <span v-else-if="dataRow.field == 'stock'">
-                                    {{ record.tourPrice?.stock }}
-                                </span>
-                                <div class="full-width" v-else-if="dataRow.field == 'quantity'">
-                                    <Counter :selectedId="record.id" @onBubbleEvent="onUpdateQuantity" :set_quantity="record.quantity" :stock="record?.tourPrice?.stock" />
-                                </div>
-                                <span v-else>
-                                {{
-                                    record[
-                                    $caseConvert.stringSnakeToCamel(dataRow.field)
-                                    ]
-                                }}
-                                </span>
+                          <div :class="[dataRow.field == 'quantity' ? 'row' : '']" v-else>
+                            <vs-button
+                              v-if="dataRow.field == 'booking'"
+                              type="relief"
+                              @click="
+                                tipe = 'single';
+                                selectedData = record;
+                                onPopupBooking();
+                              "
+                              >Booking Ini</vs-button
+                            >
+                            <span v-if="dataRow.field == 'name'">
+                              {{ record.tourPrice?.name }}
+                            </span>
+                            <span v-else-if="dataRow.field == 'get_price'">
+                              {{ $rupiah(record.tourPrice?.generalPrice) }}
+                            </span>
+                            <span v-else-if="dataRow.field == 'get_price_child'">
+                              {{ $rupiah(record.tourPrice?.generalPriceChild) }}
+                            </span>
+                            <span v-else-if="dataRow.field == 'get_discount'">
+                              {{ record.tourPrice?.discountPrice }}%
+                            </span>
+                            <span v-else-if="dataRow.field == 'get_cashback'">
+                              {{ $rupiah(record.tourPrice?.cashbackPrice) }}
+                            </span>
+                            <span v-else-if="dataRow.field == 'get_total_amount'">
+                              {{ $rupiah(getTotalAmount(record?.tourPrice)) }}
+                            </span>
+                            <span v-else-if="dataRow.field == 'get_total_amount_child'">
+                              {{ $rupiah(getTotalAmountChild(record?.tourPrice)) }}
+                            </span>
+
+                            <span v-else-if="dataRow.field == 'get_final_amount'">
+                              {{
+                                $rupiah(
+                                  Math.round(
+                                    getTotalAmount(record?.tourPrice) * record.quantity
+                                  ) +
+                                    Math.round(
+                                      getTotalAmountChild(record?.tourPrice) *
+                                        record.quantity
+                                    )
+                                )
+                              }}
+                            </span>
+                            <span v-else-if="dataRow.field == 'stock'">
+                              {{ record.tourPrice?.stock }}
+                            </span>
+                            <div
+                              class="full-width"
+                              v-else-if="dataRow.field == 'quantity'"
+                            >
+                              <Counter
+                                :selectedId="record.id"
+                                @onBubbleEvent="onUpdateQuantity"
+                                :set_quantity="record.quantity"
+                                :stock="record?.tourPrice?.stock"
+                              />
                             </div>
+                            <span v-else>
+                              {{ record[$caseConvert.stringSnakeToCamel(dataRow.field)] }}
+                            </span>
+                          </div>
                         </template>
                       </vs-td>
                       <vs-td class="crud-generated__button">
@@ -557,9 +661,6 @@
                             icon="more_vert"
                           ></vs-button>
                           <vs-dropdown-menu>
-
-
-
                             <badaso-dropdown-item
                               :to="{
                                 name: 'CrudGeneratedRead',
@@ -604,13 +705,8 @@
                               icon="delete"
                               @click="confirmDelete(data[index].id)"
                               v-if="
-                                !idsOfflineDeleteRecord.includes(
-                                  record.id.toString()
-                                ) &&
-                                $helper.isAllowedToModifyGeneratedCRUD(
-                                  'delete',
-                                  dataType
-                                )
+                                !idsOfflineDeleteRecord.includes(record.id.toString()) &&
+                                $helper.isAllowedToModifyGeneratedCRUD('delete', dataType)
                               "
                             >
                               Delete
@@ -619,20 +715,14 @@
                               @click="confirmDeleteDataPending(data[index].id)"
                               icon="delete_outline"
                               v-if="
-                                idsOfflineDeleteRecord.includes(
-                                  record.id.toString()
-                                ) && !isShowDataRecycle
+                                idsOfflineDeleteRecord.includes(record.id.toString()) &&
+                                !isShowDataRecycle
                               "
                             >
-                              {{
-                                $t(
-                                  "offlineFeature.crudGenerator.deleteDataPending"
-                                )
-                              }}
+                              {{ $t("offlineFeature.crudGenerator.deleteDataPending") }}
                             </badaso-dropdown-item>
 
                             <!-- <hr class="m-0 my-1"> -->
-
 
                             <!-- ADDITIONAL -->
 
@@ -723,7 +813,7 @@
                             >
                               Detail Layanan
                             </badaso-dropdown-item> -->
-<!--
+                            <!--
                             <badaso-dropdown-item v-for="(item1, index1) in data[index]?.talentSkills" :key="1+index1"
                               :to="{
                                 name: 'CrudGeneratedRead',
@@ -769,8 +859,6 @@
                             </badaso-dropdown-item> -->
 
                             <!-- --------------------- -->
-
-
                           </vs-dropdown-menu>
                         </badaso-dropdown>
                       </vs-td>
@@ -781,10 +869,7 @@
             </div>
           </vs-card>
         </vs-col>
-        <vs-prompt
-          @accept="saveMaintenanceState"
-          :active.sync="maintenanceDialog"
-        >
+        <vs-prompt @accept="saveMaintenanceState" :active.sync="maintenanceDialog">
           <vs-row>
             <badaso-switch
               :label="$t('crudGenerated.maintenanceDialog.switch')"
@@ -821,9 +906,7 @@
         <vs-col vs-lg="12">
           <div class="badaso-maintenance__container">
             <img :src="`${maintenanceImg}`" alt="Maintenance Icon" />
-            <h1 class="badaso-maintenance__text">
-              We are under <br />maintenance
-            </h1>
+            <h1 class="badaso-maintenance__text">We are under <br />maintenance</h1>
           </div>
         </vs-col>
       </vs-row>
@@ -832,11 +915,10 @@
 </template>
 
 <script>
-
-import CounterPopup from "./CounterPopup.vue"
-import Counter from "./Counter.vue"
-import StackModal from '@innologica/vue-stackable-modal'
-import axios from "axios"
+import CounterPopup from "./CounterPopup.vue";
+import Counter from "./Counter.vue";
+import StackModal from "@innologica/vue-stackable-modal";
+import axios from "axios";
 
 import * as _ from "lodash";
 import downloadExcel from "vue-json-excel";
@@ -872,38 +954,42 @@ export default {
     isMaintenance: false,
     showMaintenancePage: false,
     isShowDataRecycle: false,
-    available: '',
+    available: "",
     search: "",
 
-    modalClass: 'none col align-self-center',
+    modalClass: "none col align-self-center",
     selectedData: null,
     show: false,
-    tipe: 'single', // 'single' || 'multi'
+    tipe: "single", // 'single' || 'multi'
     selectedMulti: [],
     totalTagihan: 0,
-    description: '',
+    description: "",
 
     lastPage: 0,
     currentPage: 1,
-    perPage: 25
+    perPage: 25,
   }),
   watch: {
     $route: {
-        immediate: true,
-        handler (to, from) {
-          this.getEntity();
-        }
+      immediate: true,
+      handler(to, from) {
+        this.getEntity();
+      },
     },
     selected(val) {
-        this.selectedMulti = val
-        console.log('totalTagihan', val)
+      this.selectedMulti = val;
+      console.log("totalTagihan", val);
 
-        let total = 0
-        val.forEach(element => {
-            total += Number(this.getTotalAmount(element?.tourPrice) * element.quantity)
-        });
-        this.totalTagihan = total
-    }
+      let total = 0;
+      let total_child = 0;
+      val.forEach((element) => {
+        total += Number(this.getTotalAmount(element?.tourPrice) * element.quantity);
+        total_child += Number(
+          this.getTotalAmountChild(element?.tourPrice) * element.quantity
+        );
+      });
+      this.totalTagihan = total + total_child;
+    },
     // page: function(to, from) {
     //   this.handleChangePage(to);
     // },
@@ -923,116 +1009,113 @@ export default {
     // Swal.fire("SweetAlert2 is working!");
   },
   methods: {
-    onUpdateCounterPopup({ index, quantity}) {
-        console.log('onUpdateCounterPopup', index, quantity, this.selectedMulti)
-        let temp = JSON.parse(JSON.stringify(this.selectedMulti))
-        temp[index]['quantity'] = quantity
-        this.selectedMulti = []
-        this.selectedMulti = temp
+    onUpdateCounterPopup({ index, quantity }) {
+      console.log("onUpdateCounterPopup", index, quantity, this.selectedMulti);
+      let temp = JSON.parse(JSON.stringify(this.selectedMulti));
+      temp[index]["quantity"] = quantity;
+      this.selectedMulti = [];
+      this.selectedMulti = temp;
     },
-    onUpdateCounterPopupSingle({ index, quantity}) {
-        console.log('onUpdateCounterPopupSingle', quantity)
-        this.selectedData['quantity'] = quantity
+    onUpdateCounterPopupSingle({ index, quantity }) {
+      console.log("onUpdateCounterPopupSingle", quantity);
+      this.selectedData["quantity"] = quantity;
     },
     onSearch(val) {
-        this.search = val
-        this.selected = []
-        this.selectedMulti = []
-        this.getEntity();
+      this.search = val;
+      this.selected = [];
+      this.selectedMulti = [];
+      this.getEntity();
     },
     onClear() {
-        this.search = ''
-        this.available = ''
-        this.selected = []
-        this.selectedMulti = []
-        this.getEntity();
-        this.$refs?.SharedSelectAvailable?.onClear()
+      this.search = "";
+      this.available = "";
+      this.selected = [];
+      this.selectedMulti = [];
+      this.getEntity();
+      this.$refs?.SharedSelectAvailable?.onClear();
     },
     onAvailable(val) {
-        this.available = val
-        this.selected = []
-        this.selectedMulti = []
-        this.getEntity();
+      this.available = val;
+      this.selected = [];
+      this.selectedMulti = [];
+      this.getEntity();
     },
     async onPopupBooking() {
+      var bodyFormData = new FormData();
 
-        var bodyFormData = new FormData();
+      if (this.tipe == "multi") {
+        const ids = this.selectedMulti.map((map) => map.id);
+        bodyFormData.append("payload", JSON.stringify(ids));
+      } else if (this.tipe == "single") {
+        bodyFormData.append("payload", JSON.stringify([this.selectedData?.id]));
+      }
 
-        if(this.tipe == 'multi') {
-            const ids = this.selectedMulti.map((map) => map.id)
-            bodyFormData.append('payload', JSON.stringify(ids));
-        } else if (this.tipe == 'single') {
-            bodyFormData.append('payload', JSON.stringify([this.selectedData?.id]));
-        }
-
-        this.$openLoader();
-        await axios.post('/api/typehead/tour/get_prices_booking', bodyFormData, {
-            headers: {
-                Authorization: `Bearer ${localStorage.getItem('token')}`
-            }
+      this.$openLoader();
+      await axios
+        .post("/api/typehead/tour/get_prices_booking", bodyFormData, {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
         })
         .then((response) => {
-            console.log('onPopupBooking', response)
-            if(this.tipe == 'multi') {
-                this.selectedMulti = response.data?.data
-            } else if (this.tipe == 'single') {
-                this.selectedData = response.data?.data[0]
-            }
+          console.log("onPopupBooking", response);
+          if (this.tipe == "multi") {
+            this.selectedMulti = response.data?.data;
+          } else if (this.tipe == "single") {
+            this.selectedData = response.data?.data[0];
+          }
         })
-        .catch((error) => {
-        })
-        this.$closeLoader();
+        .catch((error) => {});
+      this.$closeLoader();
 
-        this.show = true
+      this.show = true;
     },
     async onInvoice() {
+      // const ids = this.selectedMulti.map(item => {
+      //     id: item.id
+      // })
+      // this.records.forEach((element, index) => {
+      //     ids.forEach(it => {
+      //         if(it.id == element.id) this.records.splice(index, 1)
+      //     });
+      // });
+      // console.log('onInvoice', this.records, ids)
+      // return
 
-        // const ids = this.selectedMulti.map(item => {
-        //     id: item.id
+      var bodyFormData = new FormData();
+
+      if (this.tipe == "multi") {
+        // this.selectedMulti.forEach(el => {
+        //     bodyFormData.append('payload[]', JSON.parse(el));
         // })
-        // this.records.forEach((element, index) => {
-        //     ids.forEach(it => {
-        //         if(it.id == element.id) this.records.splice(index, 1)
-        //     });
-        // });
-        // console.log('onInvoice', this.records, ids)
-        // return
+        bodyFormData.append("payload", JSON.stringify(this.selectedMulti));
+      } else if (this.tipe == "single") {
+        bodyFormData.append("payload", JSON.stringify([this.selectedData]));
+      }
+      bodyFormData.append("description", this.description);
 
-        var bodyFormData = new FormData();
-
-        if(this.tipe == 'multi') {
-            // this.selectedMulti.forEach(el => {
-            //     bodyFormData.append('payload[]', JSON.parse(el));
-            // })
-            bodyFormData.append('payload', JSON.stringify(this.selectedMulti));
-        } else if (this.tipe == 'single') {
-            bodyFormData.append('payload', JSON.stringify([this.selectedData]));
-        }
-        bodyFormData.append('description', this.description);
-
-
-        this.$openLoader();
-        await axios.post('/trevolia-api/v1/entities/tour-carts/add', bodyFormData, {
-            headers: {
-                Authorization: `Bearer ${localStorage.getItem('token')}`
-            }
+      this.$openLoader();
+      await axios
+        .post("/trevolia-api/v1/entities/tour-carts/add", bodyFormData, {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
         })
         .then((response) => {
+          this.show = false;
+          this.selectedMulti = [];
+          this.totalTagihan = 0;
+          this.selectedData = null;
+          this.selected = [];
+          this.description = "";
 
-            this.show = false
-            this.selectedMulti = []
-            this.totalTagihan = 0
-            this.selectedData = null
-            this.selected = []
-            this.description = ''
+          this.getEntity();
 
-            this.getEntity();
-
-            this.$vs.notify({
-                title: this.$t("alert.success"),
-                text: "Berhasil booking",
-                color: "success",
-            });
+          this.$vs.notify({
+            title: this.$t("alert.success"),
+            text: "Berhasil booking",
+            color: "success",
+          });
         })
         .catch((error) => {
           this.$vs.notify({
@@ -1040,97 +1123,94 @@ export default {
             text: "Gagal booking",
             color: "danger",
           });
-        })
-        this.$closeLoader();
+        });
+      this.$closeLoader();
     },
     onBookingTerpilih() {
-        // const ids = this.selected.map((item) => item.id);
-        this.tipe = 'multi'
+      // const ids = this.selected.map((item) => item.id);
+      this.tipe = "multi";
 
-        this.onPopupBooking()
-        return
+      this.onPopupBooking();
+      return;
 
-        const isAdmin = this.$store.getters['badaso/getUser']?.isAdmin
-        // console.log('el.customerId', ids, this.selected.length, isAdmin)
+      const isAdmin = this.$store.getters["badaso/getUser"]?.isAdmin;
+      // console.log('el.customerId', ids, this.selected.length, isAdmin)
 
-        if(isAdmin) {
+      if (isAdmin) {
+        let duplicate = null;
 
-            let duplicate = null;
+        let block = false;
 
-            let block = false
+        this.selectedMulti.forEach((el) => {
+          if (!duplicate) duplicate = el.customerId;
+          if (duplicate == el.customerId) duplicate = el.customerId;
+          if (duplicate !== el.customerId) {
+            this.$vs.notify({
+              title: this.$t("alert.danger"),
+              text: "1 Invoice untuk 1 Customer",
+              color: "danger",
+            });
 
-            this.selectedMulti.forEach(el => {
-                if(!duplicate) duplicate = el.customerId
-                if(duplicate == el.customerId) duplicate = el.customerId
-                if(duplicate !== el.customerId) {
+            block = true;
+            // this.$vs.dialog({
+            //     type: "confirm",
+            //     color: "danger",
+            //     title: this.$t("action.delete.title"),
+            //     text: this.$t("action.delete.text"),
+            //     accept: this.deleteRecords,
+            //     acceptText: this.$t("action.delete.accept"),
+            //     cancelText: this.$t("action.delete.cancel"),
+            //     cancel: () => {},
+            // });
+          }
+        });
 
-                    this.$vs.notify({
-                        title: this.$t("alert.danger"),
-                        text: "1 Invoice untuk 1 Customer",
-                        color: "danger",
-                    });
+        if (block) return;
+      }
 
-                    block = true
-                    // this.$vs.dialog({
-                    //     type: "confirm",
-                    //     color: "danger",
-                    //     title: this.$t("action.delete.title"),
-                    //     text: this.$t("action.delete.text"),
-                    //     accept: this.deleteRecords,
-                    //     acceptText: this.$t("action.delete.accept"),
-                    //     cancelText: this.$t("action.delete.cancel"),
-                    //     cancel: () => {},
-                    // });
-                }
-            })
+      this.tipe = "multi";
 
-            if(block) return
-        }
-
-        this.tipe = 'multi'
-
-        this.onPopupBooking()
+      this.onPopupBooking();
     },
-    onUpdateQuantity: _.debounce(async function(value) {
-        // alert(value)
+    onUpdateQuantity: _.debounce(async function (value) {
+      // alert(value)
 
-        // if(value.quantity >= this.stock) this.quantity = this.stock
-        // if(value.quantity <= 1) this.quantity = 1
+      // if(value.quantity >= this.stock) this.quantity = this.stock
+      // if(value.quantity <= 1) this.quantity = 1
 
-        // if(!this.selectedCustomer) {
-        //     this.$vs.notify({
-        //         title: this.$t("alert.danger"),
-        //         text: "Customer wajib diisi",
-        //         color: "danger",
-        //     });
-        //     return
-        // }
+      // if(!this.selectedCustomer) {
+      //     this.$vs.notify({
+      //         title: this.$t("alert.danger"),
+      //         text: "Customer wajib diisi",
+      //         color: "danger",
+      //     });
+      //     return
+      // }
 
-        var bodyFormData = new FormData();
-        bodyFormData.append('id', value.id);
-        bodyFormData.append('quantity', value.quantity);
+      var bodyFormData = new FormData();
+      bodyFormData.append("id", value.id);
+      bodyFormData.append("quantity", value.quantity);
 
+      bodyFormData.append("slug", this.$route.params.slug);
+      bodyFormData.append("limit", this.limit);
+      bodyFormData.append("page", this.page);
+      bodyFormData.append("filterValue", this.filter);
+      bodyFormData.append("orderField", this.$caseConvert.snake(this.orderField));
+      bodyFormData.append("orderDirection", this.$caseConvert.snake(this.orderDirection));
+      bodyFormData.append("showSoftDelete", this.isShowDataRecycle);
+      bodyFormData.append("perPage", this.perPage);
+      bodyFormData.append("page", this.currentPage);
 
-        bodyFormData.append('slug', this.$route.params.slug);
-        bodyFormData.append('limit', this.limit);
-        bodyFormData.append('page', this.page);
-        bodyFormData.append('filterValue', this.filter);
-        bodyFormData.append('orderField', this.$caseConvert.snake(this.orderField));
-        bodyFormData.append('orderDirection', this.$caseConvert.snake(this.orderDirection));
-        bodyFormData.append('showSoftDelete', this.isShowDataRecycle);
-        bodyFormData.append('perPage', this.perPage);
-        bodyFormData.append('page', this.currentPage);
-
-
-        this.$openLoader();
-        await axios.post('/api/typehead/tour/update_to_cart', bodyFormData, {
-            headers: {
-                Authorization: `Bearer ${localStorage.getItem('token')}`
-            }
+      this.$openLoader();
+      await axios
+        .post("/api/typehead/tour/update_to_cart", bodyFormData, {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
         })
         .then((response) => {
-            console.log('onUpdateQuantity', response.data?.data?.data)
-            if(response.data?.data?.data) this.records = response.data?.data?.data;
+          console.log("onUpdateQuantity", response.data?.data?.data);
+          if (response.data?.data?.data) this.records = response.data?.data?.data;
           this.$vs.notify({
             title: this.$t("alert.success"),
             text: "Berhasil update keranjang",
@@ -1143,22 +1223,33 @@ export default {
             text: error.message,
             color: "danger",
           });
-        })
-        this.$closeLoader();
+        });
+      this.$closeLoader();
     }, 500),
     getTotalAmount(value) {
-        console.log('getTotalAmount', value)
-        const total =  (Number(value?.generalPrice) - ((Number(value?.generalPrice) * Number(value?.discountPrice)/100)) - Number(value?.cashbackPrice))
-        return total;
+      console.log("getTotalAmount", value);
+      const total =
+        Number(value?.generalPrice) -
+        (Number(value?.generalPrice) * Number(value?.discountPrice)) / 100 -
+        Number(value?.cashbackPrice);
+      return total;
+    },
+    getTotalAmountChild(value) {
+      console.log("getTotalAmountChild", value);
+      const total =
+        Number(value?.generalPriceChild) -
+        (Number(value?.generalPriceChild) * Number(value?.discountPrice)) / 100 -
+        Number(value?.cashbackPrice);
+      return total;
     },
     onChangePage(val) {
-        this.currentPage = val;
-        this.getEntity();
+      this.currentPage = val;
+      this.getEntity();
     },
     onChangeMaxItems(val) {
-        this.currentPage = 1; // reset ke page 1
-        this.perPage = val;
-        this.getEntity();
+      this.currentPage = 1; // reset ke page 1
+      this.perPage = val;
+      this.getEntity();
     },
     getDownloadUrl(item) {
       if (item == null || item == undefined) return;
@@ -1208,13 +1299,11 @@ export default {
       });
     },
     getEntity: _.debounce(async function () {
-    // async getEntity() {
+      // async getEntity() {
       this.$openLoader();
       try {
         const {
-            data: {
-                data, total, lastPage, currentPage, perPage
-            }
+          data: { data, total, lastPage, currentPage, perPage },
         } = await this.$api.badasoEntity.browse({
           slug: this.$route.params.slug,
           limit: this.limit,
@@ -1227,18 +1316,18 @@ export default {
 
           search: this.search,
           perPage: this.perPage,
-          page: this.currentPage
+          page: this.currentPage,
         });
 
-        this.lastPage = lastPage
-        this.currentPage = currentPage
-        this.perPage = perPage
+        this.lastPage = lastPage;
+        this.currentPage = currentPage;
+        this.perPage = perPage;
         let response = {
-            data: {
-                data,
-                total,
-            }
-        }
+          data: {
+            data,
+            total,
+          },
+        };
         // response['data'] = responseX.data
         // response['data']['data'] = data
         // response['data']['total'] = total
@@ -1256,23 +1345,16 @@ export default {
         this.records = response.data.data;
         this.records.map((record) => {
           if (record.createdAt || record.updatedAt) {
-            record.createdAt = moment(record.createdAt).format(
-              "YYYY-MM-DD hh:mm:ss"
-            );
-            record.updatedAt = moment(record.updatedAt).format(
-              "YYYY-MM-DD hh:mm:ss"
-            );
+            record.createdAt = moment(record.createdAt).format("YYYY-MM-DD hh:mm:ss");
+            record.updatedAt = moment(record.updatedAt).format("YYYY-MM-DD hh:mm:ss");
           }
           return record;
         });
 
-        console.log('getEntity this.records', this.records)
-
+        console.log("getEntity this.records", this.records);
 
         this.totalItem =
-          response.data.total > 0
-            ? Math.ceil(response.data.total / this.limit)
-            : 1;
+          response.data.total > 0 ? Math.ceil(response.data.total / this.limit) : 1;
 
         this.dataType = dataType;
         this.isMaintenance = this.dataType.isMaintenance == 1;
@@ -1321,8 +1403,9 @@ export default {
                   let valueIds = fieldData.value.split(",");
                   valueIds = valueIds.filter((valueId, index) => valueId != id);
                   if (valueIds.length != 0) {
-                    data[indexData].requestData.data[indexItem].value =
-                      valueIds.join(",");
+                    data[indexData].requestData.data[indexItem].value = valueIds.join(
+                      ","
+                    );
 
                     newData[newData.length] = data[indexData];
                   }
@@ -1488,9 +1571,7 @@ export default {
         const table = this.$caseConvert.stringSnakeToCamel(
           dataRow.relation.destinationTable
         );
-        this.$caseConvert.stringSnakeToCamel(
-          dataRow.relation.destinationTableColumn
-        );
+        this.$caseConvert.stringSnakeToCamel(dataRow.relation.destinationTableColumn);
         const displayColumn = this.$caseConvert.stringSnakeToCamel(
           dataRow.relation.destinationTableDisplayColumn
         );
@@ -1503,18 +1584,18 @@ export default {
             return ls[displayColumn];
           });
           return flatList.join(", ");
-        } else if(relationType == "belongs_to"){
+        } else if (relationType == "belongs_to") {
           const lists = record[table];
-          let field = this.$caseConvert.stringSnakeToCamel(dataRow.field)
-          for(let list of lists){
-            if (list.id == record[field]){
+          let field = this.$caseConvert.stringSnakeToCamel(dataRow.field);
+          for (let list of lists) {
+            if (list.id == record[field]) {
               return list[displayColumn];
             }
           }
-        }  else if (relationType == "belongs_to_many") {
-          let field = this.$caseConvert.stringSnakeToCamel(dataRow.field)
-          const lists = record[field]
-          let flatList = []
+        } else if (relationType == "belongs_to_many") {
+          let field = this.$caseConvert.stringSnakeToCamel(dataRow.field);
+          const lists = record[field];
+          let flatList = [];
           Object.keys(lists).forEach(function (ls, key) {
             flatList.push(lists[ls][displayColumn]);
           });
@@ -1526,16 +1607,15 @@ export default {
     },
     prepareExcelExporter() {
       for (const iterator of this.dataType.dataRows) {
-        this.fieldsForExcel[iterator.displayName] =
-          this.$caseConvert.stringSnakeToCamel(iterator.field);
+        this.fieldsForExcel[iterator.displayName] = this.$caseConvert.stringSnakeToCamel(
+          iterator.field
+        );
       }
 
       for (const iterator of this.dataType.dataRows) {
         const string = this.$caseConvert.stringSnakeToCamel(iterator.field);
         if (iterator.browse == 1) {
-          this.fieldsForPdf.push(
-            string.charAt(0).toUpperCase() + string.slice(1)
-          );
+          this.fieldsForPdf.push(string.charAt(0).toUpperCase() + string.slice(1));
         }
       }
     },

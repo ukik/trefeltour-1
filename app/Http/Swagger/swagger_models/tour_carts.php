@@ -58,7 +58,7 @@
   *                 @OA\Property(
   *                     property="data",
   *                     type="object",
-  *                     example={"getCashback":"Abc", "quantity":"123"},
+  *                     example={},
   *                 ),
   *             )
   *         )
@@ -88,7 +88,7 @@
   *                 @OA\Property(
   *                     property="data",
   *                     type="object",
-  *                     example={"getCashback":"Abc", "quantity":"123"},
+  *                     example={},
   *                ),
   *             )
   *         )
@@ -201,7 +201,7 @@
   *                 @OA\Property(
   *                     property="data",
   *                     type="array",
-  *                     example={{"id":"123", "customerId":"", "storeId":"", "productId":"", "priceId":"", "name":"Abc", "getPrice":"Abc", "getDiscount":"Abc", "getCashback":"Abc", "getTotalAmount":"Abc", "quantity":"123", "getFinalAmount":"Abc", "stock":"Abc", "codeTable":"Abc", "createdAt":"2021-01-01T00:00:00.000Z", "updatedAt":"2021-01-01T00:00:00.000Z", "deletedAt":"2021-01-01T00:00:00.000Z"}, {"id":"123", "customerId":"", "storeId":"", "productId":"", "priceId":"", "name":"Abc", "getPrice":"Abc", "getDiscount":"Abc", "getCashback":"Abc", "getTotalAmount":"Abc", "quantity":"123", "getFinalAmount":"Abc", "stock":"Abc", "codeTable":"Abc", "createdAt":"2021-01-01T00:00:00.000Z", "updatedAt":"2021-01-01T00:00:00.000Z", "deletedAt":"2021-01-01T00:00:00.000Z"}},
+  *                     example={{"id":"123", "customerId":"", "storeId":"", "productId":"", "priceId":"", "name":"Abc", "getPrice":"Abc", "getPriceChild":"Abc", "getDiscount":"Abc", "getCashback":"Abc", "getTotalAmount":"Abc", "getTotalAmountChild":"Abc", "quantity":"123", "stock":"Abc", "dateStart":"Abc", "participantAdult":"123", "participantYoung":"123", "hotel":"Abc", "description":"Abc", "getFinalAmount":"Abc", "codeTable":"Abc", "createdAt":"2021-01-01T00:00:00.000Z", "updatedAt":"2021-01-01T00:00:00.000Z", "deletedAt":"2021-01-01T00:00:00.000Z"}, {"id":"123", "customerId":"", "storeId":"", "productId":"", "priceId":"", "name":"Abc", "getPrice":"Abc", "getPriceChild":"Abc", "getDiscount":"Abc", "getCashback":"Abc", "getTotalAmount":"Abc", "getTotalAmountChild":"Abc", "quantity":"123", "stock":"Abc", "dateStart":"Abc", "participantAdult":"123", "participantYoung":"123", "hotel":"Abc", "description":"Abc", "getFinalAmount":"Abc", "codeTable":"Abc", "createdAt":"2021-01-01T00:00:00.000Z", "updatedAt":"2021-01-01T00:00:00.000Z", "deletedAt":"2021-01-01T00:00:00.000Z"}},
   *                     @OA\Items(
   *                         type="object",
   *                         @OA\Property(type="integer", property="id"), 
@@ -211,12 +211,19 @@
   *                         @OA\Property(type="string", property="priceId"), 
   *                         @OA\Property(type="string", property="name"), 
   *                         @OA\Property(type="string", property="getPrice"), 
+  *                         @OA\Property(type="string", property="getPriceChild"), 
   *                         @OA\Property(type="string", property="getDiscount"), 
   *                         @OA\Property(type="string", property="getCashback"), 
   *                         @OA\Property(type="string", property="getTotalAmount"), 
+  *                         @OA\Property(type="string", property="getTotalAmountChild"), 
   *                         @OA\Property(type="integer", property="quantity"), 
-  *                         @OA\Property(type="string", property="getFinalAmount"), 
   *                         @OA\Property(type="string", property="stock"), 
+  *                         @OA\Property(type="string", property="dateStart"), 
+  *                         @OA\Property(type="integer", property="participantAdult"), 
+  *                         @OA\Property(type="integer", property="participantYoung"), 
+  *                         @OA\Property(type="string", property="hotel"), 
+  *                         @OA\Property(type="string", property="description"), 
+  *                         @OA\Property(type="string", property="getFinalAmount"), 
   *                         @OA\Property(type="string", property="codeTable"), 
   *                         @OA\Property(type="string", property="createdAt"), 
   *                         @OA\Property(type="string", property="updatedAt"), 

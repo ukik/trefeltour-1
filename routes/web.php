@@ -20,7 +20,7 @@ Route::group(['prefix' => 'laravel-filemanager', 'middleware' => ['sanctum_1']],
 
 
 Route::get('/', function () {
-    return bcrypt(123456);
+    // return bcrypt(123456);
     // $js_files = "js/badaso-c0d76f48.js js/120.js js/666.js js/861.js js/app.js js/badaso-2fd705e6.js js/badaso-5bf57e56.js js/badaso-06b53a1b.js js/badaso-7528d940.js js/badaso-433890bb.js";
     // return $js_files = explode(" ", $js_files);
 

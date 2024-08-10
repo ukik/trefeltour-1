@@ -60,7 +60,7 @@ class TourPricesCRUDDataRowAdded extends Seeder
                     'data_type_id' => $data_type->id,
                     'field' => 'store_id',
                     'type' => 'relation',
-                    'display_name' => 'Toko',
+                    'display_name' => 'Vendor',
                     'required' => '0',
                     'browse' => '1',
                     'read' => '1',
@@ -68,7 +68,7 @@ class TourPricesCRUDDataRowAdded extends Seeder
                     'add' => '0',
                     'delete' => '1',
                     'details' => '{}',
-                    'relation' => '{"relation_type":"belongs_to","destination_table":"tour_stores","destination_table_column":"id","destination_table_display_column":"name","destination_table_display_more_column":["id","uuid","name"]}',
+                    'relation' => '{"relation_type":"belongs_to","destination_table":"tour_stores","destination_table_column":"id","destination_table_display_column":"name","destination_table_display_more_column":["id","name"]}',
                     'order' => '3',
                 ),
                 3 => 
@@ -76,7 +76,7 @@ class TourPricesCRUDDataRowAdded extends Seeder
                     'data_type_id' => $data_type->id,
                     'field' => 'product_id',
                     'type' => 'relation',
-                    'display_name' => 'Paket',
+                    'display_name' => 'Produk',
                     'required' => '0',
                     'browse' => '1',
                     'read' => '1',
@@ -84,14 +84,14 @@ class TourPricesCRUDDataRowAdded extends Seeder
                     'add' => '0',
                     'delete' => '1',
                     'details' => '{}',
-                    'relation' => '{"relation_type":"belongs_to","destination_table":"tour_products","destination_table_column":"id","destination_table_display_column":"name","destination_table_display_more_column":["id","name","uuid"]}',
+                    'relation' => '{"relation_type":"belongs_to","destination_table":"tour_products","destination_table_column":"id","destination_table_display_column":"name","destination_table_display_more_column":["id","name"]}',
                     'order' => '4',
                 ),
                 4 => 
                 array (
                     'data_type_id' => $data_type->id,
                     'field' => 'customer_id',
-                    'type' => 'text',
+                    'type' => 'relation',
                     'display_name' => 'Customer',
                     'required' => '0',
                     'browse' => '1',
@@ -100,21 +100,45 @@ class TourPricesCRUDDataRowAdded extends Seeder
                     'add' => '0',
                     'delete' => '1',
                     'details' => '{}',
-                    'relation' => NULL,
+                    'relation' => '{"relation_type":"belongs_to","destination_table":"badaso_users","destination_table_column":"id","destination_table_display_column":"username","destination_table_display_more_column":["id","username"]}',
                     'order' => '5',
                 ),
                 5 => 
                 array (
                     'data_type_id' => $data_type->id,
-                    'field' => 'condition',
+                    'field' => 'name',
                     'type' => 'select',
-                    'display_name' => 'Condition',
+                    'display_name' => 'Name',
                     'required' => '0',
                     'browse' => '1',
                     'read' => '1',
                     'edit' => '1',
                     'add' => '1',
                     'delete' => '1',
+                    'details' => '{
+"size": 12,
+"items": [
+{
+"label": "Regular",
+"value": "Regular"
+}
+]
+}',
+                    'relation' => NULL,
+                    'order' => '6',
+                ),
+                6 => 
+                array (
+                    'data_type_id' => $data_type->id,
+                    'field' => 'condition',
+                    'type' => 'select',
+                    'display_name' => 'Condition',
+                    'required' => '0',
+                    'browse' => '0',
+                    'read' => '0',
+                    'edit' => '0',
+                    'add' => '0',
+                    'delete' => '0',
                     'details' => '{
 "size": 12,
 "items": [
@@ -133,22 +157,6 @@ class TourPricesCRUDDataRowAdded extends Seeder
 ]
 }',
                     'relation' => NULL,
-                    'order' => '6',
-                ),
-                6 => 
-                array (
-                    'data_type_id' => $data_type->id,
-                    'field' => 'name',
-                    'type' => 'text',
-                    'display_name' => 'Label Harga',
-                    'required' => '0',
-                    'browse' => '1',
-                    'read' => '1',
-                    'edit' => '1',
-                    'add' => '1',
-                    'delete' => '1',
-                    'details' => '{}',
-                    'relation' => NULL,
                     'order' => '7',
                 ),
                 7 => 
@@ -156,7 +164,7 @@ class TourPricesCRUDDataRowAdded extends Seeder
                     'data_type_id' => $data_type->id,
                     'field' => 'general_price',
                     'type' => 'number',
-                'display_name' => 'General Price (Rp)',
+                'display_name' => 'Harga Dewasa (per orang) (Rp)',
                     'required' => '0',
                     'browse' => '1',
                     'read' => '1',
@@ -170,9 +178,9 @@ class TourPricesCRUDDataRowAdded extends Seeder
                 8 => 
                 array (
                     'data_type_id' => $data_type->id,
-                    'field' => 'discount_price',
+                    'field' => 'general_price_child',
                     'type' => 'number',
-                'display_name' => 'Discount Price (%)',
+                'display_name' => 'Harga Anak (2-6 tahun) (Rp)',
                     'required' => '0',
                     'browse' => '1',
                     'read' => '1',
@@ -186,9 +194,9 @@ class TourPricesCRUDDataRowAdded extends Seeder
                 9 => 
                 array (
                     'data_type_id' => $data_type->id,
-                    'field' => 'cashback_price',
+                    'field' => 'discount_price',
                     'type' => 'number',
-                'display_name' => 'Cashback Price (Rp)',
+                'display_name' => 'Diskon (%)',
                     'required' => '0',
                     'browse' => '1',
                     'read' => '1',
@@ -202,9 +210,9 @@ class TourPricesCRUDDataRowAdded extends Seeder
                 10 => 
                 array (
                     'data_type_id' => $data_type->id,
-                    'field' => 'stock',
+                    'field' => 'cashback_price',
                     'type' => 'number',
-                    'display_name' => 'Stok',
+                'display_name' => 'Cashback (Rp)',
                     'required' => '0',
                     'browse' => '1',
                     'read' => '1',
@@ -218,9 +226,9 @@ class TourPricesCRUDDataRowAdded extends Seeder
                 11 => 
                 array (
                     'data_type_id' => $data_type->id,
-                    'field' => 'description',
-                    'type' => 'textarea',
-                    'display_name' => 'Deskripsi',
+                    'field' => 'min_participant',
+                    'type' => 'number',
+                    'display_name' => 'Min Peserta',
                     'required' => '0',
                     'browse' => '1',
                     'read' => '1',
@@ -234,6 +242,38 @@ class TourPricesCRUDDataRowAdded extends Seeder
                 12 => 
                 array (
                     'data_type_id' => $data_type->id,
+                    'field' => 'stock',
+                    'type' => 'number',
+                    'display_name' => 'Stok',
+                    'required' => '0',
+                    'browse' => '0',
+                    'read' => '0',
+                    'edit' => '0',
+                    'add' => '0',
+                    'delete' => '0',
+                    'details' => '{}',
+                    'relation' => NULL,
+                    'order' => '13',
+                ),
+                13 => 
+                array (
+                    'data_type_id' => $data_type->id,
+                    'field' => 'description',
+                    'type' => 'textarea',
+                    'display_name' => 'Deskripsi',
+                    'required' => '0',
+                    'browse' => '0',
+                    'read' => '1',
+                    'edit' => '1',
+                    'add' => '1',
+                    'delete' => '0',
+                    'details' => '{}',
+                    'relation' => NULL,
+                    'order' => '14',
+                ),
+                14 => 
+                array (
+                    'data_type_id' => $data_type->id,
                     'field' => 'code_table',
                     'type' => 'text',
                     'display_name' => 'Nama Tabel',
@@ -245,9 +285,9 @@ class TourPricesCRUDDataRowAdded extends Seeder
                     'delete' => '0',
                     'details' => '{}',
                     'relation' => NULL,
-                    'order' => '13',
+                    'order' => '15',
                 ),
-                13 => 
+                15 => 
                 array (
                     'data_type_id' => $data_type->id,
                     'field' => 'created_at',
@@ -261,9 +301,9 @@ class TourPricesCRUDDataRowAdded extends Seeder
                     'delete' => '1',
                     'details' => '{}',
                     'relation' => NULL,
-                    'order' => '14',
+                    'order' => '16',
                 ),
-                14 => 
+                16 => 
                 array (
                     'data_type_id' => $data_type->id,
                     'field' => 'updated_at',
@@ -277,14 +317,14 @@ class TourPricesCRUDDataRowAdded extends Seeder
                     'delete' => '1',
                     'details' => '{}',
                     'relation' => NULL,
-                    'order' => '15',
+                    'order' => '17',
                 ),
-                15 => 
+                17 => 
                 array (
                     'data_type_id' => $data_type->id,
                     'field' => 'deleted_at',
                     'type' => 'datetime',
-                    'display_name' => 'Diubah Pada',
+                    'display_name' => 'Dihapus Pada',
                     'required' => '0',
                     'browse' => '0',
                     'read' => '1',
@@ -293,7 +333,7 @@ class TourPricesCRUDDataRowAdded extends Seeder
                     'delete' => '1',
                     'details' => '{}',
                     'relation' => NULL,
-                    'order' => '16',
+                    'order' => '18',
                 ),
             ));
 

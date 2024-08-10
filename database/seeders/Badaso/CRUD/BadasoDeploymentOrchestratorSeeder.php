@@ -342,14 +342,14 @@ class BadasoDeploymentOrchestratorSeeder extends Seeder
         $this->seed(TourBookingItemsCRUDDataRowAdded::class);
         $this->seed(TourBookingsCRUDDataTypeAdded::class);
         $this->seed(TourBookingsCRUDDataRowAdded::class);
-        $this->seed(TourCartsCRUDDataTypeAdded::class);
-        $this->seed(TourCartsCRUDDataRowAdded::class);
+        
+        
         $this->seed(TourPaymentsCRUDDataTypeAdded::class);
         $this->seed(TourPaymentsCRUDDataRowAdded::class);
         $this->seed(TourPaymentsValidationsCRUDDataTypeAdded::class);
         $this->seed(TourPaymentsValidationsCRUDDataRowAdded::class);
-        $this->seed(TourPricesCRUDDataTypeAdded::class);
-        $this->seed(TourPricesCRUDDataRowAdded::class);
+        
+        
         $this->seed(TourProductsCRUDDataTypeAdded::class);
         $this->seed(TourProductsCRUDDataRowAdded::class);
         $this->seed(TourStoresCRUDDataTypeAdded::class);
@@ -365,5 +365,15 @@ class BadasoDeploymentOrchestratorSeeder extends Seeder
         $this->seed(LodgeFacilityCRUDDataRowAdded::class);
         $this->seed(LodgeProfilesCRUDDataTypeAdded::class);
         $this->seed(LodgeProfilesCRUDDataRowAdded::class);
+        $this->seed(TourCartsCRUDDataDeleted::class);
+        $this->seed(TourCartsCRUDDataTypeAdded::class);
+        $this->seed(TourCartsCRUDDataRowAdded::class);
+        $this->seed(TourPricesCRUDDataDeleted::class);
+        
+        
+        $this->seed(TourPricesCRUDDataTypeAdded::class);
+        $this->seed(TourPricesCRUDDataRowAdded::class);
+        $this->seed(PageCustomerCRUDDataTypeAdded::class);
+        $this->seed(PageCustomerCRUDDataRowAdded::class);
     }
 }

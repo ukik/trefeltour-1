@@ -28,14 +28,38 @@ class TourCarts extends Model
         'store_id',
         'product_id',
         'price_id',
+        'name',
+        'get_price',
+        'get_price_child',
+        'get_discount',
+        'get_cashback',
+        'get_total_amount',
+        'get_total_amount_child',
         'quantity',
-        'description',
-        'code_table',
-
+        'get_final_amount',
+        'stock',
         'date_start',
         'participant_adult',
         'participant_young',
         'hotel',
+        'code_table',
+        'created_at',
+        'updated_at',
+        'deleted_at',
+
+
+        // 'customer_id',
+        // 'store_id',
+        // 'product_id',
+        // 'price_id',
+        // 'quantity',
+        // 'description',
+        // 'code_table',
+
+        // 'date_start',
+        // 'participant_adult',
+        // 'participant_young',
+        // 'hotel',
     ];
 
     public function badasoUser()

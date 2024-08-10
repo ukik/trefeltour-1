@@ -28,6 +28,10 @@ class TourProducts extends Model
     // updated_at
     // deleted_at
 
+    protected $casts = [
+        'level' => 'integer',
+    ];
+
     protected $table = "tour_products";
 
     public function getCreatedAtAttribute($value) {

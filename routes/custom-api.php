@@ -154,6 +154,7 @@ Route::group(
             Route::get('/transport-prices/lagia', '\App\Http\Controllers\Transports\TransportPricesController@lagia_browse');
             Route::get('/tour-prices/lagia', '\App\Http\Controllers\Tours\TourPricesController@lagia_browse');
 
+            Route::get('/tour-carts/lagia', '\App\Http\Controllers\Tours\TourCartsController@lagia_browse');
             // Route::get('/transport-prices/read/{id}/lagia', '\App\Http\Controllers\Transports\TransportPricesController@lagia_read');
         });
 

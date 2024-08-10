@@ -28,7 +28,7 @@ class TourCartsCRUDDataTypeAdded extends Seeder
             }
 
             \DB::table('badaso_data_types')->insert(array (
-                'id' => 149,
+                'id' => 160,
                 'name' => 'tour_carts',
                 'slug' => 'tour-carts',
                 'display_name_singular' => 'Tour Keranjang',
@@ -47,8 +47,8 @@ class TourCartsCRUDDataTypeAdded extends Seeder
                 'details' => NULL,
                 'notification' => '[]',
                 'is_soft_delete' => '1',
-                'created_at' => '2024-07-21T17:32:55.000000Z',
-                'updated_at' => '2024-07-21T19:08:30.000000Z',
+                'created_at' => '2024-08-06T13:26:42.000000Z',
+                'updated_at' => '2024-08-09T13:19:17.000000Z',
             ));
 
             Badaso::model('Permission')->generateFor('tour_carts');

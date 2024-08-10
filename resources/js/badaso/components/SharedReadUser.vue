@@ -222,6 +222,12 @@
                           $rupiah(record[$caseConvert.stringSnakeToCamel(dataRow.field)])
                         }}
                       </span>
+                      <span v-else-if="dataRow.field == 'get_price_child'">
+                        {{
+                          $rupiah(record[$caseConvert.stringSnakeToCamel(dataRow.field)])
+                        }}
+                      </span>
+
                       <span v-else-if="dataRow.field == 'get_discount'">
                         {{ record[$caseConvert.stringSnakeToCamel(dataRow.field)] }}%
                       </span>
@@ -270,6 +276,11 @@
                       </span>
 
                       <span v-else-if="dataRow.field == 'general_price'">
+                        {{
+                          $rupiah(record[$caseConvert.stringSnakeToCamel(dataRow.field)])
+                        }}
+                      </span>
+                      <span v-else-if="dataRow.field == 'general_price_child'">
                         {{
                           $rupiah(record[$caseConvert.stringSnakeToCamel(dataRow.field)])
                         }}

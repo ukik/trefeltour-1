@@ -22,6 +22,8 @@ use SouvenirProducts;
 use TalentProfiles;
 use TestimonialPageModel;
 use TourismVenues;
+use TourProducts;
+use TourStores;
 use TransportVehicles;
 use WidgetCallPageModel;
 use WidgetCounterPageModel;
@@ -62,11 +64,26 @@ class IndexPageController extends Controller
 
             $testimonial = TestimonialPageModel::inRandomOrder()->paginate(6*3);
 
+            $tour_store = TourStores::inRandomOrder()->with([
+                'ratingAvg',
+            ])->orderBy('id','desc')
+            ->withCount('tourProducts')
+            // ->whereHas('lodgeRooms')
+            ->paginate(5);
+
+            $tour = TourProducts::inRandomOrder()->with([
+                'ratingAvg',
+            ])->orderBy('id','desc')
+            // ->withCount('tourProducts')
+            // ->whereHas('lodgeRooms')
+            ->paginate(5);
+
+
             $lodge = LodgeProfiles::inRandomOrder()->with([
                 'ratingAvg',
             ])->orderBy('id','desc')
             ->withCount('lodgeRooms')
-            ->whereHas('lodgeRooms')
+            // ->whereHas('lodgeRooms')
             ->paginate(5);
 
             $culinary = CulinaryProducts::inRandomOrder()->with([
@@ -118,6 +135,8 @@ class IndexPageController extends Controller
                 'gallery' => $gallery,
                 'testimonial' => $testimonial,
 
+                'tour_store' => $tour_store,
+                'tour' => $tour,
                 'lodge' => $lodge,
                 'culinary' => $culinary,
                 'souvenir' => $souvenir,

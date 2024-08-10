@@ -45,9 +45,9 @@ class TourPricesCRUDDataTypeAdded extends Seeder
                 'details' => NULL,
                 'notification' => '[]',
                 'is_soft_delete' => true,
-                'updated_at' => '2024-07-21T18:24:25.000000Z',
-                'created_at' => '2024-07-21T18:24:25.000000Z',
-                'id' => 152,
+                'updated_at' => '2024-08-06T14:37:00.000000Z',
+                'created_at' => '2024-08-06T14:37:00.000000Z',
+                'id' => 162,
             ));
 
             Badaso::model('Permission')->generateFor('tour_prices');

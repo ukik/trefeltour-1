@@ -67,6 +67,7 @@ return [
     'page_career_setup',
     'page_contact',
     'page_contact_setup',
+    'page_customer',
     'page_customer_support',
     'page_destination',
     'page_faq',

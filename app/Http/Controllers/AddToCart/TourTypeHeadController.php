@@ -114,7 +114,7 @@ class TourTypeHeadController extends Controller
 
             $participant_young =  request()->participant_young;
             $participant_young = !$participant_young ? 0 : $participant_young;
-
+            $description =  request()->description;
             $hotel =  request()->hotel;
 
             $carts = TourCarts::query()
@@ -144,6 +144,7 @@ class TourTypeHeadController extends Controller
                     'date_start' => $date_start,
                     'participant_adult' => $participant_adult,
                     'participant_young' => $participant_young,
+                    'description' => $description,
                     'hotel' => $hotel,
                 ]
             );
