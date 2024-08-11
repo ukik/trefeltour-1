@@ -363,10 +363,6 @@ class LodgeProfilesCRUDDataRowAdded extends Seeder
 "value": "Melati"
 },
 {
-"label": "Bintang 0",
-"value": "Bintang 0"
-},
-{
 "label": "Bintang 1",
 "value": "Bintang 1"
 },

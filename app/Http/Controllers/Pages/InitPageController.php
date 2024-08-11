@@ -33,6 +33,7 @@ use App\Models\Regency;
 use App\Models\District;
 use App\Models\Village;
 use CountryModel;
+use HotelLevelPricePageModel;
 
 class InitPageController extends Controller
 {
@@ -85,6 +86,8 @@ class InitPageController extends Controller
             $page_widget_promo = WidgetPromoPageModel::inRandomOrder()->paginate();
             $page_widget_tron = WidgetTronPageModel::inRandomOrder()->paginate();
 
+            $page_hotel_level_price = HotelLevelPricePageModel::all();
+
 
             $data = [
                 'footer_transport' => $footer_transport,
@@ -98,6 +101,7 @@ class InitPageController extends Controller
                 'page_widget_offer' => $page_widget_offer,
                 'page_widget_promo' => $page_widget_promo,
                 'page_widget_tron' => $page_widget_tron,
+                'page_hotel_level_price' => $page_hotel_level_price,
             ];
 
             return ApiResponse::onlyEntity($data);

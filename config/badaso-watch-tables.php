@@ -73,6 +73,7 @@ return [
     'page_faq',
     'page_faq_setup',
     'page_gallery',
+    'page_hotel_level_price',
     'page_info',
     'page_meta',
     'page_service',
