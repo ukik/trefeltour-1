@@ -28,6 +28,7 @@ class TourBookingItemsCRUDDataTypeAdded extends Seeder
             }
 
             \DB::table('badaso_data_types')->insert(array (
+                'id' => 147,
                 'name' => 'tour_booking_items',
                 'slug' => 'tour-booking-items',
                 'display_name_singular' => 'Tour Booking Item',
@@ -41,13 +42,13 @@ class TourBookingItemsCRUDDataTypeAdded extends Seeder
                 'order_direction' => NULL,
                 'generate_permissions' => true,
                 'server_side' => false,
+                'is_maintenance' => '0',
                 'description' => NULL,
                 'details' => NULL,
                 'notification' => '[]',
-                'is_soft_delete' => true,
-                'updated_at' => '2024-07-21T11:24:31.000000Z',
+                'is_soft_delete' => '1',
                 'created_at' => '2024-07-21T11:24:31.000000Z',
-                'id' => 147,
+                'updated_at' => '2024-08-12T07:17:51.000000Z',
             ));
 
             Badaso::model('Permission')->generateFor('tour_booking_items');

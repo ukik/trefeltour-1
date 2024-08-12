@@ -201,7 +201,7 @@
   *                 @OA\Property(
   *                     property="data",
   *                     type="array",
-  *                     example={{"id":"123", "uuid":"Abc", "customerId":"", "storeId":"", "bookingId":"", "productId":"", "name":"Abc", "getPrice":"123", "getDiscount":"123", "getCashback":"123", "getTotalAmount":"123", "quantity":"123", "getFinalAmount":"123", "description":"Abc", "codeTable":"Abc", "createdAt":"2021-01-01T00:00:00.000Z", "updatedAt":"2021-01-01T00:00:00.000Z", "deletedAt":"2021-01-01T00:00:00.000Z"}, {"id":"123", "uuid":"Abc", "customerId":"", "storeId":"", "bookingId":"", "productId":"", "name":"Abc", "getPrice":"123", "getDiscount":"123", "getCashback":"123", "getTotalAmount":"123", "quantity":"123", "getFinalAmount":"123", "description":"Abc", "codeTable":"Abc", "createdAt":"2021-01-01T00:00:00.000Z", "updatedAt":"2021-01-01T00:00:00.000Z", "deletedAt":"2021-01-01T00:00:00.000Z"}},
+  *                     example={{"id":"123", "uuid":"Abc", "customerId":"", "storeId":"", "bookingId":"", "productId":"", "name":"Abc", "getPrice":"123", "getDiscount":"123", "getCashback":"123", "getTotalAmount":"123", "quantity":"123", "getFinalAmount":"123", "description":"Abc", "codeTable":"Abc", "createdAt":"2021-01-01T00:00:00.000Z", "updatedAt":"2021-01-01T00:00:00.000Z", "deletedAt":"2021-01-01T00:00:00.000Z", "priceId":"123", "getPriceChild":"Abc", "getTotalAmountChild":"Abc", "stock":"Abc", "minParticipant":"123", "dateStart":"Abc", "participantAdult":"123", "participantYoung":"123", "hotel":"Abc"}, {"id":"123", "uuid":"Abc", "customerId":"", "storeId":"", "bookingId":"", "productId":"", "name":"Abc", "getPrice":"123", "getDiscount":"123", "getCashback":"123", "getTotalAmount":"123", "quantity":"123", "getFinalAmount":"123", "description":"Abc", "codeTable":"Abc", "createdAt":"2021-01-01T00:00:00.000Z", "updatedAt":"2021-01-01T00:00:00.000Z", "deletedAt":"2021-01-01T00:00:00.000Z", "priceId":"123", "getPriceChild":"Abc", "getTotalAmountChild":"Abc", "stock":"Abc", "minParticipant":"123", "dateStart":"Abc", "participantAdult":"123", "participantYoung":"123", "hotel":"Abc"}},
   *                     @OA\Items(
   *                         type="object",
   *                         @OA\Property(type="integer", property="id"), 
@@ -221,7 +221,16 @@
   *                         @OA\Property(type="string", property="codeTable"), 
   *                         @OA\Property(type="string", property="createdAt"), 
   *                         @OA\Property(type="string", property="updatedAt"), 
-  *                         @OA\Property(type="string", property="deletedAt"),
+  *                         @OA\Property(type="string", property="deletedAt"), 
+  *                         @OA\Property(type="integer", property="priceId"), 
+  *                         @OA\Property(type="string", property="getPriceChild"), 
+  *                         @OA\Property(type="string", property="getTotalAmountChild"), 
+  *                         @OA\Property(type="string", property="stock"), 
+  *                         @OA\Property(type="integer", property="minParticipant"), 
+  *                         @OA\Property(type="string", property="dateStart"), 
+  *                         @OA\Property(type="integer", property="participantAdult"), 
+  *                         @OA\Property(type="integer", property="participantYoung"), 
+  *                         @OA\Property(type="string", property="hotel"),
   *                     ),
   *                ),
   *             )

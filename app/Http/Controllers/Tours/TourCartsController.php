@@ -363,6 +363,7 @@ class TourCartsController extends Controller
 
             $from_client = json_decode(request()->payload, true);
             $description = request()->description;
+            $min_participant = request()->min_participant;
 
             $ids = [];
             $customers = [];
@@ -387,7 +388,7 @@ class TourCartsController extends Controller
                             'customer_id' => $server['customer_id'],
                             'store_id' => $server['store_id'],
                             'id' => $server['id'],
-                            'total' => (getTotalAmount($server->tourPrice) * $server->quantity) + (getTotalAmountChild($server->tourPrice) * $server->quantity),
+                            'total' => (getTotalAmount($server->tourPrice) * $server->participant_adult) + (getTotalAmountChild($server->tourPrice) * $server->participant_young),
                         ]);
 
                         // array_push($total_sums, [
@@ -438,6 +439,7 @@ class TourCartsController extends Controller
             }
 
             // return [ $result ];
+            if(!$result) return ApiResponse::failed("Data tidak ditemukan");
 
             $forms = [];
             $uuids = [];
@@ -510,6 +512,8 @@ class TourCartsController extends Controller
                             'hotel' => $value->hotel,
 
                             'description' => $value->tourPrice->description,
+                            'min_participant' => $min_participant,
+
                             'code_table' => 'tour-booking-items',
                             'uuid' => ShortUuid(),
                         ];
@@ -554,7 +558,7 @@ class TourCartsController extends Controller
             $table_name = $data_type->name;
             FCMNotification::notification(FCMNotification::$ACTIVE_EVENT_ON_CREATE, $table_name);
 
-            return ApiResponse::onlyEntity([$booking, $booking_items]);
+            return ApiResponse::onlyEntity([$booking, $booking_items], additional:$booking);
         } catch (Exception $e) {
             DB::rollBack();
 
