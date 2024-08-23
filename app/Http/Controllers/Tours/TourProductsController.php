@@ -54,8 +54,8 @@ class TourProductsController extends Controller
                 'tourStores',
                 'tourStore.badasoUser',
                 'tourStore.badasoUsers',
-                'tourStore.tourProduct',
-                'tourStore.tourProducts',
+                // 'tourStore.tourProduct',
+                // 'tourStore.tourProducts',
                 // 'tourStore.tourBooking',
                 // 'tourStore.tourBookings',
                 'tourPrice',
@@ -126,7 +126,29 @@ class TourProductsController extends Controller
             }
             // ================================================
 
-            $data = $data->paginate(request()->perPage);
+            $data = $data->select(
+                'id',
+                'store_id',
+                'uuid',
+                'name',
+                'category',
+                'durasi',
+                'description',
+                'itinerary',
+                'facility',
+                'image',
+                'level',
+                'province',
+                'city',
+                'country',
+                'is_available',
+                'code_table',
+                'created_at',
+                'updated_at',
+                'deleted_at',
+                'slug',
+                'keyword'
+            )->paginate(request()->perPage);
 
             // $encode = json_encode($paginate);
             // $decode = json_decode($encode);

@@ -17,6 +17,7 @@ use TourBookings;
 
 use \BadasoUsers;
 use Google\Service\Eventarc\Transport;
+use TourBookingsItems;
 
 class TourBookingsController extends Controller
 {
@@ -53,18 +54,18 @@ class TourBookingsController extends Controller
             // $data = $this->getDataList($slug, $request->all(), $only_data_soft_delete);
 
             $data = \TourBookings::with([
-                'badasoUsers',
+                // 'badasoUsers',
                 'badasoUser',
                 'tourStore.tourProduct',
-                'tourStore.tourProducts',
+                // 'tourStore.tourProducts',
                 // 'tourStore.tourPrice',
                 // 'tourStore.tourPrices',
                 'tourStores',
                 'tourBookingItem',
-                'tourBookingItems',
-                'tourPayment',
-                'tourPayment.tourPaymentsValidation',
-                'tourPayments'
+                // 'tourBookingItems',
+                // 'tourPayment',
+                // 'tourPayment.tourPaymentsValidation',
+                // 'tourPayments'
             ])
             ->withCount([
                 'tourBookingItems AS quantity_sum' => function ($query) {
@@ -281,7 +282,7 @@ class TourBookingsController extends Controller
                 'badasoUsers',
                 'badasoUser',
                 'tourStore.tourProduct',
-                'tourStore.tourProducts',
+                // 'tourStore.tourProducts',
                 // 'tourStore.tourPrice',
                 // 'tourStore.tourPrices',
                 'tourStores',
@@ -480,8 +481,15 @@ class TourBookingsController extends Controller
 
         $value = request()['data'][0]['value'];
         $check = TourBookings::where('id', $value)->with(['tourPayment'])->first();
+        if(!$check) return ApiResponse::failed("Data tidak ditemukan");
         if($check->tourPayment) return ApiResponse::failed("Tidak bisa dihapus, data ini digunakan");
-
+        switch ($check->condition) {
+            case "DOWN PAYMENT CONFIRMED":
+            case "FULL PAYMENT CONFIRMED":
+            case "PAYMENT TIMEOUT":
+            case "PAYMENT CANCELLED":
+                return ApiResponse::failed("Tidak bisa dihapus, data ini digunakan");
+        }
 
         try {
             $request->validate([
@@ -516,6 +524,8 @@ class TourBookingsController extends Controller
                 ->log($data_type->display_name_singular.' has been deleted');
 
             DB::commit();
+
+            TourBookingsItems::where('booking_id',$value)->delete();
 
             // add event notification handle
             $table_name = $data_type->name;

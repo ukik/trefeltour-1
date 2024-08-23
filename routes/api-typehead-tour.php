@@ -42,3 +42,18 @@ Route::group(['prefix' => '/typehead/tour', 'middleware' => ['sanctum_1','BADASO
     Route::get('/dialog_booking_tour_payments_validations', 'TourTypeHeadController@dialog_booking_tour_payments_validations');
 });
 
+// Route::group(['prefix' => '/typehead/tour', 'middleware' => ['sanctum_1','BADASO_ApiRequest'], 'namespace' => 'App\Http\Controllers\AddToCart'], function ($request) {
+//     Route::get('/user', 'TourTypeHeadController@getUser');
+//     Route::get('/add_to_cart_user', 'TourTypeHeadController@getUser');
+//     Route::post('/get_prices_booking', 'TourTypeHeadController@get_prices_booking');
+//     Route::post('/update_to_cart', 'TourTypeHeadController@update_to_cart');
+//     Route::post('/add_to_cart', 'TourTypeHeadController@add_to_cart');
+
+//     Route::get('/dialog_cart_price', 'TourTypeHeadController@dialog_cart_price');
+
+//     Route::get('/dialog_product_tour_stores', 'TourTypeHeadController@dialog_product_tour_stores');
+//     Route::get('/dialog_prices_tour_products', 'TourTypeHeadController@dialog_prices_tour_products');
+
+//     Route::get('/dialog_booking_tour_bookings', 'TourTypeHeadController@dialog_booking_tour_bookings');
+//     Route::get('/dialog_booking_tour_payments_validations', 'TourTypeHeadController@dialog_booking_tour_payments_validations');
+// });

@@ -64,6 +64,8 @@ class TourPricesController extends Controller
                 $data = $data->onlyTrashed();
             }
 
+            $data = $data->whereHas('tourProduct');
+
 
             if(request()->search) {
                 $search = request()->search;
@@ -160,12 +162,12 @@ class TourPricesController extends Controller
             $data = \TourPrices::with([
                 'customer',
                 'tourStores',
-                'tourStore.badasoUsers',
-                'tourStore.badasoUser',
-                'tourStore.ratingAvg',
+                // 'tourStore.badasoUsers',
+                // 'tourStore.badasoUser',
+                // 'tourStore.ratingAvg',
                 'tourProduct',
                 'tourProduct.ratingAvg',
-                'tourProducts',
+                // 'tourProducts',
             ])->orderBy('id','desc');
             if(request()['showSoftDelete'] == 'true') {
                 $data = $data->onlyTrashed();

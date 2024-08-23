@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\OrderController;
+use App\Http\Controllers\PaymentCallbackController;
 use Illuminate\Support\Facades\Route;
 use Uasoft\Badaso\Middleware\BadasoAuthenticate;
 
@@ -17,6 +19,10 @@ use Uasoft\Badaso\Middleware\BadasoAuthenticate;
 Route::group(['prefix' => 'laravel-filemanager', 'middleware' => ['sanctum_1']], function () {
     \UniSharp\LaravelFilemanager\Lfm::routes();
 });
+
+
+Route::resource('orders', OrderController::class)->only(['index', 'show']);
+Route::post('payments/midtrans-notification', [PaymentCallbackController::class, 'receive']);
 
 
 Route::get('/', function () {

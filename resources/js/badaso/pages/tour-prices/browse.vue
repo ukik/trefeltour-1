@@ -235,7 +235,7 @@
                   <vs-th
                     v-for="(dataRow, index) in dataType.dataRows"
                     :key="index"
-                    :sort-key="$caseConvert.stringSnakeToCamel(dataRow.field)"
+                    :sort-key="$caseConvert?.stringSnakeToCamel(dataRow.field)"
                   >
                     <template v-if="dataRow.browse == 1">
                       {{ dataRow.displayName }}
@@ -297,14 +297,14 @@
                         v-for="(dataRow, indexColumn) in dataType.dataRows"
                         :key="indexColumn"
                         :data="
-                          data[index][$caseConvert.stringSnakeToCamel(dataRow.field)]
+                          data[index][$caseConvert?.stringSnakeToCamel(dataRow.field)]
                         "
                       >
                         <template v-if="dataRow.browse == 1">
                           <img
                             v-if="dataRow.type == 'upload_image'"
                             :src="`${
-                              record[$caseConvert.stringSnakeToCamel(dataRow.field)]
+                              record[$caseConvert?.stringSnakeToCamel(dataRow.field)]
                             }`"
                             width="20%"
                             alt=""
@@ -315,7 +315,7 @@
                           >
                             <img
                               v-for="(image, indexImage) in stringToArray(
-                                record[$caseConvert.stringSnakeToCamel(dataRow.field)]
+                                record[$caseConvert?.stringSnakeToCamel(dataRow.field)]
                               )"
                               :key="indexImage"
                               :src="`${image}`"
@@ -327,25 +327,27 @@
                           <span
                             v-else-if="dataRow.type == 'editor'"
                             v-html="
-                              record[$caseConvert.stringSnakeToCamel(dataRow.field)]
+                              record[$caseConvert?.stringSnakeToCamel(dataRow.field)]
                             "
                           ></span>
                           <a
                             v-else-if="dataRow.type == 'url'"
-                            :href="record[$caseConvert.stringSnakeToCamel(dataRow.field)]"
+                            :href="
+                              record[$caseConvert?.stringSnakeToCamel(dataRow.field)]
+                            "
                             target="_blank"
                             >{{
-                              record[$caseConvert.stringSnakeToCamel(dataRow.field)]
+                              record[$caseConvert?.stringSnakeToCamel(dataRow.field)]
                             }}</a
                           >
                           <a
                             v-else-if="dataRow.type == 'upload_file'"
                             :href="`${
-                              record[$caseConvert.stringSnakeToCamel(dataRow.field)]
+                              record[$caseConvert?.stringSnakeToCamel(dataRow.field)]
                             }`"
                             target="_blank"
                             >{{
-                              record[$caseConvert.stringSnakeToCamel(dataRow.field)]
+                              record[$caseConvert?.stringSnakeToCamel(dataRow.field)]
                             }}</a
                           >
                           <div
@@ -354,7 +356,7 @@
                           >
                             <p
                               v-for="(file, indexFile) in arrayToString(
-                                record[$caseConvert.stringSnakeToCamel(dataRow.field)]
+                                record[$caseConvert?.stringSnakeToCamel(dataRow.field)]
                               )"
                               :key="indexFile"
                             >
@@ -369,7 +371,7 @@
                             {{
                               bindSelection(
                                 dataRow.details.items,
-                                record[$caseConvert.stringSnakeToCamel(dataRow.field)]
+                                record[$caseConvert?.stringSnakeToCamel(dataRow.field)]
                               )
                             }}
                           </p>
@@ -382,7 +384,7 @@
                           >
                             <p
                               v-for="(selected, indexSelected) in stringToArray(
-                                record[$caseConvert.stringSnakeToCamel(dataRow.field)]
+                                record[$caseConvert?.stringSnakeToCamel(dataRow.field)]
                               )"
                               :key="indexSelected"
                             >
@@ -393,10 +395,10 @@
                             <div
                               class="crud-generated__item--color-picker"
                               :style="`background-color: ${
-                                record[$caseConvert.stringSnakeToCamel(dataRow.field)]
+                                record[$caseConvert?.stringSnakeToCamel(dataRow.field)]
                               }`"
                             ></div>
-                            {{ record[$caseConvert.stringSnakeToCamel(dataRow.field)] }}
+                            {{ record[$caseConvert?.stringSnakeToCamel(dataRow.field)] }}
                           </div>
                           <span v-else-if="dataRow.type == 'relation'">{{
                             displayRelationData(record, dataRow)
@@ -405,19 +407,19 @@
                             <span v-if="dataRow.field == 'general_price'">
                               {{
                                 $rupiah(
-                                  record[$caseConvert.stringSnakeToCamel(dataRow.field)]
+                                  record[$caseConvert?.stringSnakeToCamel(dataRow.field)]
                                 )
                               }}
                             </span>
                             <span v-else-if="dataRow.field == 'discount_price'">
                               {{
-                                record[$caseConvert.stringSnakeToCamel(dataRow.field)]
+                                record[$caseConvert?.stringSnakeToCamel(dataRow.field)]
                               }}%
                             </span>
                             <span v-else-if="dataRow.field == 'cashback_price'">
                               {{
                                 $rupiah(
-                                  record[$caseConvert.stringSnakeToCamel(dataRow.field)]
+                                  record[$caseConvert?.stringSnakeToCamel(dataRow.field)]
                                 )
                               }}
                             </span>
@@ -430,7 +432,7 @@
                             </span>
                             <span v-else>
                               {{
-                                record[$caseConvert.stringSnakeToCamel(dataRow.field)]
+                                record[$caseConvert?.stringSnakeToCamel(dataRow.field)]
                               }}</span
                             >
                           </div>
@@ -675,7 +677,7 @@
                     <badaso-th
                       v-for="(dataRow, index) in dataType.dataRows"
                       :key="`header-${index}`"
-                      :sort-key="$caseConvert.stringSnakeToCamel(dataRow.field)"
+                      :sort-key="$caseConvert?.stringSnakeToCamel(dataRow.field)"
                     >
                       <template v-if="dataRow.browse == 1">
                         {{ dataRow.displayName }}
@@ -704,13 +706,13 @@
                         <vs-td
                           v-for="(dataRow, indexColumn) in dataType.dataRows"
                           :key="`${index}-${indexColumn}`"
-                          :data="record[$caseConvert.stringSnakeToCamel(dataRow.field)]"
+                          :data="record[$caseConvert?.stringSnakeToCamel(dataRow.field)]"
                         >
                           <template v-if="dataRow.browse == 1">
                             <img
                               v-if="dataRow.type == 'upload_image'"
                               :src="
-                                record[$caseConvert.stringSnakeToCamel(dataRow.field)]
+                                record[$caseConvert?.stringSnakeToCamel(dataRow.field)]
                               "
                               width="20%"
                               alt=""
@@ -721,7 +723,7 @@
                             >
                               <img
                                 v-for="(image, indexImage) in stringToArray(
-                                  record[$caseConvert.stringSnakeToCamel(dataRow.field)]
+                                  record[$caseConvert?.stringSnakeToCamel(dataRow.field)]
                                 )"
                                 :key="indexImage"
                                 :src="`${image}`"
@@ -733,28 +735,28 @@
                             <span
                               v-else-if="dataRow.type == 'editor'"
                               v-html="
-                                record[$caseConvert.stringSnakeToCamel(dataRow.field)]
+                                record[$caseConvert?.stringSnakeToCamel(dataRow.field)]
                               "
                             ></span>
                             <a
                               v-else-if="dataRow.type == 'url'"
                               :href="
-                                record[$caseConvert.stringSnakeToCamel(dataRow.field)]
+                                record[$caseConvert?.stringSnakeToCamel(dataRow.field)]
                               "
                               target="_blank"
                               >{{
-                                record[$caseConvert.stringSnakeToCamel(dataRow.field)]
+                                record[$caseConvert?.stringSnakeToCamel(dataRow.field)]
                               }}</a
                             >
                             <a
                               v-else-if="dataRow.type == 'upload_file'"
                               :href="`${
-                                record[$caseConvert.stringSnakeToCamel(dataRow.field)]
+                                record[$caseConvert?.stringSnakeToCamel(dataRow.field)]
                               }`"
                               target="_blank"
                               >{{
                                 getDownloadUrl(
-                                  record[$caseConvert.stringSnakeToCamel(dataRow.field)]
+                                  record[$caseConvert?.stringSnakeToCamel(dataRow.field)]
                                 )
                               }}</a
                             >
@@ -764,7 +766,7 @@
                             >
                               <p
                                 v-for="(file, indexFile) in arrayToString(
-                                  record[$caseConvert.stringSnakeToCamel(dataRow.field)]
+                                  record[$caseConvert?.stringSnakeToCamel(dataRow.field)]
                                 )"
                                 :key="indexFile"
                               >
@@ -781,7 +783,7 @@
                               {{
                                 bindSelection(
                                   dataRow.details.items,
-                                  record[$caseConvert.stringSnakeToCamel(dataRow.field)]
+                                  record[$caseConvert?.stringSnakeToCamel(dataRow.field)]
                                 )
                               }}
                             </p>
@@ -794,7 +796,7 @@
                             >
                               <p
                                 v-for="(selected, indexSelected) in stringToArray(
-                                  record[$caseConvert.stringSnakeToCamel(dataRow.field)]
+                                  record[$caseConvert?.stringSnakeToCamel(dataRow.field)]
                                 )"
                                 :key="indexSelected"
                               >
@@ -805,16 +807,18 @@
                               <div
                                 class="crud-generated__item--color-picker"
                                 :style="`background-color: ${
-                                  record[$caseConvert.stringSnakeToCamel(dataRow.field)]
+                                  record[$caseConvert?.stringSnakeToCamel(dataRow.field)]
                                 }`"
                               ></div>
-                              {{ record[$caseConvert.stringSnakeToCamel(dataRow.field)] }}
+                              {{
+                                record[$caseConvert?.stringSnakeToCamel(dataRow.field)]
+                              }}
                             </div>
                             <span v-else-if="dataRow.type == 'relation'">{{
                               displayRelationData(record, dataRow)
                             }}</span>
                             <span v-else>{{
-                              record[$caseConvert.stringSnakeToCamel(dataRow.field)]
+                              record[$caseConvert?.stringSnakeToCamel(dataRow.field)]
                             }}</span>
                           </template>
                         </vs-td>
@@ -1166,8 +1170,8 @@ export default {
           limit: this.limit,
           page: this.page,
           filterValue: this.filter,
-          orderField: this.$caseConvert.snake(this.orderField),
-          orderDirection: this.$caseConvert.snake(this.orderDirection),
+          orderField: this.$caseConvert?.snake(this.orderField),
+          orderDirection: this.$caseConvert?.snake(this.orderDirection),
           showSoftDelete: this.isShowDataRecycle,
           available: this.available,
 
@@ -1424,39 +1428,43 @@ export default {
     },
     displayRelationData(record, dataRow) {
       if (dataRow.relation) {
-        const relationType = dataRow.relation.relationType;
-        const table = this.$caseConvert.stringSnakeToCamel(
-          dataRow.relation.destinationTable
-        );
-        this.$caseConvert.stringSnakeToCamel(dataRow.relation.destinationTableColumn);
-        const displayColumn = this.$caseConvert.stringSnakeToCamel(
-          dataRow.relation.destinationTableDisplayColumn
-        );
-        if (relationType == "has_one") {
-          const list = record[table];
-          return list[displayColumn] ? list[displayColumn] : null;
-        } else if (relationType == "has_many") {
-          const list = record[table];
-          const flatList = list.map((ls) => {
-            return ls[displayColumn];
-          });
-          return flatList.join(", ");
-        } else if (relationType == "belongs_to") {
-          const lists = record[table];
-          let field = this.$caseConvert.stringSnakeToCamel(dataRow.field);
-          for (let list of lists) {
-            if (list.id == record[field]) {
-              return list[displayColumn];
+        try {
+          const relationType = dataRow.relation.relationType;
+          const table = this.$caseConvert?.stringSnakeToCamel(
+            dataRow.relation.destinationTable
+          );
+          this.$caseConvert?.stringSnakeToCamel(dataRow.relation.destinationTableColumn);
+          const displayColumn = this.$caseConvert?.stringSnakeToCamel(
+            dataRow.relation.destinationTableDisplayColumn
+          );
+          if (relationType == "has_one") {
+            const list = record[table];
+            return list[displayColumn] ? list[displayColumn] : null;
+          } else if (relationType == "has_many") {
+            const list = record[table];
+            const flatList = list.map((ls) => {
+              return ls[displayColumn];
+            });
+            return flatList.join(", ");
+          } else if (relationType == "belongs_to") {
+            const lists = record[table];
+            let field = this.$caseConvert?.stringSnakeToCamel(dataRow.field);
+            for (let list of lists) {
+              if (list.id == record[field]) {
+                return list[displayColumn];
+              }
             }
+          } else if (relationType == "belongs_to_many") {
+            let field = this.$caseConvert?.stringSnakeToCamel(dataRow.field);
+            const lists = record[field];
+            let flatList = [];
+            Object.keys(lists).forEach(function (ls, key) {
+              flatList.push(lists[ls][displayColumn]);
+            });
+            return flatList.join(",").replace(",", ", ");
           }
-        } else if (relationType == "belongs_to_many") {
-          let field = this.$caseConvert.stringSnakeToCamel(dataRow.field);
-          const lists = record[field];
-          let flatList = [];
-          Object.keys(lists).forEach(function (ls, key) {
-            flatList.push(lists[ls][displayColumn]);
-          });
-          return flatList.join(",").replace(",", ", ");
+        } catch (error) {
+          console.log("error", error);
         }
       } else {
         return null;
@@ -1464,13 +1472,13 @@ export default {
     },
     prepareExcelExporter() {
       for (const iterator of this.dataType.dataRows) {
-        this.fieldsForExcel[iterator.displayName] = this.$caseConvert.stringSnakeToCamel(
+        this.fieldsForExcel[iterator.displayName] = this.$caseConvert?.stringSnakeToCamel(
           iterator.field
         );
       }
 
       for (const iterator of this.dataType.dataRows) {
-        const string = this.$caseConvert.stringSnakeToCamel(iterator.field);
+        const string = this.$caseConvert?.stringSnakeToCamel(iterator.field);
         if (iterator.browse == 1) {
           this.fieldsForPdf.push(string.charAt(0).toUpperCase() + string.slice(1));
         }

@@ -8,7 +8,7 @@
         <div>
           <vs-tabs>
             <vs-tab label="Home">
-              <chart-pie />
+
             </vs-tab>
             <vs-tab label="Documents">
               <div></div>

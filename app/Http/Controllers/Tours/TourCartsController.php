@@ -362,15 +362,55 @@ class TourCartsController extends Controller
             $data_type = $this->getDataType($slug);
 
             $from_client = json_decode(request()->payload, true);
-            $description = request()->description;
-            $min_participant = request()->min_participant;
 
             $ids = [];
             $customers = [];
+
+            // $price_ids = [];
             foreach ($from_client as $key => $value) {
                 $ids[] = $value['id'];
-                $customers[] = $value['customerId'];
+                // $customers[] = $value['customerId'];
+
+                $price_ids[] = $value['priceId'];
             }
+
+            // if(count($price_ids) <= 0) return ApiResponse::failed("Data tidak ditemukan");
+            // if(count($price_ids) == 1) {
+            //     $tour_price =
+            // }
+            // return $tour_price;
+
+            // $description = request()->description;
+            // $min_participant = request()->min_participant;
+
+            // $full_name = request()->full_name;
+            // $instance = request()->instance;
+            // $email = request()->email;
+            // $phone = request()->phone;
+            // $city = request()->city;
+            // $address = request()->address;
+
+
+
+
+            $date_start = request()->date_start;
+            $participant_adult = request()->participant_adult;
+            $participant_young = request()->participant_young;
+            $description = request()->description;
+            $hotel = request()->hotel;
+            $dibayar = request()->dibayar;
+            $dibayar_nominal = request()->dibayar_nominal;
+
+            $name = request()->name;
+            $email = request()->email;
+            $phone = request()->phone;
+            $instance = request()->instance;
+            $city = request()->city;
+            $address = request()->address;
+
+
+
+
 
             // ambil ulang data dari TourCarts
             $from_server_cart = \TourCarts::with([
@@ -451,9 +491,37 @@ class TourCartsController extends Controller
                     'customer_id' => $res['customer_id'] ,
                     'store_id' => $res['store_id'] ,
 
+                    'description' => $description ,
                     'get_final_amount' => $res['total'] ,
 
-                    'description' => $description ,
+
+                    'quantity_sum' => 1,
+                    'coupon' => NULL,
+                    // condition
+                    // full_name
+                    // instance
+                    // email
+                    // phone
+                    // city
+                    // address
+
+                    // $date_start = request()->date_start;
+                    // $participant_adult = request()->participant_adult;
+                    // $participant_young = request()->participant_young;
+                    // $description = request()->description;
+                    // $hotel = request()->hotel;
+                    // $dibayar = request()->dibayar;
+                    // $dibayar_nominal = request()->dibayar_nominal;
+
+                    // $name = request()->name;
+                    // $email = request()->email;
+                    // $phone = request()->phone;
+                    // $instance = request()->instance;
+                    // $city = request()->city;
+                    // $address = request()->address;
+
+
+
                     'code_table' => ('tour-bookings') ,
                     'uuid' => $uuid,
                 ];
@@ -478,6 +546,7 @@ class TourCartsController extends Controller
 
             }
 
+            return $forms;
             TourBookings::insert($forms);
 
             $bookings = TourBookings::whereIn('uuid', $uuids)->get();

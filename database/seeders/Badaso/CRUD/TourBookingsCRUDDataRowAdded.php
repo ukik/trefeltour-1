@@ -139,7 +139,7 @@ class TourBookingsCRUDDataRowAdded extends Seeder
                 array (
                     'data_type_id' => $data_type->id,
                     'field' => 'condition',
-                    'type' => 'text',
+                    'type' => 'select',
                     'display_name' => 'Kondisi',
                     'required' => '0',
                     'browse' => '1',
@@ -147,7 +147,31 @@ class TourBookingsCRUDDataRowAdded extends Seeder
                     'edit' => '0',
                     'add' => '0',
                     'delete' => '1',
-                    'details' => '{}',
+                    'details' => '{
+"size": 12,
+"items": [
+{
+"label": "PAYMENT WAITING",
+"value": "PAYMENT WAITING"
+},
+{
+"label": "DOWN PAYMENT CONFIRMED",
+"value": "DOWN PAYMENT CONFIRMED"
+},
+{
+"label": "FULL PAYMENT CONFIRMED",
+"value": "FULL PAYMENT CONFIRMED"
+},
+{
+"label": "PAYMENT TIMEOUT",
+"value": "PAYMENT TIMEOUT"
+},
+{
+"label": "PAYMENT CANCELLED",
+"value": "PAYMENT CANCELLED"
+}
+]
+}',
                     'relation' => NULL,
                     'order' => '8',
                 ),
