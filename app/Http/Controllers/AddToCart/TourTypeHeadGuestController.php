@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\Facades\Auth;
 use TourBookings;
 use TourBookingsCheckPayments;
-use TourCartsGuest;
+use TourCarts;
 use TourPrices;
 
 use TourPaymentsValidations;
@@ -25,7 +25,14 @@ use Uasoft\Badaso\Models\DataType;
 class TourTypeHeadGuestController extends Controller
 {
     function getUser() {
+        // if(isAdminTour()) {
+        //     return Auth::user();
+        // }
+
         return TourStores::where('id', request()->id)->with('badasoUsers')->first()?->badasoUsers[0];
+
+        // $temp = TourStores::where('id', request()->id)->value('user_id');
+        // return BadasoUsers::where('id', $temp)->first();
     }
 
 
@@ -66,7 +73,7 @@ class TourTypeHeadGuestController extends Controller
     function get_prices_booking(Request $request) {
         // return request();
         $payload = json_decode(request()->payload, true);
-        $data = \TourCartsGuest::with([
+        $data = \TourCarts::with([
             'badasoUsers',
             'badasoUser',
 
@@ -82,7 +89,7 @@ class TourTypeHeadGuestController extends Controller
 
     function add_to_cart(Request $request) {
 
-        // isAddOrUpdateToCart();
+        isAddOrUpdateToCart();
 
         DB::beginTransaction();
 
@@ -110,13 +117,13 @@ class TourTypeHeadGuestController extends Controller
             $description =  request()->description;
             $hotel =  request()->hotel;
 
-            $carts = TourCartsGuest::query()
+            $carts = TourCarts::query()
                 ->where('customer_id', $customer_id)
                 ->where('price_id', request()->price_id)
                 ->where('date_start', $date_start)
                 ->first();
 
-            $carts = TourCartsGuest::updateOrCreate([
+            $carts = TourCarts::updateOrCreate([
                     'customer_id' => $customer_id,
                     'store_id' => $data->store_id,
                     'product_id' => $data->product_id,
@@ -183,11 +190,11 @@ class TourTypeHeadGuestController extends Controller
         // return request();
         if(!request()->quantity) return ApiResponse::failed("Customer wajib diisi");
 
-        TourCartsGuest::where('id', request()->id)->update([
+        TourCarts::where('id', request()->id)->update([
                 'quantity' => request()->quantity,
         ]);
 
-        $data = \TourCartsGuest::with([
+        $data = \TourCarts::with([
             'badasoUsers',
             'badasoUser',
 

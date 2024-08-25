@@ -152,11 +152,14 @@ Route::group(
             Route::get('/talent-prices/lagia', '\App\Http\Controllers\Talents\TalentPricesController@lagia_browse');
             Route::get('/tourism-prices/lagia', '\App\Http\Controllers\Tourisms\TourismPricesController@lagia_browse');
             Route::get('/transport-prices/lagia', '\App\Http\Controllers\Transports\TransportPricesController@lagia_browse');
+            // Route::get('/transport-prices/read/{id}/lagia', '\App\Http\Controllers\Transports\TransportPricesController@lagia_read');
 
             Route::get('/tour-prices/lagia', '\App\Http\Controllers\Tours\TourPricesController@lagia_browse');
             Route::get('/tour-carts/lagia', '\App\Http\Controllers\Tours\TourCartsController@lagia_browse')->middleware(RootBadasoAuthenticate::class);
             Route::get('/tour-bookings/lagia', '\App\Http\Controllers\Tours\TourBookingsController@lagia_browse')->middleware(RootBadasoAuthenticate::class);
-            // Route::get('/transport-prices/read/{id}/lagia', '\App\Http\Controllers\Transports\TransportPricesController@lagia_read');
+
+            // CHECKOUT TOUR
+            Route::post('/tour-bookings/lagia/add', '\App\Http\Controllers\Tours\TourBookingsController@add');
         });
 
 

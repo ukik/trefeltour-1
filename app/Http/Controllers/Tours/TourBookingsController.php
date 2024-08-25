@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Tours;
 
 use Illuminate\Support\Facades\Validator;
 use App\Http\Controllers\Badaso\Controller;
+use App\Notifications\NotifyClientToAdminNotification;
 // use App\Http\Controllers\Controller;
 use Exception;
 use Illuminate\Http\Request;
@@ -16,8 +17,16 @@ use Illuminate\Support\Facades\Auth;
 use TourBookings;
 
 use \BadasoUsers;
+use Faker\Core\Number;
 use Google\Service\Eventarc\Transport;
+use HotelLevelPricePageModel;
 use TourBookingsItems;
+use TourPrices;
+
+
+use Midtrans\Snap;
+use Midtrans\Transaction;
+use Midtrans\Config;
 
 class TourBookingsController extends Controller
 {
@@ -25,9 +34,23 @@ class TourBookingsController extends Controller
     public $isLogged;
     public $isRole;
 
-    public function __construct() {
+	protected $serverKey;
+	protected $clientKey;
+	protected $isProduction;
+	protected $isSanitized;
+	protected $is3ds;
 
-        if(Auth::check()) {
+	public function __construct()
+	{
+		$this->serverKey = config('midtrans.server_key');
+		$this->clientKey = config('midtrans.client_key');
+		$this->isProduction = config('midtrans.is_production');
+		$this->isSanitized = config('midtrans.is_sanitized');
+		$this->is3ds = config('midtrans.is_3ds');
+
+		$this->_configureMidtrans();
+
+        if (Auth::check()) {
 
             $this->isLogged = true;
 
@@ -36,11 +59,25 @@ class TourBookingsController extends Controller
             }
 
             $this->isRole = $role;
-
         } else {
             return ApiResponse::unauthorized();
         }
-    }
+	}
+
+	public function _configureMidtrans()
+	{
+		Config::$serverKey = $this->serverKey;
+		Config::$clientKey = $this->clientKey;
+		Config::$isProduction = $this->isProduction;
+		Config::$isSanitized = $this->isSanitized;
+		Config::$is3ds = $this->is3ds;
+
+        // \Midtrans\Config::$serverKey = $this->serverKey;
+        // \Midtrans\Config::$clientKey = $this->clientKey;
+        // \Midtrans\Config::$isProduction = $this->isProduction;
+        // \Midtrans\Config::$isSanitized = $this->isSanitized;
+        // \Midtrans\Config::$is3ds = $this->is3ds;
+	}
 
     public function lagia_browse(Request $request)
     {
@@ -67,33 +104,33 @@ class TourBookingsController extends Controller
                 // 'tourPayment.tourPaymentsValidation',
                 // 'tourPayments'
             ])
-            ->withCount([
-                'tourBookingItems AS quantity_sum' => function ($query) {
+                ->withCount([
+                    'tourBookingItems AS quantity_sum' => function ($query) {
                         $query->select(DB::raw("CONCAT(SUM(quantity), ' menu') as paidsum"));
                     }
                 ])
-            ->orderBy('id','desc');
-            if(request()['showSoftDelete'] == 'true') {
+                ->orderBy('id', 'desc');
+            if (request()['showSoftDelete'] == 'true') {
                 $data = $data->onlyTrashed();
             }
 
-            if(request()->search) {
+            if (request()->search) {
                 $search = request()->search;
 
                 $columns = \Illuminate\Support\Facades\Schema::getColumnListing('tour_bookings');
 
-                $customer_id = function($q) use ($search) {
+                $customer_id = function ($q) use ($search) {
                     return $q
-                        ->where('name','like','%'.$search.'%')
-                        ->orWhere('username','like','%'.$search.'%')
-                        ->orWhere('email','like','%'.$search.'%')
-                        ->orWhere('phone','like','%'.$search.'%');
+                        ->where('name', 'like', '%' . $search . '%')
+                        ->orWhere('username', 'like', '%' . $search . '%')
+                        ->orWhere('email', 'like', '%' . $search . '%')
+                        ->orWhere('phone', 'like', '%' . $search . '%');
                 };
 
-                $store_id = function($q) use ($search) {
+                $store_id = function ($q) use ($search) {
                     return $q
-                        ->where('uuid','like','%'.$search.'%')
-                        ->orWhere('name','like','%'.$search.'%');
+                        ->where('uuid', 'like', '%' . $search . '%')
+                        ->orWhere('name', 'like', '%' . $search . '%');
                 };
 
                 $data
@@ -103,25 +140,24 @@ class TourBookingsController extends Controller
 
                 foreach ($columns as $value) {
                     switch ($value) {
-                        // case "customer_id":
-                        // case "store_id":
+                            // case "customer_id":
+                            // case "store_id":
                         case "code_table":
-                        //case "created_at":
-                        //case "updated_at":
+                            //case "created_at":
+                            //case "updated_at":
                         case "deleted_at":
                             # code...
                             break;
                         default:
-                            $data->orWhere($value,'like','%'.$search.'%');
+                            $data->orWhere($value, 'like', '%' . $search . '%');
                     }
                 }
-
             }
 
             // Role Data
             // Client hanya bisa melihat data mereka sendiri
-            if(isClientOnly()) {
-                $data->where('customer_id',authID());
+            if (isClientOnly()) {
+                $data->where('customer_id', authID());
             }
 
             $data = $data->paginate(request()->perPage);
@@ -163,33 +199,33 @@ class TourBookingsController extends Controller
                 'tourPayment.tourPaymentsValidation',
                 'tourPayments'
             ])
-            ->withCount([
-                'tourBookingItems AS quantity_sum' => function ($query) {
+                ->withCount([
+                    'tourBookingItems AS quantity_sum' => function ($query) {
                         $query->select(DB::raw("CONCAT(SUM(quantity), ' menu') as paidsum"));
                     }
                 ])
-            ->orderBy('id','desc');
-            if(request()['showSoftDelete'] == 'true') {
+                ->orderBy('id', 'desc');
+            if (request()['showSoftDelete'] == 'true') {
                 $data = $data->onlyTrashed();
             }
 
-            if(request()->search) {
+            if (request()->search) {
                 $search = request()->search;
 
                 $columns = \Illuminate\Support\Facades\Schema::getColumnListing('tour_bookings');
 
-                $customer_id = function($q) use ($search) {
+                $customer_id = function ($q) use ($search) {
                     return $q
-                        ->where('name','like','%'.$search.'%')
-                        ->orWhere('username','like','%'.$search.'%')
-                        ->orWhere('email','like','%'.$search.'%')
-                        ->orWhere('phone','like','%'.$search.'%');
+                        ->where('name', 'like', '%' . $search . '%')
+                        ->orWhere('username', 'like', '%' . $search . '%')
+                        ->orWhere('email', 'like', '%' . $search . '%')
+                        ->orWhere('phone', 'like', '%' . $search . '%');
                 };
 
-                $store_id = function($q) use ($search) {
+                $store_id = function ($q) use ($search) {
                     return $q
-                        ->where('uuid','like','%'.$search.'%')
-                        ->orWhere('name','like','%'.$search.'%');
+                        ->where('uuid', 'like', '%' . $search . '%')
+                        ->orWhere('name', 'like', '%' . $search . '%');
                 };
 
                 $data
@@ -199,25 +235,24 @@ class TourBookingsController extends Controller
 
                 foreach ($columns as $value) {
                     switch ($value) {
-                        // case "customer_id":
-                        // case "store_id":
+                            // case "customer_id":
+                            // case "store_id":
                         case "code_table":
-                        //case "created_at":
-                        //case "updated_at":
+                            //case "created_at":
+                            //case "updated_at":
                         case "deleted_at":
                             # code...
                             break;
                         default:
-                            $data->orWhere($value,'like','%'.$search.'%');
+                            $data->orWhere($value, 'like', '%' . $search . '%');
                     }
                 }
-
             }
 
             // Role Data
             // Client hanya bisa melihat data mereka sendiri
-            if(isClientOnly()) {
-                $data->where('customer_id',authID());
+            if (isClientOnly()) {
+                $data->where('customer_id', authID());
             }
 
             $data = $data->paginate(request()->perPage);
@@ -266,7 +301,7 @@ class TourBookingsController extends Controller
             $slug = $this->getSlug($request);
             $data_type = $this->getDataType($slug);
             $request->validate([
-                'id' => 'exists:'.$data_type->name,
+                'id' => 'exists:' . $data_type->name,
             ]);
 
             // $data = $this->getDataDetail($slug, $request->id);
@@ -274,8 +309,8 @@ class TourBookingsController extends Controller
 
             // Role Data
             // Client hanya bisa melihat data mereka sendiri
-            if(isClientOnly()) {
-                $data->where('customer_id',authID());
+            if (isClientOnly()) {
+                $data->where('customer_id', authID());
             }
 
             $data = $data->with([
@@ -292,12 +327,12 @@ class TourBookingsController extends Controller
                 'tourPayment.tourPaymentsValidation',
                 'tourPayments'
             ])
-            ->withCount([
-                'tourBookingItems AS quantity_sum' => function ($query) {
+                ->withCount([
+                    'tourBookingItems AS quantity_sum' => function ($query) {
                         $query->select(DB::raw("CONCAT(SUM(quantity), ' menu') as paidsum"));
                     }
                 ])
-            ->whereId($request->id)->first();
+                ->whereId($request->id)->first();
 
             // add event notification handle
             $table_name = $data_type->name;
@@ -473,6 +508,457 @@ class TourBookingsController extends Controller
     }
     */
 
+
+    public function add(Request $request)
+    {
+        DB::beginTransaction();
+
+        //isOnlyAdminTour();
+
+        function getTotalAmount($value)
+        {
+            //console.log('getTotalAmount', value)
+            return (
+                $value['general_price'] -
+                ($value['general_price'] * (($value['discount_price']) / 100)) -
+                ($value['cashback_price'])
+            );
+        }
+
+        function getTotalAmountChild($value)
+        {
+            //console.log('getTotalAmount', value)
+            return (
+                $value['general_price_child'] -
+                ($value['general_price_child'] * (($value['discount_price']) / 100)) -
+                ($value['cashback_price'])
+            );
+        }
+
+
+        function subTotalAnak($participant_young, $finalPriceAnak)
+        {
+            return $participant_young * $finalPriceAnak; //this . $finalPriceAnak(this . item);
+        }
+        function   subTotalDewasa($participant_adult, $finalPrice)
+        {
+            return $participant_adult * $finalPrice; // this . $finalPrice(this . item);
+        }
+        function getAVGHotel($getHotelPrice)
+        {
+            return (
+                ((double)($getHotelPrice?->max_price) + (double)($getHotelPrice?->min_price)) / 2
+            );
+        }
+        function getAllPerserta($participant_adult, $participant_young)
+        {
+            return (int)($participant_adult) + (int)($participant_young);
+        }
+        function getDoubleBed($getAllPerserta, $getAVGHotel)
+        {
+            $bagi = $getAllPerserta / 2;
+            $sisa = $getAllPerserta % 2;
+
+            return $getAVGHotel * ($bagi + $sisa);
+        }
+        function getSingleBed($getAllPerserta, $getAVGHotel)
+        {
+            $all = $getAllPerserta;
+
+            return $getAVGHotel * $all;
+        }
+        function getDPSingleBed($getSingleBed, $getTotalNonHotel)
+        {
+            $cal = $getSingleBed + $getTotalNonHotel;
+            return ($cal * 30) / 100;
+        }
+        function getDPDoubleBed($getDoubleBed, $getTotalNonHotel)
+        {
+            $cal = $getDoubleBed + $getTotalNonHotel;
+            return ($cal * 30) / 100;
+        }
+
+        function getHotelPrice($page_hotel_level_price)
+        {
+            return $page_hotel_level_price;
+            // // if (this . page_hotel_level_price && this . hotel !== "Pilih Hotel") {
+            //     $temp = [];
+            //     for ($i = 0; $i < count($page_hotel_level_price); $i++) {
+            //         try {
+            //             if (
+            //                 strtolower($hotel) ===
+            //                 strtolower($page_hotel_level_price[$i]["label"])
+            //             ) {
+            //                 $temp = $page_hotel_level_price[$i];
+            //             }
+            //         } catch (\Throwable $th) {
+            //         }
+            //     }
+            //     return $temp;
+            // // }
+        }
+        function getTotalNonHotel($subTotalAnak, $subTotalDewasa)
+        {
+            return (double)($subTotalAnak) + (double)($subTotalDewasa);
+        }
+        function getGrandAvg($subTotalAnak, $subTotalDewasa, $getHotelPrice)
+        {
+            return (
+                (double)($subTotalAnak) +
+                (double)($subTotalDewasa) +
+                ((double)($getHotelPrice?->min_price) + (double)($getHotelPrice?->max_price)) / 2
+            );
+        }
+        function getDPAvg($getGrandAvg)
+        {
+            return $getGrandAvg - ($getGrandAvg * 30) / 100;
+        }
+
+
+
+        try {
+
+            // get slug by route name and get data type in table
+            $slug = $this->getSlug($request);
+
+            $data_type = $this->getDataType('tour-bookings');
+
+            $from_client = json_decode(request()->payload, true);
+
+            $ids = [];
+            // $customers = [];
+
+            $price_ids = [];
+            foreach ($from_client as $key => $value) {
+                $ids[] = $value['id'];
+                // $customers[] = $value['customerId'];
+                $price_ids[] = $value['priceId'];
+            }
+
+
+            $description = request()->description;
+            // $min_participant = request()->min_participant;
+
+            // $full_name = request()->full_name;
+            // $instance = request()->instance;
+            // $email = request()->email;
+            // $phone = request()->phone;
+            // $city = request()->city;
+            // $address = request()->address;
+
+
+
+
+            $date_start = request()->date_start;
+            $participant_adult = request()->participant_adult;
+            $participant_young = request()->participant_young;
+            $description = request()->description;
+            $hotel = request()->hotel;
+            $dibayar = request()->dibayar;
+            $dibayar_nominal = request()->dibayar_nominal;
+
+            $name = request()->name;
+            $email = request()->email;
+            $phone = request()->phone;
+            $instance = request()->instance;
+            $city = request()->city;
+            $address = request()->address;
+
+            // ambil ulang data dari TourCarts
+            // $from_server_cart = \TourCarts::with([
+            //     'tourPrice',
+            // ])->whereIn('id', $ids)->get();
+            $from_server_cart = TourPrices::whereIn('id', $price_ids)->get();
+
+            if (!$from_server_cart) return ApiResponse::failed("Data tidak ditemukan");
+
+            $forms = [];
+            foreach ($from_server_cart as $server) {
+                array_push($forms, $server);
+
+                // array_push($forms, [
+                //     'price_id' => $server['id'],
+                //     'store_id' => $server['store_id'],
+                //     'product_id' => $server['product_id'],
+                //     'id' => $server['id'],
+                //     'total' => (getTotalAmount($server) * $participant_adult) + (getTotalAmountChild($server) * $participant_young),
+                // ]);
+            }
+
+            // 1 DIMENSI
+            // $array=json_decode(json_encode($forms),true);  // convert to array
+            $result = json_decode(json_encode($forms), true);  // convert to array
+            // foreach($array as $row){
+            //     if(!isset($result[$row['customer_id']])){
+            //         $result[$row['customer_id']]=$row;  // on first occurrence, store the full row
+            //     }else{
+            //         $result[$row['customer_id']]['total']+=$row['total'];  // after first occurrence, add current total to stored total
+            //     }
+            // }
+
+            // return [ $result ];
+            // if(!$result) return ApiResponse::failed("Data tidak ditemukan");
+
+            $forms = [];
+            $uuids = [];
+            $prices_ref = [];
+            foreach ($result as $res) {
+                # code...
+
+                $uuid = ShortUuid();
+                $data = [
+                    'customer_id' => NULL,
+                    'store_id' => $res['store_id'],
+
+                    'description' => $description,
+                    'get_final_amount' => 0, //$res['total'],
+                    'quantity_sum' => 1,
+                    'coupon' => NULL,
+
+                    'dibayar' => $dibayar,
+
+                    'condition' => "PAYMENT WAITING",
+                    'full_name' => $name,
+                    'instance' => $instance,
+                    'email' => $email,
+                    'phone' => $phone,
+                    'city' => $city,
+                    'address' => $address,
+
+                    'code_table' => ('tour-bookings'),
+                    'uuid' => $uuid,
+                ];
+
+                $forms[] = $data;
+                array_push($uuids, $uuid);
+
+                $res['uuid'] = $uuid;
+                array_push($prices_ref, $res );
+            }
+
+            // return $from_server_cart[0]->tourPrice;
+            TourBookings::insert($forms);
+
+            // return $from_server_cart;
+            $bookings = TourBookings::whereIn('uuid', $uuids)->get();
+
+            // return [$uuids,$prices_ref,$forms,$bookings];
+
+            if (!$bookings) return ApiResponse::failed("Data tidak tersedia, refresh halaman");
+
+            // INSERT BOOKING ITEMS
+            $cartItems = [];
+            $updateBookings = [];
+            // foreach ($from_server_cart as $value) {
+            foreach ($prices_ref as $value) {
+                foreach ($bookings as $booking) {
+                    if ($value['uuid'] == $booking['uuid']) {
+
+                        $finalPrice = getTotalAmount($value);
+                        $finalPriceAnak = getTotalAmountChild($value);
+
+                        $_subTotalAnak = subTotalAnak($participant_young, $finalPriceAnak);
+                        $_subTotalDewasa = subTotalDewasa($participant_adult, $finalPrice);
+
+                        $page_hotel_level_price = HotelLevelPricePageModel::where('label', $hotel)->first();
+                        $_getHotelPrice = getHotelPrice($page_hotel_level_price);
+
+                        $_getAVGHotel = getAVGHotel($_getHotelPrice);
+                        $_getAllPerserta = getAllPerserta($participant_adult, $participant_young);
+                        $_getSingleBed = getSingleBed($_getAllPerserta, $_getAVGHotel);
+                        $_getDoubleBed = getDoubleBed($_getAllPerserta, $_getAVGHotel);
+
+                        $_getTotalNonHotel = getTotalNonHotel($_subTotalAnak, $_subTotalDewasa);
+                        $_get_full_payment_single_bed = $_getSingleBed + $_getTotalNonHotel;
+                        $_get_full_payment_double_bed = $_getDoubleBed + $_getTotalNonHotel;
+
+                        $_get_dp_payment_single_bed = getDPSingleBed($_getSingleBed, $_getTotalNonHotel);
+                        $_get_dp_payment_double_bed = getDPDoubleBed($_getDoubleBed, $_getTotalNonHotel);
+
+                        # code...
+                        $items = [
+                            // id
+                            // uuid
+                            'booking_uuid' => $booking['uuid'],
+                            'booking_id' => $booking['id'],
+                            'customer_id' => NULL,
+                            'store_id' => $value['store_id'],
+                            'product_id' => $value['product_id'],
+                            'price_id' => $value['id'],
+                            'name' => $value['name'],
+                            'get_price' => $value['general_price'],
+                            'get_price_child' => $value['general_price_child'],
+                            'get_discount' => $value['discount_price'],
+                            'get_cashback' => $value['cashback_price'],
+                            'get_total_amount' => $_subTotalDewasa,
+                            'get_total_amount_child' => $_subTotalAnak,
+                            'get_total_amount_tour' => getTotalNonHotel($_subTotalAnak, $_subTotalDewasa),
+                            'quantity' => 1,
+                            // 'get_final_amount' => ($finalPrice * $value->quantity) + ($finalPriceAnak * $value->quantity),
+                            'get_final_amount' => NULL,
+                            'stock' => 9999,
+                            'min_participant' => $value['min_participant'],
+                            'date_start' => $date_start,
+                            'participant_adult' => $participant_adult,
+                            'participant_young' => $participant_young,
+                            'hotel' => $hotel,
+                            'hotel_min_price' =>  $_getHotelPrice['min_price'],
+                            'hotel_max_price' =>  $_getHotelPrice['max_price'],
+                            'hotel_avg_price' =>  $_getAVGHotel,
+                            'hotel_total_single_bed' => $_getSingleBed,
+                            'hotel_total_double_bed' =>  $_getDoubleBed,
+                            'description' => $value['description'],
+                            // code_table
+                            // created_at
+                            // updated_at
+                            // deleted_at
+                            'get_full_payment_single_bed' => $_get_full_payment_single_bed,
+                            'get_full_payment_double_bed' => $_get_full_payment_double_bed,
+                            'get_dp_payment_single_bed' => $_get_dp_payment_single_bed,
+                            'get_dp_payment_double_bed' => $_get_dp_payment_double_bed,
+
+
+                            'code_table' => 'tour-booking-items',
+                            'uuid' => ShortUuid(),
+                        ];
+
+                        $validator = Validator::make(
+                            $items,
+                            [
+                                // '*' => 'required',
+                                'customer_id' => '',
+                            ],
+                        );
+                        if ($validator->fails()) {
+                            $errors = json_decode($validator->errors(), True);
+                            foreach ($errors as $key => $value) {
+                                return ApiResponse::failed(implode('', $value));
+                            }
+                        }
+
+                        array_push($cartItems, $items);
+
+                        array_push($updateBookings, [
+                            'uuid' => $booking['uuid'],
+                            'get_full_payment_single_bed' => $_get_full_payment_single_bed,
+                            'get_full_payment_double_bed' => $_get_full_payment_double_bed,
+                            'get_dp_payment_single_bed' => $_get_dp_payment_single_bed,
+                            'get_dp_payment_double_bed' => $_get_dp_payment_double_bed,
+                        ]);
+                    }
+                }
+            }
+
+            $booking_items = TourBookingsItems::insert($cartItems);
+
+            TourBookings::upsert($updateBookings, uniqueBy: ['uuid'], update: ['get_full_payment_single_bed','get_full_payment_double_bed','get_dp_payment_single_bed','get_dp_payment_double_bed']);
+
+            // MIDTRANS
+            // $uuid = uuid();
+            // $uuid = (explode("-", $uuid));
+            // $order_id = 'TERA-' . $uuid[0] . '-' . $uuid[1];
+
+            // function getDibayar($val) {
+            //     switch ($val) {
+            //         case "lunas_double_bed":
+            //             return this.getDoubleBed + this.getTotalNonHotel;
+            //         case "lunas_single_bed":
+            //             return this.getSingleBed + this.getTotalNonHotel;
+
+            //         case "dp_double_bed":
+            //             return this.getDPDoubleBed;
+            //         case "dp_single_bed":
+            //             return this.getDPSingleBed;
+            //     }
+            // }
+
+            $bookings = TourBookings::whereIn('uuid', $uuids)->get();
+
+            foreach ($prices_ref as $value) {
+                foreach ($bookings as $booking) {
+                    if ($value['uuid'] == $booking['uuid']) {
+
+                        $params = [
+                            'transaction_details' => [
+                                'order_id'      => $booking['uuid'],
+                                'gross_amount'  => $booking[$dibayar],
+                            ],
+                            'item_details' => [
+                                // $booking
+                                [
+                                    'id'        => $value['id'],
+                                    'price'     => $booking['get_full_payment_single_bed'],
+                                    'quantity'  => 1,
+                                    'name'      => $value['name'],
+                                ],
+                                // [
+                                //     'id' => 1, // primary key produk
+                                //     'price' => '150000', // harga satuan produk
+                                //     'quantity' => 1, // kuantitas pembelian
+                                //     'name' => 'Flashdisk Toshiba 32GB', // nama produk
+                                // ],
+                                // [
+                                //     'id' => 2,
+                                //     'price' => '60000',
+                                //     'quantity' => 2,
+                                //     'name' => 'Memory Card VGEN 4GB',
+                                // ],
+                            ],
+                            // 'customer_details' => [
+                            //     'first_name'    => $post->pribadi->nama_depan,
+                            //     'last_name'     => $post->pribadi->nama_belakang,
+                            //     'email'         => $post->user->email,
+                            //     'phone'         => $post->pribadi->telepon,
+                            // ],
+                            'customer_details' => [
+                                // Key `customer_details` dapat diisi dengan data customer yang melakukan order.
+                                'first_name' => 'Super',
+                                'email' => 'muhamadduki@gmail.com',
+                                'phone' => '081234567890',
+                            ]
+                        ];
+
+                        $snapToken = Snap::getSnapToken($params);
+                        TourBookings::where('uuid', $booking['uuid'])->update(['snap_token' => $snapToken]);
+                    }
+                }
+            }
+
+            // // return $params;
+
+
+            // HAPUS CARTS
+            // \TourCarts::with([
+            //     'tourPrice',
+            // ])->whereIn('id', $ids)->delete();
+            \TourCarts::whereIn('id', $ids)->delete();
+
+            activity($data_type->display_name_singular)
+                ->causedBy(auth()->user() ?? null)
+                ->withProperties(['attributes' => [$booking, $booking_items]])
+                ->log($data_type->display_name_singular . ' has been created');
+
+
+            foreach ($bookings as $booking) {
+                NotifyToAdmin(new NotifyClientToAdminNotification(Auth::user(), 'tour', 'tour-bookings', $booking, 'Booking Baru'));
+            }
+
+            DB::commit();
+
+            // add event notification handle
+            $table_name = $data_type->name;
+            FCMNotification::notification(FCMNotification::$ACTIVE_EVENT_ON_CREATE, $table_name);
+
+            return ApiResponse::onlyEntity([$booking, $booking_items], additional: $booking);
+        } catch (Exception $e) {
+            DB::rollBack();
+
+            return ApiResponse::failed($e);
+        }
+    }
+
+
+
     public function delete(Request $request)
     {
         DB::beginTransaction();
@@ -481,8 +967,8 @@ class TourBookingsController extends Controller
 
         $value = request()['data'][0]['value'];
         $check = TourBookings::where('id', $value)->with(['tourPayment'])->first();
-        if(!$check) return ApiResponse::failed("Data tidak ditemukan");
-        if($check->tourPayment) return ApiResponse::failed("Tidak bisa dihapus, data ini digunakan");
+        if (!$check) return ApiResponse::failed("Data tidak ditemukan");
+        if ($check->tourPayment) return ApiResponse::failed("Tidak bisa dihapus, data ini digunakan");
         switch ($check->condition) {
             case "DOWN PAYMENT CONFIRMED":
             case "FULL PAYMENT CONFIRMED":
@@ -521,11 +1007,11 @@ class TourBookingsController extends Controller
             activity($data_type->display_name_singular)
                 ->causedBy(auth()->user() ?? null)
                 ->withProperties($data)
-                ->log($data_type->display_name_singular.' has been deleted');
+                ->log($data_type->display_name_singular . ' has been deleted');
 
             DB::commit();
 
-            TourBookingsItems::where('booking_id',$value)->delete();
+            TourBookingsItems::where('booking_id', $value)->delete();
 
             // add event notification handle
             $table_name = $data_type->name;
@@ -562,7 +1048,7 @@ class TourBookingsController extends Controller
             activity($data_type->display_name_singular)
                 ->causedBy(auth()->user() ?? null)
                 ->withProperties($data)
-                ->log($data_type->display_name_singular.' has been restore');
+                ->log($data_type->display_name_singular . ' has been restore');
 
             DB::commit();
 
@@ -616,10 +1102,10 @@ class TourBookingsController extends Controller
 
             // ADDITIONAL BULK DELETE
             // -------------------------------------------- //
-            $filters = TourBookings::whereIn('id', explode(",",request()['data'][0]['value']))->with('tourPayment')->get();
+            $filters = TourBookings::whereIn('id', explode(",", request()['data'][0]['value']))->with('tourPayment')->get();
             $temp = [];
             foreach ($filters as $value) {
-                if($value->tourPayment == null) {
+                if ($value->tourPayment == null) {
                     array_push($temp, $value['id']);
                 }
             }
@@ -635,7 +1121,7 @@ class TourBookingsController extends Controller
             activity($data_type->display_name_singular)
                 ->causedBy(auth()->user() ?? null)
                 ->withProperties($data)
-                ->log($data_type->display_name_singular.' has been bulk deleted');
+                ->log($data_type->display_name_singular . ' has been bulk deleted');
 
             DB::commit();
 
@@ -675,7 +1161,7 @@ class TourBookingsController extends Controller
             activity($data_type->display_name_singular)
                 ->causedBy(auth()->user() ?? null)
                 ->withProperties($data)
-                ->log($data_type->display_name_singular.' has been bulk deleted');
+                ->log($data_type->display_name_singular . ' has been bulk deleted');
 
             DB::commit();
 
@@ -713,7 +1199,7 @@ class TourBookingsController extends Controller
                     activity($data_type->display_name_singular)
                         ->causedBy(auth()->user() ?? null)
                         ->withProperties(['attributes' => $single_data])
-                        ->log($data_type->display_name_singular.' has been sorted');
+                        ->log($data_type->display_name_singular . ' has been sorted');
                 }
             } else {
                 foreach ($request->data as $index => $row) {
@@ -723,7 +1209,7 @@ class TourBookingsController extends Controller
                     activity($data_type->display_name_singular)
                         ->causedBy(auth()->user() ?? null)
                         ->withProperties(['attributes' => $updated_data])
-                        ->log($data_type->display_name_singular.' has been sorted');
+                        ->log($data_type->display_name_singular . ' has been sorted');
                 }
             }
 
