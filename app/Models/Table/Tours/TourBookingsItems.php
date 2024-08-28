@@ -83,4 +83,15 @@ class TourBookingsItems extends Model
         return $this->belongsToMany(TourProducts::class, 'tour_booking_items', 'id', 'product_id');
     }
 
+
+    public function tourBookingPayment()
+    {
+        return $this->hasOne(TourBookingsPayments::class, 'booking_item_id', 'id');
+    }
+
+    public function tourBookingPayments()
+    {
+        return $this->hasMany(TourBookingsPayments::class, 'booking_item_id', 'id');
+    }
+
 }

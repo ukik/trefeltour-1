@@ -34,6 +34,9 @@ class TourBookings extends Model
         return TimeMode($value);
     }
 
+    public function getDescriptionAttribute($value) {
+        return $value ?: 'Tidak Ada';
+    }
 
     public function badasoUser()
     {
@@ -65,6 +68,18 @@ class TourBookings extends Model
     {
         return $this->hasMany(TourBookingsItems::class, 'booking_id', 'id');
     }
+
+
+    public function tourBookingPayment()
+    {
+        return $this->hasOne(TourBookingsPayments::class, 'booking_id', 'id');
+    }
+
+    public function tourBookingPayments()
+    {
+        return $this->hasMany(TourBookingsPayments::class, 'booking_id', 'id');
+    }
+
 
     public function tourPayment()
     {

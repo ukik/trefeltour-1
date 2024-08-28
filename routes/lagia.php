@@ -99,6 +99,7 @@ Route::group(
                 Route::get('/tour-stores/read', '\App\Http\Controllers\Tours\TourStoresController@read');
                 Route::get('/tour-prices', '\App\Http\Controllers\Tours\TourPricesController@browse');
                 Route::get('/tour-prices/read', '\App\Http\Controllers\Tours\TourPricesController@read');
+                Route::get('/tour-booking-payments/read', '\App\Http\Controllers\Tours\TourBookingsPaymentsController@read_lagia');
 
                 // LODGE
                 Route::get('/lodge-facility', '\App\Http\Controllers\Lodges\LodgeFacilityController@browse');
