@@ -603,7 +603,7 @@ class TourBookingsController extends Controller
             $hotel = request()->hotel;
             $dibayar = request()->dibayar;
             $dibayar_percent = request()->dibayar_percent;
-            $dibayar_percent = $dibayar == 'full_payment' ?: 100;
+            $dibayar_percent = $dibayar == 'full_payment' ? 100 : $dibayar_percent;
 
             $room_qty = request()->room_qty;
             $room_budget = request()->room_budget;
@@ -830,6 +830,15 @@ class TourBookingsController extends Controller
                         $full_payment = $booking['full_payment'];
                         $dp_payment = (double)$full_payment * (double)$dibayar_percent / 100;
 
+                        // switch ($dibayar) {
+                        //     case 'dp_payment':
+                        //         $amount = $dp_payment;
+                        //         break;
+                        //     case 'full_payment':
+                        //         $amount = $full_payment;
+                        //         break;
+                        // }
+
                         $amount = $dibayar == 'full_payment' ? $full_payment : $dp_payment;
                         $name_params = $booking?->tourBookingItem?->tourProduct['name'];
 
@@ -897,7 +906,7 @@ class TourBookingsController extends Controller
                             'gross_amount' => $amount,
                             'dibayar' => $dibayar,
                             'dibayar_percent' => $dibayar_percent,
-                            'status' => "unpaid",
+                            'transaction_status' => "unpaid",
                             'first_name' => $name,
                             'email' => $email,
                             'phone' => $phone,

@@ -1,9 +1,10 @@
 <?php
 
+use App\Http\Controllers\MidtransController;
 use App\Http\Controllers\OrderController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-
+use Uasoft\Badaso\Middleware\ApiRequest;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -42,6 +43,32 @@ Route::post('midtrans/unfinish', [MidtransController::class, 'unfinish'])
 
 Route::post('midtrans/error', [MidtransController::class, 'error'])
     ->name('midtrans.error');
+
+
+Route::get('/apasih', function() {
+    return 11111;
+});
+
+Route::post('/apasih/post', function(Request $request) {
+    return 111;
+    return $request->getContent();
+}); //->middleware('cors');
+
+// Route::group([
+//     'middleware' => ['api', 'cors'],
+//     'namespace' => '',
+//     'prefix' => '',
+// ], function ($router) {
+//      //Add you routes here, for example:
+
+//     Route::get('/apasih', function() {
+//         return 11111;
+//     });
+
+//     Route::post('/apasih/post', function(Request $request) {
+//         return $request->getContent();
+//     }); //->middleware('cors');
+// });
 
 // Payment Notification URL*
 Route::post('payment_notifikasi/payment_notification',  [MidtransController::class, 'notifikasi'])->name('payment_notification');

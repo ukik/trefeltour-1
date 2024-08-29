@@ -225,7 +225,7 @@ class TourBookingsPaymentsController extends Controller
             $table_name = $data_type->name;
             FCMNotification::notification(FCMNotification::$ACTIVE_EVENT_ON_READ, $table_name);
 
-            return ApiResponse::onlyEntity($data);
+            return ApiResponse::onlyEntity($data, additional:config('midtrans.client_key') );
         } catch (Exception $e) {
             return ApiResponse::failed($e);
         }
@@ -269,173 +269,173 @@ class TourBookingsPaymentsController extends Controller
         }
     }
 
-    public function edit(Request $request)
-    {
-        // return $slug = $this->getSlug($request);
-        DB::beginTransaction();
+    // public function edit(Request $request)
+    // {
+    //     // return $slug = $this->getSlug($request);
+    //     DB::beginTransaction();
 
-        //isOnlyAdminTour();
+    //     //isOnlyAdminTour();
 
-        try {
+    //     try {
 
-            // get slug by route name and get data type
-            $slug = $this->getSlug($request);
-            $data_type = $this->getDataType($slug);
+    //         // get slug by route name and get data type
+    //         $slug = $this->getSlug($request);
+    //         $data_type = $this->getDataType($slug);
 
-            $table_entity = TourBookingsPayments::where('id', $request->data['id'])
-                ->with('tourStore')->first();
+    //         $table_entity = TourBookingsPayments::where('id', $request->data['id'])
+    //             ->with('tourStore')->first();
 
-            $store = $table_entity->tourStore;//->value('id');
+    //         $store = $table_entity->tourStore;//->value('id');
 
-            $req = request()['data'];
+    //         $req = request()['data'];
 
-            $uuid = ShortUuid();
-            $data = [
+    //         $uuid = ShortUuid();
+    //         $data = [
 
-                'store_id' => $store->id,
-                'name' => $req['name'],
-                'category' => $req['category'],
-                'durasi' => $req['durasi'],
-                'description' => isset($req['description']) ? $req['description'] : '',
-                'itinerary' => $req['itinerary'],
-                'facility' => $req['facility'],
-                'province' => $req['province'],
-                'city' => isset($req['city']) ? $req['city'] : '',
-                'country' => $req['country'],
-                'level' => $req['level'],
-                'is_available' => isBoolean($req['is_available']),
-                'image' => imageFilterValue($req['image']),
+    //             'store_id' => $store->id,
+    //             'name' => $req['name'],
+    //             'category' => $req['category'],
+    //             'durasi' => $req['durasi'],
+    //             'description' => isset($req['description']) ? $req['description'] : '',
+    //             'itinerary' => $req['itinerary'],
+    //             'facility' => $req['facility'],
+    //             'province' => $req['province'],
+    //             'city' => isset($req['city']) ? $req['city'] : '',
+    //             'country' => $req['country'],
+    //             'level' => $req['level'],
+    //             'is_available' => isBoolean($req['is_available']),
+    //             'image' => imageFilterValue($req['image']),
 
-                'code_table' => ('tour-products') ,
-                'uuid' => $table_entity->uuid ?: $uuid,
+    //             'code_table' => ('tour-products') ,
+    //             'uuid' => $table_entity->uuid ?: $uuid,
 
-                'slug' => $table_entity->slug ?: slug($store->name.'-'.$req['name'], $uuid),
-                'keyword' => isset($req['keyword']) ? $req['keyword'] : NULL,
-            ];
+    //             'slug' => $table_entity->slug ?: slug($store->name.'-'.$req['name'], $uuid),
+    //             'keyword' => isset($req['keyword']) ? $req['keyword'] : NULL,
+    //         ];
 
-            $validator = Validator::make($data,
-                [
-                    'store_id' => 'required',
-                    // susah karena pake softDelete, pakai cara manual saja
-                    // 'ticket_id' => [
-                    //     'required', \Illuminate\Validation\Rule::unique('travel_bookings')->ignore($req['id'])
-                    // ],
-                ],
-            );
+    //         $validator = Validator::make($data,
+    //             [
+    //                 'store_id' => 'required',
+    //                 // susah karena pake softDelete, pakai cara manual saja
+    //                 // 'ticket_id' => [
+    //                 //     'required', \Illuminate\Validation\Rule::unique('travel_bookings')->ignore($req['id'])
+    //                 // ],
+    //             ],
+    //         );
 
-            if ($validator->fails()) {
-                $errors = json_decode($validator->errors(), True);
-                foreach ($errors as $key => $value) {
-                    return ApiResponse::failed(implode('',$value));
-                }
-            }
+    //         if ($validator->fails()) {
+    //             $errors = json_decode($validator->errors(), True);
+    //             foreach ($errors as $key => $value) {
+    //                 return ApiResponse::failed(implode('',$value));
+    //             }
+    //         }
 
-            TourBookingsPayments::where('id', $request->data['id'])->update($data);
-            $updated['old_data'] = $table_entity;
-            $updated['updated_data'] = TourBookingsPayments::where('id', $request->data['id'])->first();
+    //         TourBookingsPayments::where('id', $request->data['id'])->update($data);
+    //         $updated['old_data'] = $table_entity;
+    //         $updated['updated_data'] = TourBookingsPayments::where('id', $request->data['id'])->first();
 
-            DB::commit();
-            activity($data_type->display_name_singular)
-                ->causedBy(auth()->user() ?? null)
-                ->withProperties([
-                    'old' => $updated['old_data'],
-                    'attributes' => $updated['updated_data'],
-                ])
-                ->log($data_type->display_name_singular.' has been updated');
+    //         DB::commit();
+    //         activity($data_type->display_name_singular)
+    //             ->causedBy(auth()->user() ?? null)
+    //             ->withProperties([
+    //                 'old' => $updated['old_data'],
+    //                 'attributes' => $updated['updated_data'],
+    //             ])
+    //             ->log($data_type->display_name_singular.' has been updated');
 
-            // add event notification handle
-            $table_name = $data_type->name;
-            FCMNotification::notification(FCMNotification::$ACTIVE_EVENT_ON_UPDATE, $table_name);
+    //         // add event notification handle
+    //         $table_name = $data_type->name;
+    //         FCMNotification::notification(FCMNotification::$ACTIVE_EVENT_ON_UPDATE, $table_name);
 
-            return ApiResponse::onlyEntity($updated['updated_data']);
-        } catch (Exception $e) {
-            DB::rollBack();
+    //         return ApiResponse::onlyEntity($updated['updated_data']);
+    //     } catch (Exception $e) {
+    //         DB::rollBack();
 
-            return ApiResponse::failed($e);
-        }
-    }
+    //         return ApiResponse::failed($e);
+    //     }
+    // }
 
-    public function add(Request $request)
-    {
-        DB::beginTransaction();
+    // public function add(Request $request)
+    // {
+    //     DB::beginTransaction();
 
-        //isOnlyAdminTour();
+    //     //isOnlyAdminTour();
 
-        try {
+    //     try {
 
-            // get slug by route name and get data type in table
-            $slug = $this->getSlug($request);
+    //         // get slug by route name and get data type in table
+    //         $slug = $this->getSlug($request);
 
-            $data_type = $this->getDataType($slug);
+    //         $data_type = $this->getDataType($slug);
 
-            $req = request()['data'];
+    //         $req = request()['data'];
 
-            $store = \TourStores::where('id',  $req['store_id'])->first();//->value('id');
+    //         $store = \TourStores::where('id',  $req['store_id'])->first();//->value('id');
 
-            $uuid = ShortUuid();
-            $data = [
+    //         $uuid = ShortUuid();
+    //         $data = [
 
-                'store_id' => $req['store_id'],
-                'name' => $req['name'],
-                'category' => $req['category'],
-                'durasi' => $req['durasi'],
-                'description' => isset($req['description']) ? $req['description'] : '',
-                'itinerary' => $req['itinerary'],
-                'facility' => $req['facility'],
-                'province' => $req['province'],
-                'city' => isset($req['city']) ? $req['city'] : '',
-                'country' => $req['country'],
-                'level' => $req['level'],
-                'is_available' => isBoolean($req['is_available']),
-                'image' => imageFilterValue($req['image']),
+    //             'store_id' => $req['store_id'],
+    //             'name' => $req['name'],
+    //             'category' => $req['category'],
+    //             'durasi' => $req['durasi'],
+    //             'description' => isset($req['description']) ? $req['description'] : '',
+    //             'itinerary' => $req['itinerary'],
+    //             'facility' => $req['facility'],
+    //             'province' => $req['province'],
+    //             'city' => isset($req['city']) ? $req['city'] : '',
+    //             'country' => $req['country'],
+    //             'level' => $req['level'],
+    //             'is_available' => isBoolean($req['is_available']),
+    //             'image' => imageFilterValue($req['image']),
 
-                'code_table' => ('tour-products') ,
-                'uuid' => $uuid,
+    //             'code_table' => ('tour-products') ,
+    //             'uuid' => $uuid,
 
-                'slug' => slug($store->name.'-'.$req['name'], $uuid),
-                'keyword' => isset($req['keyword']) ? $req['keyword'] : NULL,
+    //             'slug' => slug($store->name.'-'.$req['name'], $uuid),
+    //             'keyword' => isset($req['keyword']) ? $req['keyword'] : NULL,
 
-            ];
+    //         ];
 
-            $validator = Validator::make($data,
-                [
-                    'store_id' => 'required',
-                    // susah karena pake softDelete, pakai cara manual saja
-                    // 'ticket_id' => [
-                    //     'required', \Illuminate\Validation\Rule::unique('travel_bookings')->ignore($req['id'])
-                    // ],
-                ],
-                [
-                    // 'user_id.unique' => 'User sudah terdaftar'
-                ]
-            );
-            if ($validator->fails()) {
-                $errors = json_decode($validator->errors(), True);
-                foreach ($errors as $key => $value) {
-                    return ApiResponse::failed(implode('',$value));
-                }
-            }
+    //         $validator = Validator::make($data,
+    //             [
+    //                 'store_id' => 'required',
+    //                 // susah karena pake softDelete, pakai cara manual saja
+    //                 // 'ticket_id' => [
+    //                 //     'required', \Illuminate\Validation\Rule::unique('travel_bookings')->ignore($req['id'])
+    //                 // ],
+    //             ],
+    //             [
+    //                 // 'user_id.unique' => 'User sudah terdaftar'
+    //             ]
+    //         );
+    //         if ($validator->fails()) {
+    //             $errors = json_decode($validator->errors(), True);
+    //             foreach ($errors as $key => $value) {
+    //                 return ApiResponse::failed(implode('',$value));
+    //             }
+    //         }
 
-            $stored_data = TourBookingsPayments::insert($data);
+    //         $stored_data = TourBookingsPayments::insert($data);
 
-            activity($data_type->display_name_singular)
-                ->causedBy(auth()->user() ?? null)
-                ->withProperties(['attributes' => $stored_data])
-                ->log($data_type->display_name_singular.' has been created');
+    //         activity($data_type->display_name_singular)
+    //             ->causedBy(auth()->user() ?? null)
+    //             ->withProperties(['attributes' => $stored_data])
+    //             ->log($data_type->display_name_singular.' has been created');
 
-            DB::commit();
+    //         DB::commit();
 
-            // add event notification handle
-            $table_name = $data_type->name;
-            FCMNotification::notification(FCMNotification::$ACTIVE_EVENT_ON_CREATE, $table_name);
+    //         // add event notification handle
+    //         $table_name = $data_type->name;
+    //         FCMNotification::notification(FCMNotification::$ACTIVE_EVENT_ON_CREATE, $table_name);
 
-            return ApiResponse::onlyEntity($stored_data);
-        } catch (Exception $e) {
-            DB::rollBack();
+    //         return ApiResponse::onlyEntity($stored_data);
+    //     } catch (Exception $e) {
+    //         DB::rollBack();
 
-            return ApiResponse::failed($e);
-        }
-    }
+    //         return ApiResponse::failed($e);
+    //     }
+    // }
 
     public function delete(Request $request)
     {

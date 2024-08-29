@@ -51,17 +51,21 @@ class RouteServiceProvider extends ServiceProvider
             Route::prefix('')
                 ->middleware('api')
                 ->namespace($this->namespace)
-                ->group(base_path('routes/custom-api.php'));
+                ->group(function ($router) {
+                    require base_path('routes/custom-api.php');
+                    require base_path('routes/lagia.php');
+                });
+                // ->group(base_path('routes/custom-api.php'));
 
-            Route::prefix('')
-                ->middleware('api')
-                ->namespace($this->namespace)
-                ->group(base_path('routes/api-midtrans.php'));
+            // Route::prefix('')
+            //     ->middleware('api')
+            //     ->namespace($this->namespace)
+            //     ->group(base_path('routes/api-midtrans.php'));
 
-            Route::prefix('')
-                ->middleware('api')
-                ->namespace($this->namespace)
-                ->group(base_path('routes/lagia.php'));
+            // Route::prefix('')
+            //     ->middleware('api')
+            //     ->namespace($this->namespace)
+            //     ->group(base_path('routes/lagia.php'));
 
 
             Route::prefix('api')
@@ -83,6 +87,8 @@ class RouteServiceProvider extends ServiceProvider
                     // require base_path('routes/api-typehead-offers.php');
 
                     require base_path('routes/api-notification.php');
+
+                    require base_path('routes/api-midtrans.php');
                 });
 
             Route::middleware('web')

@@ -160,6 +160,16 @@ Route::group(
 
             // CHECKOUT TOUR
             Route::post('/tour-bookings/lagia/add', '\App\Http\Controllers\Tours\TourBookingsController@add');
+
+
+            Route::get('/apasih', function() {
+                return 11111;
+            });
+
+            Route::post('/apasih/post', function(Request $request) {
+                return $request->getContent();
+            }); //->middleware('cors');
+
         });
 
 
