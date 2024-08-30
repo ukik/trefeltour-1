@@ -203,7 +203,7 @@ class TourBookingsPaymentsController extends Controller
                 // 'tourStores',
                 'badasoUser',
                 'tourBookingItem.tourBookingPayments' => function($q) {
-                    return $q->where('status','capture');
+                    return $q->where('transaction_status','capture');
                 },
                 'tourBooking',
                 'tourStore',

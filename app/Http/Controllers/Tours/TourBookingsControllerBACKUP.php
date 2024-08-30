@@ -683,9 +683,6 @@ class TourBookingsControllerBACKUP extends Controller
                     'city' => $city,
                     'address' => $address,
 
-                    'full_payment_paid' => 0,
-                    'full_payment_unpaid' => 0,
-
                     'code_table' => ('tour-bookings'),
                     'uuid' => $uuid,
                 ];

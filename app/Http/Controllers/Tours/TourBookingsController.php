@@ -594,12 +594,12 @@ class TourBookingsController extends Controller
                 $price_ids[] = $value['priceId'];
             }
 
-            // $description = request()->description;
+            $product_slug = request()->product_slug;
 
             $date_start = request()->date_start;
             $participant_adult = request()->participant_adult;
             $participant_young = request()->participant_young;
-            $description = request()->description ?: NULL;
+            $description = request()->description;
             $hotel = request()->hotel;
             $dibayar = request()->dibayar;
             $dibayar_percent = request()->dibayar_percent;
@@ -688,9 +688,6 @@ class TourBookingsController extends Controller
                     'phone' => $phone,
                     'city' => $city,
                     'address' => $address,
-
-                    'full_payment_paid' => 0,
-
                     'code_table' => ('tour-bookings'),
                     'uuid' => $uuid,
                 ];
@@ -914,6 +911,8 @@ class TourBookingsController extends Controller
                         ];
 
                         TourBookingsPayments::insert($payments);
+
+                        $payments['product_slug'] = $product_slug;
 
                         array_push($arrPayments, $payments);
                     }
