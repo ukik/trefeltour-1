@@ -518,7 +518,7 @@
                             }}
                           </div>
                           <span v-else-if="dataRow.type == 'relation'">{{
-                            displayRelationData(record, dataRow)
+                            $displayRelationData(record, dataRow)
                           }}</span>
                             <div :class="[ dataRow.field == 'ui_date_range' ? 'row' : '']" v-else>
                                 <!-- <vs-button v-if="dataRow.field == 'booking'" type="relief" @click=" tipe='single'; selectedData = record; onPopupBooking();">Booking Ini</vs-button> -->
@@ -1497,7 +1497,7 @@ export default {
     handleSelect(data) {
       this.selected = data;
     },
-    displayRelationData(record, dataRow) {
+    $displayRelationData(record, dataRow) {
       if (dataRow.relation) {
         const relationType = dataRow.relation.relationType;
         const table = this.$caseConvert.stringSnakeToCamel(

@@ -26,6 +26,7 @@ use Uasoft\Badaso\Models\UserRole;
 use Uasoft\Badaso\Models\UserVerification;
 use Uasoft\Badaso\Traits\FileHandler;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Str;
 
 class BadasoAuthController extends Controller
@@ -44,7 +45,8 @@ class BadasoAuthController extends Controller
                 'verify',
                 'reRequestVerification',
                 'validateTokenForgetPassword'
-            ]]);
+            ]
+        ]);
     }
 
     public function secretLogin(Request $request)
@@ -110,7 +112,7 @@ class BadasoAuthController extends Controller
         try {
             $remember = $request->get('remember', false);
 
-            if(!Auth::check()) {
+            if (!Auth::check()) {
                 return ApiResponse::failed('must login again');
             }
 
@@ -158,43 +160,63 @@ class BadasoAuthController extends Controller
                 'email'    => $request->email,
                 'password' => $request->password,
             ];
-            $request->validate([
-                'email' => [
-                    'required',
-                    function ($attribute, $value, $fail) use ($credentials) {
-                        if (!$token = auth()->attempt($credentials)) {
-                            $fail(__('badaso::validation.auth.invalid_credentials'));
-                        }
-                    },
+            // $request->validate([
+            //     'email' => [
+            //         'required',
+            //         function ($attribute, $value, $fail) use ($credentials) {
+            //             if (!$token = auth()->attempt($credentials)) {
+            //                 $fail(__('badaso::validation.auth.invalid_credentials'));
+            //             }
+            //         },
+            //     ],
+            //     'password' => ['required'],
+            // ]);
+
+            $validator = Validator::make(
+                $credentials,
+                [
+                    'email' => 'required',
+                    'password' => 'required',
                 ],
-                'password' => ['required'],
-            ]);
+            );
+
+            if ($validator->fails()) {
+                $errors = json_decode($validator->errors(), True);
+                foreach ($errors as $key => $value) {
+                    return ApiResponse::failed(implode('', $value));
+                }
+            }
+
 
             $should_verify_email = Config::get('adminPanelVerifyEmail') == '1' ? true : false;
             if ($should_verify_email) {
                 $user = auth()->user();
-                if (is_null($user->email_verified_at)) {
-                    $token = rand(111111, 999999);
-                    $token_lifetime = env('VERIFICATION_TOKEN_LIFETIME', 5);
-                    $expired_token = date('Y-m-d H:i:s', strtotime("+$token_lifetime minutes", strtotime(date('Y-m-d H:i:s'))));
-                    $data = [
-                        'user_id'            => $user->id,
-                        'verification_token' => $token,
-                        'expired_at'         => $expired_token,
-                        'count_incorrect'    => 0,
-                    ];
+                if ($user) {
+                    if (is_null($user?->email_verified_at)) {
+                        $token = rand(111111, 999999);
+                        $token_lifetime = env('VERIFICATION_TOKEN_LIFETIME', 5);
+                        $expired_token = date('Y-m-d H:i:s', strtotime("+$token_lifetime minutes", strtotime(date('Y-m-d H:i:s'))));
+                        $data = [
+                            'user_id'            => $user->id,
+                            'verification_token' => $token,
+                            'expired_at'         => $expired_token,
+                            'count_incorrect'    => 0,
+                        ];
 
-                    UserVerification::firstOrCreate($data);
+                        UserVerification::firstOrCreate($data);
 
-                    $this->sendVerificationToken(['user' => $user, 'token' => $token]);
+                        $this->sendVerificationToken(['user' => $user, 'token' => $token]);
 
-                    // dimatikan karena aneh, masak habis kirim email stop disini kan salah jalur
-                    // return ApiResponse::success();
+                        // dimatikan karena aneh, masak habis kirim email stop disini kan salah jalur
+                        // return ApiResponse::success();
+                    }
                 }
             }
 
             $ttl = $this->getTTL($remember);
             $token = auth()->setTTL($ttl)->attempt($credentials);
+
+            if(!$token) return ApiResponse::failed('Gagal login');
 
             activity('Authentication')
                 ->causedBy(auth()->user() ?? null)
@@ -228,25 +250,51 @@ class BadasoAuthController extends Controller
     {
         try {
             DB::beginTransaction();
-            $request->validate([
-                'name'     => 'required|string|max:255',
-                'username' => 'required|string|max:255|alpha_num',
-                'phone'    => 'required|numeric|min:6',
-                'email'    => 'required|string|email|max:255|unique:Uasoft\Badaso\Models\User',
-                'password' => 'required|string|min:6|confirmed',
-                // 'address'  => 'required|string|max:255',
-                'gender'   => 'required|string',
-            ]);
 
-            $user = User::create([
+            $data = [
                 'name'     => $request->get('name'),
-                'username' => $request->get('username'),
+                'username' => ShortUuid(), //$request->get('username'),
                 'phone' => $request->get('phone'),
                 'email'    => $request->get('email'),
                 'password' => Hash::make($request->get('password')),
                 // 'address'  => $request->get('address'),
-                'gender'  => $request->get('gender'),
-            ]);
+                'gender'  => $request->get('gender') == 'Gender' ? 'none' : $request->get('gender'),
+            ];
+
+            // $request->validate([
+            //     'name'     => 'required|string|max:255',
+            //     // 'username' => 'required|string|max:255|alpha_num',
+            //     'phone'    => 'required|numeric|min:6',
+            //     'email'    => 'required|string|email|max:255|unique:Uasoft\Badaso\Models\User',
+            //     'password' => 'required|string|min:6|confirmed',
+            //     // 'address'  => 'required|string|max:255',
+            //     // 'gender'   => 'required|string',
+            // ]);
+
+            $validator = Validator::make(
+                $data,
+                [
+                    'name'     => 'required|string|max:255',
+                    // 'username' => 'required|string|max:255|alpha_num',
+                    'phone'    => 'required|numeric|min:6',
+                    // 'email'    => 'required|string|email|max:255|unique:Uasoft\Badaso\Models\User',
+                    'email'    => 'required|string|email|unique:badaso_users',
+                    // 'password' => 'required|string|min:6|confirmed',
+                    'password' => 'required|string|min:6',
+                    // 'address'  => 'required|string|max:255',
+                    // 'gender'   => 'required|string',
+                ],
+            );
+
+            if ($validator->fails()) {
+                $errors = json_decode($validator->errors(), True);
+                foreach ($errors as $key => $value) {
+                    return ApiResponse::failed(implode('', $value));
+                }
+            }
+
+
+            $user = User::create($data);
 
             $role = $this->getCustomerRole();
 
@@ -440,9 +488,25 @@ class BadasoAuthController extends Controller
     public function forgetPassword(Request $request)
     {
         try {
-            $request->validate([
-                'email' => ['required', 'email', 'exists:Uasoft\Badaso\Models\User,email'],
-            ]);
+            // $request->validate([
+            //     'email' => ['required', 'email', 'exists:Uasoft\Badaso\Models\User,email'],
+            // ]);
+
+            $validator = Validator::make(
+                [
+                    'email' => $request->email,
+                ],
+                [
+                    'email' => ['required', 'email', 'exists:Uasoft\Badaso\Models\User,email'],
+                ],
+            );
+
+            if ($validator->fails()) {
+                $errors = json_decode($validator->errors(), True);
+                foreach ($errors as $key => $value) {
+                    return ApiResponse::failed(implode('', $value));
+                }
+            }
 
             $token = rand(111111, 999999);
 

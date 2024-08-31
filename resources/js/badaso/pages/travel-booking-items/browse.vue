@@ -323,7 +323,7 @@
                               }}
                             </div>
                             <span v-else-if="dataRow.type == 'relation'">{{
-                              displayRelationData(record, dataRow)
+                              $displayRelationData(record, dataRow)
                             }}</span>
                             <div v-else>
                             <span v-if="dataRow.field == 'get_price'">
@@ -834,16 +834,15 @@
       handleSelect(data) {
         this.selected = data;
       },
-      displayRelationData(record, dataRow) {
-        if (dataRow.relation) {
+    $displayRelationData(record, dataRow) {
+      if (dataRow.relation) {
+        try {
           const relationType = dataRow.relation.relationType;
-          const table = this.$caseConvert.stringSnakeToCamel(
+          const table = this.$caseConvert?.stringSnakeToCamel(
             dataRow.relation.destinationTable
           );
-          this.$caseConvert.stringSnakeToCamel(
-            dataRow.relation.destinationTableColumn
-          );
-          const displayColumn = this.$caseConvert.stringSnakeToCamel(
+          this.$caseConvert?.stringSnakeToCamel(dataRow.relation.destinationTableColumn);
+          const displayColumn = this.$caseConvert?.stringSnakeToCamel(
             dataRow.relation.destinationTableDisplayColumn
           );
           if (relationType == "has_one") {
@@ -855,27 +854,30 @@
               return ls[displayColumn];
             });
             return flatList.join(", ");
-          } else if(relationType == "belongs_to"){
+          } else if (relationType == "belongs_to") {
             const lists = record[table];
-            let field = this.$caseConvert.stringSnakeToCamel(dataRow.field)
-            for(let list of lists){
-              if (list.id == record[field]){
+            let field = this.$caseConvert?.stringSnakeToCamel(dataRow.field);
+            for (let list of lists) {
+              if (list.id == record[field]) {
                 return list[displayColumn];
               }
             }
-          }  else if (relationType == "belongs_to_many") {
-            let field = this.$caseConvert.stringSnakeToCamel(dataRow.field)
-            const lists = record[field]
-            let flatList = []
+          } else if (relationType == "belongs_to_many") {
+            let field = this.$caseConvert?.stringSnakeToCamel(dataRow.field);
+            const lists = record[field];
+            let flatList = [];
             Object.keys(lists).forEach(function (ls, key) {
               flatList.push(lists[ls][displayColumn]);
             });
             return flatList.join(",").replace(",", ", ");
           }
-        } else {
-          return null;
+        } catch (error) {
+          console.log("error", error);
         }
-      },
+      } else {
+        return null;
+      }
+    },
       prepareExcelExporter() {
         for (const iterator of this.dataType.dataRows) {
           this.fieldsForExcel[iterator.displayName] =

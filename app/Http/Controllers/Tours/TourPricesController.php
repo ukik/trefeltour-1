@@ -162,8 +162,8 @@ class TourPricesController extends Controller
             $data = \TourPrices::with([
                 'customer',
                 'tourStores',
-                // 'tourStore.badasoUsers',
-                // 'tourStore.badasoUser',
+                'tourStore.badasoUsers',
+                'tourStore.badasoUser',
                 // 'tourStore.ratingAvg',
                 'tourProduct',
                 'tourProduct.ratingAvg',

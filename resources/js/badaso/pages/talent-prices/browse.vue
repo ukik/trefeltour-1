@@ -414,7 +414,7 @@
                             {{ record[$caseConvert.stringSnakeToCamel(dataRow.field)] }}
                           </div>
                           <span v-else-if="dataRow.type == 'relation'">{{
-                            displayRelationData(record, dataRow)
+                            $displayRelationData(record, dataRow)
                           }}</span>
                           <div v-else>
                             <span v-if="dataRow.field == 'general_price'">
@@ -812,7 +812,7 @@
                               {{ record[$caseConvert.stringSnakeToCamel(dataRow.field)] }}
                             </div>
                             <span v-else-if="dataRow.type == 'relation'">{{
-                              displayRelationData(record, dataRow)
+                              $displayRelationData(record, dataRow)
                             }}</span>
                             <span v-else>{{
                               record[$caseConvert.stringSnakeToCamel(dataRow.field)]
@@ -1423,7 +1423,7 @@ export default {
     handleSelect(data) {
       this.selected = data;
     },
-    displayRelationData(record, dataRow) {
+    $displayRelationData(record, dataRow) {
       if (dataRow.relation) {
         const relationType = dataRow.relation.relationType;
         const table = this.$caseConvert.stringSnakeToCamel(

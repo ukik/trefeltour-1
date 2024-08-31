@@ -203,7 +203,7 @@
                           }}
                         </div>
                         <span v-else-if="dataRow.type == 'relation'">{{
-                          displayRelationData(record, dataRow)
+                          $displayRelationData(record, dataRow)
                         }}</span>
                             <div v-else>
                                 <!-- {{ record }} -->
@@ -368,7 +368,7 @@ export default {
         return [];
       }
     },
-    displayRelationData(record, dataRow) {
+    $displayRelationData(record, dataRow) {
       const table = this.$caseConvert.stringSnakeToCamel(
         dataRow.relation.destinationTable
       );
