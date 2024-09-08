@@ -14,7 +14,7 @@
                 }}
               </h3>
 
-              <DialogUser @onBubbleEvent="updateTypeHead($event)" />
+              <!-- <DialogUser @onBubbleEvent="updateTypeHead($event)" /> -->
 
               <!-- <custom-dialog-country
                 ref="country"

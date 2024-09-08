@@ -603,6 +603,9 @@ class TourBookingsController extends Controller
             $hotel = request()->hotel;
             $dibayar = request()->dibayar;
             $dibayar_percent = request()->dibayar_percent;
+
+            if($dibayar_percent < 30 || $dibayar_percent > 100) return ApiResponse::failed("Nilai persen wajib 30% - 100%");
+
             $dibayar_percent = $dibayar == 'full_payment' ? 100 : $dibayar_percent;
 
             $room_qty = request()->room_qty;

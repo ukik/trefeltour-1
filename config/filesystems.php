@@ -29,6 +29,13 @@ return [
     */
 
     'disks' => [
+        'public_uploads' => [ // GUNAKAN INI SAAT DI SERVER, JADIKAN INI DEFAULT AJA
+            'driver' => 'local',
+            'root'   => public_path() . '/storage',
+            'visibility' => 'public',
+            'url' => env('APP_URL_STORAGE').'/storage', // LOCAL ONLY
+            // 'url' => url('storage') ini udah BENAR di SERVER cuma waktu di pake ke local: php artisan akan ERROR jadi alternative bisa ENV FILESYSTEM_DRIVER di ubah ke public
+        ],
 
         'local' => [
             'driver' => 'local',

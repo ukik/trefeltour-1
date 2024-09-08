@@ -2,13 +2,10 @@
 
 namespace App\Http\Controllers\Tours;
 
-use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\Facades\Validator;
 use App\Http\Controllers\Badaso\Controller;
-use App\Notifications\NotifyClientToAdminNotification;
 // use App\Http\Controllers\Controller;
 use Exception;
-use Faker\Core\Number;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Uasoft\Badaso\Helpers\ApiResponse;
@@ -16,8 +13,9 @@ use Uasoft\Badaso\Helpers\Firebase\FCMNotification;
 use Uasoft\Badaso\Helpers\GetData;
 use Uasoft\Badaso\Models\DataType;
 use Illuminate\Support\Facades\Auth;
-use TourPayments;
-use TourPaymentsValidations;
+use TourBookingsPayments;
+use TourProducts;
+use TourStores;
 
 class TourPaymentsController extends Controller
 {
@@ -25,10 +23,9 @@ class TourPaymentsController extends Controller
     public $isLogged;
     public $isRole;
 
-    public function __construct()
-    {
+    public function __construct() {
 
-        if (Auth::check()) {
+        if(Auth::check()) {
 
             $this->isLogged = true;
 
@@ -37,6 +34,7 @@ class TourPaymentsController extends Controller
             }
 
             $this->isRole = $role;
+
         } else {
             return ApiResponse::unauthorized();
         }
@@ -53,83 +51,44 @@ class TourPaymentsController extends Controller
 
             // $data = $this->getDataList($slug, $request->all(), $only_data_soft_delete);
 
-            $data = \TourPayments::with([
-                'badasoUser',
-                'badasoUsers',
-                'tourBookings',
-                'tourBooking',
-                'tourPaymentsValidation',
-                'tourPaymentsValidations',
-            ])->orderBy('id', 'desc');
-            if (request()['showSoftDelete'] == 'true') {
+            $data = TourBookingsPayments::with([
+                'tourStores',
+                'tourStore.badasoUser',
+                'tourStore.badasoUsers',
+                // 'tourStore.tourProduct',
+                // 'tourStore.tourProducts',
+                // 'tourStore.tourBooking',
+                // 'tourStore.tourBookings',
+                'tourPrice',
+                'tourPrices',
+                'ratingAvg',
+            ])->orderBy('id','desc')->withCount('tourPrices');
+            if(request()['showSoftDelete'] == 'true') {
                 $data = $data->onlyTrashed();
             }
-
-            // if(request()->search) {
-            //     $search = request()->search;
-            //     // $productId = function($q) use ($search) {
-            //     //     return $q->where('name','like','%'.$search.'%');
-            //     // };
-            //     $booking = function($q) use ($search) {
-            //         return $q
-            //             ->where('uuid','like','%'.$search.'%');
-            //             // ->orWhere('name','like','%'.$search.'%')
-            //             // ->orWhere('general_price','like','%'.$search.'%')
-            //             // ->orWhere('discount_price','like','%'.$search.'%')
-            //             // ->orWhere('cashback_price','like','%'.$search.'%');
-            //     };
-            //     $customerId = function($q) use ($search) {
-            //         return $q->where('name','like','%'.$search.'%');
-            //     };
-
-            //     $columns = Schema::getColumnListing('tour_payments');
-
-            //     foreach ($columns as $value) {
-            //         switch ($value) {
-            //             case "booking_id":
-            //             case "customer_id":
-            //             case "code_table":
-            //             case "created_at":
-            //             case "updated_at":
-            //             case "deleted_at":
-            //                 # code...
-            //                 break;
-            //             default:
-            //                 $data->orWhere($value,'like','%'.$search.'%');
-            //                 break;
-            //         }
-            //     }
-
-            //     $data = $data
-            //         ->orWhereHas('badasoUser', $customerId)
-            //         ->orWhereHas('tourBooking', $booking);
-            //         // ->orWhereHas('tourProduct', $productId);
+            // if(request()['label'] == 'SharedTableModal') {
+            //     $data = $data->where('is_available','true');
             // }
-
 
 
             if(request()->search) {
                 $search = request()->search;
 
-                $booking_id = function($q) use ($search) {
+                $columns = \Illuminate\Support\Facades\Schema::getColumnListing('tour_products');
+
+                $store_id = function($q) use ($search) {
                     return $q
-                        ->where('uuid','like','%'.$search.'%');
+                        ->where('uuid','like','%'.$search.'%')
+                        ->orWhere('name','like','%'.$search.'%');
                 };
 
-                $customer_id = function($q) use ($search) {
-                    return $q
-                        ->where('name','like','%'.$search.'%')
-                        ->orWhere('username','like','%'.$search.'%')
-                        ->orWhere('email','like','%'.$search.'%')
-                        ->orWhere('phone','like','%'.$search.'%');
-                };
-
-                $columns = \Illuminate\Support\Facades\Schema::getColumnListing('tour_payments');
+                $data
+                    // ->orWhere('id','like','%'.$search.'%')
+                    ->orWhereHas('tourStore', $store_id);
 
                 foreach ($columns as $value) {
                     switch ($value) {
-                        // case "booking_id":
-                        // case "customer_id":
+                        // case "store_id":
                         case "code_table":
                         //case "created_at":
                         //case "updated_at":
@@ -138,49 +97,66 @@ class TourPaymentsController extends Controller
                             break;
                         default:
                             $data->orWhere($value,'like','%'.$search.'%');
-                            break;
                     }
                 }
 
-                $data = $data
-                    ->orWhereHas('badasoUser', $customer_id)
-                    ->orWhereHas('tourBooking', $booking_id);
+            }
+
+            if(request()->available) {
+                $available = request()->available;
+                $data->where('is_available',$available);
+            }
+
+            if(request()->category) {
+                $category = request()->category;
+                $data->where('category',$category);
+            }
+
+            if(request()->parentId) {
+                $parentId = request()->parentId;
+                $data->where('store_id',$parentId);
             }
 
 
-            if(request()->method) {
-                $method = request()->method;
-                $data->where('method',$method);
+            // ================================================
+            // jika di LAGIA referensi ke sini
+            $additional = NULL;
+            if(request()->vendor) {
+                $data = $data->where('store_id',request()->vendor);
+                $additional = TourStores::whereId(request()->vendor)->with(['ratingAvg'])->first();
             }
+            // ================================================
 
-            if(request()->status) {
-                $status = request()->status;
-                $data->where('status',$status);
-            }
-
-            if(request()->is_selected) {
-                $is_selected = request()->is_selected;
-                $data->where('is_selected',$is_selected);
-            }
-
-            if(request()->component == 'SharedTableModalPaymentValidation') {
-                $data->where('is_selected', 'false');
-            }
-
-            // Role Data
-            // Client hanya bisa melihat data mereka sendiri
-            if(isClientOnly()) {
-                $data->where('customer_id',authID());
-            }
-
-            $data = $data->paginate(request()->perPage);
+            $data = $data->select(
+                'id',
+                'store_id',
+                'uuid',
+                'name',
+                'category',
+                'durasi',
+                'description',
+                'itinerary',
+                'facility',
+                'image',
+                'level',
+                'province',
+                'city',
+                'country',
+                'is_available',
+                'code_table',
+                'created_at',
+                'updated_at',
+                'deleted_at',
+                'slug',
+                'keyword'
+            )->paginate(request()->perPage);
 
             // $encode = json_encode($paginate);
             // $decode = json_decode($encode);
             // $data['data'] = $decode->data;
             // $data['total'] = $decode->total;
 
-            return ApiResponse::onlyEntity($data);
+            return ApiResponse::onlyEntity($data, additional:$additional);
         } catch (Exception $e) {
             return ApiResponse::failed($e);
         }
@@ -209,6 +185,53 @@ class TourPaymentsController extends Controller
         }
     }
 
+    public function read_lagia(Request $request)
+    {
+
+        try {
+            $request->validate([
+                'id' => 'required',
+            ]);
+            $slug = $this->getSlug($request);
+            // $data_type = $this->getDataType($slug);
+            // $request->validate([
+            //     'id' => 'exists:'.$data_type->name,
+            // ]);
+
+            // $data = $this->getDataDetail($slug, $request->id);
+            $data = TourBookingsPayments::with([
+                // 'tourStores',
+                'badasoUser',
+                'tourBookingItem.tourBookingPayments' => function($q) {
+                    return $q->where('transaction_status','capture');
+                },
+                'tourBooking',
+                'tourStore',
+                'tourProduct' => function($q) {
+                    return $q;
+                    // return $q->select('id','category','durasi');
+                },
+                // 'tourStore.badasoUsers',
+                // 'tourStore.tourProduct',
+                // 'tourStore.tourProducts',
+                // 'tourStore.tourBooking',
+                // 'tourStore.tourBookings',
+                // 'tourPrice',
+                // 'tourPrices',
+                // 'ratingAvg',
+            ])->whereOrderId($request->id)->first();
+
+            // add event notification handle
+            $table_name = "tour_booking_payments"; //$data_type->name;
+            FCMNotification::notification(FCMNotification::$ACTIVE_EVENT_ON_READ, $table_name);
+
+            return ApiResponse::onlyEntity($data);
+        } catch (Exception $e) {
+            return ApiResponse::failed($e);
+        }
+    }
+
+
     public function read(Request $request)
     {
 
@@ -219,25 +242,21 @@ class TourPaymentsController extends Controller
             $slug = $this->getSlug($request);
             $data_type = $this->getDataType($slug);
             $request->validate([
-                'id' => 'exists:' . $data_type->name,
+                'id' => 'exists:'.$data_type->name,
             ]);
 
             // $data = $this->getDataDetail($slug, $request->id);
-            $data = \TourPayments::query();
-
-            // Role Data
-            // Client hanya bisa melihat data mereka sendiri
-            if(isClientOnly()) {
-                $data->where('customer_id',authID());
-            }
-
-            $data = $data->with([
-                'badasoUser',
-                'badasoUsers',
-                'tourBookings',
-                'tourBooking',
-                'tourPaymentsValidation',
-                'tourPaymentsValidations',
+            $data = TourBookingsPayments::with([
+                'tourStores',
+                'tourStore.badasoUser',
+                'tourStore.badasoUsers',
+                // 'tourStore.tourProduct',
+                // 'tourStore.tourProducts',
+                // 'tourStore.tourBooking',
+                // 'tourStore.tourBookings',
+                'tourPrice',
+                'tourPrices',
+                'ratingAvg',
             ])->whereId($request->id)->first();
 
             // add event notification handle
@@ -250,163 +269,173 @@ class TourPaymentsController extends Controller
         }
     }
 
-    public function edit(Request $request)
-    {
+    // public function edit(Request $request)
+    // {
+    //     // return $slug = $this->getSlug($request);
+    //     DB::beginTransaction();
 
-        DB::beginTransaction();
+    //     //isOnlyAdminTour();
 
-        $value = request()['data']['id'];
-        $check = TourPaymentsValidations::where('payment_id', $value)->first();
-        if ($check && !isAdminTour()) return ApiResponse::failed("Tidak bisa diubah kecuali oleh admin, data ini sudah digunakan");
+    //     try {
 
-        try {
+    //         // get slug by route name and get data type
+    //         $slug = $this->getSlug($request);
+    //         $data_type = $this->getDataType($slug);
 
-            // get slug by route name and get data type
-            $slug = $this->getSlug($request);
-            $data_type = $this->getDataType($slug);
+    //         $table_entity = TourBookingsPayments::where('id', $request->data['id'])
+    //             ->with('tourStore')->first();
 
-            $table_entity = \TourPayments::where('id', $request->data['id'])->with('tourBooking')->first();
-            $temp = $table_entity->tourBooking;
-            // $temp = \TourBookings::where('id', $request->data['booking_id'])->first();
+    //         $store = $table_entity->tourStore;//->value('id');
 
-            $req = request()['data'];
-            $data = [
-                'customer_id' => $temp->customer_id,
-                'booking_id' => $temp->id,
+    //         $req = request()['data'];
 
-                'total_amount' => $temp->get_final_amount,
-                'code_transaction' => $req['code_transaction'],
-                'method' => $req['method'],
-                'date' => $req['date'],
-                'status' => $req['status'],
-                'receipt' => $req['receipt'],
-                // 'description' => $req['description'],
-                'code_table' => ('tour-payments'),
-                'uuid' => $table_entity->uuid ?: ShortUuid(),
-            ];
+    //         $uuid = ShortUuid();
+    //         $data = [
 
-            $validator = Validator::make(
-                $data,
-                [
-                    '*' => 'required',
-                    'booking_id' => 'unique:tour_payments_unique,booking_id,' . $req['id']
-                    // susah karena pake softDelete, pakai cara manual saja
-                    // 'booking_id' => 'unique:travel_payments,booking_id,'.$req['id'] //\Illuminate\Validation\Rule::unique('travel_payments')->ignore($req['id'])
-                ],
-            );
-            if ($validator->fails()) {
-                $errors = json_decode($validator->errors(), True);
-                foreach ($errors as $key => $value) {
-                    return ApiResponse::failed(implode('', $value));
-                }
-            }
+    //             'store_id' => $store->id,
+    //             'name' => $req['name'],
+    //             'category' => $req['category'],
+    //             'durasi' => $req['durasi'],
+    //             'description' => isset($req['description']) ? $req['description'] : '',
+    //             'itinerary' => $req['itinerary'],
+    //             'facility' => $req['facility'],
+    //             'province' => $req['province'],
+    //             'city' => isset($req['city']) ? $req['city'] : '',
+    //             'country' => $req['country'],
+    //             'level' => $req['level'],
+    //             'is_available' => isBoolean($req['is_available']),
+    //             'image' => imageFilterValue($req['image']),
 
-            $data['description'] = $req['description'];
+    //             'code_table' => ('tour-products') ,
+    //             'uuid' => $table_entity->uuid ?: $uuid,
 
-            \TourPayments::where('id', $request->data['id'])->update($data);
-            $updated['old_data'] = $table_entity;
-            $updated['updated_data'] = \TourPayments::where('id', $request->data['id'])->first();
+    //             'slug' => $table_entity->slug ?: slug($store->name.'-'.$req['name'], $uuid),
+    //             'keyword' => isset($req['keyword']) ? $req['keyword'] : NULL,
+    //         ];
 
-            DB::commit();
-            activity($data_type->display_name_singular)
-                ->causedBy(auth()->user() ?? null)
-                ->withProperties([
-                    'old' => $updated['old_data'],
-                    'attributes' => $updated['updated_data'],
-                ])
-                ->log($data_type->display_name_singular . ' has been updated');
+    //         $validator = Validator::make($data,
+    //             [
+    //                 'store_id' => 'required',
+    //                 // susah karena pake softDelete, pakai cara manual saja
+    //                 // 'ticket_id' => [
+    //                 //     'required', \Illuminate\Validation\Rule::unique('travel_bookings')->ignore($req['id'])
+    //                 // ],
+    //             ],
+    //         );
 
-            // add event notification handle
-            $table_name = $data_type->name;
-            FCMNotification::notification(FCMNotification::$ACTIVE_EVENT_ON_UPDATE, $table_name);
+    //         if ($validator->fails()) {
+    //             $errors = json_decode($validator->errors(), True);
+    //             foreach ($errors as $key => $value) {
+    //                 return ApiResponse::failed(implode('',$value));
+    //             }
+    //         }
 
-            return ApiResponse::onlyEntity($updated['updated_data']);
-        } catch (Exception $e) {
-            DB::rollBack();
+    //         TourBookingsPayments::where('id', $request->data['id'])->update($data);
+    //         $updated['old_data'] = $table_entity;
+    //         $updated['updated_data'] = TourBookingsPayments::where('id', $request->data['id'])->first();
 
-            return ApiResponse::failed($e);
-        }
-    }
+    //         DB::commit();
+    //         activity($data_type->display_name_singular)
+    //             ->causedBy(auth()->user() ?? null)
+    //             ->withProperties([
+    //                 'old' => $updated['old_data'],
+    //                 'attributes' => $updated['updated_data'],
+    //             ])
+    //             ->log($data_type->display_name_singular.' has been updated');
 
-    public function add(Request $request)
-    {
-        DB::beginTransaction();
+    //         // add event notification handle
+    //         $table_name = $data_type->name;
+    //         FCMNotification::notification(FCMNotification::$ACTIVE_EVENT_ON_UPDATE, $table_name);
 
-        // // UNIQUE + SoftDelete
-        // // cukup CREATE aja karena di edit tidak bisa di edit relationship
-        // $unique = TourPayments::where('booking_id', $request->data['booking_id'])
-        //     ->where('deleted_at', NULL)->first();
-        // if ($unique) return ApiResponse::failed('Booking UUID sudah dipakai');
+    //         return ApiResponse::onlyEntity($updated['updated_data']);
+    //     } catch (Exception $e) {
+    //         DB::rollBack();
 
-        try {
+    //         return ApiResponse::failed($e);
+    //     }
+    // }
 
-            // get slug by route name and get data type in table
-            $slug = $this->getSlug($request);
+    // public function add(Request $request)
+    // {
+    //     DB::beginTransaction();
 
-            $data_type = $this->getDataType($slug);
+    //     //isOnlyAdminTour();
 
-            $temp = \TourBookings::where('id', $request->data['booking_id'])->first();
+    //     try {
 
-            $req = request()['data'];
-            $data = [
-                'customer_id' => $temp->customer_id,
-                'booking_id' => $temp->id,
+    //         // get slug by route name and get data type in table
+    //         $slug = $this->getSlug($request);
 
-                'total_amount' => $temp->get_final_amount,
-                'code_transaction' => $req['code_transaction'],
-                'method' => $req['method'],
-                'date' => $req['date'],
-                'status' => $req['status'],
-                'receipt' => $req['receipt'],
-                // 'description' => $req['description'],
-                'code_table' => ('tour-payments'),
-                'uuid' => ShortUuid(),
-            ];
+    //         $data_type = $this->getDataType($slug);
 
-            $validator = Validator::make(
-                $data,
-                [
-                    '*' => 'required',
-                    'booking_id' => 'unique:tour_payments_unique'
-                    // susah karena pake softDelete, pakai cara manual saja
-                    // 'booking_id' => 'unique:travel_payments'
-                ],
-            );
-            if ($validator->fails()) {
-                $errors = json_decode($validator->errors(), True);
-                foreach ($errors as $key => $value) {
-                    return ApiResponse::failed(implode('', $value));
-                }
-            }
+    //         $req = request()['data'];
 
-            $data['description'] = $req['description'];
+    //         $store = \TourStores::where('id',  $req['store_id'])->first();//->value('id');
 
-            $stored_data = \TourPayments::insert($data);
+    //         $uuid = ShortUuid();
+    //         $data = [
 
-            activity($data_type->display_name_singular)
-                ->causedBy(auth()->user() ?? null)
-                ->withProperties(['attributes' => $stored_data])
-                ->log($data_type->display_name_singular . ' has been created');
+    //             'store_id' => $req['store_id'],
+    //             'name' => $req['name'],
+    //             'category' => $req['category'],
+    //             'durasi' => $req['durasi'],
+    //             'description' => isset($req['description']) ? $req['description'] : '',
+    //             'itinerary' => $req['itinerary'],
+    //             'facility' => $req['facility'],
+    //             'province' => $req['province'],
+    //             'city' => isset($req['city']) ? $req['city'] : '',
+    //             'country' => $req['country'],
+    //             'level' => $req['level'],
+    //             'is_available' => isBoolean($req['is_available']),
+    //             'image' => imageFilterValue($req['image']),
 
-            // NOTIFICATION
-            $payload = TourPayments::where('booking_id', $request->data['booking_id'])->first();
-            if($payload['is_valid'] === 'true') {
-                NotifyToAdmin(new NotifyClientToAdminNotification(Auth::user(), 'tour', 'tour-payments', $payload, 'Booking Diproses'));
-            }
+    //             'code_table' => ('tour-products') ,
+    //             'uuid' => $uuid,
 
-            DB::commit();
+    //             'slug' => slug($store->name.'-'.$req['name'], $uuid),
+    //             'keyword' => isset($req['keyword']) ? $req['keyword'] : NULL,
 
-            // add event notification handle
-            $table_name = $data_type->name;
-            FCMNotification::notification(FCMNotification::$ACTIVE_EVENT_ON_CREATE, $table_name);
+    //         ];
 
-            return ApiResponse::onlyEntity($stored_data);
-        } catch (Exception $e) {
-            DB::rollBack();
+    //         $validator = Validator::make($data,
+    //             [
+    //                 'store_id' => 'required',
+    //                 // susah karena pake softDelete, pakai cara manual saja
+    //                 // 'ticket_id' => [
+    //                 //     'required', \Illuminate\Validation\Rule::unique('travel_bookings')->ignore($req['id'])
+    //                 // ],
+    //             ],
+    //             [
+    //                 // 'user_id.unique' => 'User sudah terdaftar'
+    //             ]
+    //         );
+    //         if ($validator->fails()) {
+    //             $errors = json_decode($validator->errors(), True);
+    //             foreach ($errors as $key => $value) {
+    //                 return ApiResponse::failed(implode('',$value));
+    //             }
+    //         }
 
-            return ApiResponse::failed($e);
-        }
-    }
+    //         $stored_data = TourBookingsPayments::insert($data);
+
+    //         activity($data_type->display_name_singular)
+    //             ->causedBy(auth()->user() ?? null)
+    //             ->withProperties(['attributes' => $stored_data])
+    //             ->log($data_type->display_name_singular.' has been created');
+
+    //         DB::commit();
+
+    //         // add event notification handle
+    //         $table_name = $data_type->name;
+    //         FCMNotification::notification(FCMNotification::$ACTIVE_EVENT_ON_CREATE, $table_name);
+
+    //         return ApiResponse::onlyEntity($stored_data);
+    //     } catch (Exception $e) {
+    //         DB::rollBack();
+
+    //         return ApiResponse::failed($e);
+    //     }
+    // }
 
     public function delete(Request $request)
     {
@@ -415,8 +444,8 @@ class TourPaymentsController extends Controller
         //isOnlyAdminTour();
 
         $value = request()['data'][0]['value'];
-        $check = TourPayments::where('id', $value)->with(['tourPaymentsValidation'])->first();
-        if($check->tourPaymentsValidation) return ApiResponse::failed("Tidak bisa dihapus, data ini digunakan");
+        $check = TourProducts::where('id', $value)->with(['tourPrice'])->first();
+        if($check->tourBooking) return ApiResponse::failed("Tidak bisa dihapus, data ini digunakan");
 
         try {
             $request->validate([
@@ -448,7 +477,7 @@ class TourPaymentsController extends Controller
             activity($data_type->display_name_singular)
                 ->causedBy(auth()->user() ?? null)
                 ->withProperties($data)
-                ->log($data_type->display_name_singular . ' has been deleted');
+                ->log($data_type->display_name_singular.' has been deleted');
 
             DB::commit();
 
@@ -487,7 +516,7 @@ class TourPaymentsController extends Controller
             activity($data_type->display_name_singular)
                 ->causedBy(auth()->user() ?? null)
                 ->withProperties($data)
-                ->log($data_type->display_name_singular . ' has been restore');
+                ->log($data_type->display_name_singular.' has been restore');
 
             DB::commit();
 
@@ -502,6 +531,8 @@ class TourPaymentsController extends Controller
     public function deleteMultiple(Request $request)
     {
         DB::beginTransaction();
+
+        //isOnlyAdminTour();
 
         try {
             $request->validate([
@@ -539,15 +570,16 @@ class TourPaymentsController extends Controller
 
             // ADDITIONAL BULK DELETE
             // -------------------------------------------- //
-            $filters = TourPayments::whereIn('id', explode(",", request()['data'][0]['value']))->with('tourPaymentsValidation')->get();
+            $filters = TourProducts::whereIn('id', explode(",",request()['data'][0]['value']))->with('tourPrice')->get();
             $temp = [];
             foreach ($filters as $value) {
-                if ($value->tourPaymentsValidation == null) {
+                if($value->tourPrice == null) {
                     array_push($temp, $value['id']);
                 }
             }
             $id_list = $temp;
             // -------------------------------------------- //
+
 
             foreach ($id_list as $id) {
                 $should_delete['id'] = $id;
@@ -557,7 +589,7 @@ class TourPaymentsController extends Controller
             activity($data_type->display_name_singular)
                 ->causedBy(auth()->user() ?? null)
                 ->withProperties($data)
-                ->log($data_type->display_name_singular . ' has been bulk deleted');
+                ->log($data_type->display_name_singular.' has been bulk deleted');
 
             DB::commit();
 
@@ -597,7 +629,7 @@ class TourPaymentsController extends Controller
             activity($data_type->display_name_singular)
                 ->causedBy(auth()->user() ?? null)
                 ->withProperties($data)
-                ->log($data_type->display_name_singular . ' has been bulk deleted');
+                ->log($data_type->display_name_singular.' has been bulk deleted');
 
             DB::commit();
 
@@ -635,7 +667,7 @@ class TourPaymentsController extends Controller
                     activity($data_type->display_name_singular)
                         ->causedBy(auth()->user() ?? null)
                         ->withProperties(['attributes' => $single_data])
-                        ->log($data_type->display_name_singular . ' has been sorted');
+                        ->log($data_type->display_name_singular.' has been sorted');
                 }
             } else {
                 foreach ($request->data as $index => $row) {
@@ -645,7 +677,7 @@ class TourPaymentsController extends Controller
                     activity($data_type->display_name_singular)
                         ->causedBy(auth()->user() ?? null)
                         ->withProperties(['attributes' => $updated_data])
-                        ->log($data_type->display_name_singular . ' has been sorted');
+                        ->log($data_type->display_name_singular.' has been sorted');
                 }
             }
 

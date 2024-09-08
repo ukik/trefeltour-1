@@ -54,10 +54,13 @@ class TourPricesController extends Controller
                 'customer',
                 // 'tourStores',
                 // 'tourStore.badasoUsers',
-                'tourStore.badasoUser',
-                'tourStore.ratingAvg',
-                'tourProduct',
-                'tourProduct.ratingAvg',
+                // 'tourStore.badasoUser',
+                // 'tourStore.ratingAvg',
+                // 'tourStore',
+                'tourProduct' => function($q) {
+                    return $q->select('id','name','slug','category','durasi','image','province');
+                },
+                // 'tourProduct.ratingAvg',
                 // 'tourProducts',
             ])->orderBy('id','desc');
             if(request()['showSoftDelete'] == 'true') {
@@ -106,7 +109,7 @@ class TourPricesController extends Controller
 
             }
 
-            $data->where('condition','public');
+            //$data->where('condition','public');
 
             // if(isClientCompany()) {
             //     $data->orWhere('condition','private')->orWhere('customer_id',authID());
@@ -213,7 +216,7 @@ class TourPricesController extends Controller
 
             }
 
-            $data->where('condition','public');
+            //$data->where('condition','public');
 
             if(isClientCompany()) {
                 $data->orWhere('condition','private')->orWhere('customer_id',authID());
@@ -322,8 +325,10 @@ class TourPricesController extends Controller
                 'condition' => $req['condition'] ?: NULL,
                 'name' => $req['name'],
                 'general_price' => $req['general_price'],
+                'general_price_child' => $req['general_price_child'],
                 'discount_price' => $req['discount_price'],
                 'cashback_price' => $req['cashback_price'],
+                'min_participant' => $req['min_participant'],
                 'stock' => $req['stock'] ?: 10000,
                 'description' => $req['description'],
 
@@ -335,8 +340,8 @@ class TourPricesController extends Controller
                 [
                     'store_id' => 'required',
                     'product_id' => 'required',
-                    '*' => 'required',
-                    'customer_id' => $req['condition'] === 'private' ? 'required' : '',
+                    //'*' => 'required',
+                    //'customer_id' => $req['condition'] === 'private' ? 'required' : '',
                     // susah karena pake softDelete, pakai cara manual saja
                     // 'ticket_id' => [
                     //     'required', \Illuminate\Validation\Rule::unique('travel_bookings')->ignore($req['id'])
@@ -400,11 +405,12 @@ class TourPricesController extends Controller
                 'condition' => $req['condition'] ?: NULL,
                 'name' => $req['name'],
                 'general_price' => $req['general_price'],
+                'general_price_child' => $req['general_price_child'],
                 'discount_price' => $req['discount_price'],
                 'cashback_price' => $req['cashback_price'],
+                'min_participant' => $req['min_participant'],
                 'stock' => $req['stock'] ?: 10000,
                 'description' => $req['description'],
-
                 'code_table' => ('tour-prices'),
                 'uuid' => ShortUuid(),
             ];
@@ -413,8 +419,8 @@ class TourPricesController extends Controller
                 [
                     'store_id' => 'required',
                     'product_id' => 'required',
-                    '*' => 'required',
-                    'customer_id' => $req['condition'] === 'private' ? 'required' : '',
+                    //'*' => 'required',
+                    //'customer_id' => $req['condition'] === 'private' ? 'required' : '',
                     // susah karena pake softDelete, pakai cara manual saja
                     // 'ticket_id' => [
                     //     'required', \Illuminate\Validation\Rule::unique('travel_bookings')->ignore($req['id'])

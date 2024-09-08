@@ -217,8 +217,8 @@ Route::group(
             Route::post('/forgot-password-verify', 'BadasoAuthController@validateTokenForgetPassword');
             Route::post('/reset-password', 'BadasoAuthController@resetPassword');
             Route::post('/refresh-token', 'BadasoAuthController@refreshToken');
-            Route::post('/verify', 'BadasoAuthController@verify');
-            Route::post('/re-request-verification', 'BadasoAuthController@reRequestVerification');
+            Route::post('/verify', 'BadasoAuthController@verify'); // VERIFIKASI AKUN
+            Route::post('/re-request-verification', 'BadasoAuthController@reRequestVerification'); // KIRIM VERIFIKASI AKUN
             Route::post('/'.env('MIX_BADASO_SECRET_LOGIN_PREFIX'), 'BadasoAuthController@secretLogin');
         });
 
@@ -231,8 +231,9 @@ Route::group(
             Route::get('/', 'BadasoAuthController@getAuthenticatedUser');
             Route::put('/change-password', 'BadasoAuthController@changePassword');
             Route::put('/profile', 'BadasoAuthController@updateProfile');
-            Route::put('/email', 'BadasoAuthController@updateEmail');
-            Route::post('/verify-email', 'BadasoAuthController@verifyEmail');
+            Route::put('/email', 'BadasoAuthController@updateEmail'); // KIRIM GANTI EMAIL
+            Route::post('/email', 'BadasoAuthController@updateEmail'); // KIRIM GANTI EMAIL
+            Route::post('/verify-email', 'BadasoAuthController@verifyEmail'); // VERIFIKASI GANTI EMAIL
         });
 
         Route::group(['prefix' => 'file'], function () {

@@ -1343,7 +1343,7 @@
       handleSelect(data) {
         this.selected = data;
       },
-      $displayRelationData(record, dataRow) {
+      displayRelationData(record, dataRow) {
         if (dataRow.relation) {
           const relationType = dataRow.relation.relationType;
           const table = this.$caseConvert.stringSnakeToCamel(

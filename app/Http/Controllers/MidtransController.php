@@ -15,7 +15,6 @@ use Midtrans\Transaction;
 use Midtrans\Config;
 use TourBookingsPayments;
 use Uasoft\Badaso\Helpers\ApiResponse;
-use ViewMidtransReferenceBookingsPayments;
 
 class MidtransController extends Controller
 {
@@ -148,27 +147,19 @@ class MidtransController extends Controller
         $gross_amount       = $notification_body['gross_amount'];
         $fraud_status       = $notification_body['fraud_status'];
 
-        $label = ViewMidtransReferenceBookingsPayments::where('order_id', $order_id)->value('label');
-
-        switch ($label) {
-            case 'TOUR':
-                TourBookingsPayments::where('order_id', $order_id)
-                    ->update([
-                        'transaction_time'      => $transaction_time,
-                        'transaction_status'    => $transaction_status,
-                        'transaction_id'        => $transaction_id,
-                        'status_message'        => $status_message,
-                        'status_code'           => $status_code,
-                        'payment_type'          => $payment_type,
-                        'gross_amount'          => $gross_amount,
-                        'fraud_status'          => $fraud_status,
-                        'payload'               => $notification_body,
-                    ]);
-
-                break;
-            default:
-                # code...
-                break;
+        if (str_contains($order_id, 'TOUR')) {
+            TourBookingsPayments::where('order_id', $order_id)
+                ->update([
+                    'transaction_time'      => $transaction_time,
+                    'transaction_status'    => $transaction_status,
+                    'transaction_id'        => $transaction_id,
+                    'status_message'        => $status_message,
+                    'status_code'           => $status_code,
+                    'payment_type'          => $payment_type,
+                    'gross_amount'          => $gross_amount,
+                    'fraud_status'          => $fraud_status,
+                    'payload'               => $notification_body,
+                ]);
         }
 
 

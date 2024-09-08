@@ -22,6 +22,7 @@ use SouvenirProducts;
 use TalentProfiles;
 use TestimonialPageModel;
 use TourismVenues;
+use TourPrices;
 use TourProducts;
 use TourStores;
 use TransportVehicles;
@@ -71,13 +72,24 @@ class IndexPageController extends Controller
             // ->whereHas('lodgeRooms')
             ->paginate(5);
 
-            $tour = TourProducts::inRandomOrder()->with([
-                'ratingAvg',
+            $tour_price = TourPrices::inRandomOrder()->with([
+                // 'ratingAvg',
+                'tourProduct' => function($q) {
+                    return $q->select('id','name','slug','category','durasi','image','province');
+                },
+                // 'tourStore',
+                // 'tourProduct',
             ])->orderBy('id','desc')
             // ->withCount('tourProducts')
             // ->whereHas('lodgeRooms')
-            ->paginate(5);
+            ->paginate(6);
 
+            $tour = TourProducts::inRandomOrder()->with([
+                // 'ratingAvg',
+            ])->orderBy('id','desc')
+            // ->withCount('tourProducts')
+            // ->whereHas('lodgeRooms')
+            ->paginate(6);
 
             $lodge = LodgeProfiles::inRandomOrder()->with([
                 'ratingAvg',
@@ -122,7 +134,7 @@ class IndexPageController extends Controller
             ])->orderBy('id','desc')
             ->withCount('transportPrices')
             ->whereHas('transportPrices')
-            ->paginate(4);
+            ->paginate(6);
 
             $page_widget_call = WidgetCallPageModel::inRandomOrder()->paginate(1);
             $page_widget_counter = WidgetCounterPageModel::inRandomOrder()->paginate(1);
@@ -136,6 +148,7 @@ class IndexPageController extends Controller
                 'testimonial' => $testimonial,
 
                 'tour_store' => $tour_store,
+                'tour_price' => $tour_price,
                 'tour' => $tour,
                 'lodge' => $lodge,
                 'culinary' => $culinary,

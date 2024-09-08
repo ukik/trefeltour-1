@@ -3,6 +3,7 @@
 // namespace Uasoft\Badaso\Controllers;
 namespace App\Http\Controllers;
 
+use Carbon\Carbon;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -293,6 +294,11 @@ class BadasoAuthController extends Controller
                 }
             }
 
+            // VALIDATE
+
+            $exist_email = User::whereEmail($data['email'])->value('email');
+            if($exist_email) return ApiResponse::failed('email sudah dipakai');
+
 
             $user = User::create($data);
 
@@ -352,7 +358,6 @@ class BadasoAuthController extends Controller
         }
     }
 
-
     public function refreshToken(Request $request)
     {
         try {
@@ -401,41 +406,6 @@ class BadasoAuthController extends Controller
             return Mail::to($data['user']['email'])->queue(new SendUserVerification($data));
         } catch (\Throwable $th) {
             //throw $th;
-        }
-    }
-
-    public function verify(Request $request)
-    {
-        try {
-            $request->validate([
-                'email' => ['required', 'exists:Uasoft\Badaso\Models\User'],
-                'token' => ['required'],
-            ]);
-
-            $user = User::where('email', $request->email)->first();
-            $user_verification = UserVerification::where('verification_token', $request->token)
-                ->where('user_id', $user->id)
-                ->first();
-
-            if ($user_verification) {
-                if (strtotime(date('Y-m-d H:i:s')) > strtotime($user_verification->expired_at)) {
-                    // $user_verification->delete();
-                    throw new SingleException('EXPIRED');
-                }
-                $user->email_verified_at = date('Y-m-d H:i:s');
-                $user->save();
-
-                $user_verification->delete();
-            } else {
-                throw new SingleException(__('badaso::validation.verification.invalid_verification_token'));
-            }
-
-            $ttl = $this->getTTL();
-            $token = auth()->setTTL($ttl)->login($user);
-
-            return $this->createNewToken($token, auth()->user());
-        } catch (Exception $e) {
-            return ApiResponse::failed($e);
         }
     }
 
@@ -517,7 +487,7 @@ class BadasoAuthController extends Controller
             ]);
 
             $user = User::where('email', $request->email)->first();
-            Mail::to($request->email)->send(new ForgotPassword($user, $token));
+            return Mail::to($request->email)->send(new ForgotPassword($user, $token));
 
             return ApiResponse::success();
         } catch (Exception $e) {
@@ -597,6 +567,50 @@ class BadasoAuthController extends Controller
     }
 
 
+
+    // VERIFIKASI AKUN
+    public function verify(Request $request)
+    {
+        try {
+            $request->validate([
+                'email' => ['required', 'exists:Uasoft\Badaso\Models\User'],
+                'token' => ['required'],
+            ]);
+
+            // $user = User::where('email', $request->email)->first();
+            $email = $request->email;
+            $user = User::where('email', $email)->first();
+            if($user->email_verified_at) return ApiResponse::success([
+                'message' => 'email sudah terverifikasi', //__('badaso::validation.verification.email_sended'),
+            ]);
+
+            $user_verification = UserVerification::where('verification_token', $request->token)
+                ->where('user_id', $user->id)
+                ->first();
+
+            if ($user_verification) {
+                if (strtotime(date('Y-m-d H:i:s')) > strtotime($user_verification->expired_at)) {
+                    // $user_verification->delete();
+                    throw new SingleException('EXPIRED');
+                }
+                $user->email_verified_at = date('Y-m-d H:i:s');
+                $user->save();
+
+                $user_verification->delete();
+            } else {
+                throw new SingleException(__('badaso::validation.verification.invalid_verification_token'));
+            }
+
+            $ttl = $this->getTTL();
+            $token = auth()->setTTL($ttl)->login($user);
+
+            return $this->createNewToken($token, auth()->user());
+        } catch (Exception $e) {
+            return ApiResponse::failed($e);
+        }
+    }
+
+    // KIRIM VERIFIKASI AKUN
     public function reRequestVerification(Request $request)
     {
         try {
@@ -605,32 +619,58 @@ class BadasoAuthController extends Controller
                 'email' => 'required|string|email|max:255',
             ]);
 
-            $user = User::where('email', $request->email)->first();
+            $email = $request->email;
+            // $user = User::where('email', $email)->where('email_verified_at',NULL)->first();
+            // if(!$user) return ApiResponse::success('email sudah terverifikasi');
+
+            $user = User::where('email', $email)->first();
+            if($user->email_verified_at) return ApiResponse::success([
+                'message' => 'email sudah terverifikasi', //__('badaso::validation.verification.email_sended'),
+            ]);
+
+
             $time_wait_to_resend_token = Configuration::where('key', 'timeWaitResendToken')->first();
             $date_now = date('Y-m-d H:i:s');
             $time_out_token = date('Y-m-d H:i:s', strtotime($user->last_sent_token_at . ' +  ' . $time_wait_to_resend_token->value . ' second'));
             $user_verification = UserVerification::where('user_id', $user->id)
+                ->whereDate('updated_at', Carbon::today())
                 ->first();
+
+            if($user_verification) {
+                if($user_verification->total_daily_request > 5) {
+                    return ApiResponse::failed('batas maksimal, permintaan email verifikasi adalah 5 kali');
+                }
+            }
 
             if ($date_now < $time_out_token) {
                 // throw new SingleException(__('badaso::validation.verification.time_wait_loading'));
             }
 
-            User::where('email', $request->get('email'))->update([
+            User::where('email', $email)->update([
                 'last_sent_token_at' => date('Y-m-d H:i:s'),
             ]);
 
             if (!$user_verification) {
-                throw new SingleException(__('badaso::validation.verification.verification_not_found'));
+                // HAPUS data verifikasi hari kemarin/lama
+                UserVerification::where('user_id', $user->id)->delete();
+                // throw new SingleException(__('badaso::validation.verification.verification_not_found'));
             }
 
             $token = rand(111111, 999999);
             $token_lifetime = env('VERIFICATION_TOKEN_LIFETIME', 5);
             $expired_token = date('Y-m-d H:i:s', strtotime("+$token_lifetime minutes", strtotime(date('Y-m-d H:i:s'))));
 
-            $user_verification->verification_token = $token;
-            $user_verification->expired_at = $expired_token;
-            $user_verification->save();
+            // $user_verification->verification_token = $token;
+            // $user_verification->expired_at = $expired_token;
+            // $user_verification->save();
+
+            $model = UserVerification::updateOrCreate([
+                'user_id' => $user->id
+            ],[
+                'verification_token' => $token,
+                'expired_at' => $expired_token,
+            ]);
+            tap($model)->increment('total_daily_request'); // this will return refreshed model.
 
             $this->sendVerificationToken(['user' => $user, 'token' => $token]);
 
@@ -711,6 +751,7 @@ class BadasoAuthController extends Controller
         }
     }
 
+    // KIRIM GANTI EMAIL
     public function updateEmail(Request $request)
     {
         DB::beginTransaction();
@@ -720,14 +761,45 @@ class BadasoAuthController extends Controller
                 throw new SingleException(__('badaso::validation.auth.user_not_found'));
             }
 
-            $request->validate([
-                'email' => 'required|email|unique:Uasoft\Badaso\Models\User,email',
-            ]);
+            // $request->validate([
+            //     'email' => 'required|email|unique:Uasoft\Badaso\Models\User,email',
+            // ]);
+
+            $data = [
+                'email'    => $request->get('email'),
+            ];
+
+            $validator = Validator::make(
+                $data,
+                [
+                    'email'     => 'required',
+                ],
+            );
+
+            if ($validator->fails()) {
+                $errors = json_decode($validator->errors(), True);
+                foreach ($errors as $key => $value) {
+                    return ApiResponse::failed(implode('', $value));
+                }
+            }
 
             $user = User::find($user->id);
 
+
             $should_verify_email = Config::get('adminPanelVerifyEmail') == '1' ? true : false;
             if ($should_verify_email) {
+
+                $user_verification = EmailReset::where('user_id', $user->id)
+                ->whereDate('updated_at', Carbon::today())
+                ->first();
+
+                if($user_verification) {
+                    if($user_verification->total_daily_request > 5) {
+                        return ApiResponse::failed('batas maksimal, permintaan email verifikasi adalah 5 kali');
+                    }
+                }
+
+
                 $token = rand(111111, 999999);
                 $token_lifetime = env('VERIFICATION_TOKEN_LIFETIME', 5);
                 $expired_token = date('Y-m-d H:i:s', strtotime("+$token_lifetime minutes", strtotime(date('Y-m-d H:i:s'))));
@@ -739,11 +811,22 @@ class BadasoAuthController extends Controller
                     'count_incorrect'    => 0,
                 ];
 
-                EmailReset::firstOrCreate($data);
+                // EmailReset::firstOrCreate($data);
 
+                $model = EmailReset::updateOrCreate([
+                    'user_id' => $user->id
+                ], $data);
+                tap($model)->increment('total_daily_request'); // this will return refreshed model.
+
+
+                // EMAIL BARU
                 $user->email = $request->email;
-
-                $this->sendVerificationToken(['user' => $user, 'token' => $token]);
+                $this->sendVerificationToken([
+                    'user' => $user,
+                    'token' => $token,
+                    'subject' => 'Change Email Verification',
+                    'markdown' => 'badaso::mail.change-email',
+                ]);
 
                 DB::commit();
 
@@ -779,6 +862,7 @@ class BadasoAuthController extends Controller
         }
     }
 
+    // VERIFIKASI GANTI EMAIL
     public function verifyEmail(Request $request)
     {
         try {
@@ -786,10 +870,31 @@ class BadasoAuthController extends Controller
                 throw new SingleException(__('badaso::validation.auth.user_not_found'));
             }
 
-            $request->validate([
-                'email' => ['required', 'unique:Uasoft\Badaso\Models\User', 'email'],
-                'token' => ['required'],
-            ]);
+
+            // $request->validate([
+            //     'email' => ['required'],
+            //     // 'email' => ['required', 'unique:Uasoft\Badaso\Models\User', 'email'],
+            //     'token' => ['required'],
+            // ]);
+            $data = [
+                'email'    => $request->get('email'),
+                'token'    => $request->get('token'),
+            ];
+
+            $validator = Validator::make(
+                $data,
+                [
+                    'email'     => 'required',
+                    'token'    => 'required',
+                ],
+            );
+
+            if ($validator->fails()) {
+                $errors = json_decode($validator->errors(), True);
+                foreach ($errors as $key => $value) {
+                    return ApiResponse::failed(implode('', $value));
+                }
+            }
 
             $emai_reset = EmailReset::where('verification_token', $request->token)
                 ->where('user_id', $user->id)

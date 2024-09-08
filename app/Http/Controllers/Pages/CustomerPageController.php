@@ -98,6 +98,37 @@ class CustomerPageController extends Controller
         }
     }
 
+    public function lagia_read(Request $request)
+    {
+
+        try {
+            $request->validate([
+                'id' => 'required',
+            ]);
+            $slug = $this->getSlug($request);
+            $data_type = $this->getDataType($slug);
+
+            $request->validate([
+                'user_id' => 'exists:' . $data_type->name,
+            ]);
+
+            // if(isClientRetail()) {
+                $request['user_id'] = authID();
+            // }
+
+            // $data = $this->getDataDetail($slug, $request->id);
+            $data = \CustomerPageModel::with([])->whereUserId(authID())->first();
+
+            // add event notification handle
+            $table_name = $data_type->name;
+            FCMNotification::notification(FCMNotification::$ACTIVE_EVENT_ON_READ, $table_name);
+
+            return ApiResponse::onlyEntity($data);
+        } catch (Exception $e) {
+            return ApiResponse::failed($e);
+        }
+    }
+
     public function read(Request $request)
     {
 
@@ -135,13 +166,14 @@ class CustomerPageController extends Controller
             $slug = $this->getSlug($request);
             $data_type = $this->getDataType($slug);
 
-            $table_entity = CustomerPageModel::where('id', $request->data['id'])->first();
+            // $table_entity = CustomerPageModel::where('id', $request->data['id'])->first();
+            $table_entity = CustomerPageModel::where('user_id', authID())->first();
 
             $req = request()['data'];
             $data = [
-                'user_id' => $req['user_id'],
+                'user_id' => authID(),
                 'full_name' => $req['full_name'],
-                'instance' => $req['instance'],
+                'instance' => isset($req['instance']) ? $req['instance'] : '',
                 'email' => $req['email'],
                 'phone' => $req['phone'],
                 'city' => $req['city'],
@@ -150,7 +182,11 @@ class CustomerPageController extends Controller
 
             $validator = Validator::make($data,
                 [
-                    'user_id' => 'required|unique:page_customer_unique',
+                    // 'user_id' => 'required|unique:page_customer_unique',
+                    'user_id' => [
+                        'required',
+                        $table_entity ? \Illuminate\Validation\Rule::unique('page_customer')->ignore($req['id']) : 'unique:page_customer'
+                    ],
                     // 'codepos' => 'max:6',
                     // susah karena pake softDelete, pakai cara manual saja
                     // 'user_id' => 'unique:culinary_stores_unique'
@@ -165,9 +201,20 @@ class CustomerPageController extends Controller
 
             // $data['description'] = $req['description'];
 
-            \CustomerPageModel::where('id', $request->data['id'])->update($data);
+            if(!$table_entity) {
+                // JIKA tidak ditemukan data
+                // CREATE
+                CustomerPageModel::insert($data);
+            } else {
+                // UPDATE
+                CustomerPageModel::where('user_id', authID())->update($data);
+            }
+
+            // $table_entity = CustomerPageModel::where('user_id', authID())->first();
+
+            // \CustomerPageModel::where('id', $request->data['id'])->update($data);
             $updated['old_data'] = $table_entity;
-            $updated['updated_data'] = \CustomerPageModel::where('id', $request->data['id'])->first();
+            $updated['updated_data'] = CustomerPageModel::where('user_id', authID())->first(); // \CustomerPageModel::where('id', $request->data['id'])->first();
 
             DB::commit();
             activity($data_type->display_name_singular)
@@ -205,9 +252,9 @@ class CustomerPageController extends Controller
 
             $req = request()['data'];
             $data = [
-                'user_id' => $req['user_id'],
+                'user_id' => authID(),
                 'full_name' => $req['full_name'],
-                'instance' => $req['instance'],
+                'instance' => isset($req['instance']) ? $req['instance'] : '',
                 'email' => $req['email'],
                 'phone' => $req['phone'],
                 'city' => $req['city'],

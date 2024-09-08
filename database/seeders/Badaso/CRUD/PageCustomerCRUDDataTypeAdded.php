@@ -28,10 +28,11 @@ class PageCustomerCRUDDataTypeAdded extends Seeder
             }
 
             \DB::table('badaso_data_types')->insert(array (
+                'id' => 163,
                 'name' => 'page_customer',
                 'slug' => 'page-customer',
-                'display_name_singular' => 'Data Pelanggan',
-                'display_name_plural' => 'Data Pelanggan',
+                'display_name_singular' => 'Page Pelanggan',
+                'display_name_plural' => 'Page Pelanggan',
                 'icon' => NULL,
                 'model_name' => NULL,
                 'policy_name' => NULL,
@@ -41,13 +42,13 @@ class PageCustomerCRUDDataTypeAdded extends Seeder
                 'order_direction' => NULL,
                 'generate_permissions' => true,
                 'server_side' => false,
+                'is_maintenance' => '0',
                 'description' => NULL,
                 'details' => NULL,
                 'notification' => '[]',
-                'is_soft_delete' => true,
-                'updated_at' => '2024-08-10T16:07:57.000000Z',
+                'is_soft_delete' => '1',
                 'created_at' => '2024-08-10T16:07:57.000000Z',
-                'id' => 163,
+                'updated_at' => '2024-09-02T13:27:20.000000Z',
             ));
 
             Badaso::model('Permission')->generateFor('page_customer');
@@ -63,7 +64,7 @@ class PageCustomerCRUDDataTypeAdded extends Seeder
 
             if (!is_null($menu_item)) {
                 $menu_item->fill([
-                    'title' => 'Data Pelanggan',
+                    'title' => 'Page Pelanggan',
                     'target' => '_self',
                     'icon_class' => '',
                     'color' => null,
@@ -75,7 +76,7 @@ class PageCustomerCRUDDataTypeAdded extends Seeder
                 $menu_item = new MenuItem();
                 $menu_item->menu_id = $menu->id;
                 $menu_item->url = '/general/page-customer';
-                $menu_item->title = 'Data Pelanggan';
+                $menu_item->title = 'Page Pelanggan';
                 $menu_item->target = '_self';
                 $menu_item->icon_class = '';
                 $menu_item->color = null;

@@ -355,7 +355,7 @@ export default {
         return [];
       }
     },
-    $displayRelationData(record, dataRow) {
+    displayRelationData(record, dataRow) {
       const table = this.$caseConvert.stringSnakeToCamel(
         dataRow.relation.destinationTable
       );

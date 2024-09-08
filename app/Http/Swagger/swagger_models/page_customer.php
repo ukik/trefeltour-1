@@ -3,10 +3,10 @@
 /**
   * @OA\Get(
   *      path="/v1/entities/page-customer",
-  *      operationId="browseDataPelanggan",
+  *      operationId="browsePagePelanggan",
   *      tags={"page-customer"},
-  *      summary="Browse Data Pelanggan",
-  *      description="Returns list of Data Pelanggan",
+  *      summary="Browse Page Pelanggan",
+  *      description="Returns list of Page Pelanggan",
   *      @OA\Response(response=200, description="Successful operation"),
   *      @OA\Response(response=400, description="Bad request"),
   *      @OA\Response(response=401, description="Unauthorized"),
@@ -21,10 +21,10 @@
 /**
   * @OA\Get(
   *      path="/v1/entities/page-customer/read?slug=page-customer&id={id}",
-  *      operationId="readDataPelanggan",
+  *      operationId="readPagePelanggan",
   *      tags={"page-customer"},
-  *      summary="Get Data Pelanggan based on id",
-  *      description="Returns Data Pelanggan based on id",
+  *      summary="Get Page Pelanggan based on id",
+  *      description="Returns Page Pelanggan based on id",
   *      @OA\Parameter(
   *          name="id",
   *          required=true,
@@ -47,10 +47,10 @@
 /**
   * @OA\Post(
   *      path="/v1/entities/page-customer/add",
-  *      operationId="addDataPelanggan",
+  *      operationId="addPagePelanggan",
   *      tags={"page-customer"},
-  *      summary="Insert new Data Pelanggan",
-  *      description="Insert new Data Pelanggan into database",
+  *      summary="Insert new Page Pelanggan",
+  *      description="Insert new Page Pelanggan into database",
   *      @OA\RequestBody(
   *         @OA\MediaType(
   *             mediaType="application/json",
@@ -77,10 +77,10 @@
 /**
   * @OA\Put(
   *      path="/v1/entities/page-customer/edit",
-  *      operationId="editDataPelanggan",
+  *      operationId="editPagePelanggan",
   *      tags={"page-customer"},
-  *      summary="Edit an existing Data Pelanggan",
-  *      description="Edit an existing Data Pelanggan",
+  *      summary="Edit an existing Page Pelanggan",
+  *      description="Edit an existing Page Pelanggan",
   *      @OA\RequestBody(
   *         @OA\MediaType(
   *             mediaType="application/json",
@@ -107,10 +107,10 @@
 /**
   * @OA\Delete(
   *      path="/v1/entities/page-customer/delete",
-  *      operationId="deleteDataPelanggan",
+  *      operationId="deletePagePelanggan",
   *      tags={"page-customer"},
-  *      summary="Delete one record of Data Pelanggan",
-  *      description="Delete one record of Data Pelanggan",
+  *      summary="Delete one record of Page Pelanggan",
+  *      description="Delete one record of Page Pelanggan",
   *      @OA\RequestBody(
   *         @OA\MediaType(
   *             mediaType="application/json",
@@ -146,10 +146,10 @@
 /**
   * @OA\Delete(
   *      path="/v1/entities/page-customer/delete-multiple",
-  *      operationId="deleteMultipleDataPelanggan",
+  *      operationId="deleteMultiplePagePelanggan",
   *      tags={"page-customer"},
-  *      summary="Delete multiple record of Data Pelanggan",
-  *      description="Delete multiple record of Data Pelanggan",
+  *      summary="Delete multiple record of Page Pelanggan",
+  *      description="Delete multiple record of Page Pelanggan",
   *      @OA\RequestBody(
   *         @OA\MediaType(
   *             mediaType="application/json",
@@ -185,10 +185,10 @@
 /**
   * @OA\Put(
   *      path="/v1/entities/page-customer/sort",
-  *      operationId="sortDataPelanggan",
+  *      operationId="sortPagePelanggan",
   *      tags={"page-customer"},
-  *      summary="Sort existing Data Pelanggan",
-  *      description="Sort existing Data Pelanggan",
+  *      summary="Sort existing Page Pelanggan",
+  *      description="Sort existing Page Pelanggan",
   *      @OA\RequestBody(
   *         @OA\MediaType(
   *             mediaType="application/json",

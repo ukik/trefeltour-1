@@ -2,9 +2,12 @@
 
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\PaymentCallbackController;
+use App\Mail\TestMail;
 use Illuminate\Support\Facades\Route;
 use Uasoft\Badaso\Middleware\BadasoAuthenticate;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -24,9 +27,14 @@ Route::group(['prefix' => 'laravel-filemanager', 'middleware' => ['sanctum_1']],
 // Route::resource('orders', OrderController::class)->only(['index', 'show']);
 // Route::post('payments/midtrans-notification', [PaymentCallbackController::class, 'receive']);
 
-
+Route::get('/admin', function () {
+    return redirect('/trevolia-dashboard');
+});
 
 Route::get('/', function () {
+    return view('index');
+
+    return str_contains('TOUR-6217ea56-f4b6', 'TOUR');
     // return bcrypt(123456);
     // $js_files = "js/badaso-c0d76f48.js js/120.js js/666.js js/861.js js/app.js js/badaso-2fd705e6.js js/badaso-5bf57e56.js js/badaso-06b53a1b.js js/badaso-7528d940.js js/badaso-433890bb.js";
     // return $js_files = explode(" ", $js_files);
@@ -88,3 +96,22 @@ Route::get('/', function () {
 //     // Route::get('/generate-crud', 'BadasoTableController@generateCRUD')->middleware(BadasoAuthenticate::class);
 //     // Route::get('/relation-data-by-slug', 'BadasoTableController@getRelationDataBySlug')->middleware(BadasoAuthenticate::class);
 // });
+
+
+// Route::get('/send-email',function(){
+//     $data = [
+//         'name' => 'Syahrizal As',
+//         'body' => 'Testing Kirim Email di Santri Koding'
+//     ];
+
+//     Mail::to('muhamadduki@gmail.com')->send(new TestMail($data));
+
+//     dd("Email Berhasil dikirim.");
+// });
+
+
+
+// WAJIB ADA di SPA
+Route::get('{any}', function () {
+    return view('index');
+})->where('any','.*');

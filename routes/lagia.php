@@ -84,6 +84,9 @@ Route::group(
                 Route::get('/page-info', '\App\Http\Controllers\Pages\InfoPageController@browse');
                 Route::get('/page-info/read', '\App\Http\Controllers\Pages\InfoPageController@read');
 
+
+                Route::get('/page-customer/read/lagia', '\App\Http\Controllers\Pages\CustomerPageController@lagia_read')->middleware(RootBadasoAuthenticate::class);
+
                 // CULINARY
                 Route::get('/culinary-products', '\App\Http\Controllers\Culinarys\CulinaryProductsController@browse');
                 Route::get('/culinary-products/read', '\App\Http\Controllers\Culinarys\CulinaryProductsController@read');

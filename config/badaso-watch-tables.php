@@ -136,6 +136,7 @@ return [
     'tourism_venues',
     'tourism_venues_ratings',
     'transport_booking_items',
+    'transport_booking_payments',
     'transport_bookings',
     'transport_bookings_old',
     'transport_carts',
