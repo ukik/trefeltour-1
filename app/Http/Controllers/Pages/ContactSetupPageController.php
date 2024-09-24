@@ -160,6 +160,13 @@ class ContactSetupPageController extends Controller
                 'discord' => $req['discord'],
                 'whatsapp' => $req['whatsapp'],
                 'telegram' => $req['telegram'],
+
+                'email' => $req['email'],
+                'phone1' => gantiformat($req['phone1']),
+                'phone2' => gantiformat($req['phone2']),
+                'sms_center1' => gantiformat($req['sms_center1']),
+                'sms_center2' => gantiformat($req['sms_center2']),
+
                 // created_at
                 // updated_at
                 // deleted_at
@@ -250,6 +257,13 @@ class ContactSetupPageController extends Controller
                 'discord' => $req['discord'],
                 'whatsapp' => $req['whatsapp'],
                 'telegram' => $req['telegram'],
+
+                'email' => $req['email'],
+                'phone1' => gantiformat($req['phone1']),
+                'phone2' => gantiformat($req['phone2']),
+                'sms_center1' => gantiformat($req['sms_center1']),
+                'sms_center2' => gantiformat($req['sms_center2']),
+
                 'lang' => $req['lang'],
             ];
 

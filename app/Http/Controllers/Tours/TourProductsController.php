@@ -39,6 +39,189 @@ class TourProductsController extends Controller
         }
     }
 
+    public function lagia_browse(Request $request)
+    {
+        try {
+            $req = request();
+            $data = \TourProducts::with([
+                // 'tourStores',
+                // 'tourStore.badasoUser',
+                // 'tourStore.badasoUsers',
+                // 'tourStore.tourProduct',
+                // 'tourStore.tourProducts',
+                // 'tourStore.tourBooking',
+                // 'tourStore.tourBookings',
+                'tourPrice',
+                // 'tourPrices',
+                // 'ratingAvg',
+                'tourStore' => function($q) {
+                    return $q->select('id','name','slug');
+                },
+            ])->orderBy('id','desc')->withCount('tourPrices');
+            if(request()['showSoftDelete'] == 'true') {
+                $data = $data->onlyTrashed();
+            }
+            // if(request()['label'] == 'SharedTableModal') {
+            //     $data = $data->where('is_available','true');
+            // }
+
+            // if(request()->search) {
+            //     $search = request()->search;
+
+            //     $columns = \Illuminate\Support\Facades\Schema::getColumnListing('tour_products');
+
+            //     $store_id = function($q) use ($search) {
+            //         return $q
+            //             ->where('uuid','like','%'.$search.'%')
+            //             ->orWhere('name','like','%'.$search.'%');
+            //     };
+
+            //     $data
+            //         // ->orWhere('id','like','%'.$search.'%')
+            //         ->orWhereHas('tourStore', $store_id);
+
+            //     foreach ($columns as $value) {
+            //         switch ($value) {
+            //             // case "store_id":
+            //             case "code_table":
+            //             //case "created_at":
+            //             //case "updated_at":
+            //             case "deleted_at":
+            //                 # code...
+            //                 break;
+            //             default:
+            //                 $data->orWhere($value,'like','%'.$search.'%');
+            //         }
+            //     }
+            // }
+
+            if(request()->name) {
+                $name = request()->name;
+                $data = $data->where('name','like','%'.$name.'%');
+            }
+
+            if(request()->category) {
+                $category = request()->category;
+                $data = $data->where('category','like','%'.$category.'%');
+            }
+
+            if(request()->durasi) {
+                $durasi = request()->durasi;
+                $data = $data->where('durasi','like','%'.$durasi.'%');
+            }
+
+            if(request()->level) {
+                $level = request()->level;
+                $data = $data->where('level','like','%'.$level.'%');
+            }
+
+            if(request()->province) {
+                $province = request()->province;
+                $data = $data->where('province','like','%'.$province.'%');
+            }
+
+            if(request()->city) {
+                $city = request()->city;
+                $data = $data->where('city','like','%'.$city.'%');
+            }
+
+            if(request()->country) {
+                $country = request()->country;
+                $data = $data->where('country','like','%'.$country.'%');
+            }
+
+            // if($req->price_min) {
+            //     $data = $data->whereHas('tourPrice', function($q) use ($req) {
+            //         return $q->where('general_price','>=',$req->price_min);
+            //     });
+            // }
+            // if($req->price_max) {
+            //     $data = $data->whereHas('tourPrice', function($q) use ($req) {
+            //         return $q->where('general_price','<=',$req->price_max);
+            //     });
+            // }
+
+            // if($req->price_min && $req->price_max) {
+            //     $data = $data->whereHas('tourPrice', function($q) use ($req) {
+            //         return $q->where('general_price','>=',$req->price_min)->where('general_price','<',$req->price_max);
+            //     });
+            // }
+
+            $data = $data->whereHas('tourPrice', function($q) use ($req) {
+                $n = $q;
+                if($req->price_min && $req->price_max) {
+                    return $q->where('general_price','>=',$req->price_min)->where('general_price','<',$req->price_max);
+                }
+                if($req->price_min) {
+                    $n = $q->where('general_price','>=',$req->price_min);
+                }
+                if($req->price_max) {
+                    $n = $q->where('general_price','<=',$req->price_max);
+                }
+                return $n;
+                // return $q->where('general_price','>=',$req->price_min)->where('general_price','<',$req->price_max);
+            });
+
+            // if(request()->parentId) {
+            //     $parentId = request()->parentId;
+            //     $data->where('store_id',$parentId);
+            // }
+            // return SqlWithBinding($data->toSql(), $data->getBindings());
+
+            // ================================================
+            // jika di LAGIA referensi ke sini
+            $additional = NULL;
+            if(request()->vendor) {
+                // $data = $data->where('store_id',request()->vendor);
+                // $additional = TourStores::whereId(request()->vendor)->with(['ratingAvg'])->first();
+            }
+            // ================================================
+
+            $data = $data->select(
+                'id',
+                'store_id',
+                'uuid',
+                'name',
+                'category',
+                'durasi',
+                // 'description',
+                // 'itinerary',
+                // 'facility',
+                'image',
+                'level',
+                'province',
+                'city',
+                'country',
+                'is_available',
+                'code_table',
+                'created_at',
+                'updated_at',
+                'deleted_at',
+                'slug',
+                'keyword'
+            )->paginate(request()->perPage);
+
+            $additional['province_options'] = DB::table('tour_products_province')->pluck('province');
+            $additional['city_options'] = DB::table('tour_products_city')->pluck('city');
+            $additional['country_options'] = DB::table('tour_products_country')->pluck('country');
+
+            $additional['category_options'] = DB::table('tour_products_category')->pluck('category');
+            $additional['durasi_options'] = DB::table('tour_products_durasi')->pluck('durasi');
+            $additional['level_options'] = DB::table('tour_products_level')->pluck('level');
+
+            // $encode = json_encode($paginate);
+            // $decode = json_decode($encode);
+            // $data['data'] = $decode->data;
+            // $data['total'] = $decode->total;
+
+            return ApiResponse::onlyEntity($data, additional:$additional);
+        } catch (Exception $e) {
+            return ApiResponse::failed($e);
+        }
+    }
+
+
+
     public function browse(Request $request)
     {
         try {

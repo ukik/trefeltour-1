@@ -426,6 +426,86 @@ class PageContactSetupCRUDDataRowAdded extends Seeder
                 25 => 
                 array (
                     'data_type_id' => $data_type->id,
+                    'field' => 'email',
+                    'type' => 'text',
+                    'display_name' => 'Email',
+                    'required' => '0',
+                    'browse' => '1',
+                    'read' => '1',
+                    'edit' => '1',
+                    'add' => '1',
+                    'delete' => '0',
+                    'details' => '{}',
+                    'relation' => NULL,
+                    'order' => '26',
+                ),
+                26 => 
+                array (
+                    'data_type_id' => $data_type->id,
+                    'field' => 'phone1',
+                    'type' => 'text',
+                    'display_name' => 'Telepon 1',
+                    'required' => '0',
+                    'browse' => '1',
+                    'read' => '1',
+                    'edit' => '1',
+                    'add' => '1',
+                    'delete' => '0',
+                    'details' => '{}',
+                    'relation' => NULL,
+                    'order' => '27',
+                ),
+                27 => 
+                array (
+                    'data_type_id' => $data_type->id,
+                    'field' => 'phone2',
+                    'type' => 'text',
+                    'display_name' => 'Telepon 2',
+                    'required' => '0',
+                    'browse' => '1',
+                    'read' => '1',
+                    'edit' => '1',
+                    'add' => '1',
+                    'delete' => '0',
+                    'details' => '{}',
+                    'relation' => NULL,
+                    'order' => '28',
+                ),
+                28 => 
+                array (
+                    'data_type_id' => $data_type->id,
+                    'field' => 'sms_center1',
+                    'type' => 'text',
+                    'display_name' => 'Sms Center 1',
+                    'required' => '0',
+                    'browse' => '1',
+                    'read' => '1',
+                    'edit' => '1',
+                    'add' => '1',
+                    'delete' => '0',
+                    'details' => '{}',
+                    'relation' => NULL,
+                    'order' => '29',
+                ),
+                29 => 
+                array (
+                    'data_type_id' => $data_type->id,
+                    'field' => 'sms_center2',
+                    'type' => 'text',
+                    'display_name' => 'Sms Center 2',
+                    'required' => '0',
+                    'browse' => '1',
+                    'read' => '1',
+                    'edit' => '1',
+                    'add' => '1',
+                    'delete' => '0',
+                    'details' => '{}',
+                    'relation' => NULL,
+                    'order' => '30',
+                ),
+                30 => 
+                array (
+                    'data_type_id' => $data_type->id,
                     'field' => 'created_at',
                     'type' => 'datetime',
                     'display_name' => 'Created At',
@@ -437,9 +517,9 @@ class PageContactSetupCRUDDataRowAdded extends Seeder
                     'delete' => '0',
                     'details' => '{}',
                     'relation' => NULL,
-                    'order' => '26',
+                    'order' => '31',
                 ),
-                26 => 
+                31 => 
                 array (
                     'data_type_id' => $data_type->id,
                     'field' => 'updated_at',
@@ -453,9 +533,9 @@ class PageContactSetupCRUDDataRowAdded extends Seeder
                     'delete' => '0',
                     'details' => '{}',
                     'relation' => NULL,
-                    'order' => '27',
+                    'order' => '32',
                 ),
-                27 => 
+                32 => 
                 array (
                     'data_type_id' => $data_type->id,
                     'field' => 'deleted_at',
@@ -469,9 +549,9 @@ class PageContactSetupCRUDDataRowAdded extends Seeder
                     'delete' => '0',
                     'details' => '{}',
                     'relation' => NULL,
-                    'order' => '28',
+                    'order' => '33',
                 ),
-                28 => 
+                33 => 
                 array (
                     'data_type_id' => $data_type->id,
                     'field' => 'lang',
@@ -497,7 +577,7 @@ class PageContactSetupCRUDDataRowAdded extends Seeder
 ]
 }',
                     'relation' => NULL,
-                    'order' => '29',
+                    'order' => '34',
                 ),
             ));
 

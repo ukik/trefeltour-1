@@ -48,7 +48,7 @@ class PageContactSetupCRUDDataTypeAdded extends Seeder
                 'notification' => '[]',
                 'is_soft_delete' => '0',
                 'created_at' => '2024-07-05T06:43:00.000000Z',
-                'updated_at' => '2024-07-07T10:23:16.000000Z',
+                'updated_at' => '2024-09-19T15:39:16.000000Z',
             ));
 
             Badaso::model('Permission')->generateFor('page_contact_setup');

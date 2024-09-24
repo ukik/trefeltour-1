@@ -65,17 +65,20 @@ class IndexPageController extends Controller
 
             $testimonial = TestimonialPageModel::inRandomOrder()->paginate(6*3);
 
-            $tour_store = TourStores::inRandomOrder()->with([
-                'ratingAvg',
-            ])->orderBy('id','desc')
-            ->withCount('tourProducts')
-            // ->whereHas('lodgeRooms')
-            ->paginate(5);
+            // $tour_store = TourStores::inRandomOrder()->with([
+            //     'ratingAvg',
+            // ])->orderBy('id','desc')
+            // ->withCount('tourProducts')
+            // // ->whereHas('lodgeRooms')
+            // ->paginate(5);
 
             $tour_price = TourPrices::inRandomOrder()->with([
                 // 'ratingAvg',
                 'tourProduct' => function($q) {
                     return $q->select('id','name','slug','category','durasi','image','province');
+                },
+                'tourStore' => function($q) {
+                    return $q->select('id','name','slug');
                 },
                 // 'tourStore',
                 // 'tourProduct',
@@ -84,26 +87,26 @@ class IndexPageController extends Controller
             // ->whereHas('lodgeRooms')
             ->paginate(6);
 
-            $tour = TourProducts::inRandomOrder()->with([
-                // 'ratingAvg',
-            ])->orderBy('id','desc')
-            // ->withCount('tourProducts')
-            // ->whereHas('lodgeRooms')
-            ->paginate(6);
+            // $tour = TourProducts::inRandomOrder()->with([
+            //     // 'ratingAvg',
+            // ])->orderBy('id','desc')
+            // // ->withCount('tourProducts')
+            // // ->whereHas('lodgeRooms')
+            // ->paginate(6);
 
-            $lodge = LodgeProfiles::inRandomOrder()->with([
-                'ratingAvg',
-            ])->orderBy('id','desc')
-            ->withCount('lodgeRooms')
-            // ->whereHas('lodgeRooms')
-            ->paginate(5);
+            // $lodge = LodgeProfiles::inRandomOrder()->with([
+            //     'ratingAvg',
+            // ])->orderBy('id','desc')
+            // ->withCount('lodgeRooms')
+            // // ->whereHas('lodgeRooms')
+            // ->paginate(5);
 
-            $culinary = CulinaryProducts::inRandomOrder()->with([
-                'ratingAvg',
-            ])->orderBy('id','desc')
-            ->withCount('culinaryPrices')
-            ->whereHas('culinaryPrices')
-            ->paginate(6);
+            // $culinary = CulinaryProducts::inRandomOrder()->with([
+            //     'ratingAvg',
+            // ])->orderBy('id','desc')
+            // ->withCount('culinaryPrices')
+            // ->whereHas('culinaryPrices')
+            // ->paginate(6);
 
             $souvenir = SouvenirProducts::inRandomOrder()->with([
                 'ratingAvg',
@@ -142,16 +145,35 @@ class IndexPageController extends Controller
             $page_widget_promo = WidgetPromoPageModel::inRandomOrder()->paginate();
             $page_widget_tron = WidgetTronPageModel::inRandomOrder()->paginate();
 
+            // tour_products_category
+            // tour_products_city
+            // tour_products_country
+            // tour_products_durasi
+            // tour_products_level
+            // tour_products_province
+            $tour_products_category = DB::table('tour_products_category')->paginate();
+            // $tour_products_city = DB::table('tour_products_city')->paginate();
+            $tour_products_province = DB::table('tour_products_province')->paginate();
+            $tour_products_durasi = DB::table('tour_products_durasi')->paginate();
+            $tour_products_level = DB::table('tour_products_level')->paginate();
+
             $data = [
                 'destination' => $destination,
                 'gallery' => $gallery,
                 'testimonial' => $testimonial,
 
-                'tour_store' => $tour_store,
+                // 'tour_store' => $tour_store,
                 'tour_price' => $tour_price,
-                'tour' => $tour,
-                'lodge' => $lodge,
-                'culinary' => $culinary,
+                'tour_products_category' => $tour_products_category,
+                // 'tour_products_city' => $tour_products_city,
+                'tour_products_province' => $tour_products_province,
+                'tour_products_durasi' => $tour_products_durasi,
+                'tour_products_level' => $tour_products_level,
+
+
+                // 'tour' => $tour,
+                // 'lodge' => $lodge,
+                // 'culinary' => $culinary,
                 'souvenir' => $souvenir,
                 'tourism' => $tourism,
                 'talent' => $talent,

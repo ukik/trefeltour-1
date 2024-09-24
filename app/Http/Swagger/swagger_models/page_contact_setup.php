@@ -58,7 +58,7 @@
   *                 @OA\Property(
   *                     property="data",
   *                     type="object",
-  *                     example={"title1":"Abc", "headline1":"Abc", "description1":"Abc", "title2":"Abc", "headline2":"Abc", "description2":"Abc", "grid1Icon":"Abc", "grid1Title":"Abc", "grid1Value":"Abc", "grid2Icon":"Abc", "grid2Title":"Abc", "grid2Value":"Abc", "grid3Icon":"Abc", "grid3Title":"Abc", "grid3Value":"Abc", "map":"Abc", "twitter":"Abc", "facebook":"Abc", "youtube":"Abc", "tiktok":"Abc", "instagram":"Abc", "discord":"Abc", "whatsapp":"Abc", "telegram":"Abc", "lang":"Abc"},
+  *                     example={"title1":"Abc", "headline1":"Abc", "description1":"Abc", "title2":"Abc", "headline2":"Abc", "description2":"Abc", "grid1Icon":"Abc", "grid1Title":"Abc", "grid1Value":"Abc", "grid2Icon":"Abc", "grid2Title":"Abc", "grid2Value":"Abc", "grid3Icon":"Abc", "grid3Title":"Abc", "grid3Value":"Abc", "map":"Abc", "twitter":"Abc", "facebook":"Abc", "youtube":"Abc", "tiktok":"Abc", "instagram":"Abc", "discord":"Abc", "whatsapp":"Abc", "telegram":"Abc", "email":"Abc", "phone1":"Abc", "phone2":"Abc", "smsCenter1":"Abc", "smsCenter2":"Abc", "lang":"Abc"},
   *                 ),
   *             )
   *         )
@@ -88,7 +88,7 @@
   *                 @OA\Property(
   *                     property="data",
   *                     type="object",
-  *                     example={"title1":"Abc", "headline1":"Abc", "description1":"Abc", "title2":"Abc", "headline2":"Abc", "description2":"Abc", "grid1Icon":"Abc", "grid1Title":"Abc", "grid1Value":"Abc", "grid2Icon":"Abc", "grid2Title":"Abc", "grid2Value":"Abc", "grid3Icon":"Abc", "grid3Title":"Abc", "grid3Value":"Abc", "map":"Abc", "twitter":"Abc", "facebook":"Abc", "youtube":"Abc", "tiktok":"Abc", "instagram":"Abc", "discord":"Abc", "whatsapp":"Abc", "telegram":"Abc", "lang":"Abc"},
+  *                     example={"title1":"Abc", "headline1":"Abc", "description1":"Abc", "title2":"Abc", "headline2":"Abc", "description2":"Abc", "grid1Icon":"Abc", "grid1Title":"Abc", "grid1Value":"Abc", "grid2Icon":"Abc", "grid2Title":"Abc", "grid2Value":"Abc", "grid3Icon":"Abc", "grid3Title":"Abc", "grid3Value":"Abc", "map":"Abc", "twitter":"Abc", "facebook":"Abc", "youtube":"Abc", "tiktok":"Abc", "instagram":"Abc", "discord":"Abc", "whatsapp":"Abc", "telegram":"Abc", "email":"Abc", "phone1":"Abc", "phone2":"Abc", "smsCenter1":"Abc", "smsCenter2":"Abc", "lang":"Abc"},
   *                ),
   *             )
   *         )
@@ -201,7 +201,7 @@
   *                 @OA\Property(
   *                     property="data",
   *                     type="array",
-  *                     example={{"id":"123", "title1":"Abc", "headline1":"Abc", "description1":"Abc", "title2":"Abc", "headline2":"Abc", "description2":"Abc", "grid1Icon":"Abc", "grid1Title":"Abc", "grid1Value":"Abc", "grid2Icon":"Abc", "grid2Title":"Abc", "grid2Value":"Abc", "grid3Icon":"Abc", "grid3Title":"Abc", "grid3Value":"Abc", "map":"Abc", "twitter":"Abc", "facebook":"Abc", "youtube":"Abc", "tiktok":"Abc", "instagram":"Abc", "discord":"Abc", "whatsapp":"Abc", "telegram":"Abc", "createdAt":"2021-01-01T00:00:00.000Z", "updatedAt":"2021-01-01T00:00:00.000Z", "deletedAt":"2021-01-01T00:00:00.000Z", "lang":"Abc"}, {"id":"123", "title1":"Abc", "headline1":"Abc", "description1":"Abc", "title2":"Abc", "headline2":"Abc", "description2":"Abc", "grid1Icon":"Abc", "grid1Title":"Abc", "grid1Value":"Abc", "grid2Icon":"Abc", "grid2Title":"Abc", "grid2Value":"Abc", "grid3Icon":"Abc", "grid3Title":"Abc", "grid3Value":"Abc", "map":"Abc", "twitter":"Abc", "facebook":"Abc", "youtube":"Abc", "tiktok":"Abc", "instagram":"Abc", "discord":"Abc", "whatsapp":"Abc", "telegram":"Abc", "createdAt":"2021-01-01T00:00:00.000Z", "updatedAt":"2021-01-01T00:00:00.000Z", "deletedAt":"2021-01-01T00:00:00.000Z", "lang":"Abc"}},
+  *                     example={{"id":"123", "title1":"Abc", "headline1":"Abc", "description1":"Abc", "title2":"Abc", "headline2":"Abc", "description2":"Abc", "grid1Icon":"Abc", "grid1Title":"Abc", "grid1Value":"Abc", "grid2Icon":"Abc", "grid2Title":"Abc", "grid2Value":"Abc", "grid3Icon":"Abc", "grid3Title":"Abc", "grid3Value":"Abc", "map":"Abc", "twitter":"Abc", "facebook":"Abc", "youtube":"Abc", "tiktok":"Abc", "instagram":"Abc", "discord":"Abc", "whatsapp":"Abc", "telegram":"Abc", "email":"Abc", "phone1":"Abc", "phone2":"Abc", "smsCenter1":"Abc", "smsCenter2":"Abc", "createdAt":"2021-01-01T00:00:00.000Z", "updatedAt":"2021-01-01T00:00:00.000Z", "deletedAt":"2021-01-01T00:00:00.000Z", "lang":"Abc"}, {"id":"123", "title1":"Abc", "headline1":"Abc", "description1":"Abc", "title2":"Abc", "headline2":"Abc", "description2":"Abc", "grid1Icon":"Abc", "grid1Title":"Abc", "grid1Value":"Abc", "grid2Icon":"Abc", "grid2Title":"Abc", "grid2Value":"Abc", "grid3Icon":"Abc", "grid3Title":"Abc", "grid3Value":"Abc", "map":"Abc", "twitter":"Abc", "facebook":"Abc", "youtube":"Abc", "tiktok":"Abc", "instagram":"Abc", "discord":"Abc", "whatsapp":"Abc", "telegram":"Abc", "email":"Abc", "phone1":"Abc", "phone2":"Abc", "smsCenter1":"Abc", "smsCenter2":"Abc", "createdAt":"2021-01-01T00:00:00.000Z", "updatedAt":"2021-01-01T00:00:00.000Z", "deletedAt":"2021-01-01T00:00:00.000Z", "lang":"Abc"}},
   *                     @OA\Items(
   *                         type="object",
   *                         @OA\Property(type="integer", property="id"), 
@@ -229,6 +229,11 @@
   *                         @OA\Property(type="string", property="discord"), 
   *                         @OA\Property(type="string", property="whatsapp"), 
   *                         @OA\Property(type="string", property="telegram"), 
+  *                         @OA\Property(type="string", property="email"), 
+  *                         @OA\Property(type="string", property="phone1"), 
+  *                         @OA\Property(type="string", property="phone2"), 
+  *                         @OA\Property(type="string", property="smsCenter1"), 
+  *                         @OA\Property(type="string", property="smsCenter2"), 
   *                         @OA\Property(type="string", property="createdAt"), 
   *                         @OA\Property(type="string", property="updatedAt"), 
   *                         @OA\Property(type="string", property="deletedAt"), 

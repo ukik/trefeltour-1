@@ -13,6 +13,8 @@ class TourProducts extends Model
     use HasFactory;
     use SoftDeletes;
 
+    use \Staudenmeir\EloquentEagerLimit\HasEagerLimit;
+
     // id
     // uuid
     // store_id

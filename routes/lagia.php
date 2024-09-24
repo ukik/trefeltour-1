@@ -96,7 +96,8 @@ Route::group(
                 Route::get('/culinary-prices/read', '\App\Http\Controllers\Culinarys\CulinaryPricesController@read');
 
                 // TOUR
-                Route::get('/tour-products', '\App\Http\Controllers\Tours\TourProductsController@browse');
+                // Route::get('/tour-products', '\App\Http\Controllers\Tours\TourProductsController@browse');
+                Route::get('/tour-products/lagia', '\App\Http\Controllers\Tours\TourProductsController@lagia_browse');
                 Route::get('/tour-products/read', '\App\Http\Controllers\Tours\TourProductsController@read');
                 Route::get('/tour-stores', '\App\Http\Controllers\Tours\TourStoresController@browse');
                 Route::get('/tour-stores/read', '\App\Http\Controllers\Tours\TourStoresController@read');

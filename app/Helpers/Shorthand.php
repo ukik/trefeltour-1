@@ -8,6 +8,53 @@ use Uasoft\Badaso\Facades\Badaso;
 use Illuminate\Support\Str;
 
 
+if (!function_exists('gantiformat')) {
+    function gantiformat($nomorhp)
+    {
+        //Terlebih dahulu kita trim dl
+        $nomorhp = trim($nomorhp);
+        //bersihkan dari karakter yang tidak perlu
+        $nomorhp = strip_tags($nomorhp);
+        // Berishkan dari spasi
+        $nomorhp = str_replace(" ", "", $nomorhp);
+        // bersihkan dari bentuk seperti  (022) 66677788
+        $nomorhp = str_replace("(", "", $nomorhp);
+        // bersihkan dari format yang ada titik seperti 0811.222.333.4
+        $nomorhp = str_replace(".", "", $nomorhp);
+
+        //cek apakah mengandung karakter + dan 0-9
+        if (!preg_match('/[^+0-9]/', trim($nomorhp))) {
+            // cek apakah no hp karakter 1-3 adalah +62
+            if (substr(trim($nomorhp), 0, 3) == '+62') {
+                $nomorhp = trim($nomorhp);
+            }
+            else if(substr(trim($nomorhp), 0, 2)=="62"){
+                $nomorhp = '+' . $nomorhp; // substr($nomorhp, 1);
+            }
+            // cek apakah no hp karakter 1 adalah 0
+            elseif (substr($nomorhp, 0, 1) == '0') {
+                $nomorhp = '+62' . substr($nomorhp, 1);
+            }
+            elseif (substr($nomorhp, 0, 1) == '+') {
+                $nomorhp = trim($nomorhp);
+            }
+            else {
+                $nomorhp = '+' . $nomorhp; // substr($nomorhp, 1);
+            }
+        }
+
+        // if(preg_match('/^(?:\+62)[2-9]{1}[0-9]{7,11}$/', $nomorhp)) {
+        // // if(preg_match('/^(?:\+62|62|0)[2-9]{1}[0-9]{7,11}$/', $nomorhp)) {
+        //     // return true;
+        // } else {
+        //     $nomorhp = '+62' . $nomorhp;
+        //     // return false;
+        // }
+
+        return $nomorhp;
+    }
+}
+
 
 if (!function_exists('NotifyToAdmin')) {
     function NotifyToAdmin($sender)
@@ -617,7 +664,7 @@ if (!function_exists('StorageURL')) {
         // function siteURL()
         // {
         $protocol = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off' || $_SERVER['SERVER_PORT'] == 443) ? "https://" : "http://";
-        $domainName = $_SERVER['HTTP_HOST'] ; //. '/';
+        $domainName = $_SERVER['HTTP_HOST']; //. '/';
         return $protocol . $domainName;
         // }
         // define( 'SITE_URL', siteURL() );
@@ -629,6 +676,6 @@ if (!function_exists('StorageURL')) {
 if (!function_exists('slug')) {
     function slug($value, $uuid = NUll)
     {
-        return Str::slug($value).'-'.ShortUuid();
+        return Str::slug($value) . '-' . ShortUuid();
     }
 }

@@ -455,8 +455,37 @@ class BadasoAuthController extends Controller
         }
     }
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    // KIRIM VERIFIKASI RESET PASSWORD
     public function forgetPassword(Request $request)
     {
+
         try {
             // $request->validate([
             //     'email' => ['required', 'email', 'exists:Uasoft\Badaso\Models\User,email'],
@@ -478,22 +507,205 @@ class BadasoAuthController extends Controller
                 }
             }
 
+            $email = $request->email;
+            $user = User::where('email', $email)->first();
+            if(!$user) return ApiResponse::failed('email tidak ditemukan');
+
+            $user_verification = PasswordReset::where('email', $email)
+                ->whereDate('updated_at', Carbon::today())
+                ->first();
+
+            if($user_verification) {
+                if($user_verification->total_daily_request > 5) {
+                    return ApiResponse::failed('batas maksimal, permintaan email verifikasi adalah 5 kali sehari');
+                }
+            }
+
+
             $token = rand(111111, 999999);
 
-            PasswordReset::insert([
-                'email'      => $request->email,
+            // PasswordReset::insert([
+            //     'email'      => $request->email,
+            //     'token'      => $token,
+            //     'created_at' => date('Y-m-d H:i:s'),
+            // ]);
+            $model = PasswordReset::updateOrCreate([
+                'email' => $email
+            ],[
+                'email'      => $email,
                 'token'      => $token,
                 'created_at' => date('Y-m-d H:i:s'),
             ]);
+            tap($model)->increment('total_daily_request'); // this will return refreshed model.
 
             $user = User::where('email', $request->email)->first();
-            return Mail::to($request->email)->send(new ForgotPassword($user, $token));
+            Mail::to($request->email)->send(new ForgotPassword($user, $token));
 
+            // if(Auth::check()) {
+            //     $data = [
+            //         'user' => $user,
+            //         'token' => $token,
+            //         'subject' => 'Verifikasi Reset Password | LAGIA',
+            //         'markdown' => 'badaso::mail.change-password',
+            //     ];
+            //     Mail::to($request->email)->send(new ForgotPassword($data));
+            // } else {
+            //     $data = [
+            //         'user' => $user,
+            //         'token' => $token,
+            //         'subject' => 'Verifikasi Reset Password | LAGIA',
+            //         'markdown' => 'badaso::mail.forgot-password',
+            //     ];
+            //     Mail::to($request->email)->send(new ForgotPassword($data));
+            // }
+
+            return ApiResponse::success([
+                'status' => 'email-terkirim',
+                'message' => __('badaso::validation.verification.email_sended'),
+            ]);
             return ApiResponse::success();
         } catch (Exception $e) {
             return ApiResponse::failed($e);
         }
     }
+
+
+
+    // VERIFIKASI RESET PASSWORD
+    public function resetPassword(Request $request)
+    {
+        try {
+            // $request->validate([
+            //     'email' => ['required', 'email', 'exists:Uasoft\Badaso\Models\User,email'],
+            //     'token' => [
+            //         'required',
+            //         'exists:Uasoft\Badaso\Models\PasswordReset,token',
+            //         function ($attribute, $value, $fail) use ($request) {
+            //             $password_resets = PasswordReset::where('token', $request->token)->where('email', $request->email)->get();
+            //             $password_reset = collect($password_resets)->first();
+            //             if (is_null($password_reset)) {
+            //                 $fail('Token or Email invalid');
+            //             }
+            //         },
+            //     ],
+            // ]);
+
+            $validator = Validator::make(
+                [
+                    'email' => $request->email,
+                    'token' => $request->token,
+                ],
+                [
+                    'token' => [
+                        'required',
+                        'exists:Uasoft\Badaso\Models\PasswordReset,token',
+                        function ($attribute, $value, $fail) use ($request) {
+                            $password_resets = PasswordReset::where('token', $request->token)->where('email', $request->email)->get();
+                            $password_reset = collect($password_resets)->first();
+                            if (is_null($password_reset)) {
+                                $fail('Token or Email invalid');
+                            }
+                        },
+                    ],
+                    'email' => ['required', 'email', 'exists:Uasoft\Badaso\Models\User,email'],
+                ],
+            );
+
+            if ($validator->fails()) {
+                $errors = json_decode($validator->errors(), True);
+                foreach ($errors as $key => $value) {
+                    return ApiResponse::failed(implode('', $value));
+                }
+            }
+
+
+            $password_resets = PasswordReset::where('token', $request->token)->where('email', $request->email)->get();
+
+            $password_reset = collect($password_resets)->first();
+
+            // $request->validate([
+            //     'token' => [
+            //         function ($attribute, $value, $fail) use ($password_reset) {
+            //             if (is_null($password_reset)) {
+            //                 $fail('Token Invalid');
+            //             }
+            //         },
+            //     ],
+            // ]);
+
+            $validator = Validator::make(
+                [
+                    'token' => $request->token,
+                ],
+                [
+                    'token' => [
+                        function ($attribute, $value, $fail) use ($password_reset) {
+                            if (is_null($password_reset)) {
+                                $fail('Token Invalid');
+                            }
+                        },
+                    ],
+                ],
+            );
+
+            if ($validator->fails()) {
+                $errors = json_decode($validator->errors(), True);
+                foreach ($errors as $key => $value) {
+                    return ApiResponse::failed(implode('', $value));
+                }
+            }
+
+            $user = User::where('email', $password_reset->email)->first();
+            $user->password = Hash::make($request->password);
+            $saved = $user->save();
+
+            if ($saved) {
+                PasswordReset::where('token', $request->token)->delete();
+            }
+
+            $ttl = $this->getTTL();
+            $token = auth()->setTTL($ttl)->login($user);
+
+            return $this->createNewToken($token, auth()->user());
+            return ApiResponse::success();
+        } catch (Exception $e) {
+            return ApiResponse::failed($e);
+        }
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
     public function validateTokenForgetPassword(Request $request)
@@ -520,53 +732,6 @@ class BadasoAuthController extends Controller
         }
     }
 
-    public function resetPassword(Request $request)
-    {
-        try {
-            $request->validate([
-                'email' => ['required', 'email', 'exists:Uasoft\Badaso\Models\User,email'],
-                'token' => [
-                    'required',
-                    'exists:Uasoft\Badaso\Models\PasswordReset,token',
-                    function ($attribute, $value, $fail) use ($request) {
-                        $password_resets = PasswordReset::where('token', $request->token)->where('email', $request->email)->get();
-                        $password_reset = collect($password_resets)->first();
-                        if (is_null($password_reset)) {
-                            $fail('Token or Email invalid');
-                        }
-                    },
-                ],
-            ]);
-
-            $password_resets = PasswordReset::where('token', $request->token)->where('email', $request->email)->get();
-
-            $password_reset = collect($password_resets)->first();
-
-            $request->validate([
-                'token' => [
-                    function ($attribute, $value, $fail) use ($password_reset) {
-                        if (is_null($password_reset)) {
-                            $fail('Token Invalid');
-                        }
-                    },
-                ],
-            ]);
-
-            $user = User::where('email', $password_reset->email)->first();
-            $user->password = Hash::make($request->password);
-            $saved = $user->save();
-
-            if ($saved) {
-                PasswordReset::where('token', $request->token)->delete();
-            }
-
-            return ApiResponse::success();
-        } catch (Exception $e) {
-            return ApiResponse::failed($e);
-        }
-    }
-
-
 
     // VERIFIKASI AKUN
     public function verify(Request $request)
@@ -579,7 +744,10 @@ class BadasoAuthController extends Controller
 
             // $user = User::where('email', $request->email)->first();
             $email = $request->email;
+
             $user = User::where('email', $email)->first();
+            if(!$user) return ApiResponse::failed('email tidak ditemukan');
+
             if($user->email_verified_at) return ApiResponse::success([
                 'message' => 'email sudah terverifikasi', //__('badaso::validation.verification.email_sended'),
             ]);
@@ -624,6 +792,8 @@ class BadasoAuthController extends Controller
             // if(!$user) return ApiResponse::success('email sudah terverifikasi');
 
             $user = User::where('email', $email)->first();
+            if(!$user) return ApiResponse::failed('email tidak ditemukan');
+
             if($user->email_verified_at) return ApiResponse::success([
                 'message' => 'email sudah terverifikasi', //__('badaso::validation.verification.email_sended'),
             ]);
@@ -638,7 +808,7 @@ class BadasoAuthController extends Controller
 
             if($user_verification) {
                 if($user_verification->total_daily_request > 5) {
-                    return ApiResponse::failed('batas maksimal, permintaan email verifikasi adalah 5 kali');
+                    return ApiResponse::failed('batas maksimal, permintaan email verifikasi adalah 5 kali sehari');
                 }
             }
 
@@ -677,6 +847,7 @@ class BadasoAuthController extends Controller
             DB::commit();
 
             return ApiResponse::success([
+                'status' => 'email-terkirim',
                 'message' => __('badaso::validation.verification.email_sended'),
             ]);
         } catch (Exception $e) {
@@ -785,6 +956,8 @@ class BadasoAuthController extends Controller
 
             $user = User::find($user->id);
 
+            if($user->email == $request->email) return ApiResponse::failed('gunakan email yang berbeda');
+
 
             $should_verify_email = Config::get('adminPanelVerifyEmail') == '1' ? true : false;
             if ($should_verify_email) {
@@ -795,7 +968,7 @@ class BadasoAuthController extends Controller
 
                 if($user_verification) {
                     if($user_verification->total_daily_request > 5) {
-                        return ApiResponse::failed('batas maksimal, permintaan email verifikasi adalah 5 kali');
+                        return ApiResponse::failed('batas maksimal, permintaan email verifikasi adalah 5 kali sehari');
                     }
                 }
 
@@ -824,13 +997,14 @@ class BadasoAuthController extends Controller
                 $this->sendVerificationToken([
                     'user' => $user,
                     'token' => $token,
-                    'subject' => 'Change Email Verification',
+                    'subject' => 'Verifikasi Ganti Email | LAGIA',
                     'markdown' => 'badaso::mail.change-email',
                 ]);
 
                 DB::commit();
 
                 return ApiResponse::success([
+                    'status' => 'email-terkirim',
                     'should_verify_email' => true,
                     'message'             => __('badaso::validation.verification.email_sended'),
                 ]);

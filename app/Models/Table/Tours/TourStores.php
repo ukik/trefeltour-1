@@ -13,6 +13,8 @@ class TourStores extends Model
     use HasFactory;
     use SoftDeletes;
 
+    use \Staudenmeir\EloquentEagerLimit\HasEagerLimit;
+
     protected $table = "tour_stores";
 
     public function getCreatedAtAttribute($value) {
@@ -50,7 +52,7 @@ class TourStores extends Model
 
     public function tourProducts()
     {
-        return $this->hasMany(TourProducts::class, 'store_id', 'id');
+        return $this->hasMany(TourProducts::class, 'store_id', 'id')->latest()->limit(10);
     }
 
     public function tourPrice()
@@ -60,7 +62,7 @@ class TourStores extends Model
 
     public function tourPrices()
     {
-        return $this->hasMany(TourPrices::class, 'store_id', 'id');
+        return $this->hasMany(TourPrices::class, 'store_id', 'id')->latest()->limit(10);
     }
 
 

@@ -22,9 +22,10 @@ class TourStoresController extends Controller
     public $isLogged;
     public $isRole;
 
-    public function __construct() {
+    public function __construct()
+    {
 
-        if(Auth::check()) {
+        if (Auth::check()) {
 
             $this->isLogged = true;
 
@@ -33,7 +34,6 @@ class TourStoresController extends Controller
             }
 
             $this->isRole = $role;
-
         } else {
             return ApiResponse::unauthorized();
         }
@@ -58,23 +58,23 @@ class TourStoresController extends Controller
                 // 'tourBooking',
                 // 'tourBookings',
                 'ratingAvg',
-            ])->orderBy('id','desc')->withCount('tourProducts');
+            ])->orderBy('id', 'desc')->withCount('tourProducts');
 
-            if(request()['showSoftDelete'] == 'true') {
+            if (request()['showSoftDelete'] == 'true') {
                 $data = $data->onlyTrashed();
             }
 
-            if(request()->search) {
+            if (request()->search) {
                 $search = request()->search;
 
                 $columns = \Illuminate\Support\Facades\Schema::getColumnListing('tour_stores');
 
-                $user_id = function($q) use ($search) {
+                $user_id = function ($q) use ($search) {
                     return $q
-                        ->where('name','like','%'.$search.'%')
-                        ->orWhere('username','like','%'.$search.'%')
-                        ->orWhere('email','like','%'.$search.'%')
-                        ->orWhere('phone','like','%'.$search.'%');
+                        ->where('name', 'like', '%' . $search . '%')
+                        ->orWhere('username', 'like', '%' . $search . '%')
+                        ->orWhere('email', 'like', '%' . $search . '%')
+                        ->orWhere('phone', 'like', '%' . $search . '%');
                 };
 
                 $data
@@ -83,29 +83,28 @@ class TourStoresController extends Controller
 
                 foreach ($columns as $value) {
                     switch ($value) {
-                        // case "user_id":
-                        // case "is_available":
+                            // case "user_id":
+                            // case "is_available":
                         case "code_table":
-                        //case "created_at":
-                        //case "updated_at":
+                            //case "created_at":
+                            //case "updated_at":
                         case "deleted_at":
                             # code...
                             break;
                         default:
-                            $data->orWhere($value,'like','%'.$search.'%');
+                            $data->orWhere($value, 'like', '%' . $search . '%');
                     }
                 }
-
             }
 
-            if(request()->available) {
+            if (request()->available) {
                 $available = request()->available;
-                $data->where('is_available',$available);
+                $data->where('is_available', $available);
             }
 
-            if(request()->category) {
+            if (request()->category) {
                 $category = request()->category;
-                $data->where('category',$category);
+                $data->where('category', $category);
             }
 
             $data = $data->paginate(request()->perPage);
@@ -154,19 +153,79 @@ class TourStoresController extends Controller
             $slug = $this->getSlug($request);
             $data_type = $this->getDataType($slug);
             $request->validate([
-                'id' => 'exists:'.$data_type->name,
+                'id' => 'exists:' . $data_type->name,
             ]);
 
             // $data = $this->getDataDetail($slug, $request->id);
             $data = \TourStores::with([
                 'badasoUsers',
                 'badasoUser',
-                'tourProduct',
-                'tourProducts',
+                // 'tourProduct' => function ($q) {
+                //     return $q->select(
+                //         'id',
+                //         'store_id',
+                //         'uuid',
+                //         'name',
+                //         'category',
+                //         'durasi',
+                //         // description,
+                //         // itinerary,
+                //         // facility,
+                //         'image',
+                //         'level',
+                //         'province',
+                //         'city',
+                //         'country',
+                //         'is_available',
+                //         'code_table',
+                //         'created_at',
+                //         'updated_at',
+                //         'deleted_at',
+                //         'slug',
+                //         'keyword',
+                //     );
+                // },
+                // 'tourProducts' => function ($q) {
+                //     return $q->select(
+                //         'id',
+                //         'store_id',
+                //         'uuid',
+                //         'name',
+                //         'category',
+                //         'durasi',
+                //         // description,
+                //         // itinerary,
+                //         // facility,
+                //         'image',
+                //         'level',
+                //         'province',
+                //         'city',
+                //         'country',
+                //         'is_available',
+                //         'code_table',
+                //         'created_at',
+                //         'updated_at',
+                //         'deleted_at',
+                //         'slug',
+                //         'keyword',
+                //     );
+                // },
                 // 'tourBooking',
                 // 'tourBookings',
-                'ratingAvg',
-                'tourPrices',
+                // 'ratingAvg',
+                'tourPrices' => function($q) {
+                    return $q->with([
+                        'tourProduct' => function($q) {
+                            return $q->select('id','name','slug','category','durasi','image','province');
+                        },
+                        'tourStore' => function($q) {
+                            return $q->select('id','name','slug');
+                        },
+                    ]);
+                },
+
+
+
             ])->whereId($request->id)->withCount(['tourPrices'])->withCount('tourProducts')->first();
 
             // add event notification handle
@@ -216,14 +275,15 @@ class TourStoresController extends Controller
                 'description' => $req['description'],
                 'is_available' => isBoolean($req['is_available']),
 
-                'code_table' => ('tour-stores') ,
+                'code_table' => ('tour-stores'),
                 'uuid' => $table_entity->uuid ?: $uuid,
 
                 'slug' => $table_entity->slug ?: slug($req['name'], $uuid),
                 'keyword' => isset($req['keyword']) ? $req['keyword'] : NULL,
             ];
 
-            $validator = Validator::make($data,
+            $validator = Validator::make(
+                $data,
                 [
                     'user_id' => 'required',
                     // 'codepos' => 'max:6',
@@ -236,7 +296,7 @@ class TourStoresController extends Controller
             if ($validator->fails()) {
                 $errors = json_decode($validator->errors(), True);
                 foreach ($errors as $key => $value) {
-                    return ApiResponse::failed(implode('',$value));
+                    return ApiResponse::failed(implode('', $value));
                 }
             }
 
@@ -253,7 +313,7 @@ class TourStoresController extends Controller
                     'old' => $updated['old_data'],
                     'attributes' => $updated['updated_data'],
                 ])
-                ->log($data_type->display_name_singular.' has been updated');
+                ->log($data_type->display_name_singular . ' has been updated');
 
             // add event notification handle
             $table_name = $data_type->name;
@@ -299,14 +359,15 @@ class TourStoresController extends Controller
                 'description' => $req['description'],
                 'is_available' => isBoolean($req['is_available']),
 
-                'code_table' => ('tour-stores') ,
+                'code_table' => ('tour-stores'),
                 'uuid' => $uuid,
 
                 'slug' => slug($req['name'], $uuid),
                 'keyword' => isset($req['keyword']) ? $req['keyword'] : NULL,
             ];
 
-            $validator = Validator::make($data,
+            $validator = Validator::make(
+                $data,
                 [
                     'user_id' => 'required|unique:tour_stores_unique',
                     // 'codepos' => 'max:6',
@@ -317,7 +378,7 @@ class TourStoresController extends Controller
             if ($validator->fails()) {
                 $errors = json_decode($validator->errors(), True);
                 foreach ($errors as $key => $value) {
-                    return ApiResponse::failed(implode('',$value));
+                    return ApiResponse::failed(implode('', $value));
                 }
             }
 
@@ -326,7 +387,7 @@ class TourStoresController extends Controller
             activity($data_type->display_name_singular)
                 ->causedBy(auth()->user() ?? null)
                 ->withProperties(['attributes' => $stored_data])
-                ->log($data_type->display_name_singular.' has been created');
+                ->log($data_type->display_name_singular . ' has been created');
 
             DB::commit();
 
@@ -354,7 +415,7 @@ class TourStoresController extends Controller
             'tourProduct',
             'tourPrice'
         ])->first();
-        if($check->tourProduct || $check->tourPrice || $check->tourBooking) return ApiResponse::failed("Tidak bisa dihapus, data ini digunakan");
+        if ($check->tourProduct || $check->tourPrice || $check->tourBooking) return ApiResponse::failed("Tidak bisa dihapus, data ini digunakan");
 
         try {
             $request->validate([
@@ -386,7 +447,7 @@ class TourStoresController extends Controller
             activity($data_type->display_name_singular)
                 ->causedBy(auth()->user() ?? null)
                 ->withProperties($data)
-                ->log($data_type->display_name_singular.' has been deleted');
+                ->log($data_type->display_name_singular . ' has been deleted');
 
             DB::commit();
 
@@ -425,7 +486,7 @@ class TourStoresController extends Controller
             activity($data_type->display_name_singular)
                 ->causedBy(auth()->user() ?? null)
                 ->withProperties($data)
-                ->log($data_type->display_name_singular.' has been restore');
+                ->log($data_type->display_name_singular . ' has been restore');
 
             DB::commit();
 
@@ -479,16 +540,16 @@ class TourStoresController extends Controller
 
             // ADDITIONAL BULK DELETE
             // -------------------------------------------- //
-            $filters = TourStores::whereIn('id', explode(",",request()['data'][0]['value']))
-            ->with([
-                'tourBooking',
-                'tourProduct',
-                'tourPrice'
-            ])
-            ->get();
+            $filters = TourStores::whereIn('id', explode(",", request()['data'][0]['value']))
+                ->with([
+                    'tourBooking',
+                    'tourProduct',
+                    'tourPrice'
+                ])
+                ->get();
             $temp = [];
             foreach ($filters as $value) {
-                if($value->tourPrice == null && $value->tourProduct == null && $value->tourBooking == null) {
+                if ($value->tourPrice == null && $value->tourProduct == null && $value->tourBooking == null) {
                     array_push($temp, $value['id']);
                 }
             }
@@ -504,7 +565,7 @@ class TourStoresController extends Controller
             activity($data_type->display_name_singular)
                 ->causedBy(auth()->user() ?? null)
                 ->withProperties($data)
-                ->log($data_type->display_name_singular.' has been bulk deleted');
+                ->log($data_type->display_name_singular . ' has been bulk deleted');
 
             DB::commit();
 
@@ -544,7 +605,7 @@ class TourStoresController extends Controller
             activity($data_type->display_name_singular)
                 ->causedBy(auth()->user() ?? null)
                 ->withProperties($data)
-                ->log($data_type->display_name_singular.' has been bulk deleted');
+                ->log($data_type->display_name_singular . ' has been bulk deleted');
 
             DB::commit();
 
@@ -582,7 +643,7 @@ class TourStoresController extends Controller
                     activity($data_type->display_name_singular)
                         ->causedBy(auth()->user() ?? null)
                         ->withProperties(['attributes' => $single_data])
-                        ->log($data_type->display_name_singular.' has been sorted');
+                        ->log($data_type->display_name_singular . ' has been sorted');
                 }
             } else {
                 foreach ($request->data as $index => $row) {
@@ -592,7 +653,7 @@ class TourStoresController extends Controller
                     activity($data_type->display_name_singular)
                         ->causedBy(auth()->user() ?? null)
                         ->withProperties(['attributes' => $updated_data])
-                        ->log($data_type->display_name_singular.' has been sorted');
+                        ->log($data_type->display_name_singular . ' has been sorted');
                 }
             }
 
